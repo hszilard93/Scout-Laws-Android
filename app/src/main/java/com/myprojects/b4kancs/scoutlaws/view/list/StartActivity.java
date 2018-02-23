@@ -13,10 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.myprojects.b4kancs.scoutlaws.R;
-import com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw;
 import com.myprojects.b4kancs.scoutlaws.databinding.StartActivityBinding;
-
-import java.util.ArrayList;
 
 public class StartActivity extends AppCompatActivity {
     public static final String LOG_TAG = StartActivity.class.getSimpleName();
@@ -24,7 +21,6 @@ public class StartActivity extends AppCompatActivity {
     private StartActivityBinding binding;
     private StartActivityViewModel viewModel;
     private ScoutLawListAdapter listAdapter;
-    private ArrayList<ScoutLaw> scoutLaws;
     private ActionBarDrawerToggle drawerToggle;
 
     @Override
@@ -33,7 +29,6 @@ public class StartActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.start_activity);
         viewModel = ViewModelProviders.of(this).get(StartActivityViewModel.class);
-        scoutLaws = viewModel.scoutLaws();
 
         setUpViews();
     }
@@ -62,7 +57,7 @@ public class StartActivity extends AppCompatActivity {
     private void setUpViews() {
         setSupportActionBar((Toolbar) binding.toolbar);
 
-        listAdapter = new ScoutLawListAdapter(scoutLaws, getApplicationContext());
+        listAdapter = new ScoutLawListAdapter(viewModel.scoutLaws(), getApplicationContext());
         binding.lawsListView.setAdapter(listAdapter);
         binding.lawsListView.setOnItemClickListener(listAdapter);
         TextView empty = new TextView(this);

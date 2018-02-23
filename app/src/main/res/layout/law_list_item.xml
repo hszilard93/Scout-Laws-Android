@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="64dp"
-            android:background="@color/colorAccent">
+            app:background='@{scoutLaw.number}'>
 
             <TextView
                 android:id="@+id/numberTextView"
@@ -28,7 +28,8 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
                 android:text="@{Integer.toString(scoutLaw.number)}"
-                android:textAlignment="viewStart"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:textColor="@{scoutLaw.number}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="1" />
@@ -43,7 +44,8 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:text="@{scoutLaw.text}"
-                android:textSize="18sp"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                app:textColor="@{scoutLaw.number}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
