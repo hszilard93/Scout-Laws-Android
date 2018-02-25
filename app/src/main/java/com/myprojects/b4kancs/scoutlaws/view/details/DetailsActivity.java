@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.myprojects.b4kancs.scoutlaws.R;
@@ -23,6 +25,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private DetailsActivityBinding binding;
     private DetailsActivityViewModel viewModel;
+    private String sourceResource = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,15 +49,33 @@ public class DetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         binding.setScoutLaw(viewModel.scoutLaw());
+        binding.setIsModern(viewModel.isModern());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.details_options_menu, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            Log.d(LOG_TAG, "Back navigation button pressed.");
-            onBackPressed();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Log.d(LOG_TAG, "Back navigation button pressed.");
+                onBackPressed();
+                return true;
+            case R.id.contemporaryDesc_menuItem:
+                Log.d(LOG_TAG, "Contemporary MenuItem selected.");
+                viewModel.setModern(true);
+                return true;
+            case R.id.originalDesc_menuItem:
+                Log.d(LOG_TAG, "Original MenuItem selected.");
+                viewModel.setModern(false);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -8,12 +8,14 @@ public class ScoutLaw {
     public final int number;
     public final String text;
     public final String description;
+    public final String originalDescription;
     private int weight;
 
-    public ScoutLaw(int number, String text, String description) {
+    public ScoutLaw(int number, String text, String description, String originalDescription) {
         this.number = number;
         this.text = text;
         this.description = description;
+        this.originalDescription = originalDescription;
     }
 
     public int getWeight() {

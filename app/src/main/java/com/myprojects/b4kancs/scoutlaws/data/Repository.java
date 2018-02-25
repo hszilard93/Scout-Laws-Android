@@ -44,8 +44,10 @@ public class Repository {
                     .getIdentifier("law_" + (i + 1), "string", packageName));
             String desc = resources.getString(resources
                     .getIdentifier("law_" + (i + 1) + "_desc", "string", packageName));
+            String origDesc = resources.getString(resources
+                    .getIdentifier("law_" + (i + 1) + "_desc_orig", "string", packageName));
 
-            ScoutLaw law = new ScoutLaw(i + 1, text, desc);
+            ScoutLaw law = new ScoutLaw(i + 1, text, desc, origDesc);
             laws.add(law);
         }
     }
