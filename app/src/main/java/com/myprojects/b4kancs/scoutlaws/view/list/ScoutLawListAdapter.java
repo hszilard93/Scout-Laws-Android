@@ -39,7 +39,7 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView == null
+        View view = convertView == null         // Do we have any old views to reuse?
                 ? LayoutInflater.from(getContext()).inflate(R.layout.law_list_item, parent, false)
                 : convertView;
         final LawListItemBinding binding = DataBindingUtil.bind(view);

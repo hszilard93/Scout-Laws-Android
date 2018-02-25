@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 /**
  * Created by hszilard on 21-Feb-18.
+ * A ViewModelFactory is needed to initialize a ViewModel with parameters.
  */
 
 public class DetailsActivityViewModelFactory extends ViewModelProvider.AndroidViewModelFactory {

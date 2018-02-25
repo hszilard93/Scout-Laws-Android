@@ -25,14 +25,14 @@ public class DetailsActivity extends AppCompatActivity {
 
     private DetailsActivityBinding binding;
     private DetailsActivityViewModel viewModel;
-    private String sourceResource = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.details_activity);
-        /* For now, give index a default value instead of checking for error */
+        /* DetailsActivity can be assumed to be created only via intents.
+         * For now, we give index a default value instead of checking for invalid arguments. */
         int index = 0;
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

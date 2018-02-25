@@ -17,13 +17,13 @@ public class BindingUtils {
     private static final String PACKAGE_NAME = "com.myprojects.b4kancs.scoutlaws";
 
     /* Set the background color based on the scoutlaw's number */
-    @BindingAdapter("app:background")
+    @BindingAdapter("background")
     public static void setBackgroundColor(@NonNull View view, int i) {
         view.setBackgroundColor(getColorCode(view.getResources(), i, ""));
     }
 
     /* Set the text color based on the scoutlaw's number */
-    @BindingAdapter("app:textColor")
+    @BindingAdapter("textColor")
     public static void setTextColor(@NonNull TextView textView, int i) {
         textView.setTextColor(getColorCode(textView.getResources(), i, "_text"));
     }
@@ -35,7 +35,7 @@ public class BindingUtils {
     }
 
     /* Set the description source based on a flag */
-    @BindingAdapter("app:descSource")
+    @BindingAdapter("descSource")
     public static void setDescriptionSource(@NonNull TextView textView, boolean isModern) {
         Resources resources = textView.getResources();
         textView.setText(isModern? resources.getString(R.string.source_modern) : resources.getString(R.string.source_orig));

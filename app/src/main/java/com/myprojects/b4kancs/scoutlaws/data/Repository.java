@@ -17,6 +17,7 @@ public class Repository {
     private static Repository instance;
 
     private final ArrayList<ScoutLaw> laws;
+    /* Context is needed for access to application resources */
     private final Context context;
 
     private Repository(Context context) {

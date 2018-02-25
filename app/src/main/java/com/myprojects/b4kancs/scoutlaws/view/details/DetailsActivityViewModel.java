@@ -15,6 +15,7 @@ import com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw;
 public class DetailsActivityViewModel extends AndroidViewModel {
     private final Repository repository;
     private final ScoutLaw scoutLaw;
+    /* This flag helps us retain state after config changes */
     private final ObservableBoolean modern = new ObservableBoolean();
 
     public DetailsActivityViewModel(@NonNull Application application, int index) {

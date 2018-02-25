@@ -15,12 +15,16 @@ import android.widget.TextView;
 import com.myprojects.b4kancs.scoutlaws.R;
 import com.myprojects.b4kancs.scoutlaws.databinding.StartActivityBinding;
 
+/**
+ * Created by hszilard on 15-Feb-18.
+ * This is the starting activity.
+ */
+
 public class StartActivity extends AppCompatActivity {
     public static final String LOG_TAG = StartActivity.class.getSimpleName();
 
     private StartActivityBinding binding;
     private StartActivityViewModel viewModel;
-    private ScoutLawListAdapter listAdapter;
     private ActionBarDrawerToggle drawerToggle;
 
     @Override
@@ -31,6 +35,21 @@ public class StartActivity extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this).get(StartActivityViewModel.class);
 
         setUpViews();
+    }
+
+    private void setUpViews() {
+        setSupportActionBar((Toolbar) binding.toolbar);
+
+        ScoutLawListAdapter listAdapter = new ScoutLawListAdapter(viewModel.scoutLaws(), getApplicationContext());
+        binding.lawsListView.setAdapter(listAdapter);
+        binding.lawsListView.setOnItemClickListener(listAdapter);
+        /* This empty view gives the last list item space for its shadow */
+        TextView empty = new TextView(this);
+        empty.setHeight(1);
+        binding.lawsListView.addFooterView(empty);
+
+        drawerToggle = setUpDrawerToggle();
+        setUpDrawerContent();
     }
 
     @Override
@@ -52,21 +71,6 @@ public class StartActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void setUpViews() {
-        setSupportActionBar((Toolbar) binding.toolbar);
-
-        listAdapter = new ScoutLawListAdapter(viewModel.scoutLaws(), getApplicationContext());
-        binding.lawsListView.setAdapter(listAdapter);
-        binding.lawsListView.setOnItemClickListener(listAdapter);
-        TextView empty = new TextView(this);
-        empty.setHeight(1);
-        binding.lawsListView.addFooterView(empty);
-
-        drawerToggle = setUpDrawerToggle();
-
-        setUpDrawerContent();
     }
 
     private ActionBarDrawerToggle setUpDrawerToggle() {
