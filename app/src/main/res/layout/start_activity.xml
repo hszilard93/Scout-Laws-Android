@@ -16,7 +16,7 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/app_toolbar"/>
+                layout="@layout/toolbar"/>
 
             <ListView
                 android:id="@+id/laws_list_view"

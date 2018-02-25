@@ -1,6 +1,7 @@
 package com.myprojects.b4kancs.scoutlaws.data;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 import com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw;
@@ -16,6 +17,7 @@ public class Repository {
     private static Repository instance;
 
     private final ArrayList<ScoutLaw> laws;
+    /* Context is needed for access to application resources */
     private final Context context;
 
     private Repository(Context context) {
@@ -35,14 +37,18 @@ public class Repository {
     }
 
     private void initLaws() {
+        Resources resources = context.getResources();
+        String packageName = "com.myprojects.b4kancs.scoutlaws";
         for (int i = 0; i < 10; i++) {
             /* Loading the text resources by dynamically constructing their names */
-            String text = context.getResources().getString(context.getResources()
-                    .getIdentifier("law_" + (i + 1), "string", "com.myprojects.b4kancs.scoutlaws"));
-            String desc = context.getResources().getString(context.getResources()
-                    .getIdentifier("law_" + (i + 1) + "_desc", "string", "com.myprojects.b4kancs.scoutlaws"));
+            String text = resources.getString(resources
+                    .getIdentifier("law_" + (i + 1), "string", packageName));
+            String desc = resources.getString(resources
+                    .getIdentifier("law_" + (i + 1) + "_desc", "string", packageName));
+            String origDesc = resources.getString(resources
+                    .getIdentifier("law_" + (i + 1) + "_desc_orig", "string", packageName));
 
-            ScoutLaw law = new ScoutLaw(i + 1, text, desc);
+            ScoutLaw law = new ScoutLaw(i + 1, text, desc, origDesc);
             laws.add(law);
         }
     }

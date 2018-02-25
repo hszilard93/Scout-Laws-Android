@@ -1,6 +1,7 @@
 package com.myprojects.b4kancs.scoutlaws.view.list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import com.myprojects.b4kancs.scoutlaws.R;
 import com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw;
 import com.myprojects.b4kancs.scoutlaws.databinding.LawListItemBinding;
+import com.myprojects.b4kancs.scoutlaws.view.details.DetailsActivity;
 
 import java.util.ArrayList;
 
@@ -37,7 +39,7 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView == null
+        View view = convertView == null         // Do we have any old views to reuse?
                 ? LayoutInflater.from(getContext()).inflate(R.layout.law_list_item, parent, false)
                 : convertView;
         final LawListItemBinding binding = DataBindingUtil.bind(view);
@@ -49,5 +51,10 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d(LOG_TAG, "List item clicked.");
+
+        Intent intent = new Intent(context, DetailsActivity.class);
+        intent.putExtra(DetailsActivity.SCOUT_LAW_INDEX_KEY, position);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent );
     }
 }
