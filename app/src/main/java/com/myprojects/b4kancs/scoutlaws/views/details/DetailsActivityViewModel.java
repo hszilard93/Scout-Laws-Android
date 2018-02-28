@@ -1,4 +1,4 @@
-package com.myprojects.b4kancs.scoutlaws.view.details;
+package com.myprojects.b4kancs.scoutlaws.views.details;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -20,7 +20,7 @@ public class DetailsActivityViewModel extends AndroidViewModel {
 
     public DetailsActivityViewModel(@NonNull Application application, int index) {
         super(application);
-        repository = Repository.getInstance(application);
+        repository = Repository.getInstance();
         this.scoutLaw = repository.getLaws().get(index);
         modern.set(true);
     }

@@ -1,4 +1,4 @@
-package com.myprojects.b4kancs.scoutlaws.view.list;
+package com.myprojects.b4kancs.scoutlaws.views.start;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -19,7 +19,8 @@ public class StartActivityViewModel extends AndroidViewModel {
 
     public StartActivityViewModel(@NonNull Application application) {
         super(application);
-        repository = Repository.getInstance(application);
+        Repository.setContext(application);
+        repository = Repository.getInstance();
     }
 
     public ArrayList<ScoutLaw> scoutLaws() {

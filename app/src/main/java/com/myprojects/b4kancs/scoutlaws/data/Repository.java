@@ -18,21 +18,26 @@ public class Repository {
 
     private final ArrayList<ScoutLaw> laws;
     /* Context is needed for access to application resources */
-    private final Context context;
+    private static Context context;
 
-    private Repository(Context context) {
-        this.context = context;
+    private Repository() {
         laws = new ArrayList<>(10);
         initLaws();
     }
 
-    public static Repository getInstance(Context context) {
+    public static Repository getInstance() {
         if (instance != null) {
             Log.d(LOG_TAG, "Old Repository instance returned.");
             return instance;
         }
+
         Log.d(LOG_TAG, "Making new Repository instance.");
-        instance = new Repository(context);
+        if (context == null) {
+            Log.e(LOG_TAG, "Context hasn't been set!");
+            return null;
+        }
+
+        instance = new Repository();
         return instance;
     }
 
@@ -55,5 +60,9 @@ public class Repository {
 
     public ArrayList<ScoutLaw> getLaws() {
         return laws;
+    }
+
+    public static void setContext(Context context) {
+        Repository.context = context;
     }
 }

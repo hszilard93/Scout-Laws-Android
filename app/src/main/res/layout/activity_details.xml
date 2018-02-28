@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.myprojects.b4kancs.scoutlaws.view.list.StartActivity">
+        tools:context="com.myprojects.b4kancs.scoutlaws.views.start.StartActivity">
 
         <include
             android:id="@+id/toolbar"
@@ -20,7 +20,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:background="@{scoutLaw.number}">
+            app:background_number="@{scoutLaw.number}">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/desc_textView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:textColor="@{scoutLaw.number}"
+                    app:textColor_number="@{scoutLaw.number}"
                     tools:text="1. cserkésztörvény" />
 
                 <TextView
@@ -52,13 +52,13 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium"
-                    app:scoutLaw="@{scoutLaw}"
-                    app:isModern="@{isModern}"
+                    app:descText_scoutLaw="@{scoutLaw}"
+                    app:descText_isModern="@{isModern}"
                     app:layout_constraintTop_toBottomOf="@id/number_textView"
                     app:layout_constraintBottom_toTopOf="@id/source_textView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:textColor="@{scoutLaw.number}"
+                    app:textColor_number="@{scoutLaw.number}"
                     tools:text="@string/lorem_ipsum" />
 
                 <TextView
@@ -71,8 +71,8 @@
                     android:textAlignment="textEnd"
                     android:textSize="12sp"
                     android:textStyle="italic"
-                    app:descSource="@{isModern}"
-                    app:textColor="@{scoutLaw.number}"
+                    app:descSourceText_isModern="@{isModern}"
+                    app:textColor_number="@{scoutLaw.number}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

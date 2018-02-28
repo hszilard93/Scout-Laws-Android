@@ -51,5 +51,13 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac posuere diam. Praesent fermentum ante eget facilisis congue. Phasellus consectetur augue odio, et consequat lectus tempor id. Etiam porta, magna nec gravida consectetur, massa velit eleifend erat, nec condimentum neque magna a ante. Etiam turpis ligula, tempus quis sem sit amet, rhoncus rhoncus ante. Aenean rutrum elit a nisi fermentum faucibus. Nulla et leo eu sem vestibulum rutrum id eget risus. Nam vel lacinia augue. Cras viverra mattis augue eu sollicitudin. Nunc dictum nulla sed convallis euismod. Vivamus vulputate euismod feugiat. Morbi mattis orci felis, vitae facilisis metus rhoncus eu. Vestibulum convallis sem non ante semper malesuada.</string>
     <string name="original">Eredeti</string>
     <string name="contemporary">Modern</string>
-    <!-- -->
+    <string name="quiz_item">Kvíz</string>
+    <string name="choose_quiz">Válassz egy kvízfajtát!</string>
+    <string name="any_quiz">Bármilyen</string>
+    <string name="multiple_quiz">Feleletválasztós</string>
+    <string name="multiple_quiz_question">Melyik a(z) %d. cserkésztörvény?</string>
+    <string name="pick_quiz">Beillesztős</string>
+    <string name="choose_correct_answer">Válaszd ki a helyes választ!</string>
+    <string name="help">Segíts!</string>
+    <string name="help_button">Segíts!</string>
 </resources>

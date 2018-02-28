@@ -1,4 +1,4 @@
-package com.myprojects.b4kancs.scoutlaws.view.details;
+package com.myprojects.b4kancs.scoutlaws.views.details;
 
 import android.app.Application;
 import android.arch.lifecycle.ViewModel;

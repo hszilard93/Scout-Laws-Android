@@ -1,4 +1,4 @@
-package com.myprojects.b4kancs.scoutlaws.view.list;
+package com.myprojects.b4kancs.scoutlaws.views.start;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import android.widget.ArrayAdapter;
 
 import com.myprojects.b4kancs.scoutlaws.R;
 import com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw;
-import com.myprojects.b4kancs.scoutlaws.databinding.LawListItemBinding;
-import com.myprojects.b4kancs.scoutlaws.view.details.DetailsActivity;
+import com.myprojects.b4kancs.scoutlaws.databinding.ListItemLawBinding;
+import com.myprojects.b4kancs.scoutlaws.views.details.DetailsActivity;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
     private int lastPosition = -1;
 
     public ScoutLawListAdapter(@NonNull ArrayList<ScoutLaw> scoutLaws, Context context) {
-        super(context, R.layout.law_list_item, scoutLaws);
+        super(context, R.layout.list_item_law, scoutLaws);
         this.scoutLaws = scoutLaws;
         this.context = context;
     }
@@ -40,9 +40,9 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView == null         // Do we have any old views to reuse?
-                ? LayoutInflater.from(getContext()).inflate(R.layout.law_list_item, parent, false)
+                ? LayoutInflater.from(getContext()).inflate(R.layout.list_item_law, parent, false)
                 : convertView;
-        final LawListItemBinding binding = DataBindingUtil.bind(view);
+        final ListItemLawBinding binding = DataBindingUtil.bind(view);
         binding.setScoutLaw(scoutLaws.get(position));
 
         return view;
@@ -55,6 +55,6 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
         Intent intent = new Intent(context, DetailsActivity.class);
         intent.putExtra(DetailsActivity.SCOUT_LAW_INDEX_KEY, position);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent );
+        context.startActivity(intent);
     }
 }
