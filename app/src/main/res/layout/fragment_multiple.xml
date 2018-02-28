@@ -2,25 +2,23 @@
     <data>
         <variable
             name="viewModel"
-            type="com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragmentViewModel" />
+            type="com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="@color/background_grey">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="36dp"
-            android:background="@color/colorPrimaryLight"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@color/colorPrimaryLight">
 
             <TextView
                 android:id="@+id/textView"
@@ -51,9 +49,13 @@
                 tools:text="Válaszd ki a helyes választ!" />
         </android.support.constraint.ConstraintLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <android.support.v7.widget.CardView
             android:id="@+id/cardView2"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
@@ -84,69 +86,33 @@
                     tools:text="Melyik a 4. cserkésztörvény?" />
 
                 <Button
-                    android:id="@+id/help_button"
+                    android:id="@+id/next_button"
                     android:layout_width="wrap_content"
                     android:layout_height="52dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="#00ffffff"
-                    android:text="@string/help_button"
-                    android:textColor="@color/colorTextDark"
+                    android:background="@color/transparent"
+                    android:text="@string/next_button"
+                    app:nextButton_turnOver="@{viewModel.turnOver}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/question_textView"
-                    tools:layout_editor_absoluteY="67dp"
-                    tools:text="Segíts!" />
+                    tools:text="Következő" />
 
-                <com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.CustomListView
-                    android:id="@+id/options_listView"
+                <com.linearlistview.LinearListView
+                    android:id="@+id/options_linearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="#00ffffff"
-                    android:divider="#00ffffff"
-                    android:dividerHeight="4dp"
                     android:orientation="vertical"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
                     android:paddingBottom="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/help_button" />
-
-                <!--<Button-->
-                <!--android:id="@+id/answer_button1"-->
-                <!--style="@style/QuizButton"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@{viewModel.options.get(0).text}"-->
-                <!--tools:text="A cserkész ahol tud, segít." />-->
-
-                <!--<Button-->
-                <!--android:id="@+id/answer_button2"-->
-                <!--style="@style/QuizButton"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@{viewModel.options.get(1).text}"-->
-                <!--tools:text="A cserkész egyenes lelkű és föltétlenül igazat mond." />-->
-
-                <!--<Button-->
-                <!--android:id="@+id/answer_button3"-->
-                <!--style="@style/QuizButton"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@{viewModel.options.get(2).text}"-->
-                <!--tools:text="A cserkész minden cserkészt testvérének tekint." />-->
-
-                <!--<Button-->
-                <!--android:id="@+id/answer_button4"-->
-                <!--style="@style/QuizButton"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@{viewModel.options.get(3).text}"-->
-                <!--tools:text="A cserkész vidám és meggondolt." />-->
-                <!--</LinearLayout>-->
+                    app:layout_constraintTop_toBottomOf="@id/next_button" />
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
-    </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
 </layout>

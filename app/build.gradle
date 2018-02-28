@@ -33,6 +33,8 @@ dependencies {
     implementation "com.android.support:design:$support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
+    implementation 'com.github.frankiesardo:linearlistview:1.0.1@aar'
+
     // This fix bug that caused support-library version conflict
     implementation "com.android.support:support-v4:$support_version"
 

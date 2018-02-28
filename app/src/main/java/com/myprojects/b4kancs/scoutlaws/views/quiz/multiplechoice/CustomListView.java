@@ -46,10 +46,6 @@ public class CustomListView extends ListView {
 //        }
 
         ListAdapter listAdapter = getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
 
         int totalHeight = 0;
         for (int i = 0; i < listAdapter.getCount(); i++) {
@@ -59,7 +55,7 @@ public class CustomListView extends ListView {
         }
 
         ViewGroup.LayoutParams params = getLayoutParams();
-        params.height = totalHeight + (getDividerHeight() * (listAdapter.getCount() + getFooterViewsCount() - 1)) + getPaddingBottom();
+        params.height = totalHeight + (getDividerHeight() * (listAdapter.getCount() + getFooterViewsCount())) + getPaddingBottom() + 4;
         setLayoutParams(params);
 
         super.onDraw(canvas);

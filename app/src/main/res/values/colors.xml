@@ -10,6 +10,8 @@
     <color name="colorTextDark">#404040</color>
 
     <color name="background_grey">#eeeeee</color>
+    <color name="disabled_grey">#aaaaaa</color>
+    <color name="transparent">#00ffffff</color>
 
     <!-- A primary color value for every item for easier memorization and a text color for legibility -->
     <color name="color_item1">#d50000</color>

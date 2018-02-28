@@ -27,7 +27,7 @@
         </LinearLayout>
 
         <!-- The navigation drawer that comes from the left -->
-        <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
+        <!-- Note that `android:layout_gravity` needs to be set resettart' -->
         <android.support.design.widget.NavigationView
             android:id="@+id/nvView"
             android:layout_width="wrap_content"

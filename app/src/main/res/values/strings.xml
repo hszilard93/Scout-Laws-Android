@@ -60,4 +60,5 @@
     <string name="choose_correct_answer">Válaszd ki a helyes választ!</string>
     <string name="help">Segíts!</string>
     <string name="help_button">Segíts!</string>
+    <string name="next_button">Következő</string>
 </resources>

@@ -1,19 +1,20 @@
 package com.myprojects.b4kancs.scoutlaws.views.quiz.chooser;
 
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.myprojects.b4kancs.scoutlaws.R;
 import com.myprojects.b4kancs.scoutlaws.databinding.FragmentChooserBinding;
 import com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment;
+import com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel;
 import com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment;
 
 import java.util.Random;
@@ -61,6 +62,10 @@ public class ChooserFragment extends Fragment {
     }
 
     private void startMultipleChoiceFragment() {
+        MultipleChoiceSharedViewModel multipleSharedViewModel = ViewModelProviders.of(getActivity()).get(MultipleChoiceSharedViewModel.class);
+        multipleSharedViewModel.reset();
+        multipleSharedViewModel.startNewTurn();
+
         MultipleChoiceFragment fragment = new MultipleChoiceFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(container.getId(), fragment);
