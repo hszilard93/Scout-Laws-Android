@@ -3,7 +3,10 @@ package com.myprojects.b4kancs.scoutlaws.views.utils;
 import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.myprojects.b4kancs.scoutlaws.R;
@@ -16,7 +19,7 @@ import com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw;
 public class BindingUtils {
     private static final String PACKAGE_NAME = "com.myprojects.b4kancs.scoutlaws";
 
-    /* Set the background color based on the scoutlaw's number */
+    /* Set the background color based on the scout law's number */
     @BindingAdapter("background_number")
     public static void setBackgroundColor(@NonNull View view, int i) {
         view.setBackgroundColor(getColorCode(view.getResources(), i, ""));
@@ -47,6 +50,25 @@ public class BindingUtils {
         Resources resources = textView.getResources();
         String questionText = String.format(resources.getString(R.string.multiple_quiz_question), i);
         textView.setText(questionText);
+    }
+
+    @BindingAdapter({"starImageSource_order", "starImageSource_score"})
+    public static void setStarImageSourceBinding(@NonNull ImageView imageView, int order, int score) {
+        Resources resources = imageView.getResources();
+        imageView.setImageResource(order <= score ? R.drawable.ic_star_full_48dp : R.drawable.ic_star_border_48dp);
+    }
+
+    @BindingAdapter("congratsCustomText_score")
+    public static void setCongratsTextBinding(@NonNull TextView textView, int score) {
+        Resources resources = textView.getResources();
+        if (score <= 1)
+            textView.setText(resources.getString(R.string.congrats_low_score));
+        else if (score <= 3)
+            textView.setText(resources.getString(R.string.congrats_mid_score));
+        else if (score <= 4)
+            textView.setText(resources.getString(R.string.congrats_good_score));
+        else
+            textView.setText(resources.getString(R.string.congrats_perfect_score));
     }
 
     private static int getColorCode(Resources resources, int i, String suffix) {

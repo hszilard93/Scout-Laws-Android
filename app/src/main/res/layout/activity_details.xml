@@ -23,6 +23,7 @@
             app:background_number="@{scoutLaw.number}">
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/details_constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -41,7 +42,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:textColor_number="@{scoutLaw.number}"
-                    tools:text="1. cserkésztörvény" />
+                    tools:text="2. cserkésztörvény" />
 
                 <TextView
                     android:id="@+id/desc_textView"
@@ -59,7 +60,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:textColor_number="@{scoutLaw.number}"
-                    tools:text="@string/lorem_ipsum" />
+                    tools:text="@string/law_2_desc_orig" />
 
                 <TextView
                     android:id="@+id/source_textView"
@@ -76,7 +77,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/desc_textView" />
+                    app:layout_constraintTop_toBottomOf="@id/desc_textView"
+                    tools:text="@string/law_2_desc_orig"/>
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
     </LinearLayout>

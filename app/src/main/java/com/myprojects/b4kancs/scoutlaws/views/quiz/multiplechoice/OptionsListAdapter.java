@@ -19,19 +19,17 @@ import com.myprojects.b4kancs.scoutlaws.databinding.ListItemOptionBinding;
 
 /**
  * Created by hszilard on 15-Feb-18.
+ * List adapter for the list of possible answers.
  */
 
 public class OptionsListAdapter extends ArrayAdapter<ScoutLaw> {
     private static final String LOG_TAG = OptionsListAdapter.class.getSimpleName();
 
-    private Context context;
     private OptionSelectedCallback callback;
-    private MultipleChoiceSharedViewModel viewModel;
-    private int lastPosition = -1;
+    private MultipleChoiceViewModel viewModel;
 
-    public OptionsListAdapter(@NonNull MultipleChoiceSharedViewModel viewModel, Context context, OptionSelectedCallback callback) {
+    OptionsListAdapter(@NonNull MultipleChoiceViewModel viewModel, Context context, OptionSelectedCallback callback) {
         super(context, R.layout.list_item_law, viewModel.getOptions());
-        this.context = context;
         this.viewModel = viewModel;
         this.callback = callback;
     }
@@ -59,6 +57,7 @@ public class OptionsListAdapter extends ArrayAdapter<ScoutLaw> {
         void onOptionSelected(OptionsListAdapter adapter, View view, ScoutLaw scoutLaw);
     }
 
+    /* When the correct answer is selected, disable the other possible answers */
     @BindingAdapter({"optionBackground_correctGuessed", "optionBackground_isCorrect"})
     public static void setOptionViewBackground(@NonNull View view, boolean correctGuessed,
                                                boolean isCorrect) {

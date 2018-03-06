@@ -15,6 +15,7 @@ import com.myprojects.b4kancs.scoutlaws.views.quiz.chooser.ChooserFragment;
 
 /**
  * Created by hszilard on 25-Feb-18.
+ * This activity contains all the Quiz related fragments.
  */
 
 public class QuizActivity extends AppCompatActivity {

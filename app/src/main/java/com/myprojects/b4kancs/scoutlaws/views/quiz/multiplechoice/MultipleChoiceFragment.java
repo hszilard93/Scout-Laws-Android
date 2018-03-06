@@ -1,14 +1,16 @@
 package com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice;
 
-
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,12 +23,15 @@ import com.myprojects.b4kancs.scoutlaws.R;
 import com.myprojects.b4kancs.scoutlaws.databinding.FragmentMultipleBinding;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by hszilard on 26-Feb-18.
+ * This fragment presents a single multiple choice question and its possible answers.
  */
+
 public class MultipleChoiceFragment extends Fragment {
     private static final String LOG_TAG = MultipleChoiceFragment.class.getSimpleName();
 
-    private MultipleChoiceSharedViewModel viewModel;
+    private MultipleChoiceSharedViewModel sharedViewModel;
+    private MultipleChoiceViewModel viewModel;
     private FragmentMultipleBinding binding;
     private ViewGroup container;
 
@@ -37,19 +42,23 @@ public class MultipleChoiceFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(getActivity()).get(MultipleChoiceSharedViewModel.class);
+        sharedViewModel = ViewModelProviders.of(getActivity()).get(MultipleChoiceSharedViewModel.class);
+        MultipleChoiceViewModelFactory factory = new MultipleChoiceViewModelFactory(sharedViewModel);
+        viewModel = ViewModelProviders.of(this, factory).get(MultipleChoiceViewModel.class);
+        viewModel.startNewTurn();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.container = container;
-        // Inflate the layout for this fragment
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_multiple, container, false);
         binding.setViewModel(viewModel);
-        setRetainInstance(true);
+        binding.setSharedViewModel(sharedViewModel);
 
         setUpViews();
 
+        setRetainInstance(true);
         return binding.getRoot();
     }
 
@@ -58,44 +67,88 @@ public class MultipleChoiceFragment extends Fragment {
         binding.optionsLinearLayout.setAdapter(listAdapter);
         binding.optionsLinearLayout.setOnItemClickListener(listAdapter.defaultItemClickListener);
         binding.nextButton.setOnClickListener(nextButtonClickedListener);
+        binding.finishButton.setOnClickListener(finishButtonOnClickedListener);
+        if (sharedViewModel.isLastTurn.get()) {
+            binding.nextButton.setVisibility(View.GONE);
+            binding.finishButton.setVisibility(View.VISIBLE);
+        }
     }
 
+    /* What happens when an answer is selected */
     private OptionsListAdapter.OptionSelectedCallback onOptionSelected = (adapter, view, scoutLaw) -> {
         if (viewModel.isNewAnswerCorrect(scoutLaw)) {
-            Toast toast = Toast.makeText(getContext(), "A válasz helyes!", Toast.LENGTH_SHORT);
+            Toast toast = new Toast(getContext());
+            View toastView = getLayoutInflater().inflate(R.layout.toast_correct, null);
+            toast.setView(toastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
             endTurn(adapter);
-        }
-        else {
-            Toast toast = Toast.makeText(getContext(), "A válasz helytelen!", Toast.LENGTH_SHORT);
+        } else {
+            Toast toast = new Toast(getContext());
+            View toastView = getLayoutInflater().inflate(R.layout.toast_incorrect, null);
+            toast.setView(toastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
+
             view.setVisibility(View.GONE);
-            if (viewModel.turnOver.get()) {
+            Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(300);
+            if (viewModel.isTurnOver.get()) {
                 endTurn(adapter);
             }
         }
     };
 
-    private View.OnClickListener nextButtonClickedListener = (item) -> {
-        Log.d(LOG_TAG, "Next button clicked.");
-        transitionToNextQuestion();
-    };
-
     private void endTurn(OptionsListAdapter adapter) {
         binding.optionsLinearLayout.setOnItemClickListener(adapter.disabledItemClickListener);
+
+        if (sharedViewModel.isLastTurn.get()) {
+            binding.finishButton.setEnabled(true);
+        }
     }
 
     private void transitionToNextQuestion() {
         binding.unbind();
-        viewModel.startNewTurn();
-        MultipleChoiceFragment newFragment = new MultipleChoiceFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
-        transaction.replace(container.getId(), newFragment);
+        FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
         transaction.commit();
     }
 
-    @BindingAdapter("nextButton_turnOver")
+    /* Common transaction. Go to the next question. */
+    public static FragmentTransaction getMultipleChoiceFragmentTransaction(@NonNull ViewGroup container,
+                                                                           FragmentManager manager) {
+        MultipleChoiceFragment newFragment = new MultipleChoiceFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+        transaction.replace(container.getId(), newFragment);
+        return transaction;
+    }
+
+    /* Show the results. */
+    private void transitionToFinishDialog() {
+        ResultDialogFragment resultDialog = new ResultDialogFragment();
+        resultDialog.setCancelable(false);
+        /* What happens when the retry button is clicked */
+        resultDialog.setOnRetryClicked(event -> {
+            sharedViewModel.reset();
+            resultDialog.dismiss();
+            FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
+            transaction.commit();
+        });
+        resultDialog.show(getFragmentManager(), "finishDialog");
+    }
+
+    private View.OnClickListener nextButtonClickedListener = (button) -> {
+        Log.d(LOG_TAG, "Next button clicked.");
+        transitionToNextQuestion();
+    };
+
+    private View.OnClickListener finishButtonOnClickedListener = (button) -> {
+        Log.d(LOG_TAG, "Finish button clicked.");
+        transitionToFinishDialog();
+    };
+
+    /* Makes the next button available when the turn is over */
+    @BindingAdapter({"nextButton_turnOver"})
     public static void setNextButtonTurnOver(@NonNull Button button, boolean turnOver) {
         Resources resources = button.getResources();
         if (turnOver) {
@@ -103,8 +156,7 @@ public class MultipleChoiceFragment extends Fragment {
             button.setTextColor(resources.getColor(R.color.colorPrimary));
             button.setCompoundDrawablesWithIntrinsicBounds(
                     null, null, resources.getDrawable(R.drawable.ic_keyboard_arrow_right_green_24dp), null);
-        }
-        else {
+        } else {
             button.setEnabled(false);
             button.setTextColor(resources.getColor(R.color.disabled_grey));
             button.setCompoundDrawablesWithIntrinsicBounds(

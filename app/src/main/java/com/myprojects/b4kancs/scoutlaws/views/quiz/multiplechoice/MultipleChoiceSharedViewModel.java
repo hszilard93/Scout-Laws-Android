@@ -2,107 +2,75 @@ package com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
-import android.util.Log;
 
 import com.myprojects.b4kancs.scoutlaws.data.Repository;
 import com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 /**
- * Created by hszilard on 26-Feb-18.
+ * Created by hszilard on 28-Feb-18.
+ * This shared ViewModel contains quiz data relevant to more than one question.
  */
 
 public class MultipleChoiceSharedViewModel extends ViewModel {
-    private static final String LOG_TAG = MultipleChoiceFragment.class.getSimpleName();
-    private final static int NUMBER_OF_QUESTIONS = 10;
-    private final static int NUMBER_OF_OPTIONS = 4;
+    static final int NUMBER_OF_QUESTIONS = 10;  // How many questions are there to choose from? This may be dynamic later.
+    private static final String LOG_TAG = MultipleChoiceSharedViewModel.class.getSimpleName();
+    private static final int TURN_LIMIT = 5;    // The turn limit must never be larger than the number of questions
 
-    /* We shouldn't ask the same question two times in a row even if the quiz is restarted */
-    private static Integer lastAnswerIndex;
-    /* These we need for data binding */
-    public final ObservableBoolean correctGuessed = new ObservableBoolean();
-    public final ObservableBoolean turnOver = new ObservableBoolean();
-    public final int turnLimit = 5;
-
-    private final ArrayList<ScoutLaw> scoutLaws;
-
+    private final ArrayList<ScoutLaw> scoutLaws;    // This is constant
+    ObservableBoolean isLastTurn = new ObservableBoolean(false);
+    private ArrayList<Integer> usedLaws = new ArrayList<>(NUMBER_OF_QUESTIONS); // Questions we have asked in this quiz
+    private Integer lastAnswerIndex = -1; // We shouldn't ask the same question two times in a row even if the quiz is restarted
     private int turnCount;
-    private int tries;
-    private Random random = new Random();
-    private ScoutLaw answer;
-    private ArrayList<ScoutLaw> options = new ArrayList<>(NUMBER_OF_OPTIONS);
-    private ArrayList<Integer> usedLaws = new ArrayList<>(NUMBER_OF_QUESTIONS);
-    private ArrayList<Integer> usedOptions = new ArrayList<>(NUMBER_OF_OPTIONS);
+    private int score = 0;
 
     public MultipleChoiceSharedViewModel() {
         scoutLaws = Repository.getInstance().getLaws();
     }
 
     public void reset() {
-        lastAnswerIndex = -1;
+        isLastTurn.set(false);
         turnCount = 0;
-        tries = 0;
+        score = 0;
         usedLaws.clear();
     }
 
-    public void startNewTurn() {
-        initNewTurn();
-
-        int answerIndex;
-        do {
-            answerIndex = random.nextInt(NUMBER_OF_QUESTIONS);
-        } while (usedLaws.contains(answerIndex) || answerIndex == lastAnswerIndex);
-        usedLaws.add(answerIndex);
-        lastAnswerIndex = answerIndex;
-        answer = scoutLaws.get(answerIndex);
-
-        options.clear();
-        usedOptions.clear();
-        options.add(answer);
-        usedOptions.add(answerIndex);
-        for (int i = 1; i < 4; i++) {
-            int optionIndex;
-            do {
-                optionIndex = random.nextInt(NUMBER_OF_QUESTIONS);
-            } while (usedOptions.contains(optionIndex));
-            usedOptions.add(optionIndex);
-            options.add(scoutLaws.get(optionIndex));
-        }
-        Collections.shuffle(options);
+    ArrayList<ScoutLaw> getScoutLaws() {
+        return scoutLaws;
     }
 
-    private void initNewTurn() {
-        turnCount += 1;
-        turnOver.set(false);
-        correctGuessed.set(false);
-        tries = 0;
+    ArrayList<Integer> getUsedLaws() {
+        return usedLaws;
     }
 
-    public boolean isNewAnswerCorrect(ScoutLaw scoutLaw) {
-        if (scoutLaw == answer) {
-            correctGuessed.set(true);
-            turnOver.set(true);
-            return true;
-        }
-        else {
-            if (++tries == NUMBER_OF_OPTIONS - 1)
-                turnOver.set(true);
-            return false;
-        }
-    }
-
-    public int getTurnCount() {
+    public int getTurnCount() {     // public because of data binding
         return turnCount;
     }
 
-    public ScoutLaw getAnswer() {
-        return answer;
+    void incTurnCount() {
+        turnCount += 1;
+        if (turnCount >= TURN_LIMIT)
+            isLastTurn.set(true);
     }
 
-    public ArrayList<ScoutLaw> getOptions() {
-        return options;
+    int getScore() {
+        return score;
+    }
+
+    void incCorrectAtFirst() {
+        score += 1;
+    }
+
+    Integer getLastAnswerIndex() {
+        return lastAnswerIndex;
+    }
+
+    void setLastAnswerIndex(Integer lastAnswerIndex) {
+        this.lastAnswerIndex = lastAnswerIndex;
+    }
+
+    public int getTurnLimit() {
+        return TURN_LIMIT;
     }
 }

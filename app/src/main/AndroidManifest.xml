@@ -11,12 +11,14 @@
         android:theme="@style/AppTheme">
         <activity android:name=".views.start.StartActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.details.DetailsActivity"/>
-        <activity android:name=".views.quiz.QuizActivity"/>
+        <activity
+            android:name=".views.details.DetailsActivity" />
+        <activity android:name=".views.quiz.QuizActivity" />
     </application>
 
+    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>

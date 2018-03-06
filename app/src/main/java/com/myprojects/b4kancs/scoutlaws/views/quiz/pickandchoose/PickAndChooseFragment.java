@@ -2,6 +2,7 @@ package com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ public class PickAndChooseFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setRetainInstance(true);
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pick, container, false);
