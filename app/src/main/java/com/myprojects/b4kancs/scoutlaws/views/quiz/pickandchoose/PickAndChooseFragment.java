@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -34,7 +33,6 @@ import java.util.Random;
  */
 public class PickAndChooseFragment extends Fragment implements View.OnLongClickListener, View.OnDragListener {
     private static final String LOG_TAG = PickAndChooseFragment.class.getSimpleName();
-    private static final String OPTION_DRAG_LABEL = "option_text";
 
     private PickAndChooseSharedViewModel sharedViewModel;
     private PickAndChooseViewModel viewModel;
@@ -44,28 +42,21 @@ public class PickAndChooseFragment extends Fragment implements View.OnLongClickL
     private FlowLayout optionsFlow;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        sharedViewModel = ViewModelProviders.of(getActivity()).get(PickAndChooseSharedViewModel.class);
-        PickAndChooseViewModelFactory viewModelFactory = new PickAndChooseViewModelFactory(sharedViewModel);
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PickAndChooseViewModel.class);
-        viewModel.startTurn();
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.container = container;
 
+        sharedViewModel = ViewModelProviders.of(getActivity()).get(PickAndChooseSharedViewModel.class);
+        PickAndChooseViewModelFactory viewModelFactory = new PickAndChooseViewModelFactory(sharedViewModel);
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PickAndChooseViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pick, container, false);
+
         binding.setSharedViewModel(sharedViewModel);
         binding.setViewModel(viewModel);
-
         questionFlow = binding.included.questionFlowLayout;
         optionsFlow = binding.included.optionsFlowLayout;
 
         setUpViews();
 
-        setRetainInstance(true);
         return binding.getRoot();
     }
 
@@ -86,7 +77,7 @@ public class PickAndChooseFragment extends Fragment implements View.OnLongClickL
 
         for (int i = 0; i < viewModel.getQuestionItems().size(); i++) {
             String item = viewModel.getQuestionItems().get(i);
-            /* Check if this should be a word or a placeholder */
+            /* Check if it should be a word or a placeholder */
             if (item != null) {
                 TextView wordView = makeQuestionWordView(item, questionFlow);
                 questionFlow.addView(wordView);
@@ -123,11 +114,10 @@ public class PickAndChooseFragment extends Fragment implements View.OnLongClickL
         if (view.getId() != R.id.option_textView)
             return false;
 
-        ClipData clipData = ClipData.newPlainText(OPTION_DRAG_LABEL, ((TextView)view).getText());
+        ClipData clipData = ClipData.newPlainText(null, ((TextView)view).getText());
         View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
         view.startDrag(clipData, shadowBuilder, view, 0);
         view.setVisibility(View.GONE);
-
         return true;
     }
 
@@ -138,19 +128,12 @@ public class PickAndChooseFragment extends Fragment implements View.OnLongClickL
         TextView subject = (TextView) event.getLocalState();
 
         switch (event.getAction()) {
-            case DragEvent.ACTION_DRAG_STARTED:
-                if (event.getLocalState() == null)
-                    result = false;
-                else
-                    Log.d(LOG_TAG, "DragEvent.ACTION_DRAG_STARTED");
-                break;
             case DragEvent.ACTION_DROP:
                 Log.d(LOG_TAG, "DragEvent.ACTION_DROP");
                 /* Replace empty view with option */
                 TextView option = (TextView) getLayoutInflater().inflate(R.layout.text_view_pick_choose_option,
                         (ViewGroup)view.getParent(), false);
-                CharSequence optionText = subject.getText();
-                option.setText(optionText);
+                option.setText(subject.getText());
                 ViewGroup parent = (ViewGroup) view.getParent();
                 int i = parent.indexOfChild(view);
                 parent.removeView(view);
@@ -161,7 +144,7 @@ public class PickAndChooseFragment extends Fragment implements View.OnLongClickL
             case DragEvent.ACTION_DRAG_ENDED:
                 Log.d(LOG_TAG, "DragEvent.ACTION_DROP_ENDED");
                 /* If the drag failed, restore the dragged view */
-                if (event.getResult() == false)
+                if (!event.getResult())
                     subject.setVisibility(View.VISIBLE);
                 break;
         }
@@ -177,11 +160,6 @@ public class PickAndChooseFragment extends Fragment implements View.OnLongClickL
         }
         viewModel.clearUserAnswers();
         setUpQuestionFlow();
-    }
-
-    private void vibrate() {
-        Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(300);
     }
 
     private View.OnClickListener helpButtonOnClickListener = view -> {
@@ -244,6 +222,11 @@ public class PickAndChooseFragment extends Fragment implements View.OnLongClickL
         }
     };
 
+    private void vibrate() {
+        Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(300);
+    }
+
     private View.OnClickListener clearButtonOnClickListener = view -> {
         Log.d(LOG_TAG, "Clear button clicked.");
 
@@ -273,13 +256,13 @@ public class PickAndChooseFragment extends Fragment implements View.OnLongClickL
         /* What happens when the retry button is clicked */
         resultDialog.setOnRetryClicked(event -> {
             Log.d(LOG_TAG, "ResultDialog Retry callback executing..");
-            sharedViewModel.reset();
             resultDialog.dismiss();
             FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
             transaction.commit();
         });
         resultDialog.setScore(sharedViewModel.getScore());
         resultDialog.show(getFragmentManager(), "finishDialog");
+        sharedViewModel.reset();
     }
 
     /* Common transaction. Go to the next question. */
@@ -313,4 +296,8 @@ public class PickAndChooseFragment extends Fragment implements View.OnLongClickL
         return optionView;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

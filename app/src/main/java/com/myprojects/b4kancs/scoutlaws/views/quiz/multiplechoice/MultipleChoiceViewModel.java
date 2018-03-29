@@ -30,12 +30,12 @@ public class MultipleChoiceViewModel extends ViewModel {
     private final ArrayList<ScoutLaw> scoutLaws;
     private ScoutLaw answer;
     private ArrayList<ScoutLaw> options = new ArrayList<>(NUMBER_OF_OPTIONS);
-    private Random random = new Random();
     private int tries = 0;
 
     MultipleChoiceViewModel(MultipleChoiceSharedViewModel shared) {
         this.shared = shared;
         scoutLaws = shared.getScoutLaws();
+        startTurn();
     }
 
     void startTurn() {
@@ -46,6 +46,7 @@ public class MultipleChoiceViewModel extends ViewModel {
         answer = scoutLaws.get(answerIndex);
         options.add(answer);
 
+        Random random = new Random();
         for (int i = 1; i < 4; i++) {   // we already have 1 possible answer, the correct one
             int optionIndex;
             do {

@@ -8,7 +8,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -37,17 +36,13 @@ public class MultipleChoiceFragment extends Fragment {
     private ViewGroup container;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+
+        this.container = container;
         sharedViewModel = ViewModelProviders.of(getActivity()).get(MultipleChoiceSharedViewModel.class);
         MultipleChoiceViewModelFactory factory = new MultipleChoiceViewModelFactory(sharedViewModel);
         viewModel = ViewModelProviders.of(this, factory).get(MultipleChoiceViewModel.class);
-        viewModel.startTurn();
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.container = container;
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_multiple, container, false);
         binding.setViewModel(viewModel);
@@ -55,7 +50,6 @@ public class MultipleChoiceFragment extends Fragment {
 
         setUpViews();
 
-        setRetainInstance(true);
         return binding.getRoot();
     }
 
@@ -145,6 +139,19 @@ public class MultipleChoiceFragment extends Fragment {
         Log.d(LOG_TAG, "Finish button clicked.");
         transitionToFinishDialog();
     };
+
+    /* Let's clean up some */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        sharedViewModel = null;
+        viewModel = null;
+        binding = null;
+        container = null;
+        onOptionSelected = null;
+        nextButtonClickedListener = null;
+        finishButtonOnClickedListener = null;
+    }
 
     /* Makes the next button available when the turn is over */
     @BindingAdapter({"nextButton_turnOver"})

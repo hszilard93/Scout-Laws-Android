@@ -35,6 +35,7 @@ public class PickAndChooseViewModel extends ViewModel {
 
     PickAndChooseViewModel(PickAndChooseSharedViewModel shared) {
         this.shared = shared;
+        startTurn();
     }
 
     void startTurn() {
