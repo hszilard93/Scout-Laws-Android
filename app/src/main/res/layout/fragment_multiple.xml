@@ -1,7 +1,10 @@
-<layout>
-
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/multiple_linearLayout">
     <data>
-
+        <import type="com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceViewModel.State" />
         <variable
             name="viewModel"
             type="com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceViewModel" />
@@ -11,10 +14,7 @@
             type="com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/multiple_linearLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_grey"
@@ -27,7 +27,7 @@
             android:background="@color/colorPrimaryLight">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/turnCounter_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -47,7 +47,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/choose_correct_answer"
+                android:text="@string/multiple_tip"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,10 +107,10 @@
                         <Button
                             android:id="@+id/next_button"
                             android:layout_width="wrap_content"
-                            android:layout_height="52dp"
+                            android:layout_height="wrap_content"
                             android:background="@color/transparent"
                             android:text="@string/next_button"
-                            app:nextButton_turnOver="@{viewModel.isTurnOver}"
+                            app:nextButton_turnOver="@{viewModel.observableState}"
                             tools:text="Következő" />
 
                         <Button
@@ -120,8 +120,7 @@
                             android:background="@color/transparent"
                             android:text="@string/finish_button"
                             android:visibility="gone"
-                            android:enabled="false"
-                            android:textColor="@color/colorPrimary"
+                            app:nextButton_turnOver="@{viewModel.observableState}"
                             tools:text="Befejezés" />
                     </LinearLayout>
 

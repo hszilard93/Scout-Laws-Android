@@ -12,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="top"
             tools:context="com.myprojects.b4kancs.scoutlaws.views.start.StartActivity">
 
             <include
@@ -22,7 +23,6 @@
                 android:id="@+id/laws_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
                 android:dividerHeight="4dp"/>
         </LinearLayout>
 

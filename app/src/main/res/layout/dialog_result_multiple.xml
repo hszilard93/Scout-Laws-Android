@@ -57,7 +57,7 @@
             tools:text="Well done!" />
 
         <Button
-            android:id="@+id/ok_button"
+            android:id="@+id/back_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -86,7 +86,7 @@
             android:text="@string/retry_button"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ok_button"
+            app:layout_constraintEnd_toStartOf="@+id/back_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/congrats_textView"

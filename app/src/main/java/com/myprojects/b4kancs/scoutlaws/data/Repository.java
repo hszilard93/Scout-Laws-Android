@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.myprojects.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw;
 import com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -17,12 +19,14 @@ public class Repository {
     private static Repository instance;
 
     private final ArrayList<ScoutLaw> laws;
+    private final ArrayList<PickAndChooseScoutLaw> pickAndChooseLaws;
     /* Context is needed for access to application resources */
     private static Context context;
 
     private Repository() {
         laws = new ArrayList<>(10);
-        initLaws();
+        pickAndChooseLaws = new ArrayList<>(10);
+        loadLaws();
     }
 
     public static Repository getInstance() {
@@ -41,7 +45,7 @@ public class Repository {
         return instance;
     }
 
-    private void initLaws() {
+    private void loadLaws() {
         Resources resources = context.getResources();
         String packageName = "com.myprojects.b4kancs.scoutlaws";
         for (int i = 0; i < 10; i++) {
@@ -55,11 +59,25 @@ public class Repository {
 
             ScoutLaw law = new ScoutLaw(i + 1, text, desc, origDesc);
             laws.add(law);
+
+            String pickChooseText = resources.getString(resources
+                    .getIdentifier("law_" + (i + 1) + "_pick", "string", packageName));
+
+            String[] optionsArray = resources.getStringArray(resources
+                    .getIdentifier("law_" + (i + 1) + "_pick_options", "array", packageName));
+            ArrayList<String> pickChooseOptions = new ArrayList<>(Arrays.asList(optionsArray));
+
+            PickAndChooseScoutLaw pickAndChooseScoutLaw = new PickAndChooseScoutLaw(law, pickChooseText, pickChooseOptions);
+            pickAndChooseLaws.add(i, pickAndChooseScoutLaw);
         }
     }
 
     public ArrayList<ScoutLaw> getLaws() {
         return laws;
+    }
+
+    public ArrayList<PickAndChooseScoutLaw> getPickAndChooseLaws() {
+        return pickAndChooseLaws;
     }
 
     public static void setContext(Context context) {

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.myprojects.b4kancs.scoutlaws.R;
 import com.myprojects.b4kancs.scoutlaws.databinding.FragmentMultipleBinding;
+import com.myprojects.b4kancs.scoutlaws.views.quiz.ResultDialogFragment;
 
 /**
  * Created by hszilard on 26-Feb-18.
@@ -35,17 +36,13 @@ public class MultipleChoiceFragment extends Fragment {
     private FragmentMultipleBinding binding;
     private ViewGroup container;
 
-    public MultipleChoiceFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedViewModel = ViewModelProviders.of(getActivity()).get(MultipleChoiceSharedViewModel.class);
         MultipleChoiceViewModelFactory factory = new MultipleChoiceViewModelFactory(sharedViewModel);
         viewModel = ViewModelProviders.of(this, factory).get(MultipleChoiceViewModel.class);
-        viewModel.startNewTurn();
+        viewModel.startTurn();
     }
 
     @Override
@@ -76,7 +73,7 @@ public class MultipleChoiceFragment extends Fragment {
 
     /* What happens when an answer is selected */
     private OptionsListAdapter.OptionSelectedCallback onOptionSelected = (adapter, view, scoutLaw) -> {
-        if (viewModel.isNewAnswerCorrect(scoutLaw)) {
+        if (viewModel.isAnswerCorrect(scoutLaw)) {
             Toast toast = new Toast(getContext());
             View toastView = getLayoutInflater().inflate(R.layout.toast_correct, null);
             toast.setView(toastView);
@@ -93,7 +90,7 @@ public class MultipleChoiceFragment extends Fragment {
             view.setVisibility(View.GONE);
             Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(300);
-            if (viewModel.isTurnOver.get()) {
+            if (viewModel.getObservableState().get() == MultipleChoiceViewModel.State.DONE) {
                 endTurn(adapter);
             }
         }
@@ -129,11 +126,13 @@ public class MultipleChoiceFragment extends Fragment {
         resultDialog.setCancelable(false);
         /* What happens when the retry button is clicked */
         resultDialog.setOnRetryClicked(event -> {
+            Log.d(LOG_TAG, "ResultDialog retry callback executing..");
             sharedViewModel.reset();
             resultDialog.dismiss();
             FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
             transaction.commit();
         });
+        resultDialog.setScore(sharedViewModel.getScore());
         resultDialog.show(getFragmentManager(), "finishDialog");
     }
 
@@ -149,9 +148,9 @@ public class MultipleChoiceFragment extends Fragment {
 
     /* Makes the next button available when the turn is over */
     @BindingAdapter({"nextButton_turnOver"})
-    public static void setNextButtonTurnOver(@NonNull Button button, boolean turnOver) {
+    public static void setNextButtonTurnOver(@NonNull Button button, MultipleChoiceViewModel.State state) {
         Resources resources = button.getResources();
-        if (turnOver) {
+        if (state == MultipleChoiceViewModel.State.DONE) {
             button.setEnabled(true);
             button.setTextColor(resources.getColor(R.color.colorPrimary));
             button.setCompoundDrawablesWithIntrinsicBounds(

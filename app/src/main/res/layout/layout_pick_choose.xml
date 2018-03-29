@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel.State" />
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel" />
+        <variable
+            name="sharedViewModel"
+            type="com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
+
+        <FrameLayout
+            android:id="@+id/question_linear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:gravity="top"
+            android:orientation="vertical"
+            app:background_number="@{viewModel.scoutLaw.law.number}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.nex3z.flowlayout.FlowLayout
+                android:id="@+id/question_flowLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:animateLayoutChanges="true"
+                android:gravity="center_vertical"
+                app:flChildSpacing="12dp"
+                app:flChildSpacingForLastRow="12dp"
+                app:flFlow="true"
+                app:flRowSpacing="2dp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/buttons_linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/question_linear">
+
+            <Button
+                android:id="@+id/help_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="@string/help_button"
+                android:textColor="@color/colorPrimary"
+                android:visibility="@{viewModel.observableState == State.IN_PROGRESS &amp;&amp; !viewModel.helpUsedUp ? View.VISIBLE : View.GONE}"
+                tools:text="Segítség" />
+
+            <Button
+                android:id="@+id/give_up_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="@string/give_up"
+                android:textColor="@color/colorPrimary"
+                android:visibility="@{viewModel.observableState == State.IN_PROGRESS &amp;&amp; viewModel.helpUsedUp ? View.VISIBLE : View.GONE}"
+                tools:text="Feladom" />
+
+            <Button
+                android:id="@+id/check_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="@string/check_button"
+                android:textColor="@color/colorPrimary"
+                android:visibility="@{viewModel.observableState == State.CHECKABLE ? View.VISIBLE : View.GONE}"
+                tools:text="Ellenőrzés" />
+
+            <Button
+                android:id="@+id/forward_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="@string/next_button"
+                android:textColor="@color/colorPrimary"
+                android:visibility="@{viewModel.observableState == State.DONE &amp;&amp; !sharedViewModel.isLastTurn ? View.VISIBLE : View.GONE}"
+                tools:text="Tovább" />
+
+            <Button
+                android:id="@+id/finish_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="@string/finish_button"
+                android:textColor="@color/colorPrimary"
+                android:visibility="@{viewModel.observableState == State.DONE &amp;&amp; sharedViewModel.isLastTurn ? View.VISIBLE : View.GONE}"
+                tools:text="Befejezés" />
+
+            <Button
+                android:id="@+id/clear_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:text="@string/clear_button"
+                android:textColor="@color/colorPrimary"
+                android:visibility="@{viewModel.observableState != State.DONE ? View.VISIBLE : View.GONE}"
+                tools:text="Töröl" />
+        </LinearLayout>
+
+        <com.nex3z.flowlayout.FlowLayout
+            android:id="@+id/options_flowLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:animateLayoutChanges="true"
+            android:gravity="center_horizontal"
+            app:flChildSpacing="8dp"
+            app:flChildSpacingForLastRow="8dp"
+            app:flRowSpacing="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttons_linearLayout" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

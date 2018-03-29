@@ -59,10 +59,10 @@ public class OptionsListAdapter extends ArrayAdapter<ScoutLaw> {
 
     /* When the correct answer is selected, disable the other possible answers */
     @BindingAdapter({"optionBackground_correctGuessed", "optionBackground_isCorrect"})
-    public static void setOptionViewBackground(@NonNull View view, boolean correctGuessed,
-                                               boolean isCorrect) {
+    public static void setOptionViewBackground(@NonNull View view, MultipleChoiceViewModel.State state,
+                                               boolean isThisOptionCorrect) {
         Resources resources = view.getResources();
-        view.setBackgroundColor(resources.getColor(correctGuessed && !isCorrect
+        view.setBackgroundColor(resources.getColor(state == MultipleChoiceViewModel.State.DONE && !isThisOptionCorrect
                 ? R.color.disabled_grey
                 : R.color.colorPrimary));
     }

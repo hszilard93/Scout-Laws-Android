@@ -51,6 +51,7 @@ public class StartActivity extends AppCompatActivity {
         TextView empty = new TextView(this);
         empty.setHeight(1);
         binding.lawsListView.addFooterView(empty);
+        binding.lawsListView.addHeaderView(empty);
 
         drawerToggle = setUpDrawerToggle();
         setUpDrawerContent();

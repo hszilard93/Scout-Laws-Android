@@ -25,7 +25,8 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/details_constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_chainStyle= "spread_inside">
 
                 <TextView
                     android:id="@+id/number_textView"
