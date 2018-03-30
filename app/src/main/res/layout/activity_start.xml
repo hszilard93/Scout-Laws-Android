@@ -12,7 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context="com.myprojects.b4kancs.scoutlaws.view.list.StartActivity">
+            android:gravity="top"
+            tools:context="com.myprojects.b4kancs.scoutlaws.views.start.StartActivity">
 
             <include
                 android:id="@+id/toolbar"
@@ -22,12 +23,11 @@
                 android:id="@+id/laws_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
                 android:dividerHeight="4dp"/>
         </LinearLayout>
 
         <!-- The navigation drawer that comes from the left -->
-        <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
+        <!-- Note that `android:layout_gravity` needs to be set resettart' -->
         <android.support.design.widget.NavigationView
             android:id="@+id/nvView"
             android:layout_width="wrap_content"

@@ -1,4 +1,4 @@
-package com.myprojects.b4kancs.scoutlaws.view.details;
+package com.myprojects.b4kancs.scoutlaws.views.details;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.myprojects.b4kancs.scoutlaws.R;
-import com.myprojects.b4kancs.scoutlaws.databinding.DetailsActivityBinding;
+import com.myprojects.b4kancs.scoutlaws.databinding.ActivityDetailsBinding;
 
 /**
  * Created by hszilard on 21-Feb-18.
@@ -23,14 +23,14 @@ public class DetailsActivity extends AppCompatActivity {
     public static final String SCOUT_LAW_INDEX_KEY = "INDEX";
     private static final String LOG_TAG = DetailsActivity.class.getSimpleName();
 
-    private DetailsActivityBinding binding;
+    private ActivityDetailsBinding binding;
     private DetailsActivityViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.details_activity);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
         /* DetailsActivity can be assumed to be created only via intents.
          * For now, we give index a default value instead of checking for invalid arguments. */
         int index = 0;

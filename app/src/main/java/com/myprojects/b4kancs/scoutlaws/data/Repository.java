@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
+import com.myprojects.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw;
 import com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -17,26 +19,33 @@ public class Repository {
     private static Repository instance;
 
     private final ArrayList<ScoutLaw> laws;
+    private final ArrayList<PickAndChooseScoutLaw> pickAndChooseLaws;
     /* Context is needed for access to application resources */
-    private final Context context;
+    private static Context context;
 
-    private Repository(Context context) {
-        this.context = context;
+    private Repository() {
         laws = new ArrayList<>(10);
-        initLaws();
+        pickAndChooseLaws = new ArrayList<>(10);
+        loadLaws();
     }
 
-    public static Repository getInstance(Context context) {
+    public static Repository getInstance() {
         if (instance != null) {
             Log.d(LOG_TAG, "Old Repository instance returned.");
             return instance;
         }
+
         Log.d(LOG_TAG, "Making new Repository instance.");
-        instance = new Repository(context);
+        if (context == null) {
+            Log.e(LOG_TAG, "Context hasn't been set!");
+            return null;
+        }
+
+        instance = new Repository();
         return instance;
     }
 
-    private void initLaws() {
+    private void loadLaws() {
         Resources resources = context.getResources();
         String packageName = "com.myprojects.b4kancs.scoutlaws";
         for (int i = 0; i < 10; i++) {
@@ -50,10 +59,28 @@ public class Repository {
 
             ScoutLaw law = new ScoutLaw(i + 1, text, desc, origDesc);
             laws.add(law);
+
+            String pickChooseText = resources.getString(resources
+                    .getIdentifier("law_" + (i + 1) + "_pick", "string", packageName));
+
+            String[] optionsArray = resources.getStringArray(resources
+                    .getIdentifier("law_" + (i + 1) + "_pick_options", "array", packageName));
+            ArrayList<String> pickChooseOptions = new ArrayList<>(Arrays.asList(optionsArray));
+
+            PickAndChooseScoutLaw pickAndChooseScoutLaw = new PickAndChooseScoutLaw(law, pickChooseText, pickChooseOptions);
+            pickAndChooseLaws.add(i, pickAndChooseScoutLaw);
         }
     }
 
     public ArrayList<ScoutLaw> getLaws() {
         return laws;
+    }
+
+    public ArrayList<PickAndChooseScoutLaw> getPickAndChooseLaws() {
+        return pickAndChooseLaws;
+    }
+
+    public static void setContext(Context context) {
+        Repository.context = context;
     }
 }

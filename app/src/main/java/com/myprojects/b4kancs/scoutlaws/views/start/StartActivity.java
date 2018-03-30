@@ -1,9 +1,12 @@
-package com.myprojects.b4kancs.scoutlaws.view.list;
+package com.myprojects.b4kancs.scoutlaws.views.start;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +16,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.myprojects.b4kancs.scoutlaws.R;
-import com.myprojects.b4kancs.scoutlaws.databinding.StartActivityBinding;
+import com.myprojects.b4kancs.scoutlaws.databinding.ActivityStartBinding;
+import com.myprojects.b4kancs.scoutlaws.views.quiz.QuizActivity;
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -23,7 +27,7 @@ import com.myprojects.b4kancs.scoutlaws.databinding.StartActivityBinding;
 public class StartActivity extends AppCompatActivity {
     public static final String LOG_TAG = StartActivity.class.getSimpleName();
 
-    private StartActivityBinding binding;
+    private ActivityStartBinding binding;
     private StartActivityViewModel viewModel;
     private ActionBarDrawerToggle drawerToggle;
 
@@ -31,7 +35,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.start_activity);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_start);
         viewModel = ViewModelProviders.of(this).get(StartActivityViewModel.class);
 
         setUpViews();
@@ -47,9 +51,21 @@ public class StartActivity extends AppCompatActivity {
         TextView empty = new TextView(this);
         empty.setHeight(1);
         binding.lawsListView.addFooterView(empty);
+        binding.lawsListView.addHeaderView(empty);
 
         drawerToggle = setUpDrawerToggle();
         setUpDrawerContent();
+        NavigationView navigationView = binding.nvView;
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.quiz_menuItem:
+                    Log.d(LOG_TAG, "Quiz menu item selected.");
+                    openQuizActivity();
+                    return true;
+                default:
+                    return false;
+            }
+        });
     }
 
     @Override
@@ -67,10 +83,18 @@ public class StartActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (drawerToggle.onOptionsItemSelected(item)) {
+            Log.d(LOG_TAG, "Drawer toggle clicked.");
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openQuizActivity() {
+        Context context = this.getApplicationContext();
+        Intent intent = new Intent(context, QuizActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     private ActionBarDrawerToggle setUpDrawerToggle() {
