@@ -19,10 +19,9 @@ public class ScoutLawApp extends Application {
     public static ScoutLawApp getInstance() {
         if (instance != null)
             return instance;
-        else {
-            Log.e(LOG_TAG, "App instance is null!");
-            return null;
-        }
+
+        Log.e(LOG_TAG, "App instance is null!");
+        return null;
     }
 
     @Override

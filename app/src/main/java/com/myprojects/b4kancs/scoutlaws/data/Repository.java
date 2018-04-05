@@ -12,36 +12,38 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by hszilard on 15-Feb-18.
  */
-
+@Singleton
 public class Repository {
     private static final String LOG_TAG = Repository.class.getSimpleName();
-    private static Repository instance;
+//    private static Repository instance;
 
     private final ArrayList<ScoutLaw> laws;
     private final ArrayList<PickAndChooseScoutLaw> pickAndChooseLaws;
-    /* Context is needed for access to application resources */
+    /* Context is needed to access application resources */
+    private final Context context;
 
-    @Inject Context context;
-
-    private Repository() {
+    @Inject
+    public Repository(Context context) {
+        this.context = context;
         laws = new ArrayList<>(10);
         pickAndChooseLaws = new ArrayList<>(10);
         loadLaws();
     }
 
-    public static Repository getInstance() {
-        if (instance != null) {
-            Log.d(LOG_TAG, "Returning existing Repository instance.");
-            return instance;
-        }
-        Log.d(LOG_TAG, "Making new Repository instance.");
-        instance = new Repository();
-        return instance;
-    }
+//    public static Repository getInstance() {
+//        if (instance != null) {
+//            Log.d(LOG_TAG, "Returning existing Repository instance.");
+//            return instance;
+//        }
+//        Log.d(LOG_TAG, "Making new Repository instance.");
+//        instance = new Repository();
+//        return instance;
+//    }
 
     private void loadLaws() {
         ScoutLawApp.getInstance().getApplicationComponent().inject(this);

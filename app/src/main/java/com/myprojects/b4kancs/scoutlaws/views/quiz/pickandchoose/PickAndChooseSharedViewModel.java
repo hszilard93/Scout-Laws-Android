@@ -14,7 +14,8 @@ public class PickAndChooseSharedViewModel extends AbstractSharedViewModel {
     private final ArrayList<PickAndChooseScoutLaw> pickChooseScoutLaws;
 
     PickAndChooseSharedViewModel() {
-        pickChooseScoutLaws = Repository.getInstance().getPickAndChooseLaws();
+        super.init();
+        pickChooseScoutLaws = repository.getPickAndChooseLaws();
     }
 
     public ArrayList<PickAndChooseScoutLaw> getPickChooseScoutLaws() {

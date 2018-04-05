@@ -13,7 +13,7 @@ class MultipleChoiceViewModelFactory implements ViewModelProvider.Factory {
 
     private final MultipleChoiceSharedViewModel sharedViewModel;
 
-    public MultipleChoiceViewModelFactory(@NonNull MultipleChoiceSharedViewModel sharedViewModel) {
+    MultipleChoiceViewModelFactory(@NonNull MultipleChoiceSharedViewModel sharedViewModel) {
         this.sharedViewModel = sharedViewModel;
     }
 

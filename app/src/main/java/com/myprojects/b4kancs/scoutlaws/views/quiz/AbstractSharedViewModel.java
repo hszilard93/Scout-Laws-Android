@@ -3,8 +3,13 @@ package com.myprojects.b4kancs.scoutlaws.views.quiz;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 
+import com.myprojects.b4kancs.scoutlaws.ScoutLawApp;
+import com.myprojects.b4kancs.scoutlaws.data.Repository;
+
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.inject.Inject;
 
 /**
  * Created by hszilard on 08-Mar-18.
@@ -16,11 +21,16 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     private static final String LOG_TAG = AbstractSharedViewModel.class.getSimpleName();
 
     public ObservableBoolean isLastTurn = new ObservableBoolean(false);
+    @Inject protected Repository repository;
     protected ArrayList<Integer> usedLaws = new ArrayList<>(NUMBER_OF_QUESTIONS); // Questions we have asked in this quiz
     protected Integer lastAnswerIndex = -1; // We shouldn't ask the same question two times in a row even if the quiz is restarted
     protected int turnCount;
     protected int score = 0;
     private Random random = new Random();
+
+    public void init() {
+        ScoutLawApp.getInstance().getApplicationComponent().inject(this);
+    }
 
     public void reset() {
         isLastTurn.set(false);
@@ -28,10 +38,6 @@ public abstract class AbstractSharedViewModel extends ViewModel {
         score = 0;
         usedLaws.clear();
     }
-
-//    public ArrayList<Integer> getUsedLaws() {
-//        return usedLaws;
-//    }
 
     /* This law will be the subject of the next question. */
     public int nextLawIndex() {

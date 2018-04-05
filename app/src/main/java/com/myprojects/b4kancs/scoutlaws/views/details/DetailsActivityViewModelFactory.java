@@ -10,19 +10,16 @@ import android.support.annotation.NonNull;
  * A ViewModelFactory is needed to initialize a ViewModel with parameters.
  */
 
-public class DetailsActivityViewModelFactory extends ViewModelProvider.AndroidViewModelFactory {
-    private Application application;
-    private int index;
+public class DetailsActivityViewModelFactory implements ViewModelProvider.Factory {
+    private final int index;
 
-    public DetailsActivityViewModelFactory(@NonNull Application application, int index) {
-        super(application);
-        this.application = application;
+    DetailsActivityViewModelFactory(int index) {
         this.index = index;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new DetailsActivityViewModel(application, index);
+        return (T) new DetailsActivityViewModel(index);
     }
 }
