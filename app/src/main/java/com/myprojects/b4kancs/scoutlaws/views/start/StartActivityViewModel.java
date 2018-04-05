@@ -19,7 +19,6 @@ public class StartActivityViewModel extends AndroidViewModel {
 
     public StartActivityViewModel(@NonNull Application application) {
         super(application);
-        Repository.setContext(application);
         repository = Repository.getInstance();
     }
 
