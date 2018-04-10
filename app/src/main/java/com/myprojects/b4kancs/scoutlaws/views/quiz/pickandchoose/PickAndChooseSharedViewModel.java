@@ -1,6 +1,5 @@
 package com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose;
 
-import com.myprojects.b4kancs.scoutlaws.data.Repository;
 import com.myprojects.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw;
 import com.myprojects.b4kancs.scoutlaws.views.quiz.AbstractSharedViewModel;
 
@@ -14,7 +13,7 @@ public class PickAndChooseSharedViewModel extends AbstractSharedViewModel {
     private final ArrayList<PickAndChooseScoutLaw> pickChooseScoutLaws;
 
     PickAndChooseSharedViewModel() {
-        pickChooseScoutLaws = Repository.getInstance().getPickAndChooseLaws();
+        pickChooseScoutLaws = repository.getPickAndChooseLaws();
     }
 
     public ArrayList<PickAndChooseScoutLaw> getPickChooseScoutLaws() {

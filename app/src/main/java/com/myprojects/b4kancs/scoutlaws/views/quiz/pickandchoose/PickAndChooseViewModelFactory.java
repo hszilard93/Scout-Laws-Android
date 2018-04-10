@@ -9,10 +9,9 @@ import android.support.annotation.NonNull;
  */
 
 public class PickAndChooseViewModelFactory implements ViewModelProvider.Factory {
-
     private final PickAndChooseSharedViewModel sharedViewModel;
 
-    public PickAndChooseViewModelFactory(PickAndChooseSharedViewModel sharedViewModel) {
+    PickAndChooseViewModelFactory(PickAndChooseSharedViewModel sharedViewModel) {
         this.sharedViewModel = sharedViewModel;
     }
 

@@ -38,8 +38,9 @@ public class DetailsActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         if (bundle != null)
             index = bundle.getInt(SCOUT_LAW_INDEX_KEY);
-        viewModel = ViewModelProviders.of(this, new DetailsActivityViewModelFactory(this.getApplication(), index))
+        viewModel = ViewModelProviders.of(this, new DetailsActivityViewModelFactory(index))
                 .get(DetailsActivityViewModel.class);
+        viewModel.init();
 
         setUpViews();
     }

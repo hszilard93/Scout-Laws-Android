@@ -25,7 +25,7 @@ public class ResultDialogFragment extends DialogFragment {
     private static final String LOG_TAG = ResultDialogFragment.class.getSimpleName();
 
     private DialogResultMultipleBinding binding;
-    private View.OnClickListener onRetryClicked;    // since DialogFragment is not a 'real' fragment, these have to be injected
+    private View.OnClickListener onRetryClicked;    // since DialogFragment is not a 'real' fragment, these have to be method-injected
     private int score;                              //
 
     @Override

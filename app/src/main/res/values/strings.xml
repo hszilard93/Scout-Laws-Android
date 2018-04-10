@@ -17,8 +17,7 @@
     <string name="multiple_quiz_question">Melyik a(z) %d. cserkésztörvény?</string>
     <string name="pick_quiz">Beillesztős</string>
     <string name="multiple_tip">Válaszd ki a helyes választ!</string>
-    <string name="help">Segíts!</string>
-    <string name="help_button">Segítség</string>
+    <string name="help">Segítség</string>
     <string name="next_button">Következő</string>
     <string name="correct_answer">A válasz helyes!</string>
     <string name="incorrect_answer">A válasz helytelen!</string>
@@ -31,10 +30,10 @@
     <string name="congrats_low_score">Gyakorlat teszi a mestert. Próbáld újra!</string>
     <string name="congrats_mid_score">Nem rossz!</string>
     <string name="congrats_good_score">Szép munka!</string>
-    <string name="congrats_perfect_score">Tökéletes teljesítmény!</string>
+    <string name="congrats_perfect_score">Tökéletes!</string>
     <string name="retry_button">Újra</string>
     <string name="pick_choose_tip">Helyettesítsd be a hiányzó szavakat!</string>
     <string name="check_button">Ellenőrzés</string>
-    <string name="clear_button">Töröl</string>
+    <string name="clear_button">Törlés</string>
     <string name="give_up">Feladom</string>
 </resources>

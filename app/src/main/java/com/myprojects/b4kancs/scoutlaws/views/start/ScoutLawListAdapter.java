@@ -28,7 +28,6 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
 
     private Context context;
     private ArrayList<ScoutLaw> scoutLaws;
-    private int lastPosition = -1;
 
     public ScoutLawListAdapter(@NonNull ArrayList<ScoutLaw> scoutLaws, Context context) {
         super(context, R.layout.list_item_law, scoutLaws);
