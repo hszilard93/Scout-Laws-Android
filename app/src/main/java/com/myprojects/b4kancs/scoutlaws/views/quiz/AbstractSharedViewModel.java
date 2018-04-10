@@ -28,7 +28,7 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     protected int score = 0;
     private Random random = new Random();
 
-    public void init() {
+    protected AbstractSharedViewModel() {
         ScoutLawApp.getInstance().getApplicationComponent().inject(this);
     }
 

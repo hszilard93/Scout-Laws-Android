@@ -1,10 +1,8 @@
 package com.myprojects.b4kancs.scoutlaws.data;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
-import com.myprojects.b4kancs.scoutlaws.ScoutLawApp;
 import com.myprojects.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw;
 import com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw;
 
@@ -20,37 +18,26 @@ import javax.inject.Singleton;
 @Singleton
 public class Repository {
     private static final String LOG_TAG = Repository.class.getSimpleName();
-//    private static Repository instance;
 
-    private final ArrayList<ScoutLaw> laws;
-    private final ArrayList<PickAndChooseScoutLaw> pickAndChooseLaws;
+    private final ArrayList<ScoutLaw> laws = new ArrayList<>(10);
+    private final ArrayList<PickAndChooseScoutLaw> pickAndChooseLaws = new ArrayList<>(10);
     /* Context is needed to access application resources */
-    private final Context context;
+    private final Resources resources;
 
     @Inject
-    public Repository(Context context) {
-        this.context = context;
-        laws = new ArrayList<>(10);
-        pickAndChooseLaws = new ArrayList<>(10);
+    public Repository(Resources resources) {
+        Log.d(LOG_TAG, "Constructing Repository instance.");
+        this.resources = resources;
         loadLaws();
     }
 
-//    public static Repository getInstance() {
-//        if (instance != null) {
-//            Log.d(LOG_TAG, "Returning existing Repository instance.");
-//            return instance;
-//        }
-//        Log.d(LOG_TAG, "Making new Repository instance.");
-//        instance = new Repository();
-//        return instance;
-//    }
-
     private void loadLaws() {
-        ScoutLawApp.getInstance().getApplicationComponent().inject(this);
-        Resources resources = context.getResources();
+        Log.d(LOG_TAG, "Loading scoutlaws.");
+
         String packageName = "com.myprojects.b4kancs.scoutlaws";
+        /* Building the ScoutLaw and PickAndChooseScoutLaw objects by dynamically loading them from their resource files by constructing their names */
         for (int i = 0; i < 10; i++) {
-            /* Loading the text resources by dynamically constructing their names */
+            // ScoutLaw objects
             String text = resources.getString(resources
                     .getIdentifier("law_" + (i + 1), "string", packageName));
             String desc = resources.getString(resources
@@ -60,7 +47,7 @@ public class Repository {
 
             ScoutLaw law = new ScoutLaw(i + 1, text, desc, origDesc);
             laws.add(law);
-
+            // PickAndChooseScoutLaw objects
             String pickChooseText = resources.getString(resources
                     .getIdentifier("law_" + (i + 1) + "_pick", "string", packageName));
 

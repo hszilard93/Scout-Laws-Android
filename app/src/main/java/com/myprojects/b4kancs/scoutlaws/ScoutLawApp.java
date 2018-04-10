@@ -1,6 +1,8 @@
 package com.myprojects.b4kancs.scoutlaws;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 /**
@@ -17,11 +19,10 @@ public class ScoutLawApp extends Application {
     }
 
     public static ScoutLawApp getInstance() {
-        if (instance != null)
-            return instance;
+        if (instance == null)
+            Log.e(LOG_TAG, "!!!App instance is null!!!");
 
-        Log.e(LOG_TAG, "App instance is null!");
-        return null;
+        return instance;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.myprojects.b4kancs.scoutlaws;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Resources;
 
 import dagger.Module;
 import dagger.Provides;
@@ -21,5 +22,10 @@ public class ApplicationModule {
     @Provides
     Context provideApplicationContext() {
         return application;
+    }
+
+    @Provides
+    Resources provideResources() {
+        return application.getResources();
     }
 }

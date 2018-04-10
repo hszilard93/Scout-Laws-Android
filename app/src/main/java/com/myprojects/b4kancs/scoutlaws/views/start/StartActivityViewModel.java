@@ -15,8 +15,8 @@ import javax.inject.Inject;
  */
 
 public class StartActivityViewModel extends ViewModel {
-    private ArrayList<ScoutLaw> scoutLaws;
     @Inject protected Repository repository;
+    private ArrayList<ScoutLaw> scoutLaws;
 
     public ArrayList<ScoutLaw> scoutLaws() {
         if (scoutLaws == null) {

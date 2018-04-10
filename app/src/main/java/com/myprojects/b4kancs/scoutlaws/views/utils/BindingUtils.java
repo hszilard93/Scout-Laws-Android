@@ -54,7 +54,6 @@ public class BindingUtils {
 
     @BindingAdapter({"starImageSource_order", "starImageSource_score"})
     public static void setStarImageSourceBinding(@NonNull ImageView imageView, int order, int score) {
-        Resources resources = imageView.getResources();
         imageView.setImageResource(order <= score ? R.drawable.ic_star_full_48dp : R.drawable.ic_star_border_48dp);
     }
 

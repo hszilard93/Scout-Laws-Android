@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:text="@string/help_button"
+                android:text="@string/help"
                 android:textColor="@color/colorPrimary"
                 android:visibility="@{viewModel.observableState == State.IN_PROGRESS &amp;&amp; !viewModel.helpUsedUp ? View.VISIBLE : View.GONE}"
                 tools:text="Segítség" />
