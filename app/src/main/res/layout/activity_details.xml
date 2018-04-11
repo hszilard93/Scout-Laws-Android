@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="scoutLaw" type="com.myprojects.b4kancs.scoutlaws.data.model.ScoutLaw" />
+        <variable name="scoutLaw" type="com.b4kancs.scoutlaws.data.model.ScoutLaw" />
         <variable name="isModern" type="android.databinding.ObservableBoolean" />
     </data>
 
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.myprojects.b4kancs.scoutlaws.views.start.StartActivity">
+        tools:context="com.b4kancs.scoutlaws.views.start.StartActivity">
 
         <include
             android:id="@+id/toolbar"

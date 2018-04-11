@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/multiple_linearLayout">
     <data>
-        <import type="com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceViewModel.State" />
+        <import type="com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceViewModel.State" />
         <variable
             name="viewModel"
-            type="com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceViewModel" />
+            type="com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceViewModel" />
 
         <variable
             name="sharedViewModel"
-            type="com.myprojects.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel" />
+            type="com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel" />
     </data>
 
     <LinearLayout

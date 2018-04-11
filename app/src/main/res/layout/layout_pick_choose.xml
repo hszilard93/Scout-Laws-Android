@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel.State" />
+        <import type="com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel.State" />
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel" />
+            type="com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel" />
         <variable
             name="sharedViewModel"
-            type="com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel" />
+            type="com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

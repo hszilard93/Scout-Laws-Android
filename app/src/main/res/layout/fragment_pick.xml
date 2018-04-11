@@ -7,10 +7,10 @@
     <data>
         <variable
             name="sharedViewModel"
-            type="com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel" />
+            type="com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel" />
         <variable
             name="viewModel"
-            type="com.myprojects.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel" />
+            type="com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="top"
-            tools:context="com.myprojects.b4kancs.scoutlaws.views.start.StartActivity">
+            tools:context="com.b4kancs.scoutlaws.views.start.StartActivity">
 
             <include
                 android:id="@+id/toolbar"
