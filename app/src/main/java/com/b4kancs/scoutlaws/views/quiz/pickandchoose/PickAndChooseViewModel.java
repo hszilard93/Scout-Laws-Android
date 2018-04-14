@@ -1,6 +1,7 @@
 package com.b4kancs.scoutlaws.views.quiz.pickandchoose;
 
 import android.arch.lifecycle.ViewModel;
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.util.Log;
@@ -10,12 +11,15 @@ import com.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.Random;
 import java.util.TreeMap;
 
 /**
  * Created by hszilard on 08-Mar-18.
+ * This ViewModel contains all logic for a 'pick&choose quiz' turn.
+ * The UI should reflect changes in the ViewModel, user input should trigger its actions.
  */
-
 public class PickAndChooseViewModel extends ViewModel {
     private static final String LOG_TAG = PickAndChooseViewModel.class.getSimpleName();
 
@@ -23,14 +27,14 @@ public class PickAndChooseViewModel extends ViewModel {
 
     private final ObservableField<State> observableState = new ObservableField<>(State.IN_PROGRESS);
     private final ObservableBoolean helpUsedUp = new ObservableBoolean(false);
+    /* We use a TreeMap here to keep track of each answer's (corresponding view's) index and to keep them sorted in the correct order */
+    private final TreeMap<Integer, ObservableField<String>> userAnswers = new TreeMap<>();
+    private final ObservableArrayList<String> options = new ObservableArrayList<>();
 
     private PickAndChooseSharedViewModel shared;
     private PickAndChooseScoutLaw scoutLaw;
     private ArrayList<String> questionItems;
-    private ArrayList<String> options;
     private ArrayList<String> correctAnswers = new ArrayList<>();
-    /* We use a TreeMap here to keep track of each answer's (corresponding view's) index and to keep them sorted in the correct order */
-    private TreeMap<Integer, String> userAnswers = new TreeMap<>();
     private boolean firstTry = true;
 
     PickAndChooseViewModel(PickAndChooseSharedViewModel shared) {
@@ -38,19 +42,20 @@ public class PickAndChooseViewModel extends ViewModel {
         startTurn();
     }
 
-    void startTurn() {
+    private void startTurn() {
         Log.d(LOG_TAG, "Starting turn.");
 
         shared.incTurnCount();
         scoutLaw = shared.getPickChooseScoutLaws().get(shared.nextLawIndex());
-        options = new ArrayList<>(scoutLaw.pickChooseOptions);
+        options.addAll(scoutLaw.pickChooseOptions);
         parseQuestion(scoutLaw.pickChooseText);
         options.addAll(correctAnswers);
 
         Collections.shuffle(options);
     }
 
-    void parseQuestion(String questionText) {
+    /* Process the question with format "Something something #interesting something". */
+    private void parseQuestion(String questionText) {
         Log.d(LOG_TAG, "Parsing question.");
 
         questionItems = new ArrayList<>(Arrays.asList(questionText.split(" ")));
@@ -64,52 +69,97 @@ public class PickAndChooseViewModel extends ViewModel {
         }
     }
 
-    void addUserAnswer(String answer, int i) {
+    void addUserAnswer(int i, String newAnswer) {
         Log.d(LOG_TAG, "Adding answer.");
 
-        options.remove(answer);
-        userAnswers.put(i, answer);
-        if (userAnswers.size() >= correctAnswers.size()) {
+        options.remove(newAnswer);
+        if (userAnswers.get(i) == null)
+            userAnswers.put(i, new ObservableField<>(newAnswer));
+        else {
+            String oldAnswer = userAnswers.get(i).get();
+            if (oldAnswer != null)
+                options.add(oldAnswer);
+            userAnswers.get(i).set(newAnswer);
+        }
+
+        // If there are enough valid values in userAnswers, change state
+        if (userAnswers.size() == correctAnswers.size()) {
+            for (ObservableField<String> item : userAnswers.values())
+                if (item.get() == null) return;
             observableState.set(State.CHECKABLE);
         }
     }
 
-    void clearUserAnswers() {
+    void addOption(String item) {
+        if (!options.contains(item))
+            options.add(item);
+    }
+
+    /* Eliminate some options */
+    void help() {
+        int numberToEliminate = Math.min(options.size() / 3, 3);
+        Random random = new Random();
+        for (int i = 0; i < numberToEliminate; i++) {
+            int index = random.nextInt(options.size());
+            if (!correctAnswers.contains(options.get(index)))
+                options.remove(index);
+            else
+                i--;
+        }
+        firstTry = false;
+        if (options.size() <= correctAnswers.size() * 3)
+            helpUsedUp.set(true);     // you shouldn't use help too much
+    }
+
+    /* Clear the item from userAnswers and add it back to options */
+    void clear() {
         Log.d(LOG_TAG, "Clearing answers.");
 
-        options.addAll(userAnswers.values());
-        userAnswers.clear();
+        for (ObservableField<String> item : userAnswers.values())
+            if (item.get() != null) {
+                options.add(item.get());
+                item.set(null);
+            }
         observableState.set(State.IN_PROGRESS);
     }
 
-    boolean checkAnswers() {
+    boolean check() {
         Log.d(LOG_TAG, "Checking answers.");
+
+        boolean correct = true;
 
         if (userAnswers.size() != correctAnswers.size()) {
             // Something went wrong!
             Log.e(LOG_TAG, "Incorrect state: userAnswers size is " + userAnswers.size()
                     + " but correctAnswers size is " + correctAnswers.size());
-            return false;
+            correct = false;
         }
 
-        String[] answers = userAnswers.values().toArray(new String[0]);
-        for (int i = 0; i < correctAnswers.size(); i++)
-            if (!correctAnswers.get(i).equals(answers[i])) {
-                firstTry = false;
-                return false;
+        Iterator<ObservableField<String>> userAnswersIterator = userAnswers.values().iterator();
+        for (String correctAnswer : correctAnswers) {
+            ObservableField<String> userAnswer = userAnswersIterator.next();
+            if (!correctAnswer.equals(userAnswer.get())) {
+                correct = false;
+                options.add(userAnswer.get());
+                userAnswer.set(null);
             }
+        }
+
+        if (!correct)
+            firstTry = false;
 
         if (firstTry)
             shared.incCorrectAtFirst();
-        observableState.set(State.DONE);
-        return true;
-    }
 
-    void helpUsed() {
-        firstTry = false;
+        observableState.set(State.DONE);
+        return correct;
     }
 
     void giveUp() {
+        Iterator<ObservableField<String>> userAnswersIterator = userAnswers.values().iterator();
+        for (String correctAnswer : correctAnswers)
+            userAnswersIterator.next().set(correctAnswer);
+
         observableState.set(State.DONE);
     }
 
@@ -133,11 +183,11 @@ public class PickAndChooseViewModel extends ViewModel {
         return correctAnswers;
     }
 
-    public ArrayList<String> getOptions() {
+    public ObservableArrayList<String> getOptions() {
         return options;
     }
 
-    public TreeMap<Integer, String> getUserAnswers() {
+    public TreeMap<Integer, ObservableField<String>> getUserAnswers() {
         return userAnswers;
     }
 }

@@ -104,7 +104,7 @@ public class MultipleChoiceFragment extends Fragment {
         transaction.commit();
     }
 
-    /* Common transaction. Go to the next question. */
+    /* CommonUtils transaction. Go to the next question. */
     public static FragmentTransaction getMultipleChoiceFragmentTransaction(@NonNull ViewGroup container,
                                                                            FragmentManager manager) {
         MultipleChoiceFragment newFragment = new MultipleChoiceFragment();

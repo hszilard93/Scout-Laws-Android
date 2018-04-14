@@ -1,5 +1,7 @@
 package com.b4kancs.scoutlaws.views.quiz;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.PersistableBundle;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityQuizBinding;
 import com.b4kancs.scoutlaws.views.quiz.chooser.ChooserFragment;
+import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel;
 
 /**
  * Created by hszilard on 25-Feb-18.
@@ -48,6 +51,10 @@ public class QuizActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Log.d(LOG_TAG, "Back navigation button pressed.");
+                PickAndChooseSharedViewModel sharedViewModel = ViewModelProviders
+                        .of(this)
+                        .get(PickAndChooseSharedViewModel.class);
+                sharedViewModel.reset();
                 onBackPressed();
                 return true;
             default:

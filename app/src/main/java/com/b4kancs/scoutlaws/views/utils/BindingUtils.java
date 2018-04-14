@@ -16,8 +16,10 @@ import com.b4kancs.scoutlaws.data.model.ScoutLaw;
  * Created by hszilard on 22-Feb-18.
  */
 
-public class BindingUtils {
+public final class BindingUtils {
     private static final String PACKAGE_NAME = "com.b4kancs.scoutlaws";
+
+    private BindingUtils() {}
 
     /* Set the background color based on the scout law's number */
     @BindingAdapter("background_number")
