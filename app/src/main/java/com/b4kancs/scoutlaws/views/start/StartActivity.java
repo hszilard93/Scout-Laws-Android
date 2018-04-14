@@ -1,5 +1,6 @@
 package com.b4kancs.scoutlaws.views.start;
 
+import android.app.ActivityOptions;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -37,14 +38,13 @@ public class StartActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_start);
         viewModel = ViewModelProviders.of(this).get(StartActivityViewModel.class);
-
         setUpViews();
     }
 
     private void setUpViews() {
         setSupportActionBar((Toolbar) binding.toolbar);
 
-        ScoutLawListAdapter listAdapter = new ScoutLawListAdapter(viewModel.scoutLaws(), getApplicationContext());
+        ScoutLawListAdapter listAdapter = new ScoutLawListAdapter(viewModel.scoutLaws(), this);
         binding.lawsListView.setAdapter(listAdapter);
         binding.lawsListView.setOnItemClickListener(listAdapter);
         /* This empty view gives the last list item space for its shadow */
@@ -91,10 +91,10 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void openQuizActivity() {
-        Context context = this.getApplicationContext();
-        Intent intent = new Intent(context, QuizActivity.class);
+        Intent intent = new Intent(this, QuizActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        this.startActivity(intent);
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
     private ActionBarDrawerToggle setUpDrawerToggle() {

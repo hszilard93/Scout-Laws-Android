@@ -109,6 +109,8 @@ public class PickAndChooseViewModel extends ViewModel {
         firstTry = false;
         if (options.size() <= correctAnswers.size() * 3)
             helpUsedUp.set(true);     // you shouldn't use help too much
+
+        observableState.set(State.IN_PROGRESS);
     }
 
     /* Clear the item from userAnswers and add it back to options */
@@ -151,7 +153,7 @@ public class PickAndChooseViewModel extends ViewModel {
         if (firstTry)
             shared.incCorrectAtFirst();
 
-        observableState.set(State.DONE);
+        observableState.set(correct ? State.DONE : State.IN_PROGRESS);
         return correct;
     }
 

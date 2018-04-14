@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.FragmentChooserBinding;
+import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment;
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel;
 import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment;
+import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel;
 
 import java.util.Random;
 
@@ -26,6 +28,7 @@ import static com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFrag
  * Choose a quiz type.
  */
 public class ChooserFragment extends Fragment {
+    public static final String FRAGMENT_TAG = "CHOOSER_FRAGMENT";
     private static final String LOG_TAG = ChooserFragment.class.getSimpleName();
 
     private FragmentChooserBinding binding;
@@ -68,17 +71,22 @@ public class ChooserFragment extends Fragment {
         MultipleChoiceSharedViewModel multipleSharedViewModel = ViewModelProviders.of(getActivity())
                 .get(MultipleChoiceSharedViewModel.class);
         multipleSharedViewModel.reset();
+
         FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
-        transaction.addToBackStack(null);
+        transaction.addToBackStack(MultipleChoiceFragment.FRAGMENT_TAG);
         transaction.commit();
     }
 
     private void startPickAndChooseFragment() {
+        PickAndChooseSharedViewModel pickAndChooseSharedViewModel = ViewModelProviders.of(getActivity())
+                .get(PickAndChooseSharedViewModel.class);
+        pickAndChooseSharedViewModel.reset();
+
         PickAndChooseFragment fragment = new PickAndChooseFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
         transaction.replace(container.getId(), fragment);
-        transaction.addToBackStack(null);
+        transaction.addToBackStack(PickAndChooseFragment.FRAGMENT_TAG);
         transaction.commit();
     }
 

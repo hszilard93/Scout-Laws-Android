@@ -29,6 +29,7 @@ import com.nex3z.flowlayout.FlowLayout;
  * the correct options to their places.
  */
 public class PickAndChooseFragment extends Fragment {
+    public static final String FRAGMENT_TAG = "PICK_CHOOSE_FRAGMENT";
     private static final String LOG_TAG = PickAndChooseFragment.class.getSimpleName();
 
     private PickAndChooseSharedViewModel sharedViewModel;
@@ -36,7 +37,6 @@ public class PickAndChooseFragment extends Fragment {
     private FragmentPickBinding binding;
     private ViewGroup container;
     private FlowLayout questionFlow;
-    private FlowLayout optionsFlow;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +50,6 @@ public class PickAndChooseFragment extends Fragment {
         binding.setSharedViewModel(sharedViewModel);
         binding.setViewModel(viewModel);
         questionFlow = binding.included.questionFlowLayout;
-        optionsFlow = binding.included.optionsFlowLayout;
 
         setUpViews();
 
@@ -177,13 +176,13 @@ public class PickAndChooseFragment extends Fragment {
         /* What happens when the retry button is clicked */
         resultDialog.setOnRetryClicked(event -> {
             Log.d(LOG_TAG, "ResultDialog Retry callback executing..");
+            sharedViewModel.reset();
             resultDialog.dismiss();
             FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
             transaction.commit();
         });
         resultDialog.setScore(sharedViewModel.getScore());
         resultDialog.show(getFragmentManager(), "finishDialog");
-        sharedViewModel.reset();
     }
 
     /* CommonUtils transaction. Go to the next question. */

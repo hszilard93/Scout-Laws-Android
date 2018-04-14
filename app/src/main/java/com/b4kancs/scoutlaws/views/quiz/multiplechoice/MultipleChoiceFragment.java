@@ -28,6 +28,7 @@ import com.b4kancs.scoutlaws.views.quiz.ResultDialogFragment;
  */
 
 public class MultipleChoiceFragment extends Fragment {
+    public static final String FRAGMENT_TAG = "MULTIPLE_FRAGMENT";
     private static final String LOG_TAG = MultipleChoiceFragment.class.getSimpleName();
 
     private MultipleChoiceSharedViewModel sharedViewModel;

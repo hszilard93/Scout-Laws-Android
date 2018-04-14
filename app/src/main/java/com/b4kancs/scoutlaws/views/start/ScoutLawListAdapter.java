@@ -1,5 +1,6 @@
 package com.b4kancs.scoutlaws.views.start;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -29,7 +30,7 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
     private Context context;
     private ArrayList<ScoutLaw> scoutLaws;
 
-    public ScoutLawListAdapter(@NonNull ArrayList<ScoutLaw> scoutLaws, Context context) {
+    ScoutLawListAdapter(@NonNull ArrayList<ScoutLaw> scoutLaws, Context context) {
         super(context, R.layout.list_item_law, scoutLaws);
         this.scoutLaws = scoutLaws;
         this.context = context;
@@ -55,5 +56,6 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
         intent.putExtra(DetailsActivity.SCOUT_LAW_INDEX_KEY, position);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 }

@@ -38,7 +38,7 @@ public class MultipleChoiceViewModel extends ViewModel {
         startTurn();
     }
 
-    void startTurn() {
+    private void startTurn() {
         Log.d(LOG_TAG, "New multiple choice turn started.");
         shared.incTurnCount();
 

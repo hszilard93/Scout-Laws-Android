@@ -1,6 +1,7 @@
 package com.b4kancs.scoutlaws.views.details;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityDetailsBinding;
+import com.b4kancs.scoutlaws.views.start.StartActivity;
 
 /**
  * Created by hszilard on 21-Feb-18.
@@ -65,7 +67,11 @@ public class DetailsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Log.d(LOG_TAG, "Back navigation button pressed.");
-                onBackPressed();
+
+                Intent intent = new Intent(this, StartActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.startActivity(intent);
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
                 return true;
             case R.id.contemporaryDesc_menuItem:
                 Log.d(LOG_TAG, "Contemporary MenuItem selected.");

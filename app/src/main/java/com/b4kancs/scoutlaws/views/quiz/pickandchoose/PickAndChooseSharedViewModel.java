@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class PickAndChooseSharedViewModel extends AbstractSharedViewModel {
     private final ArrayList<PickAndChooseScoutLaw> pickChooseScoutLaws;
 
-    PickAndChooseSharedViewModel() {
+    public PickAndChooseSharedViewModel() {
         pickChooseScoutLaws = repository.getPickAndChooseLaws();
     }
 

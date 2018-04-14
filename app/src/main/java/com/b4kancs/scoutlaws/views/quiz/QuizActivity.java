@@ -1,11 +1,13 @@
 package com.b4kancs.scoutlaws.views.quiz;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.os.PersistableBundle;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,7 +16,14 @@ import android.view.MenuItem;
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityQuizBinding;
 import com.b4kancs.scoutlaws.views.quiz.chooser.ChooserFragment;
+import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment;
+import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel;
+import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceViewModel;
+import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment;
 import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel;
+import com.b4kancs.scoutlaws.views.start.StartActivity;
+
+import java.util.List;
 
 /**
  * Created by hszilard on 25-Feb-18.
@@ -33,7 +42,7 @@ public class QuizActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new ChooserFragment())
+                    .add(R.id.fragment_container, new ChooserFragment(), ChooserFragment.FRAGMENT_TAG)
                     .commit();
         }
 
@@ -51,20 +60,41 @@ public class QuizActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Log.d(LOG_TAG, "Back navigation button pressed.");
-                PickAndChooseSharedViewModel sharedViewModel = ViewModelProviders
-                        .of(this)
-                        .get(PickAndChooseSharedViewModel.class);
-                sharedViewModel.reset();
-                onBackPressed();
+
+                if (getSupportFragmentManager().getBackStackEntryCount() == 0)
+                    goToStartActivity();
+                else {
+                    List<Fragment> fragments = getSupportFragmentManager().getFragments();
+                    Fragment sourceFragment = fragments.get(fragments.size() - 1);
+                    Fragment chooserFragment = new ChooserFragment();
+
+                    if (sourceFragment instanceof ChooserFragment) {
+                        goToStartActivity();
+                        return true;
+                    }
+
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+                    transaction.replace(binding.fragmentContainer.getId(), chooserFragment);
+                    transaction.commit();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void goToStartActivity() {
+        Intent intent = new Intent(this, StartActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(intent);
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
         getSupportFragmentManager().getFragments();
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 }

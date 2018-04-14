@@ -14,7 +14,7 @@ public class ScoutLawApp extends Application {
 
     protected ApplicationComponent applicationComponent;
 
-    protected ScoutLawApp() {
+    public ScoutLawApp() {
         instance = this;
     }
 
