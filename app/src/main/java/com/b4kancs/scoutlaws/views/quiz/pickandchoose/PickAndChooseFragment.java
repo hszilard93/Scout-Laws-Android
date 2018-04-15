@@ -19,9 +19,11 @@ import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.FragmentPickBinding;
 import com.b4kancs.scoutlaws.databinding.TextViewPickChooseFillBinding;
 import com.b4kancs.scoutlaws.databinding.TextViewPickChooseWordBinding;
-import com.b4kancs.scoutlaws.views.quiz.ResultDialogFragment;
 import com.b4kancs.scoutlaws.views.utils.CommonUtils;
 import com.nex3z.flowlayout.FlowLayout;
+
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
 
 /**
  * Created by hszilard on 3-March-18.
@@ -152,7 +154,8 @@ public class PickAndChooseFragment extends Fragment {
 
     private View.OnClickListener finishButtonOnClickListener = view -> {
         Log.d(LOG_TAG, "Forward button clicked.");
-        transitionToFinishDialog();
+        // Show the results
+        showResultDialogFragment(container, getActivity(), getFragmentManager(), new PickAndChooseFragment(), sharedViewModel);
     };
 
     private TextView makeQuestionWordView(String word, ViewGroup parent) {
@@ -165,24 +168,8 @@ public class PickAndChooseFragment extends Fragment {
 
     private void transitionToNextQuestion() {
         binding.unbind();
-        FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
+        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new PickAndChooseFragment());
         transaction.commit();
-    }
-
-    /* Show the results. */
-    private void transitionToFinishDialog() {
-        ResultDialogFragment resultDialog = new ResultDialogFragment();
-        resultDialog.setCancelable(false);
-        /* What happens when the retry button is clicked */
-        resultDialog.setOnRetryClicked(event -> {
-            Log.d(LOG_TAG, "ResultDialog Retry callback executing..");
-            sharedViewModel.reset();
-            resultDialog.dismiss();
-            FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
-            transaction.commit();
-        });
-        resultDialog.setScore(sharedViewModel.getScore());
-        resultDialog.show(getFragmentManager(), "finishDialog");
     }
 
     /* CommonUtils transaction. Go to the next question. */

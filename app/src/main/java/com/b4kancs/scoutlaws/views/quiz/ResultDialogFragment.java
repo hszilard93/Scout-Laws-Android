@@ -26,6 +26,7 @@ public class ResultDialogFragment extends DialogFragment {
 
     private DialogResultMultipleBinding binding;
     private View.OnClickListener onRetryClicked;    // since DialogFragment is not a 'real' fragment, these have to be method-injected
+    private View.OnClickListener onBackClicked;     //
     private int score;                              //
 
     @Override
@@ -47,19 +48,17 @@ public class ResultDialogFragment extends DialogFragment {
 
     private void setUpViews() {
         binding.setScore(score);
-        binding.backButton.setOnClickListener(backButtonClickedListener);
+
+        if (onBackClicked != null)
+            binding.backButton.setOnClickListener(onBackClicked);
+        else
+            binding.backButton.setEnabled(false);
+
         if (onRetryClicked != null)
             binding.retryButton.setOnClickListener(onRetryClicked);
         else
             binding.retryButton.setEnabled(false);
     }
-
-    private View.OnClickListener backButtonClickedListener = (button) -> {
-        Log.d(LOG_TAG, "Back button clicked.");
-
-        getFragmentManager().popBackStack();
-        dismiss();
-    };
 
     /* Please, no rotation, I beg thee!!! */
     @Override public void onResume() {
@@ -81,5 +80,9 @@ public class ResultDialogFragment extends DialogFragment {
 
     public void setOnRetryClicked(View.OnClickListener onRetryClickedListener) {
         this.onRetryClicked = onRetryClickedListener;
+    }
+
+    public void setOnBackClicked(View.OnClickListener onBackClicked) {
+        this.onBackClicked = onBackClicked;
     }
 }

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +19,9 @@ import android.widget.Toast;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.FragmentMultipleBinding;
-import com.b4kancs.scoutlaws.views.quiz.ResultDialogFragment;
+
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
 
 /**
  * Created by hszilard on 26-Feb-18.
@@ -101,34 +102,8 @@ public class MultipleChoiceFragment extends Fragment {
 
     private void transitionToNextQuestion() {
         binding.unbind();
-        FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
+        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new MultipleChoiceFragment());
         transaction.commit();
-    }
-
-    /* CommonUtils transaction. Go to the next question. */
-    public static FragmentTransaction getMultipleChoiceFragmentTransaction(@NonNull ViewGroup container,
-                                                                           FragmentManager manager) {
-        MultipleChoiceFragment newFragment = new MultipleChoiceFragment();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-        transaction.replace(container.getId(), newFragment);
-        return transaction;
-    }
-
-    /* Show the results. */
-    private void transitionToFinishDialog() {
-        ResultDialogFragment resultDialog = new ResultDialogFragment();
-        resultDialog.setCancelable(false);
-        /* What happens when the retry button is clicked */
-        resultDialog.setOnRetryClicked(event -> {
-            Log.d(LOG_TAG, "ResultDialog retry callback executing..");
-            sharedViewModel.reset();
-            resultDialog.dismiss();
-            FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
-            transaction.commit();
-        });
-        resultDialog.setScore(sharedViewModel.getScore());
-        resultDialog.show(getFragmentManager(), "finishDialog");
     }
 
     private View.OnClickListener nextButtonClickedListener = (button) -> {
@@ -138,7 +113,8 @@ public class MultipleChoiceFragment extends Fragment {
 
     private View.OnClickListener finishButtonOnClickedListener = (button) -> {
         Log.d(LOG_TAG, "Finish button clicked.");
-        transitionToFinishDialog();
+        // Show the results
+        showResultDialogFragment(container, getActivity(), getFragmentManager(), new MultipleChoiceFragment(), sharedViewModel);
     };
 
     /* Let's clean up some */

@@ -21,7 +21,7 @@ import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewMod
 
 import java.util.Random;
 
-import static com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment.getMultipleChoiceFragmentTransaction;
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
 
 /**
  * Created by hszilard on 25-Feb-18.
@@ -72,7 +72,7 @@ public class ChooserFragment extends Fragment {
                 .get(MultipleChoiceSharedViewModel.class);
         multipleSharedViewModel.reset();
 
-        FragmentTransaction transaction = getMultipleChoiceFragmentTransaction(container, getFragmentManager());
+        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new MultipleChoiceFragment());
         transaction.addToBackStack(MultipleChoiceFragment.FRAGMENT_TAG);
         transaction.commit();
     }
@@ -82,10 +82,7 @@ public class ChooserFragment extends Fragment {
                 .get(PickAndChooseSharedViewModel.class);
         pickAndChooseSharedViewModel.reset();
 
-        PickAndChooseFragment fragment = new PickAndChooseFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-        transaction.replace(container.getId(), fragment);
+        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new PickAndChooseFragment());
         transaction.addToBackStack(PickAndChooseFragment.FRAGMENT_TAG);
         transaction.commit();
     }

@@ -56,6 +56,6 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
         intent.putExtra(DetailsActivity.SCOUT_LAW_INDEX_KEY, position);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-        ((Activity)context).overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+        ((Activity) context).overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 }

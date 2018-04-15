@@ -25,9 +25,10 @@ public class DetailsActivityViewModel extends ViewModel {
 
     DetailsActivityViewModel(int index) {
         this.index = index;
+        init();
     }
 
-    protected void init() {
+    private void init() {
         ScoutLawApp.getInstance().getApplicationComponent().inject(this);
         this.scoutLaw = repository.getLaws().get(index - 1);
         modern.set(true);
