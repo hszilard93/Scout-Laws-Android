@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
@@ -24,7 +25,6 @@ import com.b4kancs.scoutlaws.databinding.ActivityDetailsBinding;
 /**
  * Created by hszilard on 21-Feb-18.
  */
-
 public class DetailsActivity extends AppCompatActivity {
     public static final String SCOUT_LAW_INDEX_KEY = "INDEX";
     private static final String LOG_TAG = DetailsActivity.class.getSimpleName();
@@ -70,7 +70,8 @@ public class DetailsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Log.d(LOG_TAG, "Back navigation button pressed.");
-                return navigateUp();
+                onBackPressed();
+                return true;
             case R.id.contemporaryDesc_menuItem:
                 Log.d(LOG_TAG, "Contemporary MenuItem selected.");
                 viewModel.setModern(true);
@@ -84,15 +85,12 @@ public class DetailsActivity extends AppCompatActivity {
         }
     }
 
-    private boolean navigateUp() {
-        NavUtils.navigateUpFromSameTask(this);
-        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
-        return true;
-    }
-
     @Override
     public void onBackPressed() {
-        navigateUp();
+        super.onBackPressed();
+        binding.numberTextView.setVisibility(View.GONE);
+        binding.descTextView.setVisibility(View.GONE);
+        binding.sourceTextView.setVisibility(View.GONE);
     }
 
     /* Set the scoutlaw's description based on a flag */

@@ -16,9 +16,12 @@
         app:cardCornerRadius="0dp">
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/listItemConstraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="64dp"
+            android:transitionName="@string/start_to_details_background_transition"
+            android:animateLayoutChanges="true"
             app:background_number='@{scoutLaw.number}'>
 
             <TextView
@@ -45,6 +48,7 @@
                 android:gravity="center_vertical"
                 android:text="@{scoutLaw.text}"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                android:transitionName="@string/start_details_law_transition"
                 app:textColor_number="@{scoutLaw.number}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

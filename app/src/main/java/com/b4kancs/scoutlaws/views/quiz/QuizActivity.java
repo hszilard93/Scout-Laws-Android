@@ -21,7 +21,6 @@ import java.util.List;
  * Created by hszilard on 25-Feb-18.
  * This activity contains all the Quiz related fragments.
  */
-
 public class QuizActivity extends AppCompatActivity {
     private static final String LOG_TAG = QuizActivity.class.getSimpleName();
 

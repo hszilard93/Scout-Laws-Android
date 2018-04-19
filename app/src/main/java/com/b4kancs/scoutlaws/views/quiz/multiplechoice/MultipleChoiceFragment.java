@@ -27,7 +27,6 @@ import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogF
  * Created by hszilard on 26-Feb-18.
  * This fragment presents a single multiple choice question and its possible answers.
  */
-
 public class MultipleChoiceFragment extends Fragment {
     public static final String FRAGMENT_TAG = "MULTIPLE_FRAGMENT";
     private static final String LOG_TAG = MultipleChoiceFragment.class.getSimpleName();

@@ -20,12 +20,14 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:transitionName="@string/start_to_details_background_transition"
             app:background_number="@{scoutLaw.number}">
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/details_constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 app:layout_constraintHorizontal_chainStyle= "spread_inside">
 
                 <TextView
@@ -36,14 +38,31 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text='@{String.valueOf(scoutLaw.number).concat(". cserkésztörvény")}'
+                    android:textAlignment="center"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/desc_textView"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:textColor_number="@{scoutLaw.number}"
                     tools:text="2. cserkésztörvény" />
+
+                <TextView
+                    android:id="@+id/law_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{scoutLaw.text}"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                    android:transitionName="@string/start_details_law_transition"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/number_textView"
+                    app:textColor_number="@{scoutLaw.number}"
+                    tools:text="A cserkész egyeneslelkű és feltétlenül igazat mond." />
 
                 <TextView
                     android:id="@+id/desc_textView"
@@ -56,8 +75,7 @@
                     android:textAppearance="@android:style/TextAppearance.Material.Medium"
                     app:descText_scoutLaw="@{scoutLaw}"
                     app:descText_isModern="@{isModern}"
-                    app:layout_constraintTop_toBottomOf="@id/number_textView"
-                    app:layout_constraintBottom_toTopOf="@id/source_textView"
+                    app:layout_constraintTop_toBottomOf="@id/law_textView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:textColor_number="@{scoutLaw.number}"
@@ -67,6 +85,7 @@
                     android:id="@+id/source_textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginStart="32dp"
@@ -75,7 +94,6 @@
                     android:textStyle="italic"
                     app:descSourceText_isModern="@{isModern}"
                     app:textColor_number="@{scoutLaw.number}"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/desc_textView"
