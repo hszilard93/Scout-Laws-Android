@@ -31,10 +31,10 @@ public class PickAndChooseViewModel extends ViewModel {
     private final TreeMap<Integer, ObservableField<String>> userAnswers = new TreeMap<>();
     private final ObservableArrayList<String> options = new ObservableArrayList<>();
 
-    private PickAndChooseSharedViewModel shared;
+    private final PickAndChooseSharedViewModel shared;
     private PickAndChooseScoutLaw scoutLaw;
     private ArrayList<String> questionItems;
-    private ArrayList<String> correctAnswers = new ArrayList<>();
+    private final ArrayList<String> correctAnswers = new ArrayList<>();
     private boolean firstTry = true;
 
     PickAndChooseViewModel(PickAndChooseSharedViewModel shared) {

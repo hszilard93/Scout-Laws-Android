@@ -1,5 +1,6 @@
 package com.b4kancs.scoutlaws.views.quiz.pickandchoose;
 
+import android.animation.LayoutTransition;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -67,6 +68,9 @@ public class PickAndChooseFragment extends Fragment {
         binding.included.giveUpButton.setOnClickListener(giveUpButtonListener);
         binding.included.forwardButton.setOnClickListener(forwardButtonOnClickListener);
         binding.included.finishButton.setOnClickListener(finishButtonOnClickListener);
+        // This line makes the layout animate not only visibility or view addition/removal changes
+        // but other changes to its children too. We need it for width-change animations
+        binding.included.questionFlowLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
     }
 
     /* I tried moving the entire questionFlow-setup into a @BindingAdapter, but experienced big performance hit */
@@ -162,8 +166,8 @@ public class PickAndChooseFragment extends Fragment {
         TextViewPickChooseWordBinding wordBinding = DataBindingUtil
                 .inflate(getLayoutInflater(), R.layout.text_view_pick_choose_word, parent, false);
         wordBinding.setNumber(viewModel.getScoutLaw().law.number);
-        wordBinding.questionWord.setText(word);
-        return wordBinding.questionWord;
+        wordBinding.wordTextView.setText(word);
+        return wordBinding.wordTextView;
     }
 
     private void transitionToNextQuestion() {
@@ -182,8 +186,4 @@ public class PickAndChooseFragment extends Fragment {
         return transaction;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Scout Laws</string>
 
-    <string name="source_modern"></string>
+    <string name="source_modern" />
     <string name="source_orig">A cserkésztörvények eredeti magyarázatának fordítása Bi-Pi Young Knights of the Empire: Their Code, and Further Scout Yarns című könyvéből.</string>
     <string name="action_menu">Show Menu</string>
     <string name="action_more">Show More</string>

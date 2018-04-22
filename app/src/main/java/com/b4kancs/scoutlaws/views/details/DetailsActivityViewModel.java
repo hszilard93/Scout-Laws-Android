@@ -1,10 +1,8 @@
 package com.b4kancs.scoutlaws.views.details;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.ViewModel;
-import android.databinding.ObservableBoolean;
-import android.support.annotation.NonNull;
+import android.databinding.ObservableField;
+import android.util.Log;
 
 import com.b4kancs.scoutlaws.ScoutLawApp;
 import com.b4kancs.scoutlaws.data.Repository;
@@ -15,11 +13,14 @@ import javax.inject.Inject;
 /**
  * Created by hszilard on 21-Feb-18.
  */
-
 public class DetailsActivityViewModel extends ViewModel {
+    private static final String LOG_TAG = DetailsActivityViewModel.class.getSimpleName();
+
+    public enum State {MODERN, OLD}
+
     @Inject protected Repository repository;
     /* This flag helps us retain state after config changes */
-    private final ObservableBoolean modern = new ObservableBoolean();
+    private final ObservableField<State> observableState = new ObservableField<>();
     private final int index;
     private ScoutLaw scoutLaw;
 
@@ -29,20 +30,22 @@ public class DetailsActivityViewModel extends ViewModel {
     }
 
     private void init() {
+        Log.d(LOG_TAG, "Initiating.");
         ScoutLawApp.getInstance().getApplicationComponent().inject(this);
         this.scoutLaw = repository.getLaws().get(index - 1);
-        modern.set(true);
+        observableState.set(State.MODERN);
     }
 
     public ScoutLaw scoutLaw() {
         return scoutLaw;
     }
 
-    public ObservableBoolean isModern() {
-        return modern;
+    public ObservableField<State> observableState() {
+        return observableState;
     }
 
-    public void setModern(boolean modern) {
-        this.modern.set(modern);
+    public void setState(State state) {
+        Log.d(LOG_TAG, "Setting observableState to: " + state);
+        observableState.set(state);
     }
 }

@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
 import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
@@ -43,12 +41,8 @@ public final class PickAndChooseBindings {
             view.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             targetWidth = view.getMeasuredWidth();
         }
-        MyAnimator animator = new MyAnimator(view, targetWidth, MyAnimator.Type.WIDTH, 150);
-        view.startAnimation(animator);
-    }
-
-    private static void resizeViewWithAnimation(View view, int targetWidth) {
-
+        view.getLayoutParams().width = targetWidth;
+        view.requestLayout();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -81,7 +75,7 @@ public final class PickAndChooseBindings {
     private static class OptionTouchListener implements View.OnTouchListener {
         ArrayList<String> options;
 
-        public OptionTouchListener(ArrayList<String> options) {
+        OptionTouchListener(ArrayList<String> options) {
             this.options = options;
         }
 
@@ -105,43 +99,4 @@ public final class PickAndChooseBindings {
             return true;
         }
     }
-
-    /* Riley MacDonald's solution from https://rileymacdonald.ca/2015/01/15/android-animating-views-using-width-or-height/. Thanks Riley! */
-    static class MyAnimator extends Animation {
-        enum Type {WIDTH, HEIGHT}
-
-        private final int fromDimension;
-        private int toDimension;
-        private Type type;
-        private View targetView;
-
-        public MyAnimator(View view, int toDimension, Type type, long duration) {
-            this.targetView = view;
-            this.fromDimension = type == Type.WIDTH ? view.getLayoutParams().width : view.getLayoutParams().height;
-            this.toDimension = toDimension;
-            this.type = type;
-
-            this.setDuration(duration);
-        }
-
-        @Override
-        public void applyTransformation(float interpolatedTime, Transformation t) {
-            // Used to apply the animation to the targetView
-            final int curPos = fromDimension + (int) ((toDimension - fromDimension) * interpolatedTime);
-
-            // Animate given the height or width
-            switch (type) {
-                case WIDTH:
-                    targetView.getLayoutParams().width = curPos;
-                    break;
-                case HEIGHT:
-                    targetView.getLayoutParams().height = curPos;
-                    break;
-            }
-
-            // Ensure the targetView is measured appropriately
-            targetView.requestLayout();
-        }
-    }
-
 }

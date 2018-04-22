@@ -2,25 +2,28 @@ package com.b4kancs.scoutlaws.views.details;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
-import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 import com.b4kancs.scoutlaws.databinding.ActivityDetailsBinding;
+
+import static com.b4kancs.scoutlaws.views.details.DetailsActivityViewModel.*;
 
 /**
  * Created by hszilard on 21-Feb-18.
@@ -55,7 +58,7 @@ public class DetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         binding.setScoutLaw(viewModel.scoutLaw());
-        binding.setIsModern(viewModel.isModern());
+        binding.setState(viewModel.observableState());
     }
 
     @Override
@@ -74,11 +77,11 @@ public class DetailsActivity extends AppCompatActivity {
                 return true;
             case R.id.contemporaryDesc_menuItem:
                 Log.d(LOG_TAG, "Contemporary MenuItem selected.");
-                viewModel.setModern(true);
+                viewModel.setState(State.MODERN);
                 return true;
             case R.id.originalDesc_menuItem:
                 Log.d(LOG_TAG, "Original MenuItem selected.");
-                viewModel.setModern(false);
+                viewModel.setState(State.OLD);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -88,22 +91,30 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        // This makes the shared element transition less cluttered
         binding.numberTextView.setVisibility(View.GONE);
-        binding.descTextView.setVisibility(View.GONE);
+        binding.modernTextView.setVisibility(View.GONE);
+        binding.oldTextView.setVisibility(View.GONE);
         binding.sourceTextView.setVisibility(View.GONE);
     }
 
-    /* Set the scoutlaw's description based on a flag */
-    @BindingAdapter({"descText_scoutLaw", "descText_isModern"})
-    public static void setScoutLawDesc(@NonNull TextView textView, ScoutLaw scoutLaw, boolean isModern) {
-        textView.setText(isModern ? scoutLaw.description : scoutLaw.originalDescription);
+    /* Must manually set up transitions because the default ones are inconsistent */
+    @BindingAdapter("state_binding")
+    public static void stateBindingAdapter(@NonNull ViewGroup layout, State state) {
+        ActivityDetailsBinding binding = DataBindingUtil.findBinding(layout);
+        TextView modern = binding.modernTextView;
+        LinearLayout oldLayout = binding.oldLinearLayout;
 
-    }
-
-    /* Set the description source based on a flag */
-    @BindingAdapter("descSourceText_isModern")
-    public static void setDescriptionSource(@NonNull TextView textView, boolean isModern) {
-        Resources resources = textView.getResources();
-        textView.setText(isModern ? resources.getString(R.string.source_modern) : resources.getString(R.string.source_orig));
+        TransitionManager.beginDelayedTransition(layout, new Slide());
+        if (modern.getVisibility() == View.VISIBLE && state == State.OLD) {
+            // change out TextViews
+            modern.setVisibility(View.GONE);
+            oldLayout.setVisibility(View.VISIBLE);
+        }
+        else if (oldLayout.getVisibility() == View.VISIBLE && state == State.MODERN) {
+            // change out TextViews
+            modern.setVisibility(View.VISIBLE);
+            oldLayout.setVisibility(View.GONE);
+        }
     }
 }

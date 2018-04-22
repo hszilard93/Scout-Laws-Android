@@ -1,7 +1,6 @@
 package com.b4kancs.scoutlaws.views.quiz.multiplechoice;
 
 import android.arch.lifecycle.ViewModel;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.util.Log;
 
@@ -29,7 +28,7 @@ public class MultipleChoiceViewModel extends ViewModel {
     private final MultipleChoiceSharedViewModel shared;
     private final ArrayList<ScoutLaw> scoutLaws;
     private ScoutLaw answer;
-    private ArrayList<ScoutLaw> options = new ArrayList<>(NUMBER_OF_OPTIONS);
+    private final ArrayList<ScoutLaw> options = new ArrayList<>(NUMBER_OF_OPTIONS);
     private int tries = 0;
 
     MultipleChoiceViewModel(MultipleChoiceSharedViewModel shared) {

@@ -2,7 +2,6 @@ package com.b4kancs.scoutlaws.views.start;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
@@ -26,16 +25,16 @@ import java.util.ArrayList;
 /**
  * Created by hszilard on 15-Feb-18.
  */
-public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements AdapterView.OnItemClickListener {
+class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements AdapterView.OnItemClickListener {
     private static final String LOG_TAG = ScoutLawListAdapter.class.getSimpleName();
 
-    private Context context;
+    private Activity activity;
     private ArrayList<ScoutLaw> scoutLaws;
 
-    ScoutLawListAdapter(@NonNull ArrayList<ScoutLaw> scoutLaws, Context context) {
-        super(context, R.layout.list_item_law, scoutLaws);
+    ScoutLawListAdapter(@NonNull ArrayList<ScoutLaw> scoutLaws, Activity activity) {
+        super(activity, R.layout.list_item_law, scoutLaws);
         this.scoutLaws = scoutLaws;
-        this.context = context;
+        this.activity = activity;
     }
 
     @NonNull
@@ -54,17 +53,17 @@ public class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements Adapt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d(LOG_TAG, "List item clicked.");
 
-        Intent intent = new Intent(context, DetailsActivity.class);
+        Intent intent = new Intent(activity, DetailsActivity.class);
         intent.putExtra(DetailsActivity.SCOUT_LAW_INDEX_KEY, position);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // Set up shared element transition
         ListItemLawBinding binding = DataBindingUtil.bind(view);
         TextView textView = binding.mainTextView;
-        ViewGroup layout = binding.listItemConstraint;
+        ViewGroup layout = binding.listItemConstraintLayout;
         Pair<View, String> pair1 = Pair.create(textView, textView.getTransitionName());
         Pair<View, String> pair2 = Pair.create(layout, layout.getTransitionName());
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, pair1, pair2);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, pair1, pair2);
 
-        context.startActivity(intent, options.toBundle());
+        activity.startActivity(intent, options.toBundle());
     }
 }

@@ -8,6 +8,7 @@
     </data>
 
     <TextView
+        android:id="@+id/fill_textView"
         android:layout_width="96dp"
         android:layout_height="27dp"
         android:animateLayoutChanges="true"

@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="scoutLaw" type="com.b4kancs.scoutlaws.data.model.ScoutLaw" />
-        <variable name="isModern" type="android.databinding.ObservableBoolean" />
+        <import type="android.view.View" />
+        <import type="com.b4kancs.scoutlaws.views.details.DetailsActivityViewModel.State" />
+        <variable
+            name="scoutLaw"
+            type="com.b4kancs.scoutlaws.data.model.ScoutLaw" />
+        <variable
+            name="state"
+            type="android.databinding.ObservableField&lt;State&gt;" />
     </data>
 
     <LinearLayout
@@ -27,8 +33,7 @@
                 android:id="@+id/details_constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:animateLayoutChanges="true"
-                app:layout_constraintHorizontal_chainStyle= "spread_inside">
+                app:state_binding="@{state}">
 
                 <TextView
                     android:id="@+id/number_textView"
@@ -65,39 +70,60 @@
                     tools:text="A cserkész egyeneslelkű és feltétlenül igazat mond." />
 
                 <TextView
-                    android:id="@+id/desc_textView"
+                    android:id="@+id/modern_textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:text="@{scoutLaw.description}"
                     android:textAppearance="@android:style/TextAppearance.Material.Medium"
-                    app:descText_scoutLaw="@{scoutLaw}"
-                    app:descText_isModern="@{isModern}"
-                    app:layout_constraintTop_toBottomOf="@id/law_textView"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/law_textView"
                     app:textColor_number="@{scoutLaw.number}"
-                    tools:text="@string/law_2_desc_orig" />
+                    tools:text="@string/law_2_desc" />
 
-                <TextView
-                    android:id="@+id/source_textView"
+                <LinearLayout
+                    android:id="@+id/old_linearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginStart="32dp"
-                    android:textAlignment="textEnd"
-                    android:textSize="12sp"
-                    android:textStyle="italic"
-                    app:descSourceText_isModern="@{isModern}"
-                    app:textColor_number="@{scoutLaw.number}"
+                    android:orientation="vertical"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/desc_textView"
-                    tools:text="@string/original"/>
+                    app:layout_constraintTop_toBottomOf="@id/law_textView">
+
+                    <TextView
+                        android:id="@+id/old_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@{scoutLaw.originalDescription}"
+                        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                        app:textColor_number="@{scoutLaw.number}"
+                        tools:text="@string/law_2_desc_orig" />
+
+                    <TextView
+                        android:id="@+id/source_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/source_orig"
+                        android:textAlignment="textEnd"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        app:textColor_number="@{scoutLaw.number}"
+                        tools:text="@string/original" />
+                </LinearLayout>
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
     </LinearLayout>

@@ -1,20 +1,21 @@
 package com.b4kancs.scoutlaws.views.quiz;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.DialogResultMultipleBinding;
-import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel;
 
 /**
  * Created by hszilard on 02-Mar-18.
@@ -25,7 +26,7 @@ public class ResultDialogFragment extends DialogFragment {
     private static final String LOG_TAG = ResultDialogFragment.class.getSimpleName();
 
     private DialogResultMultipleBinding binding;
-    private View.OnClickListener onRetryClicked;    // since DialogFragment is not a 'real' fragment, these have to be method-injected
+    private View.OnClickListener onRetryClicked;    // since DialogFragment is not a 'real' fragment, these have to be injected in setter methods
     private View.OnClickListener onBackClicked;     //
     private int score;                              //
 
@@ -84,5 +85,23 @@ public class ResultDialogFragment extends DialogFragment {
 
     public void setOnBackClicked(View.OnClickListener onBackClicked) {
         this.onBackClicked = onBackClicked;
+    }
+
+    @BindingAdapter({"starImageSource_order", "starImageSource_score"})
+    public static void setStarImageSourceBinding(@NonNull ImageView imageView, int order, int score) {
+        imageView.setImageResource(order <= score ? R.drawable.ic_star_full_48dp : R.drawable.ic_star_border_48dp);
+    }
+
+    @BindingAdapter("congratsCustomText_score")
+    public static void setCongratsTextBinding(@NonNull TextView textView, int score) {
+        Resources resources = textView.getResources();
+        if (score <= 1)
+            textView.setText(resources.getString(R.string.congrats_low_score));
+        else if (score <= 3)
+            textView.setText(resources.getString(R.string.congrats_mid_score));
+        else if (score <= 4)
+            textView.setText(resources.getString(R.string.congrats_good_score));
+        else
+            textView.setText(resources.getString(R.string.congrats_perfect_score));
     }
 }

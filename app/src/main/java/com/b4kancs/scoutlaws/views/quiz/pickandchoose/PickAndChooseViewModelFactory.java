@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
  * Created by hszilard on 21-Mar-18.
  */
 
-public class PickAndChooseViewModelFactory implements ViewModelProvider.Factory {
+class PickAndChooseViewModelFactory implements ViewModelProvider.Factory {
     private final PickAndChooseSharedViewModel sharedViewModel;
 
     PickAndChooseViewModelFactory(PickAndChooseSharedViewModel sharedViewModel) {

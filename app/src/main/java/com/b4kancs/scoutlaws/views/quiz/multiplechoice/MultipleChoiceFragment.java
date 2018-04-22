@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.b4kancs.scoutlaws.R;
@@ -144,5 +145,13 @@ public class MultipleChoiceFragment extends Fragment {
             button.setCompoundDrawablesWithIntrinsicBounds(
                     null, null, resources.getDrawable(R.drawable.ic_keyboard_arrow_right_grey_24dp), null);
         }
+    }
+
+    /* Set the text of a Multiple choice question (e.g. "Which is the 1st law of scouts?") */
+    @BindingAdapter("multipleQuestionText_number")
+    public static void setMultipleQuestionText(@NonNull TextView textView, int i) {
+        Resources resources = textView.getResources();
+        String questionText = String.format(resources.getString(R.string.multiple_quiz_question), i);
+        textView.setText(questionText);
     }
 }

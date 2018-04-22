@@ -1,6 +1,5 @@
 package com.b4kancs.scoutlaws.views.details;
 
-import android.app.Application;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
@@ -10,7 +9,7 @@ import android.support.annotation.NonNull;
  * A ViewModelFactory is needed to initialize a ViewModel with parameters.
  */
 
-public class DetailsActivityViewModelFactory implements ViewModelProvider.Factory {
+class DetailsActivityViewModelFactory implements ViewModelProvider.Factory {
     private final int index;
 
     DetailsActivityViewModelFactory(int index) {

@@ -1,8 +1,6 @@
 package com.b4kancs.scoutlaws.views.start;
 
-import android.app.ActivityOptions;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
@@ -12,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Transition;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -27,7 +24,7 @@ import com.b4kancs.scoutlaws.views.quiz.QuizActivity;
  */
 
 public class StartActivity extends AppCompatActivity {
-    public static final String LOG_TAG = StartActivity.class.getSimpleName();
+    private static final String LOG_TAG = StartActivity.class.getSimpleName();
 
     private ActivityStartBinding binding;
     private StartActivityViewModel viewModel;
@@ -56,7 +53,7 @@ public class StartActivity extends AppCompatActivity {
 
         drawerToggle = setUpDrawerToggle();
         setUpDrawerContent();
-        NavigationView navigationView = binding.nvView;
+        NavigationView navigationView = binding.navigationView;
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.quiz_menuItem:
@@ -104,7 +101,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void setUpDrawerContent() {
-        binding.nvView.setNavigationItemSelectedListener(item -> {
+        binding.navigationView.setNavigationItemSelectedListener(item -> {
             selectDrawerItem(item);
             return true;
         });

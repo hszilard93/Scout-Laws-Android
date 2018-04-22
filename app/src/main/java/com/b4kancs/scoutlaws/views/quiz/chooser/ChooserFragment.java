@@ -49,7 +49,7 @@ public class ChooserFragment extends Fragment {
     }
 
     private void setUpViews() {
-        binding.chooserAnyButton.setOnClickListener(click -> {
+        binding.anyButton.setOnClickListener(click -> {
             Log.d(LOG_TAG, "Any quiz button pressed.");
             Random random = new Random();
             if (random.nextInt() % 2 == 0)
@@ -57,11 +57,11 @@ public class ChooserFragment extends Fragment {
             else
                 startPickAndChooseFragment();
         });
-        binding.chooserMultipleButton.setOnClickListener(click -> {
+        binding.multipleButton.setOnClickListener(click -> {
             Log.d(LOG_TAG, "Multiple choice button pressed.");
             startMultipleChoiceFragment();
         });
-        binding.chooserPickButton.setOnClickListener(click -> {
+        binding.pickButton.setOnClickListener(click -> {
             Log.d(LOG_TAG, "Pick and choose button pressed.");
             startPickAndChooseFragment();
         });
