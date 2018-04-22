@@ -9,7 +9,7 @@
     <solid android:color="@color/colorPrimary" />
 
     <padding
-        android:bottom="2dp"
+        android:bottom="3dp"
         android:left="12dp"
         android:right="12dp" />
 

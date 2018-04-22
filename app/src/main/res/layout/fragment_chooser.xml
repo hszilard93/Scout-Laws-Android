@@ -7,10 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_grey"
-        tools:context="com.myprojects.b4kancs.scoutlaws.views.quiz.chooser.ChooserFragment">
+        tools:context="com.b4kancs.scoutlaws.views.quiz.chooser.ChooserFragment">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/cardView"
+            android:id="@+id/chooser_cardView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -42,7 +42,7 @@
                     tools:text="Choose a quiz type!" />
 
                 <Button
-                    android:id="@+id/chooser_any_button"
+                    android:id="@+id/any_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -52,7 +52,7 @@
                     tools:text="Any" />
 
                 <Button
-                    android:id="@+id/chooser_multiple_button"
+                    android:id="@+id/multiple_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -62,7 +62,7 @@
                     tools:text="Multiple choice" />
 
                 <Button
-                    android:id="@+id/chooser_pick_button"
+                    android:id="@+id/pick_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"

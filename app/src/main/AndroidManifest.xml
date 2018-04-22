@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.myprojects.b4kancs.scoutlaws">
+    package="com.b4kancs.scoutlaws">
 
     <application
         android:name=".ScoutLawApp"
@@ -17,8 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.details.DetailsActivity" />
-        <activity android:name=".views.quiz.QuizActivity" />
+            android:name=".views.details.DetailsActivity"
+            android:parentActivityName=".views.start.StartActivity" />
+        <activity
+            android:name=".views.quiz.QuizActivity"
+            android:parentActivityName=".views.start.StartActivity" />
     </application>
 
     <uses-permission android:name="android.permission.VIBRATE" />
