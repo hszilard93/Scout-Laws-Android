@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<stubResources>
+    <integer name="number_of_laws">10</integer>
+
     <!--The ten scout laws; text + description + original description -->
     <string name="law_1">A cserkész egyeneslelkű és feltétlenül igazat mond.</string>
     <string name="law_1_desc">Az egyenesség a cserkész legfőbb erénye. A cserkész nem hazudik és nem csal. Mindig az egyenes utat keresi, és feljebbvalói (szülei, csapatparancsnoka, őrsvezetői) tudják, hogy megbízhatnak benne.</string>
@@ -40,4 +42,4 @@
     <string name="law_10">A cserkész testben és lélekben tiszta.</string>
     <string name="law_10_desc">Ugye, milyen jól esik, mikor egy hosszú és izzadságos nap után megfürödhetsz és újra frissnek érzed magad? Ugyanígy fontos, hogy az elménket és lelkiismeretünket is tisztán tartsuk. Amikor valami rosszat teszel, nem tudsz nyugodtan aludni. Ha valamit sokáig halogatsz, mindig ott fog motoszkálni a gondolataid mögött. Ugye, milyen zavaró? Igyekezz úgy élni, hogy testben és lélekben is tiszta legyél.</string>
     <string name="law_10_desc_orig">„A cserkész tiszta gondolataiban, szavában és cselekedeteiben. A jó cserkészek lenézik azokat a fiatalokat, akik csúnyán beszélnek, és nem adnak utat a csábításnak, hogy ők is így beszéljenek vagy viselkedjenek. A cserkész szemérmes, tiszta gondolatú, és férfias.”</string>
-</resources>
+</stubResources>

@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -24,6 +26,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -31,26 +36,33 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:cardview-v7:$support_version"
     implementation "com.android.support:design:$support_version"
-    implementation "com.android.support.constraint:constraint-layout:$constraint_layout"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
 
     // Dagger 2
     implementation "com.google.dagger:dagger-android:$dagger2_version"
     implementation "com.google.dagger:dagger-android-support:$dagger2_version"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger2_version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger2_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
 
-    implementation "com.nex3z:flow-layout:$flow_layout"
-    implementation "com.github.frankiesardo:linearlistview:$linear_list"
+    implementation "com.nex3z:flow-layout:$flow_layout_version"
+    implementation "com.github.frankiesardo:linearlistview:$linear_list_version"
 
     // This fixes bug that caused support-library version conflict
     implementation "com.android.support:support-v4:$support_version"
 
-    implementation "android.arch.lifecycle:extensions:$arch"
-    implementation "android.arch.lifecycle:common-java8:$arch"
+    implementation "android.arch.lifecycle:extensions:$arch_version"
+    implementation "android.arch.lifecycle:common-java8:$arch_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation "com.android.support:support-v4:$support_version"
-    testImplementation "junit:junit:$junit"
-    testImplementation "android.arch.core:core-testing:$arch"
-    androidTestImplementation "com.android.support.test:runner:$test_runner"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso"
+    androidTestImplementation "com.android.support.test:runner:$test_runner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+    testImplementation "android.arch.core:core-testing:$arch_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
+}
+
+repositories {
+    mavenCentral()
 }

@@ -16,13 +16,12 @@ import javax.inject.Inject;
  */
 
 public abstract class AbstractSharedViewModel extends ViewModel {
-    public static final int NUMBER_OF_QUESTIONS = 10;  // How many questions are there to choose from? This may be dynamic later.
     protected static final int TURN_LIMIT = 5;    // The turn limit must never be larger than the number of questions
     private static final String LOG_TAG = AbstractSharedViewModel.class.getSimpleName();
 
     public final ObservableBoolean isLastTurn = new ObservableBoolean(false);
-    @Inject protected Repository repository;
-    protected final ArrayList<Integer> usedLaws = new ArrayList<>(NUMBER_OF_QUESTIONS); // Questions we have asked in this quiz
+    @Inject public Repository repository;
+    protected final ArrayList<Integer> usedLaws = new ArrayList<>(repository.getNumberOfScoutLaws()); // Questions we have asked in this quiz
     protected Integer lastAnswerIndex = -1; // We shouldn't ask the same question two times in a row even if the quiz is restarted
     protected int turnCount;
     protected int score = 0;
@@ -43,7 +42,7 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     public int nextLawIndex() {
         int index;
         do {
-            index = random.nextInt(NUMBER_OF_QUESTIONS);
+            index = random.nextInt(repository.getNumberOfScoutLaws());
         } while (usedLaws.contains(index) || index == lastAnswerIndex);
         usedLaws.add(index);
         lastAnswerIndex = index;

@@ -10,13 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import static com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel.NUMBER_OF_QUESTIONS;
-
 /**
  * Created by hszilard on 26-Feb-18.
  * Question data.
  */
-
 public class MultipleChoiceViewModel extends ViewModel {
     private static final String LOG_TAG = MultipleChoiceViewModel.class.getSimpleName();
     private static final int NUMBER_OF_OPTIONS = 4;
@@ -49,7 +46,7 @@ public class MultipleChoiceViewModel extends ViewModel {
         for (int i = 1; i < 4; i++) {   // we already have 1 possible answer, the correct one
             int optionIndex;
             do {
-                optionIndex = random.nextInt(NUMBER_OF_QUESTIONS);
+                optionIndex = random.nextInt(shared.repository.getNumberOfScoutLaws());
             } while (options.contains(scoutLaws.get(optionIndex)));
             options.add(scoutLaws.get(optionIndex));
         }

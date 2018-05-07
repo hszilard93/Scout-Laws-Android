@@ -165,7 +165,7 @@ public class PickAndChooseFragment extends Fragment {
     private TextView makeQuestionWordView(String word, ViewGroup parent) {
         TextViewPickChooseWordBinding wordBinding = DataBindingUtil
                 .inflate(getLayoutInflater(), R.layout.text_view_pick_choose_word, parent, false);
-        wordBinding.setNumber(viewModel.getScoutLaw().law.number);
+        wordBinding.setNumber(viewModel.getScoutLaw().getLaw().getNumber());
         wordBinding.wordTextView.setText(word);
         return wordBinding.wordTextView;
     }

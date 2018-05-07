@@ -47,8 +47,8 @@ public class PickAndChooseViewModel extends ViewModel {
 
         shared.incTurnCount();
         scoutLaw = shared.getPickChooseScoutLaws().get(shared.nextLawIndex());
-        options.addAll(scoutLaw.pickChooseOptions);
-        parseQuestion(scoutLaw.pickChooseText);
+        options.addAll(scoutLaw.getPickChooseOptions());
+        parseQuestion(scoutLaw.getPickChooseText());
         options.addAll(correctAnswers);
 
         Collections.shuffle(options);
