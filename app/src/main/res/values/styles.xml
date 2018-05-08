@@ -1,4 +1,4 @@
-<stubResources>
+<resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -23,4 +23,4 @@
         <item name="android:layout_marginRight">4dp</item>
     </style>
 
-</stubResources>
+</resources>

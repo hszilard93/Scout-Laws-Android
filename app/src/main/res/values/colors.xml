@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<stubResources>
+<resources>
     <color name="colorPrimary">#4caf50</color>
     <color name="colorPrimaryLight">#80e27e</color>
     <color name="colorPrimaryDark">#087f23</color>
@@ -34,4 +34,4 @@
     <color name="color_item9_text">@color/colorTextLight</color>
     <color name="color_item10">#455a64</color>
     <color name="color_item10_text">@color/colorTextLight</color>
-</stubResources>
+</resources>

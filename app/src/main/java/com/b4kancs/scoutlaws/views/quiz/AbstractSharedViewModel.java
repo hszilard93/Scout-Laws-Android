@@ -21,7 +21,7 @@ public abstract class AbstractSharedViewModel extends ViewModel {
 
     public final ObservableBoolean isLastTurn = new ObservableBoolean(false);
     @Inject public Repository repository;
-    protected final ArrayList<Integer> usedLaws = new ArrayList<>(repository.getNumberOfScoutLaws()); // Questions we have asked in this quiz
+    protected final ArrayList<Integer> usedLaws; // Questions we have asked in this quiz
     protected Integer lastAnswerIndex = -1; // We shouldn't ask the same question two times in a row even if the quiz is restarted
     protected int turnCount;
     protected int score = 0;
@@ -29,6 +29,7 @@ public abstract class AbstractSharedViewModel extends ViewModel {
 
     protected AbstractSharedViewModel() {
         ScoutLawApp.getInstance().getApplicationComponent().inject(this);
+         usedLaws = new ArrayList<>(repository.getNumberOfScoutLaws());
     }
 
     public void reset() {
@@ -54,8 +55,9 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     }
 
     public void incTurnCount() {
-        turnCount += 1;
-        if (turnCount >= TURN_LIMIT)
+        if (turnCount < TURN_LIMIT)
+            turnCount++;
+        else
             isLastTurn.set(true);
     }
 

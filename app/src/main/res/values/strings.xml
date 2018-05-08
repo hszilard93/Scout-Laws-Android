@@ -1,4 +1,4 @@
-<stubResources>
+<resources>
     <string name="app_name">Scout Laws</string>
 
     <string name="source_modern" />
@@ -38,4 +38,4 @@
     <string name="give_up">Feladom</string>
     <string name="start_details_law_transition">start_to_details_scoutlaw_transition</string>
     <string name="start_to_details_background_transition">start_details_background_transition</string>
-</stubResources>
+</resources>
