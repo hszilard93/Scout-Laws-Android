@@ -2,11 +2,13 @@ package com.b4kancs.scoutlaws.views.quiz;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
+import android.util.Log;
 
 import com.b4kancs.scoutlaws.ScoutLawApp;
 import com.b4kancs.scoutlaws.data.Repository;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -28,11 +30,13 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     private Random random = new Random();
 
     protected AbstractSharedViewModel() {
+        Log.d(LOG_TAG, "Constructing.");
         ScoutLawApp.getInstance().getApplicationComponent().inject(this);
-         usedLaws = new ArrayList<>(repository.getNumberOfScoutLaws());
+        usedLaws = new ArrayList<>(repository.getNumberOfScoutLaws());
     }
 
     public void reset() {
+        Log.d(LOG_TAG, "Resetting.");
         isLastTurn.set(false);
         turnCount = 0;
         score = 0;
@@ -41,6 +45,7 @@ public abstract class AbstractSharedViewModel extends ViewModel {
 
     /* This law will be the subject of the next question. */
     public int nextLawIndex() {
+        Log.d(LOG_TAG, "Generating next law index.");
         int index;
         do {
             index = random.nextInt(repository.getNumberOfScoutLaws());
@@ -55,9 +60,11 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     }
 
     public void incTurnCount() {
+        Log.d(LOG_TAG, "Increasing turn count. Current turn: " + turnCount);
         if (turnCount < TURN_LIMIT)
             turnCount++;
-        else
+
+        if (turnCount == TURN_LIMIT)
             isLastTurn.set(true);
     }
 
@@ -65,7 +72,8 @@ public abstract class AbstractSharedViewModel extends ViewModel {
         return score;
     }
 
-    public void incCorrectAtFirst() {
+    public void incScore() {
+        Log.d(LOG_TAG, "Increasing score. Current score: " + score);
         score += 1;
     }
 

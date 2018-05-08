@@ -9,7 +9,6 @@ import org.mockito.Mockito
 
 /* Stub responses from android resources */
 internal val numOfLawsId = 0
-internal val numOfLaws = 2
 internal val sl1Id = 10
 internal val sl1Text = "scoutlaw 1 name"
 internal val sl1DescId = 11
@@ -70,9 +69,11 @@ internal val sl5PickOptions: Array<String> = arrayOf("nine", "ten")
 internal fun getStubResourcesWithTwoLaws(): Resources {
     val packageName = "com.b4kancs.scoutlaws"
     val resources = Mockito.mock(Resources::class.java)
+    val numberOfLaws = 2
 
     Mockito.`when`(resources.getIdentifier("number_of_laws", "integer", packageName)).thenReturn(numOfLawsId)
-    Mockito.`when`(resources.getInteger(numOfLawsId)).thenReturn(numOfLaws)
+    Mockito.`when`(resources.getInteger(numOfLawsId)).thenReturn(numberOfLaws)
+
     Mockito.`when`(resources.getIdentifier("law_1", "string", packageName)).thenReturn(sl1Id)
     Mockito.`when`(resources.getString(sl1Id)).thenReturn(sl1Text)
     Mockito.`when`(resources.getIdentifier("law_1_desc", "string", packageName)).thenReturn(sl1DescId)
@@ -84,8 +85,6 @@ internal fun getStubResourcesWithTwoLaws(): Resources {
     Mockito.`when`(resources.getIdentifier("law_1_pick_options", "array", packageName)).thenReturn(sl1PickOptionsId)
     Mockito.`when`(resources.getStringArray(sl1PickOptionsId)).thenReturn(sl1PickOptions)
 
-    Mockito.`when`(resources.getIdentifier("number_of_laws", "integer", packageName)).thenReturn(numOfLawsId)
-    Mockito.`when`(resources.getInteger(numOfLawsId)).thenReturn(numOfLaws)
     Mockito.`when`(resources.getIdentifier("law_2", "string", packageName)).thenReturn(sl2Id)
     Mockito.`when`(resources.getString(sl2Id)).thenReturn(sl2Text)
     Mockito.`when`(resources.getIdentifier("law_2_desc", "string", packageName)).thenReturn(sl2DescId)
@@ -104,9 +103,11 @@ internal fun getStubResourcesWithTwoLaws(): Resources {
 internal fun getStubResourcesWithFiveLaws(): Resources {
     val packageName = "com.b4kancs.scoutlaws"
     val resources = Mockito.mock(Resources::class.java)
+    val numberOfLaws = 5
 
     Mockito.`when`(resources.getIdentifier("number_of_laws", "integer", packageName)).thenReturn(numOfLawsId)
-    Mockito.`when`(resources.getInteger(numOfLawsId)).thenReturn(numOfLaws)
+    Mockito.`when`(resources.getInteger(numOfLawsId)).thenReturn(numberOfLaws)
+
     Mockito.`when`(resources.getIdentifier("law_1", "string", packageName)).thenReturn(sl1Id)
     Mockito.`when`(resources.getString(sl1Id)).thenReturn(sl1Text)
     Mockito.`when`(resources.getIdentifier("law_1_desc", "string", packageName)).thenReturn(sl1DescId)
@@ -118,8 +119,6 @@ internal fun getStubResourcesWithFiveLaws(): Resources {
     Mockito.`when`(resources.getIdentifier("law_1_pick_options", "array", packageName)).thenReturn(sl1PickOptionsId)
     Mockito.`when`(resources.getStringArray(sl1PickOptionsId)).thenReturn(sl1PickOptions)
 
-    Mockito.`when`(resources.getIdentifier("number_of_laws", "integer", packageName)).thenReturn(numOfLawsId)
-    Mockito.`when`(resources.getInteger(numOfLawsId)).thenReturn(numOfLaws)
     Mockito.`when`(resources.getIdentifier("law_2", "string", packageName)).thenReturn(sl2Id)
     Mockito.`when`(resources.getString(sl2Id)).thenReturn(sl2Text)
     Mockito.`when`(resources.getIdentifier("law_2_desc", "string", packageName)).thenReturn(sl2DescId)
@@ -130,9 +129,7 @@ internal fun getStubResourcesWithFiveLaws(): Resources {
     Mockito.`when`(resources.getString(sl2PickId)).thenReturn(sl2PickText)
     Mockito.`when`(resources.getIdentifier("law_2_pick_options", "array", packageName)).thenReturn(sl2PickOptionsId)
     Mockito.`when`(resources.getStringArray(sl2PickOptionsId)).thenReturn(sl2PickOptions)
-    
-    Mockito.`when`(resources.getIdentifier("number_of_laws", "integer", packageName)).thenReturn(numOfLawsId)
-    Mockito.`when`(resources.getInteger(numOfLawsId)).thenReturn(numOfLaws)
+
     Mockito.`when`(resources.getIdentifier("law_3", "string", packageName)).thenReturn(sl3Id)
     Mockito.`when`(resources.getString(sl3Id)).thenReturn(sl3Text)
     Mockito.`when`(resources.getIdentifier("law_3_desc", "string", packageName)).thenReturn(sl3DescId)
@@ -144,8 +141,6 @@ internal fun getStubResourcesWithFiveLaws(): Resources {
     Mockito.`when`(resources.getIdentifier("law_3_pick_options", "array", packageName)).thenReturn(sl3PickOptionsId)
     Mockito.`when`(resources.getStringArray(sl3PickOptionsId)).thenReturn(sl3PickOptions)
 
-    Mockito.`when`(resources.getIdentifier("number_of_laws", "integer", packageName)).thenReturn(numOfLawsId)
-    Mockito.`when`(resources.getInteger(numOfLawsId)).thenReturn(numOfLaws)
     Mockito.`when`(resources.getIdentifier("law_4", "string", packageName)).thenReturn(sl4Id)
     Mockito.`when`(resources.getString(sl4Id)).thenReturn(sl4Text)
     Mockito.`when`(resources.getIdentifier("law_4_desc", "string", packageName)).thenReturn(sl4DescId)
@@ -157,8 +152,6 @@ internal fun getStubResourcesWithFiveLaws(): Resources {
     Mockito.`when`(resources.getIdentifier("law_4_pick_options", "array", packageName)).thenReturn(sl4PickOptionsId)
     Mockito.`when`(resources.getStringArray(sl4PickOptionsId)).thenReturn(sl4PickOptions)
 
-    Mockito.`when`(resources.getIdentifier("number_of_laws", "integer", packageName)).thenReturn(numOfLawsId)
-    Mockito.`when`(resources.getInteger(numOfLawsId)).thenReturn(numOfLaws)
     Mockito.`when`(resources.getIdentifier("law_5", "string", packageName)).thenReturn(sl5Id)
     Mockito.`when`(resources.getString(sl5Id)).thenReturn(sl5Text)
     Mockito.`when`(resources.getIdentifier("law_5_desc", "string", packageName)).thenReturn(sl5DescId)

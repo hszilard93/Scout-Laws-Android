@@ -151,7 +151,7 @@ public class PickAndChooseViewModel extends ViewModel {
             firstTry = false;
 
         if (firstTry)
-            shared.incCorrectAtFirst();
+            shared.incScore();
 
         observableState.set(correct ? State.DONE : State.IN_PROGRESS);
         return correct;

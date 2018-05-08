@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: "de.mannodermaus.android-junit5"
 
 android {
     compileSdkVersion 27
@@ -61,6 +62,8 @@ dependencies {
     testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
+    kaptTest "com.google.dagger:dagger-compiler:$dagger2_version"
+    testImplementation junit5.unitTests()
 }
 
 repositories {

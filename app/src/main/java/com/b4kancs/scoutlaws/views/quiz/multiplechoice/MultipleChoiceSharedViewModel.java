@@ -20,5 +20,4 @@ public class MultipleChoiceSharedViewModel extends AbstractSharedViewModel {
     public ArrayList<ScoutLaw> getScoutLaws() {
         return scoutLaws;
     }
-
 }

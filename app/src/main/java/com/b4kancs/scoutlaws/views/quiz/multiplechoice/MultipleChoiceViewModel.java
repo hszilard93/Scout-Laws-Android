@@ -58,7 +58,7 @@ public class MultipleChoiceViewModel extends ViewModel {
             Log.d(LOG_TAG, "The answer is correct.");
             observableState.set(State.DONE);
             if (tries == 0)
-                shared.incCorrectAtFirst();
+                shared.incScore();
             return true;
         } else {
             Log.d(LOG_TAG, "The answer is incorrect.");
