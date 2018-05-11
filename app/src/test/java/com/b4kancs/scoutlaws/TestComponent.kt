@@ -1,7 +1,9 @@
 package com.b4kancs.scoutlaws
 
 import com.b4kancs.scoutlaws.data.RepositoryTest
-import com.b4kancs.scoutlaws.views.quiz.AbstractSharedViewModelTest
+import com.b4kancs.scoutlaws.views.details.DetailsActivityViewModelTest
+import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModelTest
+import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModelTest
 import com.b4kancs.scoutlaws.views.start.StartActivityViewModelTest
 import dagger.Component
 import javax.inject.Singleton
@@ -14,5 +16,7 @@ import javax.inject.Singleton
 interface TestComponent : ApplicationComponent {
     fun inject(test: StartActivityViewModelTest)
     fun inject(test: RepositoryTest)
-    fun inject(test: AbstractSharedViewModelTest)
+    fun inject(test: PickAndChooseSharedViewModelTest)
+    fun inject(test: MultipleChoiceSharedViewModelTest)
+    fun inject(test: DetailsActivityViewModelTest)
 }

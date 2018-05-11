@@ -1,4 +1,4 @@
-package com.b4kancs.scoutlaws.views.start
+package com.b4kancs.scoutlaws.views.quiz.pickandchoose
 
 import com.b4kancs.scoutlaws.DaggerTestComponent
 import com.b4kancs.scoutlaws.ScoutLawApp
@@ -12,25 +12,25 @@ import org.junit.jupiter.api.TestInstance
 import javax.inject.Inject
 
 /**
- * Created by hszilard on 08-May-18.
+ * Created by hszilard on 09-May-18.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class StartActivityViewModelTest {
+class PickAndChooseSharedViewModelTest {
 
     @Inject
     lateinit var repository: Repository
 
     @BeforeAll
-    fun setUp() {
+    fun setUpAll() {
         val testComponent: TestComponent = DaggerTestComponent.builder().testModule((TestModule())).build()
         testComponent.inject(this)
         ScoutLawApp().applicationComponent = testComponent
     }
 
     @Test
-    fun viewModelShouldLoadScoutLawsFromRepository() {
-        val viewModel = StartActivityViewModel()
+    fun sharedViewModelShouldFetchPickChooseScoutLawsFromRepository() {
+        val viewModel = PickAndChooseSharedViewModel()
 
-        assertEquals(repository.laws, viewModel.scoutLaws())
+        assertEquals(repository.pickAndChooseLaws, viewModel.pickChooseScoutLaws)
     }
 }

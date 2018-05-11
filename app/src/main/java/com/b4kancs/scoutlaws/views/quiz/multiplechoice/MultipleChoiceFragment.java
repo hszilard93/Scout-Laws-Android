@@ -69,7 +69,7 @@ public class MultipleChoiceFragment extends Fragment {
 
     /* What happens when an answer is selected */
     private OptionsListAdapter.OptionSelectedCallback onOptionSelected = (adapter, view, scoutLaw) -> {
-        if (viewModel.isAnswerCorrect(scoutLaw)) {
+        if (viewModel.evaluateAnswer(scoutLaw)) {
             Toast toast = new Toast(getContext());
             View toastView = getLayoutInflater().inflate(R.layout.toast_correct, null);
             toast.setView(toastView);

@@ -20,11 +20,12 @@ import javax.inject.Inject;
 public abstract class AbstractSharedViewModel extends ViewModel {
     protected static final int TURN_LIMIT = 5;    // The turn limit must never be larger than the number of questions
     private static final String LOG_TAG = AbstractSharedViewModel.class.getSimpleName();
+    // We shouldn't ask the same question two times in a row even if the quiz is restarted. Preserved across quiz types.
+    protected static Integer lastUsedLawIndex = -1;
 
     public final ObservableBoolean isLastTurn = new ObservableBoolean(false);
     @Inject public Repository repository;
     protected final ArrayList<Integer> usedLaws; // Questions we have asked in this quiz
-    protected Integer lastAnswerIndex = -1; // We shouldn't ask the same question two times in a row even if the quiz is restarted
     protected int turnCount;
     protected int score = 0;
     private Random random = new Random();
@@ -49,9 +50,9 @@ public abstract class AbstractSharedViewModel extends ViewModel {
         int index;
         do {
             index = random.nextInt(repository.getNumberOfScoutLaws());
-        } while (usedLaws.contains(index) || index == lastAnswerIndex);
+        } while (usedLaws.contains(index) || index == lastUsedLawIndex);
         usedLaws.add(index);
-        lastAnswerIndex = index;
+        lastUsedLawIndex = index;
         return index;
     }
 
@@ -79,5 +80,22 @@ public abstract class AbstractSharedViewModel extends ViewModel {
 
     public int getTurnLimit() {
         return TURN_LIMIT;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractSharedViewModel that = (AbstractSharedViewModel) o;
+        return turnCount == that.turnCount &&
+                score == that.score &&
+                Objects.equals(isLastTurn.get(), that.isLastTurn.get()) &&
+                Objects.equals(repository, that.repository) &&
+                Objects.equals(usedLaws, that.usedLaws);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isLastTurn.get(), repository, usedLaws, turnCount, score);
     }
 }

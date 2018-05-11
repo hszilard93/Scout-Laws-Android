@@ -24,17 +24,18 @@ public class PickAndChooseViewModel extends ViewModel {
     private static final String LOG_TAG = PickAndChooseViewModel.class.getSimpleName();
 
     public enum State {IN_PROGRESS, CHECKABLE, DONE}
-
-    private final ObservableField<State> observableState = new ObservableField<>(State.IN_PROGRESS);
-    private final ObservableBoolean helpUsedUp = new ObservableBoolean(false);
+    // These fields must be public for databound layouts to access them
+    public final ObservableField<State> observableState = new ObservableField<>(State.IN_PROGRESS);
+    public final ObservableBoolean helpUsedUp = new ObservableBoolean(false);
+    public final ObservableArrayList<String> options = new ObservableArrayList<>();
     /* We use a TreeMap here to keep track of each answer's (corresponding view's) index and to keep them sorted in the correct order */
-    private final TreeMap<Integer, ObservableField<String>> userAnswers = new TreeMap<>();
-    private final ObservableArrayList<String> options = new ObservableArrayList<>();
+    public final TreeMap<Integer, ObservableField<String>> userAnswers = new TreeMap<>();
 
+    protected final ArrayList<String> correctAnswers = new ArrayList<>();
     private final PickAndChooseSharedViewModel shared;
+
     private PickAndChooseScoutLaw scoutLaw;
     private ArrayList<String> questionItems;
-    private final ArrayList<String> correctAnswers = new ArrayList<>();
     private boolean firstTry = true;
 
     PickAndChooseViewModel(PickAndChooseSharedViewModel shared) {
@@ -98,6 +99,7 @@ public class PickAndChooseViewModel extends ViewModel {
     /* Eliminate some options */
     void help() {
         int numberToEliminate = Math.min(options.size() / 3, 3);
+
         Random random = new Random();
         for (int i = 0; i < numberToEliminate; i++) {
             int index = random.nextInt(options.size());
@@ -109,8 +111,6 @@ public class PickAndChooseViewModel extends ViewModel {
         firstTry = false;
         if (options.size() <= correctAnswers.size() * 3)
             helpUsedUp.set(true);     // you shouldn't use help too much
-
-        observableState.set(State.IN_PROGRESS);
     }
 
     /* Clear the item from userAnswers and add it back to options */
@@ -125,7 +125,8 @@ public class PickAndChooseViewModel extends ViewModel {
         observableState.set(State.IN_PROGRESS);
     }
 
-    boolean check() {
+    /* If the answers are all correct, change state. Else remove wrong answers and add them back to options. */
+    boolean evaluateUserAnswers() {
         Log.d(LOG_TAG, "Checking answers.");
 
         boolean correct = true;
@@ -136,14 +137,15 @@ public class PickAndChooseViewModel extends ViewModel {
                     + " but correctAnswers size is " + correctAnswers.size());
             correct = false;
         }
-
-        Iterator<ObservableField<String>> userAnswersIterator = userAnswers.values().iterator();
-        for (String correctAnswer : correctAnswers) {
-            ObservableField<String> userAnswer = userAnswersIterator.next();
-            if (!correctAnswer.equals(userAnswer.get())) {
-                correct = false;
-                options.add(userAnswer.get());
-                userAnswer.set(null);
+        else {
+            Iterator<ObservableField<String>> userAnswersIterator = userAnswers.values().iterator();
+            for (String correctAnswer : correctAnswers) {
+                ObservableField<String> userAnswer = userAnswersIterator.next();
+                if (!correctAnswer.equals(userAnswer.get())) {
+                    correct = false;
+                    options.add(userAnswer.get());
+                    userAnswer.set(null);
+                }
             }
         }
 
@@ -157,6 +159,7 @@ public class PickAndChooseViewModel extends ViewModel {
         return correct;
     }
 
+    /* Fill in the correct answers */
     void giveUp() {
         Iterator<ObservableField<String>> userAnswersIterator = userAnswers.values().iterator();
         for (String correctAnswer : correctAnswers)
@@ -165,31 +168,11 @@ public class PickAndChooseViewModel extends ViewModel {
         observableState.set(State.DONE);
     }
 
-    public ObservableField<State> getObservableState() {
-        return observableState;
-    }
-
-    public ObservableBoolean getHelpUsedUp() {
-        return helpUsedUp;
-    }
-
     public PickAndChooseScoutLaw getScoutLaw() {
         return scoutLaw;
     }
 
     public ArrayList<String> getQuestionItems() {
         return questionItems;
-    }
-
-    public ArrayList<String> getCorrectAnswers() {
-        return correctAnswers;
-    }
-
-    public ObservableArrayList<String> getOptions() {
-        return options;
-    }
-
-    public TreeMap<Integer, ObservableField<String>> getUserAnswers() {
-        return userAnswers;
     }
 }

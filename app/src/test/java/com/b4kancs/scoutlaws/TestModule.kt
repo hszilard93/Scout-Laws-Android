@@ -14,7 +14,7 @@ import org.mockito.Mockito.mock
 class TestModule {
 
     companion object {
-        val numberOfLaws = 5
+        const val NUMBER_OF_LAWS = 5
     }
 
     @Provides

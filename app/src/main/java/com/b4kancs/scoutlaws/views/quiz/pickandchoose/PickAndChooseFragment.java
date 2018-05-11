@@ -82,13 +82,13 @@ public class PickAndChooseFragment extends Fragment {
                 TextView wordView = makeQuestionWordView(item, questionFlow);
                 questionFlow.addView(wordView);
             } else {
-                if (viewModel.getUserAnswers().get(i) == null)
+                if (viewModel.userAnswers.get(i) == null)
                     /* Register the index of the placeholder view with the ViewModel. They will observe the ViewModel. */
                     viewModel.addUserAnswer(i, null);
 
                 TextViewPickChooseFillBinding fillBinding = DataBindingUtil.inflate(getLayoutInflater(),
                         R.layout.text_view_pick_choose_fill, container, false);
-                fillBinding.setObservableText(viewModel.getUserAnswers().get(i));
+                fillBinding.setObservableText(viewModel.userAnswers.get(i));
                 fillBinding.getRoot().setOnDragListener(onOptionDrag);
                 questionFlow.addView(fillBinding.getRoot());
             }
@@ -127,7 +127,7 @@ public class PickAndChooseFragment extends Fragment {
 
     private View.OnClickListener checkButtonOnClickListener = view -> {
         Log.d(LOG_TAG, "Check button clicked.");
-        boolean result = viewModel.check();
+        boolean result = viewModel.evaluateUserAnswers();
 
         if (result) {
             Toast toast = new Toast(getContext());

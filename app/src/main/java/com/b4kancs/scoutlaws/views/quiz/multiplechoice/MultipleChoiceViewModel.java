@@ -8,6 +8,7 @@ import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -16,16 +17,16 @@ import java.util.Random;
  */
 public class MultipleChoiceViewModel extends ViewModel {
     private static final String LOG_TAG = MultipleChoiceViewModel.class.getSimpleName();
-    private static final int NUMBER_OF_OPTIONS = 4;
+    protected static final int NUMBER_OF_OPTIONS = 4;
 
     public enum State {IN_PROGRESS, DONE}
 
     private final ObservableField<State> observableState = new ObservableField<>(State.IN_PROGRESS);
 
-    private final MultipleChoiceSharedViewModel shared;
-    private final ArrayList<ScoutLaw> scoutLaws;
-    private ScoutLaw answer;
     private final ArrayList<ScoutLaw> options = new ArrayList<>(NUMBER_OF_OPTIONS);
+    private final MultipleChoiceSharedViewModel shared;
+    private final List<ScoutLaw> scoutLaws;
+    private ScoutLaw answer;
     private int tries = 0;
 
     MultipleChoiceViewModel(MultipleChoiceSharedViewModel shared) {
@@ -53,7 +54,7 @@ public class MultipleChoiceViewModel extends ViewModel {
         Collections.shuffle(options);
     }
 
-    boolean isAnswerCorrect(ScoutLaw scoutLaw) {
+    boolean evaluateAnswer(ScoutLaw scoutLaw) {
         if (scoutLaw == answer) {
             Log.d(LOG_TAG, "The answer is correct.");
             observableState.set(State.DONE);
