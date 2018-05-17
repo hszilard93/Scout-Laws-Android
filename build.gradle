@@ -1,13 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+    ext.kotlin_version = '1.2.41'
+
     repositories {
         google()
         jcenter()
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.0.32"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -28,11 +32,12 @@ task clean(type: Delete) {
 ext {
     support_version = "27.1.1"
     dagger2_version = "2.15"
-    arch = '1.1.1'
-    constraint_layout = '1.1.0'
-    flow_layout = '1.2.2'
-    linear_list = '1.0.1'
-    junit = '4.12'
-    test_runner = '1.0.1'
-    espresso = '3.0.1'
+    arch_version = '1.1.1'
+    constraint_layout_version = '1.1.0'
+    flow_layout_version = '1.2.2'
+    linear_list_version = '1.0.1'
+    junit_version = '4.12'
+    test_runner_version = '1.0.1'
+    espresso_version = '3.0.1'
+    mockito_version = '2.18.3'
 }

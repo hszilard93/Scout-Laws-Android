@@ -16,7 +16,6 @@ import dagger.Component;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
     void inject(Repository repository);
-    void inject(ScoutLawApp app);
     void inject(StartActivityViewModel startActivityViewModel);
     void inject(AbstractSharedViewModel abstractSharedViewModel);
     void inject(DetailsActivityViewModel detailsActivityViewModel);

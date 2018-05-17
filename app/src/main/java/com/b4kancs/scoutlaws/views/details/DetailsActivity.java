@@ -29,7 +29,7 @@ import static com.b4kancs.scoutlaws.views.details.DetailsActivityViewModel.*;
  * Created by hszilard on 21-Feb-18.
  */
 public class DetailsActivity extends AppCompatActivity {
-    public static final String SCOUT_LAW_INDEX_KEY = "INDEX";
+    public static final String SCOUT_LAW_NUMBER_KEY = "INDEX";
     private static final String LOG_TAG = DetailsActivity.class.getSimpleName();
 
     private ActivityDetailsBinding binding;
@@ -46,7 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null)
-            index = bundle.getInt(SCOUT_LAW_INDEX_KEY);
+            index = bundle.getInt(SCOUT_LAW_NUMBER_KEY);
         viewModel = ViewModelProviders.of(this, new DetailsActivityViewModelFactory(index))
                 .get(DetailsActivityViewModel.class);
 
@@ -92,18 +92,18 @@ public class DetailsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         // This makes the shared element transition less cluttered
-        binding.numberTextView.setVisibility(View.GONE);
-        binding.modernTextView.setVisibility(View.GONE);
-        binding.oldTextView.setVisibility(View.GONE);
-        binding.sourceTextView.setVisibility(View.GONE);
+        binding.textNumber.setVisibility(View.GONE);
+        binding.textModern.setVisibility(View.GONE);
+        binding.textOld.setVisibility(View.GONE);
+        binding.textSource.setVisibility(View.GONE);
     }
 
     /* Must manually set up transitions because the default ones are inconsistent */
     @BindingAdapter("state_binding")
     public static void stateBindingAdapter(@NonNull ViewGroup layout, State state) {
         ActivityDetailsBinding binding = DataBindingUtil.findBinding(layout);
-        TextView modern = binding.modernTextView;
-        LinearLayout oldLayout = binding.oldLinearLayout;
+        TextView modern = binding.textModern;
+        LinearLayout oldLayout = binding.linearOld;
 
         TransitionManager.beginDelayedTransition(layout, new Slide());
         if (modern.getVisibility() == View.VISIBLE && state == State.OLD) {

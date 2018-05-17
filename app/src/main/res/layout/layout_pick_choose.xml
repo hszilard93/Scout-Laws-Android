@@ -15,13 +15,13 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/multiple_constraintLayout"
+        android:id="@+id/constraint_pick_choose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true">
 
         <FrameLayout
-            android:id="@+id/question_linearLayout"
+            android:id="@+id/linear_question"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:elevation="4dp"
@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.nex3z.flowlayout.FlowLayout
-                android:id="@+id/question_flowLayout"
+                android:id="@+id/flow_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -46,17 +46,17 @@
         </FrameLayout>
 
         <LinearLayout
-            android:id="@+id/buttons_linearLayout"
+            android:id="@+id/linear_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/question_linearLayout">
+            app:layout_constraintTop_toBottomOf="@id/linear_question">
 
             <Button
-                android:id="@+id/help_button"
+                android:id="@+id/button_help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
@@ -66,7 +66,7 @@
                 tools:text="Segítség" />
 
             <Button
-                android:id="@+id/giveUp_button"
+                android:id="@+id/button_give_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
@@ -76,7 +76,7 @@
                 tools:text="Feladom" />
 
             <Button
-                android:id="@+id/check_button"
+                android:id="@+id/button_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
@@ -86,17 +86,17 @@
                 tools:text="Ellenőrzés" />
 
             <Button
-                android:id="@+id/forward_button"
+                android:id="@+id/button_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:text="@string/next_button"
                 android:textColor="@color/colorPrimary"
                 android:visibility="@{viewModel.observableState == State.DONE &amp;&amp; !sharedViewModel.isLastTurn ? View.VISIBLE : View.GONE}"
-                tools:text="Tovább" />
+                tools:text="Következő" />
 
             <Button
-                android:id="@+id/finish_button"
+                android:id="@+id/button_finish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
@@ -106,7 +106,7 @@
                 tools:text="Befejezés" />
 
             <Button
-                android:id="@+id/clear_button"
+                android:id="@+id/button_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
@@ -117,7 +117,7 @@
         </LinearLayout>
 
         <com.nex3z.flowlayout.FlowLayout
-            android:id="@+id/options_flowLayout"
+            android:id="@+id/flow_options"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -132,7 +132,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/buttons_linearLayout"
+            app:layout_constraintTop_toBottomOf="@id/linear_buttons"
             app:optionsFlow_adapter="@{viewModel.options}"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

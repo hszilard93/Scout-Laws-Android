@@ -24,13 +24,13 @@
             android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/multiple_constraintLayout"
+                android:id="@+id/constraint_top_bar_pick"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:background="@color/colorPrimaryLight">
 
                 <TextView
-                    android:id="@+id/turnCounter_textView"
+                    android:id="@+id/text_turn_counter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -43,7 +43,7 @@
                     tools:text="3/5" />
 
                 <TextView
-                    android:id="@+id/instruction_textView"
+                    android:id="@+id/text_instruction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -68,7 +68,7 @@
                     android:orientation="vertical">
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/chooser_cardView"
+                        android:id="@+id/card_pick"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -78,7 +78,7 @@
                         android:elevation="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/multiple_constraintLayout">
+                        app:layout_constraintTop_toBottomOf="@id/constraint_top_bar_pick">
 
                         <include
                             android:id="@+id/included"

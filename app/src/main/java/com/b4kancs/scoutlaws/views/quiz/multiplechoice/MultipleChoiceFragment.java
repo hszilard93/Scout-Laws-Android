@@ -57,19 +57,19 @@ public class MultipleChoiceFragment extends Fragment {
 
     private void setUpViews() {
         OptionsListAdapter listAdapter = new OptionsListAdapter(viewModel, getContext(), onOptionSelected);
-        binding.optionsLinearLayout.setAdapter(listAdapter);
-        binding.optionsLinearLayout.setOnItemClickListener(listAdapter.defaultItemClickListener);
-        binding.nextButton.setOnClickListener(nextButtonClickedListener);
-        binding.finishButton.setOnClickListener(finishButtonOnClickedListener);
+        binding.linearOptions.setAdapter(listAdapter);
+        binding.linearOptions.setOnItemClickListener(listAdapter.defaultItemClickListener);
+        binding.buttonNext.setOnClickListener(nextButtonClickedListener);
+        binding.buttonFinish.setOnClickListener(finishButtonOnClickedListener);
         if (sharedViewModel.isLastTurn.get()) {
-            binding.nextButton.setVisibility(View.GONE);
-            binding.finishButton.setVisibility(View.VISIBLE);
+            binding.buttonNext.setVisibility(View.GONE);
+            binding.buttonFinish.setVisibility(View.VISIBLE);
         }
     }
 
     /* What happens when an answer is selected */
     private OptionsListAdapter.OptionSelectedCallback onOptionSelected = (adapter, view, scoutLaw) -> {
-        if (viewModel.isAnswerCorrect(scoutLaw)) {
+        if (viewModel.evaluateAnswer(scoutLaw)) {
             Toast toast = new Toast(getContext());
             View toastView = getLayoutInflater().inflate(R.layout.toast_correct, null);
             toast.setView(toastView);
@@ -93,10 +93,10 @@ public class MultipleChoiceFragment extends Fragment {
     };
 
     private void endTurn(OptionsListAdapter adapter) {
-        binding.optionsLinearLayout.setOnItemClickListener(adapter.disabledItemClickListener);
+        binding.linearOptions.setOnItemClickListener(adapter.disabledItemClickListener);
 
         if (sharedViewModel.isLastTurn.get()) {
-            binding.finishButton.setEnabled(true);
+            binding.buttonFinish.setEnabled(true);
         }
     }
 

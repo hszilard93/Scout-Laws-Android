@@ -3,16 +3,16 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/quiz_menuItem"
+            android:id="@+id/menu_item_quiz"
             android:icon="@drawable/ic_questions_24dp"
             android:title="@string/quiz_item" />
         <item
-            android:id="@+id/nav_second_fragment"
+            android:id="@+id/menu_item_settings"
             android:icon="@drawable/ic_menu_black_24dp"
-            android:title="Second" />
+            android:title="Beállítások" />
         <item
-            android:id="@+id/nav_third_fragment"
+            android:id="@+id/menu_item_about"
             android:icon="@drawable/ic_menu_black_24dp"
-            android:title="Third" />
+            android:title="Az appról" />
     </group>
 </menu>

@@ -1,6 +1,7 @@
 package com.b4kancs.scoutlaws;
 
 import android.app.Application;
+import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 /**
@@ -30,7 +31,11 @@ public class ScoutLawApp extends Application {
                 .builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
-        applicationComponent.inject(this);
+    }
+
+    @VisibleForTesting
+    public void setApplicationComponent(ApplicationComponent appComponent) {
+        this.applicationComponent = appComponent;
     }
 
     public ApplicationComponent getApplicationComponent() {

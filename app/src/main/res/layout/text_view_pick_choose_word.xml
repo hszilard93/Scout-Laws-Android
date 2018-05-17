@@ -9,7 +9,7 @@
     </data>
 
     <TextView
-        android:id="@+id/word_textView"
+        android:id="@+id/text_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"

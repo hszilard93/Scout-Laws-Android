@@ -4,6 +4,7 @@ import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 import com.b4kancs.scoutlaws.views.quiz.AbstractSharedViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hszilard on 28-Feb-18.
@@ -17,8 +18,7 @@ public class MultipleChoiceSharedViewModel extends AbstractSharedViewModel {
         scoutLaws = repository.getLaws();
     }
 
-    public ArrayList<ScoutLaw> getScoutLaws() {
+    public List<ScoutLaw> getScoutLaws() {
         return scoutLaws;
     }
-
 }

@@ -52,7 +52,7 @@ public class PickAndChooseFragment extends Fragment {
 
         binding.setSharedViewModel(sharedViewModel);
         binding.setViewModel(viewModel);
-        questionFlow = binding.included.questionFlowLayout;
+        questionFlow = binding.included.flowQuestion;
 
         setUpViews();
 
@@ -62,15 +62,15 @@ public class PickAndChooseFragment extends Fragment {
     private void setUpViews() {
         setUpQuestionFlow();
 
-        binding.included.helpButton.setOnClickListener(helpButtonOnClickListener);
-        binding.included.checkButton.setOnClickListener(checkButtonOnClickListener);
-        binding.included.clearButton.setOnClickListener(clearButtonOnClickListener);
-        binding.included.giveUpButton.setOnClickListener(giveUpButtonListener);
-        binding.included.forwardButton.setOnClickListener(forwardButtonOnClickListener);
-        binding.included.finishButton.setOnClickListener(finishButtonOnClickListener);
+        binding.included.buttonHelp.setOnClickListener(helpButtonOnClickListener);
+        binding.included.buttonCheck.setOnClickListener(checkButtonOnClickListener);
+        binding.included.buttonClear.setOnClickListener(clearButtonOnClickListener);
+        binding.included.buttonGiveUp.setOnClickListener(giveUpButtonListener);
+        binding.included.buttonNext.setOnClickListener(nextButtonOnClickListener);
+        binding.included.buttonFinish.setOnClickListener(finishButtonOnClickListener);
         // This line makes the layout animate not only visibility or view addition/removal changes
         // but other changes to its children too. We need it for width-change animations
-        binding.included.questionFlowLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+        binding.included.flowQuestion.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
     }
 
     /* I tried moving the entire questionFlow-setup into a @BindingAdapter, but experienced big performance hit */
@@ -82,13 +82,13 @@ public class PickAndChooseFragment extends Fragment {
                 TextView wordView = makeQuestionWordView(item, questionFlow);
                 questionFlow.addView(wordView);
             } else {
-                if (viewModel.getUserAnswers().get(i) == null)
+                if (viewModel.userAnswers.get(i) == null)
                     /* Register the index of the placeholder view with the ViewModel. They will observe the ViewModel. */
                     viewModel.addUserAnswer(i, null);
 
                 TextViewPickChooseFillBinding fillBinding = DataBindingUtil.inflate(getLayoutInflater(),
                         R.layout.text_view_pick_choose_fill, container, false);
-                fillBinding.setObservableText(viewModel.getUserAnswers().get(i));
+                fillBinding.setObservableText(viewModel.userAnswers.get(i));
                 fillBinding.getRoot().setOnDragListener(onOptionDrag);
                 questionFlow.addView(fillBinding.getRoot());
             }
@@ -127,7 +127,7 @@ public class PickAndChooseFragment extends Fragment {
 
     private View.OnClickListener checkButtonOnClickListener = view -> {
         Log.d(LOG_TAG, "Check button clicked.");
-        boolean result = viewModel.check();
+        boolean result = viewModel.evaluateUserAnswers();
 
         if (result) {
             Toast toast = new Toast(getContext());
@@ -151,7 +151,7 @@ public class PickAndChooseFragment extends Fragment {
         viewModel.clear();
     };
 
-    private View.OnClickListener forwardButtonOnClickListener = view -> {
+    private View.OnClickListener nextButtonOnClickListener = view -> {
         Log.d(LOG_TAG, "Forward button clicked.");
         transitionToNextQuestion();
     };
@@ -165,9 +165,9 @@ public class PickAndChooseFragment extends Fragment {
     private TextView makeQuestionWordView(String word, ViewGroup parent) {
         TextViewPickChooseWordBinding wordBinding = DataBindingUtil
                 .inflate(getLayoutInflater(), R.layout.text_view_pick_choose_word, parent, false);
-        wordBinding.setNumber(viewModel.getScoutLaw().law.number);
-        wordBinding.wordTextView.setText(word);
-        return wordBinding.wordTextView;
+        wordBinding.setNumber(viewModel.getScoutLaw().getLaw().getNumber());
+        wordBinding.textWord.setText(word);
+        return wordBinding.textWord;
     }
 
     private void transitionToNextQuestion() {

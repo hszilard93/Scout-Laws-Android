@@ -16,7 +16,7 @@
         app:cardCornerRadius="0dp">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/listItem_constraintLayout"
+            android:id="@+id/constraint_list_item_law"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="64dp"
@@ -25,7 +25,7 @@
             app:background_number='@{scoutLaw.number}'>
 
             <TextView
-                android:id="@+id/number_TextView"
+                android:id="@+id/text_number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -38,7 +38,7 @@
                 tools:text="1" />
 
             <TextView
-                android:id="@+id/main_TextView"
+                android:id="@+id/text_law"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"

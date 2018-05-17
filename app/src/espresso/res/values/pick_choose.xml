@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="law_1_pick">Word word #correct1 word #correct2.</string>
+    <string-array name="law_1_pick_options">
+        <item>option1</item>
+        <item>option2</item>
+        <item>option3</item>
+        <item>option4</item>
+    </string-array>
+
+    <string name="law_2_pick">Word word #correct1 word #correct2.</string>
+    <string-array name="law_2_pick_options">
+        
+        <item>option1</item>
+        <item>option2</item>
+        <item>option3</item>
+        <item>option4</item>
+        <item>option5</item>
+    </string-array>
+
+    <string name="law_3_pick">Word word #correct1 word #correct2.</string>
+    <string-array name="law_3_pick_options">
+        
+        <item>option1</item>
+        <item>option2</item>
+        <item>option3</item>
+        <item>option4</item>
+        <item>option5</item>
+        <item>option6</item>
+    </string-array>
+
+    <string name="law_4_pick">Word word #correct1 word #correct2.</string>
+    <string-array name="law_4_pick_options">
+        
+        <item>option1</item>
+        <item>option2</item>
+        <item>option3</item>
+        <item>option4</item>
+        <item>option5</item>
+        <item>option6</item>
+        <item>option7</item>
+    </string-array>
+
+    <string name="law_5_pick">Word word #correct1 word #correct2.</string>
+    <string-array name="law_5_pick_options">
+        
+        <item>option1</item>
+        <item>option2</item>
+        <item>option3</item>
+        <item>option4</item>
+        <item>option5</item>
+        <item>option6</item>
+        <item>option7</item>
+        <item>option8</item>
+    </string-array>
+
+    <string name="law_6_pick">Word word #correct1 word #correct2.</string>
+    <string-array name="law_6_pick_options">
+        
+        <item>option1</item>
+        <item>option2</item>
+        <item>option3</item>
+        <item>option4</item>
+        <item>option5</item>
+        <item>option6</item>
+        <item>option7</item>
+        <item>option8</item>
+        <item>option9</item>
+    </string-array>
+
+    <string name="law_7_pick">Word word #correct1 word #correct2.</string>
+    <string-array name="law_7_pick_options">
+        
+        <item>option1</item>
+        <item>option2</item>
+        <item>option3</item>
+        <item>option4</item>
+        <item>option5</item>
+        <item>option6</item>
+        <item>option7</item>
+        <item>option8</item>
+        <item>option9</item>
+        <item>option10</item>
+    </string-array>
+
+    <string name="law_8_pick">Word word #correct1 word #correct2.</string>
+    <string-array name="law_8_pick_options">
+        
+        <item>option1</item>
+        <item>option2</item>
+        <item>option3</item>
+        <item>option4</item>
+        <item>option5</item>
+        <item>option6</item>
+        <item>option7</item>
+        <item>option8</item>
+        <item>option9</item>
+        <item>option10</item>
+        <item>option11</item>
+    </string-array>
+
+    <string name="law_9_pick">Word word #correct1 word #correct2.</string>
+    <string-array name="law_9_pick_options">
+        <item>option1</item>
+        <item>option2</item>
+        <item>option3</item>
+        <item>option4</item>
+        <item>option5</item>
+        <item>option6</item>
+        
+        <item>option7</item>
+        <item>option8</item>
+        <item>option9</item>
+        <item>option10</item>
+        <item>option11</item>
+        <item>option12</item>
+    </string-array>
+
+    <string name="law_10_pick">Word word #correct1 word #correct2.</string>
+    <string-array name="law_10_pick_options">
+        <item>option1</item>
+        <item>option2</item>
+        <item>option3</item>
+        <item>option4</item>
+        <item>option5</item>
+        <item>option6</item>
+        <item>option7</item>
+        <item>option8</item>
+        <item>option9</item>
+        <item>option10</item>
+        <item>option11</item>
+        <item>option12</item>
+    </string-array>
+</resources>

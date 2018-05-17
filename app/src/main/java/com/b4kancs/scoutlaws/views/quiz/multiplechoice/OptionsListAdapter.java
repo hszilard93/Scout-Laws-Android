@@ -40,6 +40,7 @@ public class OptionsListAdapter extends ArrayAdapter<ScoutLaw> {
         View view = convertView == null         // Do we have any old views to reuse?
                 ? LayoutInflater.from(getContext()).inflate(R.layout.list_item_option, parent, false)
                 : convertView;
+        view.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         final ListItemOptionBinding binding = DataBindingUtil.bind(view);
         binding.setScoutLaw(viewModel.getOptions().get(position));
         binding.setViewModel(viewModel);
