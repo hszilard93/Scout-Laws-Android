@@ -30,13 +30,13 @@
             app:background_number="@{scoutLaw.number}">
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/details_constraintLayout"
+                android:id="@+id/constraint_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:state_binding="@{state}">
 
                 <TextView
-                    android:id="@+id/number_textView"
+                    android:id="@+id/text_number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -53,7 +53,7 @@
                     tools:text="2. cserkésztörvény" />
 
                 <TextView
-                    android:id="@+id/law_textView"
+                    android:id="@+id/text_law"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -65,12 +65,12 @@
                     android:transitionName="@string/start_details_law_transition"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/number_textView"
+                    app:layout_constraintTop_toBottomOf="@id/text_number"
                     app:textColor_number="@{scoutLaw.number}"
                     tools:text="A cserkész egyeneslelkű és feltétlenül igazat mond." />
 
                 <TextView
-                    android:id="@+id/modern_textView"
+                    android:id="@+id/text_modern"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -82,22 +82,22 @@
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/law_textView"
+                    app:layout_constraintTop_toBottomOf="@id/text_law"
                     app:textColor_number="@{scoutLaw.number}"
                     tools:text="@string/law_2_desc" />
 
                 <LinearLayout
-                    android:id="@+id/old_linearLayout"
+                    android:id="@+id/linear_old"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/law_textView">
+                    app:layout_constraintTop_toBottomOf="@id/text_law">
 
                     <TextView
-                        android:id="@+id/old_textView"
+                        android:id="@+id/text_old"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -110,7 +110,7 @@
                         tools:text="@string/law_2_desc_orig" />
 
                     <TextView
-                        android:id="@+id/source_textView"
+                        android:id="@+id/text_source"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"

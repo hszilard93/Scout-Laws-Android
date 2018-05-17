@@ -46,7 +46,7 @@ class RepositoryTest {
 
     @Test
     fun repositoryShouldBeInjectedCorrectly() {
-        /* Set Dagger up for testing */
+        /* Set up Dagger for testing */
         val testComponent: TestComponent = DaggerTestComponent.builder().testModule((TestModule())).build()
         testComponent.inject(this)
         ScoutLawApp().applicationComponent = testComponent

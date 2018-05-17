@@ -28,7 +28,7 @@ class MultipleChoiceSharedViewModelTest {
     }
 
     @Test
-    fun sharedViewModelShouldFetchScoutLawsFromRepository() {
+    fun sharedViewModelShouldLoadScoutLawsFromRepository() {
         val viewModel = MultipleChoiceSharedViewModel()
 
         Assertions.assertEquals(repository.laws, viewModel.scoutLaws)

@@ -9,8 +9,8 @@ android {
         applicationId "com.b4kancs.scoutlaws"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 5
-        versionName "0.1.4"
+        versionCode 6
+        versionName "0.1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,6 +30,15 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+    flavorDimensions "content"
+    productFlavors {
+        production {
+            dimension "content"
+        }
+        espresso {
+            dimension "content"
+        }
+    }
 }
 
 dependencies {
@@ -42,28 +51,36 @@ dependencies {
     // Dagger 2
     implementation "com.google.dagger:dagger-android:$dagger2_version"
     implementation "com.google.dagger:dagger-android-support:$dagger2_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
+    annotationProcessor  "com.google.dagger:dagger-android-processor:$dagger2_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
-
     implementation "com.nex3z:flow-layout:$flow_layout_version"
     implementation "com.github.frankiesardo:linearlistview:$linear_list_version"
 
     // This fixes bug that caused support-library version conflict
     implementation "com.android.support:support-v4:$support_version"
-
     implementation "android.arch.lifecycle:extensions:$arch_version"
     implementation "android.arch.lifecycle:common-java8:$arch_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "com.android.support:support-v4:$support_version"
+    // Android Testing Support Library's runner and rules
     androidTestImplementation "com.android.support.test:runner:$test_runner_version"
+    androidTestImplementation "com.android.support.test:rules:$test_runner_version"
+
+    // Espresso
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espresso_version"
+
     testImplementation "android.arch.core:core-testing:$arch_version"
+    kaptTest "com.google.dagger:dagger-compiler:$dagger2_version"
+
+    // Mockito
     testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
-    kaptTest "com.google.dagger:dagger-compiler:$dagger2_version"
+
+    // Junit5
     testImplementation junit5.unitTests()
+    androidTestImplementation junit5.instrumentationTests()
 }
 
 repositories {

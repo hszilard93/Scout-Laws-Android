@@ -43,22 +43,22 @@ public class StartActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) binding.toolbar);
 
         ScoutLawListAdapter listAdapter = new ScoutLawListAdapter(viewModel.scoutLaws(), this);
-        binding.lawsListView.setAdapter(listAdapter);
-        binding.lawsListView.setOnItemClickListener(listAdapter);
+        binding.listLaws.setAdapter(listAdapter);
+        binding.listLaws.setOnItemClickListener(listAdapter);
         /* This empty view gives the last list item space for its shadow */
         TextView empty = new TextView(this);
         empty.setHeight(1);
-        binding.lawsListView.addFooterView(empty);
-        binding.lawsListView.addHeaderView(empty);
+        binding.listLaws.addFooterView(empty);
+        binding.listLaws.addHeaderView(empty);
 
         drawerToggle = setUpDrawerToggle();
         setUpDrawerContent();
         NavigationView navigationView = binding.navigationView;
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.quiz_menuItem:
+                case R.id.menu_item_quiz:
                     Log.d(LOG_TAG, "Quiz menu item selected.");
-                    openQuizActivity();
+                    startQuizActivity();
                     return true;
                 default:
                     return false;
@@ -88,7 +88,7 @@ public class StartActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void openQuizActivity() {
+    private void startQuizActivity() {
         Intent intent = new Intent(this, QuizActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(intent);

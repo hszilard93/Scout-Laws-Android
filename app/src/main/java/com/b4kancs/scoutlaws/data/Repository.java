@@ -36,7 +36,7 @@ public class Repository {
     private void loadLaws() {
         Log.d(LOG_TAG, "Loading scout laws.");
         String packageName = "com.b4kancs.scoutlaws";
-        // Check how many scoutlaws are there
+        // Check how many scout laws are there
         numberOfScoutLaws = resources.getInteger(resources.getIdentifier("number_of_laws", "integer", packageName));
         Log.d(LOG_TAG, "The number of scout laws is " + numberOfScoutLaws);
         /* Building the ScoutLaw and PickAndChooseScoutLaw objects by dynamically loading them from their resource files by constructing their names */

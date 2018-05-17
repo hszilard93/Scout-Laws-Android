@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraint"
+        android:id="@+id/constraint_chooser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_grey"
         tools:context="com.b4kancs.scoutlaws.views.quiz.chooser.ChooserFragment">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/chooser_cardView"
+            android:id="@+id/card_chooser"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -30,7 +30,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/choose_textView"
+                    android:id="@+id/text_choose"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent"
@@ -42,7 +42,7 @@
                     tools:text="Choose a quiz type!" />
 
                 <Button
-                    android:id="@+id/any_button"
+                    android:id="@+id/button_any"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -52,7 +52,7 @@
                     tools:text="Any" />
 
                 <Button
-                    android:id="@+id/multiple_button"
+                    android:id="@+id/button_multiple"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -62,7 +62,7 @@
                     tools:text="Multiple choice" />
 
                 <Button
-                    android:id="@+id/pick_button"
+                    android:id="@+id/button_pick"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"

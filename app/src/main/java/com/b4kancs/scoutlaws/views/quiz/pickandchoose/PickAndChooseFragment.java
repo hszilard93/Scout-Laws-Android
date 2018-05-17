@@ -52,7 +52,7 @@ public class PickAndChooseFragment extends Fragment {
 
         binding.setSharedViewModel(sharedViewModel);
         binding.setViewModel(viewModel);
-        questionFlow = binding.included.questionFlowLayout;
+        questionFlow = binding.included.flowQuestion;
 
         setUpViews();
 
@@ -62,15 +62,15 @@ public class PickAndChooseFragment extends Fragment {
     private void setUpViews() {
         setUpQuestionFlow();
 
-        binding.included.helpButton.setOnClickListener(helpButtonOnClickListener);
-        binding.included.checkButton.setOnClickListener(checkButtonOnClickListener);
-        binding.included.clearButton.setOnClickListener(clearButtonOnClickListener);
-        binding.included.giveUpButton.setOnClickListener(giveUpButtonListener);
-        binding.included.forwardButton.setOnClickListener(forwardButtonOnClickListener);
-        binding.included.finishButton.setOnClickListener(finishButtonOnClickListener);
+        binding.included.buttonHelp.setOnClickListener(helpButtonOnClickListener);
+        binding.included.buttonCheck.setOnClickListener(checkButtonOnClickListener);
+        binding.included.buttonClear.setOnClickListener(clearButtonOnClickListener);
+        binding.included.buttonGiveUp.setOnClickListener(giveUpButtonListener);
+        binding.included.buttonNext.setOnClickListener(nextButtonOnClickListener);
+        binding.included.buttonFinish.setOnClickListener(finishButtonOnClickListener);
         // This line makes the layout animate not only visibility or view addition/removal changes
         // but other changes to its children too. We need it for width-change animations
-        binding.included.questionFlowLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+        binding.included.flowQuestion.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
     }
 
     /* I tried moving the entire questionFlow-setup into a @BindingAdapter, but experienced big performance hit */
@@ -151,7 +151,7 @@ public class PickAndChooseFragment extends Fragment {
         viewModel.clear();
     };
 
-    private View.OnClickListener forwardButtonOnClickListener = view -> {
+    private View.OnClickListener nextButtonOnClickListener = view -> {
         Log.d(LOG_TAG, "Forward button clicked.");
         transitionToNextQuestion();
     };
@@ -166,8 +166,8 @@ public class PickAndChooseFragment extends Fragment {
         TextViewPickChooseWordBinding wordBinding = DataBindingUtil
                 .inflate(getLayoutInflater(), R.layout.text_view_pick_choose_word, parent, false);
         wordBinding.setNumber(viewModel.getScoutLaw().getLaw().getNumber());
-        wordBinding.wordTextView.setText(word);
-        return wordBinding.wordTextView;
+        wordBinding.textWord.setText(word);
+        return wordBinding.textWord;
     }
 
     private void transitionToNextQuestion() {

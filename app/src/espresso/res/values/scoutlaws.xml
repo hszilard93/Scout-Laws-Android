@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="number_of_laws">10</integer>
+
+    <!--The ten scout laws; text + description + original description -->
+    <string name="law_1">Scout law 1 test value.</string>
+    <string name="law_1_desc">Scout law 1 description test value.</string>
+    <string name="law_1_desc_orig">Scout law 1 original description test value.</string>
+    
+    <string name="law_2">Scout law 2 test value.</string>
+    <string name="law_2_desc">Scout law 2 description test value.</string>
+    <string name="law_2_desc_orig">Scout law 2 original description test value.</string>
+    
+    <string name="law_3">Scout law 3 test value.</string>
+    <string name="law_3_desc">Scout law 3 description test value.</string>
+    <string name="law_3_desc_orig">Scout law 3 original description test value.</string>
+    
+    <string name="law_4">Scout law 4 test value.</string>
+    <string name="law_4_desc">Scout law 4 description test value.</string>
+    <string name="law_4_desc_orig">Scout law 4 original description test value.</string>
+    
+    <string name="law_5">Scout law 5 test value.</string>
+    <string name="law_5_desc">Scout law 5 description test value.</string>
+    <string name="law_5_desc_orig">Scout law 5 original description test value.</string>
+    
+    <string name="law_6">Scout law 6 test value.</string>
+    <string name="law_6_desc">Scout law 6 description test value.</string>
+    <string name="law_6_desc_orig">Scout law 6 original description test value.</string>
+    
+    <string name="law_7">Scout law 7 test value.</string>
+    <string name="law_7_desc">Scout law 7 description test value.</string>
+    <string name="law_7_desc_orig">Scout law 7 original description test value.</string>
+    
+    <string name="law_8">Scout law 8 test value.</string>
+    <string name="law_8_desc">Scout law 8 description test value.</string>
+    <string name="law_8_desc_orig">Scout law 8 original description test value.</string>
+    
+    <string name="law_9">Scout law 9 test value.</string>
+    <string name="law_9_desc">Scout law 9 description test value.</string>
+    <string name="law_9_desc_orig">Scout law 9 original description test value.</string>
+    
+    <string name="law_10">Scout law 10 test value.</string>
+    <string name="law_10_desc">Scout law 10 description test value.</string>
+    <string name="law_10_desc_orig">Scout law 10 original description test value.</string>
+</resources>

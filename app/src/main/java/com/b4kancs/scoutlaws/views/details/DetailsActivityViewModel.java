@@ -24,8 +24,9 @@ public class DetailsActivityViewModel extends ViewModel {
     private final int index;
     private ScoutLaw scoutLaw;
 
-    DetailsActivityViewModel(int index) {
-        this.index = index;
+    /* Scout law numbers start from 1!*/
+    DetailsActivityViewModel(int scoutLawNumber) {
+        this.index = scoutLawNumber;
         init();
     }
 

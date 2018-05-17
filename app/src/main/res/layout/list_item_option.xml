@@ -20,7 +20,7 @@
         app:cardCornerRadius="4dp">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/option_constraintLayout"
+            android:id="@+id/constraint_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="64dp"
@@ -28,7 +28,7 @@
             app:optionBackground_isCorrect="@{scoutLaw == viewModel.getAnswer()}">
 
             <TextView
-                android:id="@+id/main_TextView"
+                android:id="@+id/text_law"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"

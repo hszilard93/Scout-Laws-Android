@@ -54,12 +54,12 @@ class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements AdapterView.
         Log.d(LOG_TAG, "List item clicked.");
 
         Intent intent = new Intent(activity, DetailsActivity.class);
-        intent.putExtra(DetailsActivity.SCOUT_LAW_INDEX_KEY, position);
+        intent.putExtra(DetailsActivity.SCOUT_LAW_NUMBER_KEY, position);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // Set up shared element transition
         ListItemLawBinding binding = DataBindingUtil.bind(view);
-        TextView textView = binding.mainTextView;
-        ViewGroup layout = binding.listItemConstraintLayout;
+        TextView textView = binding.textLaw;
+        ViewGroup layout = binding.constraintListItemLaw;
         Pair<View, String> pair1 = Pair.create(textView, textView.getTransitionName());
         Pair<View, String> pair2 = Pair.create(layout, layout.getTransitionName());
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, pair1, pair2);

@@ -15,7 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
-import com.b4kancs.scoutlaws.databinding.DialogResultMultipleBinding;
+import com.b4kancs.scoutlaws.databinding.DialogResultBinding;
+import com.b4kancs.scoutlaws.databinding.DialogResultBinding;
 
 /**
  * Created by hszilard on 02-Mar-18.
@@ -25,7 +26,7 @@ import com.b4kancs.scoutlaws.databinding.DialogResultMultipleBinding;
 public class ResultDialogFragment extends DialogFragment {
     private static final String LOG_TAG = ResultDialogFragment.class.getSimpleName();
 
-    private DialogResultMultipleBinding binding;
+    private DialogResultBinding binding;
     private View.OnClickListener onRetryClicked;    // since DialogFragment is not a 'real' fragment, these have to be injected in setter methods
     private View.OnClickListener onBackClicked;     //
     private int score;                              //
@@ -41,7 +42,7 @@ public class ResultDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState)
     {
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_result_multiple, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_result, container, false);
         setUpViews();
 
         return binding.getRoot();
@@ -51,14 +52,14 @@ public class ResultDialogFragment extends DialogFragment {
         binding.setScore(score);
 
         if (onBackClicked != null)
-            binding.backButton.setOnClickListener(onBackClicked);
+            binding.buttonBack.setOnClickListener(onBackClicked);
         else
-            binding.backButton.setEnabled(false);
+            binding.buttonBack.setEnabled(false);
 
         if (onRetryClicked != null)
-            binding.retryButton.setOnClickListener(onRetryClicked);
+            binding.buttonRetry.setOnClickListener(onRetryClicked);
         else
-            binding.retryButton.setEnabled(false);
+            binding.buttonRetry.setEnabled(false);
     }
 
     /* Please, no rotation, I beg thee!!! */

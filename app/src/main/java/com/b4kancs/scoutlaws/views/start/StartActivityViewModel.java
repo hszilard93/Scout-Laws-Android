@@ -2,7 +2,6 @@ package com.b4kancs.scoutlaws.views.start;
 
 import android.arch.lifecycle.ViewModel;
 
-import com.b4kancs.scoutlaws.DaggerApplicationComponent;
 import com.b4kancs.scoutlaws.ScoutLawApp;
 import com.b4kancs.scoutlaws.data.Repository;
 import com.b4kancs.scoutlaws.data.model.ScoutLaw;

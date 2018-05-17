@@ -83,7 +83,7 @@ public final class PickAndChooseBindings {
         @Override
         public boolean onTouch(View view, MotionEvent event) {
             /* Check if targetView is eligible for drag & drop */
-            if (view.getId() != R.id.option_textView)
+            if (view.getId() != R.id.text_option)
                 return false;
 
             String text = ((TextView) view).getText().toString();

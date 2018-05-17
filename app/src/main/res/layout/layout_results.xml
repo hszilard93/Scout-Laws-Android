@@ -9,18 +9,19 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint_results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteY="25dp">
 
         <ImageView
-            android:id="@+id/star1_imageView"
+            android:id="@+id/image_star1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/star2_imageView"
+            app:layout_constraintEnd_toStartOf="@+id/image_star2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,49 +29,49 @@
             app:starImageSource_score="@{score}"/>
 
         <ImageView
-            android:id="@+id/star2_imageView"
+            android:id="@+id/image_star2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/star3_imageView"
+            app:layout_constraintEnd_toStartOf="@+id/image_star3"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/star1_imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_star1"
             app:layout_constraintTop_toTopOf="parent"
             app:starImageSource_order="@{2}"
             app:starImageSource_score="@{score}" />
 
         <ImageView
-            android:id="@+id/star3_imageView"
+            android:id="@+id/image_star3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/star4_imageView"
+            app:layout_constraintEnd_toStartOf="@+id/image_star4"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/star2_imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_star2"
             app:layout_constraintTop_toTopOf="parent"
             app:starImageSource_order="@{3}"
             app:starImageSource_score="@{score}" />
 
         <ImageView
-            android:id="@+id/star4_imageView"
+            android:id="@+id/image_star4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/star5_imageView"
+            app:layout_constraintEnd_toStartOf="@+id/image_star5"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/star3_imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_star3"
             app:layout_constraintTop_toTopOf="parent"
             app:starImageSource_order="@{4}"
             app:starImageSource_score="@{score}" />
 
         <ImageView
-            android:id="@+id/star5_imageView"
+            android:id="@+id/image_star5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -78,7 +79,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/star4_imageView"
+            app:layout_constraintStart_toEndOf="@+id/image_star4"
             app:layout_constraintTop_toTopOf="parent"
             app:starImageSource_order="@{5}"
             app:starImageSource_score="@{score}" />
