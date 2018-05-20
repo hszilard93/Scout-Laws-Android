@@ -118,21 +118,8 @@ public class MultipleChoiceFragment extends Fragment {
         sharedViewModel.reset();
     };
 
-    /* Let's clean up some */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        sharedViewModel = null;
-        viewModel = null;
-        binding = null;
-        container = null;
-        onOptionSelected = null;
-        nextButtonClickedListener = null;
-        finishButtonOnClickedListener = null;
-    }
-
     /* Makes the next button available when the turn is over */
-    @BindingAdapter({"nextButton_turnOver"})
+    @BindingAdapter("nextButton_turnOver")
     public static void setNextButtonTurnOver(@NonNull Button button, MultipleChoiceViewModel.State state) {
         Resources resources = button.getResources();
         if (state == MultipleChoiceViewModel.State.DONE) {

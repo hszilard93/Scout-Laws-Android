@@ -2,6 +2,7 @@ package com.b4kancs.scoutlaws.views.quiz;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableInt;
 import android.util.Log;
 
 import com.b4kancs.scoutlaws.ScoutLawApp;
@@ -26,7 +27,7 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     public final ObservableBoolean isLastTurn = new ObservableBoolean(false);
     @Inject public Repository repository;
     protected final ArrayList<Integer> usedLaws; // Questions we have asked in this quiz
-    protected int turnCount;
+    protected ObservableInt turnCount = new ObservableInt(0);
     protected int score = 0;
     private Random random = new Random();
 
@@ -39,7 +40,7 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     public void reset() {
         Log.d(LOG_TAG, "Resetting.");
         isLastTurn.set(false);
-        turnCount = 0;
+        turnCount.set(0);
         score = 0;
         usedLaws.clear();
     }
@@ -56,18 +57,18 @@ public abstract class AbstractSharedViewModel extends ViewModel {
         return index;
     }
 
-    public int getTurnCount() {     // public because of data binding
+    public ObservableInt getTurnCount() {     // public because of data binding
         return turnCount;
     }
 
     public void incTurnCount() {
         Log.d(LOG_TAG, "Increasing turn count. Current turn: " + turnCount);
-        if (turnCount < TURN_LIMIT) {
-            turnCount++;
+        if (turnCount.get() < TURN_LIMIT) {
+            turnCount.set(turnCount.get() + 1);
             repository.increaseTotalPossibleScoreBy(1);
         }
 
-        if (turnCount == TURN_LIMIT)
+        if (turnCount.get() == TURN_LIMIT)
             isLastTurn.set(true);
     }
 

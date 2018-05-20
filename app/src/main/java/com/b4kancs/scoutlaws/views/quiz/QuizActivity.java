@@ -95,6 +95,7 @@ public class QuizActivity extends AppCompatActivity {
         Fragment chooserFragment = new ChooserFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+        ((QuizShellFragment)sourceFragment).triggerChildExitAnimation();
         transaction.replace(binding.fragmentContainer.getId(), chooserFragment);
         transaction.commit();
 
@@ -114,5 +115,6 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             NavUtils.navigateUpTo(this, upIntent);
         }
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
 }
