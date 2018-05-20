@@ -1,5 +1,6 @@
 package com.b4kancs.scoutlaws.data;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.util.Log;
 
@@ -19,18 +20,26 @@ import javax.inject.Singleton;
 @Singleton
 public class Repository {
     private static final String LOG_TAG = Repository.class.getSimpleName();
+    private static final String TOTAL_SCORE_KEY = "TOTAL_SCORE";
+    private static final String TOTAL_POSSIBLE_SCORE_KEY = "TOTAL_POSSIBLE_SCORE";
 
-    private int numberOfScoutLaws;  // How many questions are there? This is dynamic.
     private final ArrayList<ScoutLaw> laws = new ArrayList<>(10);
     private final ArrayList<PickAndChooseScoutLaw> pickAndChooseLaws = new ArrayList<>(10);
-    /* Context is needed to access application resources */
+    /* Injected application resources and shared preferences */
     private final Resources resources;
+    private final SharedPreferences preferences;
+
+    private int numberOfScoutLaws;      // How many laws are there? This is not constant!
+    private int totalScore;
+    private int totalPossibleScore;
 
     @Inject
-    public Repository(Resources resources) {
+    public Repository(Resources resources, SharedPreferences preferences) {
         Log.d(LOG_TAG, "Constructing Repository instance.");
         this.resources = resources;
+        this.preferences = preferences;
         loadLaws();
+        loadUserData();
     }
 
     private void loadLaws() {
@@ -69,6 +78,15 @@ public class Repository {
         }
     }
 
+    private void loadUserData() {
+        totalScore = preferences.getInt(TOTAL_SCORE_KEY, 0);
+        totalPossibleScore = preferences.getInt(TOTAL_POSSIBLE_SCORE_KEY, 0);
+    }
+
+    public void resetSharedPreferences() {
+        preferences.edit().clear().apply();
+    }
+
     public int getNumberOfScoutLaws() {
         return numberOfScoutLaws;
     }
@@ -79,5 +97,32 @@ public class Repository {
 
     public ArrayList<PickAndChooseScoutLaw> getPickAndChooseLaws() {
         return pickAndChooseLaws;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public int getTotalPossibleScore() {
+        return totalPossibleScore;
+    }
+
+    public void increaseTotalScoreBy(int thisMuch) {
+        totalScore += thisMuch;
+        preferences.edit().putInt(TOTAL_SCORE_KEY, totalScore).apply();
+    }
+
+    public void increaseTotalPossibleScoreBy(int thisMuch) {
+        totalPossibleScore += thisMuch;
+        preferences.edit().putInt(TOTAL_POSSIBLE_SCORE_KEY, totalPossibleScore).apply();
+    }
+
+    public void resetScore() {
+        totalScore = 0;
+        totalPossibleScore = 0;
+        preferences.edit()
+                .putInt(TOTAL_SCORE_KEY, totalScore)
+                .putInt(TOTAL_POSSIBLE_SCORE_KEY, totalPossibleScore)
+                .apply();
     }
 }

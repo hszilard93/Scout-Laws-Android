@@ -2,7 +2,6 @@ package com.b4kancs.scoutlaws.views.quiz;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,11 +10,9 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
-import com.b4kancs.scoutlaws.databinding.DialogResultBinding;
 import com.b4kancs.scoutlaws.databinding.DialogResultBinding;
 
 /**
@@ -27,9 +24,12 @@ public class ResultDialogFragment extends DialogFragment {
     private static final String LOG_TAG = ResultDialogFragment.class.getSimpleName();
 
     private DialogResultBinding binding;
-    private View.OnClickListener onRetryClicked;    // since DialogFragment is not a 'real' fragment, these have to be injected in setter methods
+    private Resources resources;
+    private int score;
+    private int totalScore;
+    private int totalPossibleScore;
+    private View.OnClickListener onRetryClicked;    // These have to be injected in setter methods
     private View.OnClickListener onBackClicked;     //
-    private int score;                              //
 
     @Override
     public void onStart() {
@@ -43,13 +43,22 @@ public class ResultDialogFragment extends DialogFragment {
                              @Nullable Bundle savedInstanceState)
     {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_result, container, false);
+        resources = getResources();
+
+        Bundle args = getArguments();
+        score = args.getInt("score");
+        totalScore = args.getInt("totalScore");
+        totalPossibleScore = args.getInt("totalPossibleScore");
+
         setUpViews();
 
         return binding.getRoot();
     }
 
     private void setUpViews() {
-        binding.setScore(score);
+        setUpStars();
+        setUpCongratsText();
+        setUpTotalScoreText();
 
         if (onBackClicked != null)
             binding.buttonBack.setOnClickListener(onBackClicked);
@@ -62,13 +71,51 @@ public class ResultDialogFragment extends DialogFragment {
             binding.buttonRetry.setEnabled(false);
     }
 
+    public void setUpStars() {
+        int emptyStarId = R.drawable.ic_star_border_48dp;
+        int fullStarId = R.drawable.ic_star_full_48dp;
+
+        binding.layoutStars.imageStar1.setImageResource(
+                score >= 1 ? fullStarId : emptyStarId
+        );
+        binding.layoutStars.imageStar2.setImageResource(
+                score >= 2 ? fullStarId : emptyStarId
+        );
+        binding.layoutStars.imageStar3.setImageResource(
+                score >= 3 ? fullStarId : emptyStarId
+        );
+        binding.layoutStars.imageStar4.setImageResource(
+                score >= 4 ? fullStarId : emptyStarId
+        );
+        binding.layoutStars.imageStar5.setImageResource(
+                score >= 5 ? fullStarId : emptyStarId
+        );
+    }
+
+    public void setUpCongratsText() {
+        TextView congratsTextView = binding.textCongrats;
+        if (score <= 1)
+            congratsTextView.setText(resources.getString(R.string.congrats_low_score));
+        else if (score <= 3)
+            congratsTextView.setText(resources.getString(R.string.congrats_mid_score));
+        else if (score <= 4)
+            congratsTextView.setText(resources.getString(R.string.congrats_good_score));
+        else
+            congratsTextView.setText(resources.getString(R.string.congrats_perfect_score));
+    }
+
+    public void setUpTotalScoreText() {
+        TextView totalScoreTextView = binding.textTotalScore;
+        String text = resources.getString(R.string.total_score_text) + " " + totalScore + "/" + totalPossibleScore;
+        totalScoreTextView.setText(text);
+    }
+
     /* Please, no rotation, I beg thee!!! */
     @Override public void onResume() {
         super.onResume();
         // lock screen orientation
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
     }
-
     @Override public void onPause() {
         super.onPause();
         // set rotation to sensor dependent
@@ -76,33 +123,11 @@ public class ResultDialogFragment extends DialogFragment {
     }
     /* */
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     public void setOnRetryClicked(View.OnClickListener onRetryClickedListener) {
         this.onRetryClicked = onRetryClickedListener;
     }
 
     public void setOnBackClicked(View.OnClickListener onBackClicked) {
         this.onBackClicked = onBackClicked;
-    }
-
-    @BindingAdapter({"starImageSource_order", "starImageSource_score"})
-    public static void setStarImageSourceBinding(@NonNull ImageView imageView, int order, int score) {
-        imageView.setImageResource(order <= score ? R.drawable.ic_star_full_48dp : R.drawable.ic_star_border_48dp);
-    }
-
-    @BindingAdapter("congratsCustomText_score")
-    public static void setCongratsTextBinding(@NonNull TextView textView, int score) {
-        Resources resources = textView.getResources();
-        if (score <= 1)
-            textView.setText(resources.getString(R.string.congrats_low_score));
-        else if (score <= 3)
-            textView.setText(resources.getString(R.string.congrats_mid_score));
-        else if (score <= 4)
-            textView.setText(resources.getString(R.string.congrats_good_score));
-        else
-            textView.setText(resources.getString(R.string.congrats_perfect_score));
     }
 }

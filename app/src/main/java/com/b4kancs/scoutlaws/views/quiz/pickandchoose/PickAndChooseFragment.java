@@ -160,6 +160,7 @@ public class PickAndChooseFragment extends Fragment {
         Log.d(LOG_TAG, "Forward button clicked.");
         // Show the results
         showResultDialogFragment(container, getActivity(), getFragmentManager(), new PickAndChooseFragment(), sharedViewModel);
+        sharedViewModel.reset();
     };
 
     private TextView makeQuestionWordView(String word, ViewGroup parent) {

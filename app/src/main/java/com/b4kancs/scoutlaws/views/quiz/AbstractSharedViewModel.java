@@ -62,8 +62,10 @@ public abstract class AbstractSharedViewModel extends ViewModel {
 
     public void incTurnCount() {
         Log.d(LOG_TAG, "Increasing turn count. Current turn: " + turnCount);
-        if (turnCount < TURN_LIMIT)
+        if (turnCount < TURN_LIMIT) {
             turnCount++;
+            repository.increaseTotalPossibleScoreBy(1);
+        }
 
         if (turnCount == TURN_LIMIT)
             isLastTurn.set(true);
@@ -76,10 +78,19 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     public void incScore() {
         Log.d(LOG_TAG, "Increasing score. Current score: " + score);
         score += 1;
+        repository.increaseTotalScoreBy(1);
     }
 
     public int getTurnLimit() {
         return TURN_LIMIT;
+    }
+
+    public int getTotalScore() {
+        return repository.getTotalScore();
+    }
+
+    public int getTotalPossibleScore() {
+        return repository.getTotalPossibleScore();
     }
 
     @Override

@@ -115,6 +115,7 @@ public class MultipleChoiceFragment extends Fragment {
         Log.d(LOG_TAG, "Finish button clicked.");
         // Show the results
         showResultDialogFragment(container, getActivity(), getFragmentManager(), new MultipleChoiceFragment(), sharedViewModel);
+        sharedViewModel.reset();
     };
 
     /* Let's clean up some */
