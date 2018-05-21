@@ -3,6 +3,7 @@ package com.b4kancs.scoutlaws.views.quiz;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,9 @@ import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.DialogResultBinding;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by hszilard on 02-Mar-18.
@@ -28,6 +32,8 @@ public class ResultDialogFragment extends DialogFragment {
     private int score;
     private int totalScore;
     private int totalPossibleScore;
+    private long timeSpent;
+    private long bestTime;
     private View.OnClickListener onRetryClicked;    // These have to be injected in setter methods
     private View.OnClickListener onBackClicked;     //
 
@@ -40,8 +46,7 @@ public class ResultDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState)
-    {
+                             @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_result, container, false);
         resources = getResources();
 
@@ -49,6 +54,8 @@ public class ResultDialogFragment extends DialogFragment {
         score = args.getInt("score");
         totalScore = args.getInt("totalScore");
         totalPossibleScore = args.getInt("totalPossibleScore");
+        timeSpent = args.getLong("timeSpent");
+        bestTime = args.getLong("bestTime");
 
         setUpViews();
 
@@ -59,6 +66,7 @@ public class ResultDialogFragment extends DialogFragment {
         setUpStars();
         setUpCongratsText();
         setUpTotalScoreText();
+        setUpTimeText();
 
         if (onBackClicked != null)
             binding.buttonBack.setOnClickListener(onBackClicked);
@@ -110,13 +118,59 @@ public class ResultDialogFragment extends DialogFragment {
         totalScoreTextView.setText(text);
     }
 
+    public void setUpTimeText() {
+        TextView timeTextView = binding.textTime;
+        TextView bestTimeTextView = binding.textBestTime;
+        Date time = new Date(timeSpent);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss.S");
+        String timeText;
+        String bestTimeText;
+//        if (score == 5) {
+//            timeTextView.setTextColor(resources.getColor(R.color.colorPrimary));
+//            if (timeSpent < bestTime || bestTime == 0) {
+//                timeText = resources.getString(R.string.ew_best_time_text) + " " + dateFormat.format(time);
+//                bestTimeText = "";
+//                bestTimeTextView.setVisibility(View.GONE);
+//            }
+//            else {
+//                timeText = resources.getString(R.string.time_text) + " " + dateFormat.format(time);
+//                bestTimeText = resources.getString(R.string.best_time_text) + " " + dateFormat.format(new Date(bestTime));
+//            }
+//        } else {
+//            timeText = resources.getString(R.string.time_text) + " " + dateFormat.format(time);
+//            timeTextView.setTextColor(Color.RED);
+//            bestTimeText = resources.getString(R.string.best_time_text) + " " + dateFormat.format(new Date(bestTime));
+//        }
+
+        /* When new best time, bestTime will actually be EQUAL to timeSpent, since the new time has already been saved by
+         * the shared ViewModel before being passed to this DialogFragment */
+        if (timeSpent <= bestTime && score == 5) {
+            timeText = resources.getString(R.string.new_best_time_text) + " " + dateFormat.format(time);
+            bestTimeText = "";
+            bestTimeTextView.setVisibility(View.GONE);
+        } else {
+            if (score == 5)
+                timeTextView.setTextColor(resources.getColor(R.color.colorPrimary));
+            else
+                timeTextView.setTextColor(Color.RED);
+
+            timeText = resources.getString(R.string.time_text) + " " + dateFormat.format(time);
+            bestTimeText = resources.getString(R.string.best_time_text) + " " + dateFormat.format(new Date(bestTime));
+        }
+        timeTextView.setText(timeText);
+        bestTimeTextView.setText(bestTimeText);
+    }
+
     /* Please, no rotation, I beg thee!!! */
-    @Override public void onResume() {
+    @Override
+    public void onResume() {
         super.onResume();
         // lock screen orientation
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
     }
-    @Override public void onPause() {
+
+    @Override
+    public void onPause() {
         super.onPause();
         // set rotation to sensor dependent
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);

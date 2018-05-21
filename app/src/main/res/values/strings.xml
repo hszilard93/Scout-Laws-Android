@@ -40,4 +40,7 @@
     <string name="start_to_details_background_transition">start_details_background_transition</string>
     <string name="header">Menü</string>
     <string name="total_score_text">Összesen: </string>
+    <string name="time_text">Idő:</string>
+    <string name="best_time_text">Legjobb idő:</string>
+    <string name="new_best_time_text">Új legjobb idő!</string>
 </resources>

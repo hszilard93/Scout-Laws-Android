@@ -1,12 +1,15 @@
 package com.b4kancs.scoutlaws.views.quiz
 
 import android.arch.lifecycle.ViewModelProviders
+import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Chronometer
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.databinding.FragmentQuizShellBinding
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment
@@ -20,17 +23,20 @@ import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewMod
 class QuizShellFragment : Fragment() {
     companion object {
         const val FRAGMENT_TAG = "QUIZ_SHELL_FRAGMENT"
+        private val LOG_TAG = QuizShellFragment::class.simpleName
     }
 
     private lateinit var binding: FragmentQuizShellBinding
+    private lateinit var sharedViewModel: AbstractSharedViewModel
     private lateinit var fragmentTag: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d(LOG_TAG, "onCreateView")
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_quiz_shell, container, false)
-        var sharedViewModel: AbstractSharedViewModel
 
         if (savedInstanceState != null) {
             fragmentTag = savedInstanceState.getString("TAG")
+            Log.d(LOG_TAG, "Restoring fragment $fragmentTag.")
             sharedViewModel =
                     when (fragmentTag) {
                         MultipleChoiceFragment.FRAGMENT_TAG ->
@@ -42,6 +48,7 @@ class QuizShellFragment : Fragment() {
                     }
         } else {
             fragmentTag = arguments!!.getString("TAG", MultipleChoiceFragment.FRAGMENT_TAG)
+            Log.d(LOG_TAG, "Creating fragment $fragmentTag.")
             when (fragmentTag) {
                 MultipleChoiceFragment.FRAGMENT_TAG -> {
                     childFragmentManager
@@ -55,7 +62,7 @@ class QuizShellFragment : Fragment() {
                             .beginTransaction()
                             .add(R.id.fragment_container, PickAndChooseFragment(), fragmentTag)
                             .commit()
-                    sharedViewModel = ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
+                    sharedViewModel = ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
                 }
                 else -> throw IllegalArgumentException()
             }
@@ -68,12 +75,12 @@ class QuizShellFragment : Fragment() {
     }
 
     private fun setUpViews() {
-        binding.textInstruction.apply {
+        binding.apply {
             when (fragmentTag) {
                 MultipleChoiceFragment.FRAGMENT_TAG ->
-                    text = resources.getText(R.string.multiple_tip)
+                    textInstruction.text = resources.getText(R.string.multiple_tip)
                 PickAndChooseFragment.FRAGMENT_TAG ->
-                    text = resources.getText(R.string.pick_choose_tip)
+                    textInstruction.text = resources.getText(R.string.pick_choose_tip)
             }
         }
     }
@@ -94,4 +101,17 @@ class QuizShellFragment : Fragment() {
         super.onSaveInstanceState(outState)
         outState.putString("TAG", fragmentTag)
     }
+}
+
+@BindingAdapter("chrono_start")
+fun chronometerStartBindingAdapter(chrono: Chronometer, toStart: Boolean) {
+    when (toStart) {
+        true -> chrono.start()
+        false -> chrono.stop()
+    }
+}
+
+@BindingAdapter("chrono_base")
+fun chronometerStopBindingAdapter(chrono: Chronometer, base: Long) {
+    chrono.base = base
 }

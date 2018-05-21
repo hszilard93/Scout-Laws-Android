@@ -2,6 +2,7 @@ package com.b4kancs.scoutlaws.views.quiz;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -44,6 +45,8 @@ public final class CommonQuizUtils {
         args.putInt("score", sharedViewModel.getScore());
         args.putInt("totalScore", sharedViewModel.getTotalScore());
         args.putInt("totalPossibleScore", sharedViewModel.getTotalPossibleScore());
+        args.putLong("timeSpent", sharedViewModel.timeSpent); // measured time in milliseconds
+        args.putLong("bestTime", sharedViewModel.getBestTime());
 
         ResultDialogFragment resultDialog = new ResultDialogFragment();
         resultDialog.setArguments(args);
@@ -54,6 +57,7 @@ public final class CommonQuizUtils {
             resultDialog.dismiss();
             FragmentTransaction transaction = getFragmentTransaction(container, fragmentManager, retryFragment);
             transaction.commit();
+            sharedViewModel.start();
         });
         resultDialog.setOnBackClicked(event -> {
             Log.d(LOG_TAG, "ResultDialog back pressed callback executing.");

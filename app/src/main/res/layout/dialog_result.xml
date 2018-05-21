@@ -62,6 +62,34 @@
             app:layout_constraintTop_toBottomOf="@id/text_congrats"
             tools:text="Total score: 195/250" />
 
+        <TextView
+            android:id="@+id/text_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_total_score"
+            tools:text="Time: 01:05"/>
+
+        <TextView
+            android:id="@+id/text_best_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_time"
+            tools:text="Best time: 00:59"/>
+
         <Button
             android:id="@+id/button_back"
             android:layout_width="0dp"
@@ -77,7 +105,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_retry"
-            app:layout_constraintTop_toBottomOf="@+id/text_total_score"
+            app:layout_constraintTop_toBottomOf="@id/text_best_time"
             tools:text="Back" />
 
         <Button
@@ -95,7 +123,7 @@
             app:layout_constraintEnd_toStartOf="@+id/button_back"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_total_score"
+            app:layout_constraintTop_toBottomOf="@id/text_best_time"
             tools:text="Retry" />
     </android.support.constraint.ConstraintLayout>
 </layout>
