@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.FragmentChooserBinding;
+import com.b4kancs.scoutlaws.views.quiz.QuizShellFragment;
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment;
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel;
 import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment;
@@ -68,22 +69,24 @@ public class ChooserFragment extends Fragment {
     }
 
     private void startMultipleChoiceFragment() {
-        MultipleChoiceSharedViewModel multipleSharedViewModel = ViewModelProviders.of(getActivity())
-                .get(MultipleChoiceSharedViewModel.class);
-        multipleSharedViewModel.reset();
+        Bundle args = new Bundle();
+        args.putString("TAG", MultipleChoiceFragment.FRAGMENT_TAG);
+        QuizShellFragment quizShellFragment = new QuizShellFragment();
+        quizShellFragment.setArguments(args);
 
-        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new MultipleChoiceFragment());
-        transaction.addToBackStack(MultipleChoiceFragment.FRAGMENT_TAG);
+        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), quizShellFragment);
+        transaction.addToBackStack(QuizShellFragment.FRAGMENT_TAG);
         transaction.commit();
     }
 
     private void startPickAndChooseFragment() {
-        PickAndChooseSharedViewModel pickAndChooseSharedViewModel = ViewModelProviders.of(getActivity())
-                .get(PickAndChooseSharedViewModel.class);
-        pickAndChooseSharedViewModel.reset();
+        Bundle args = new Bundle();
+        args.putString("TAG", PickAndChooseFragment.FRAGMENT_TAG);
+        QuizShellFragment quizShellFragment = new QuizShellFragment();
+        quizShellFragment.setArguments(args);
 
-        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new PickAndChooseFragment());
-        transaction.addToBackStack(PickAndChooseFragment.FRAGMENT_TAG);
+        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), quizShellFragment);
+        transaction.addToBackStack(QuizShellFragment.FRAGMENT_TAG);
         transaction.commit();
     }
 

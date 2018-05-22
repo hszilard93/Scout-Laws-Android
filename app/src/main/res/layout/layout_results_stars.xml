@@ -24,9 +24,7 @@
             app:layout_constraintEnd_toStartOf="@+id/image_star2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:starImageSource_order="@{1}"
-            app:starImageSource_score="@{score}"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/image_star2"
@@ -38,9 +36,7 @@
             app:layout_constraintEnd_toStartOf="@+id/image_star3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image_star1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:starImageSource_order="@{2}"
-            app:starImageSource_score="@{score}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image_star3"
@@ -52,9 +48,7 @@
             app:layout_constraintEnd_toStartOf="@+id/image_star4"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image_star2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:starImageSource_order="@{3}"
-            app:starImageSource_score="@{score}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image_star4"
@@ -66,9 +60,7 @@
             app:layout_constraintEnd_toStartOf="@+id/image_star5"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image_star3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:starImageSource_order="@{4}"
-            app:starImageSource_score="@{score}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image_star5"
@@ -80,8 +72,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image_star4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:starImageSource_order="@{5}"
-            app:starImageSource_score="@{score}" />
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </layout>

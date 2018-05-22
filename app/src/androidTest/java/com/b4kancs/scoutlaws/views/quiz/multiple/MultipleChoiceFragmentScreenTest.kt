@@ -2,7 +2,6 @@ package com.b4kancs.scoutlaws.views.quiz.multiple
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
@@ -87,7 +86,7 @@ class MultipleChoiceFragmentScreenTest {
 
     @Test
     fun correctViewsShouldBeDisplayedAfterStarted() {
-        onView(withId(R.id.constraint_top_bar_multiple))
+        onView(withId(R.id.constraint_top_bar))
                 .check(matches(isDisplayed()))
 
         onView(withId(R.id.text_question))
@@ -150,6 +149,10 @@ class MultipleChoiceFragmentScreenTest {
 
         onView(withId(R.id.image_star1))
                 .check(matches(isDisplayed()))
+        onView(withId(R.id.text_total_score))
+                .check(matches(isDisplayed()))
+        onView(withId(R.id.text_time))
+                .check(matches(isDisplayed()))
     }
 
     @Test
@@ -161,5 +164,30 @@ class MultipleChoiceFragmentScreenTest {
 
         onView(withId(R.id.card_chooser))
                 .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun chronometerShouldTickAfterStarted() {
+        val chronoText1 = extractText(withId(R.id.chronometer))
+        Thread.sleep(1000)
+        val chronoText2 = extractText(withId(R.id.chronometer))
+
+        assertNotEquals(chronoText1, chronoText2)
+    }
+
+    @Test
+    fun chronometerShouldStopAfterFiveQuestionsAnswered() {
+        for (i in 1..4) {
+            clickCorrectAnswer()
+            onView(withId(R.id.button_next))
+                    .perform(click())
+        }
+        clickCorrectAnswer()
+
+        val chronoText1 = extractText(withId(R.id.chronometer))
+        Thread.sleep(1000)
+        val chronoText2 = extractText(withId(R.id.chronometer))
+
+        assertEquals(chronoText1, chronoText2)
     }
 }

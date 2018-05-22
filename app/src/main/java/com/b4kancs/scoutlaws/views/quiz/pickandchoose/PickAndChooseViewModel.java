@@ -155,7 +155,14 @@ public class PickAndChooseViewModel extends ViewModel {
         if (firstTry)
             shared.incScore();
 
-        observableState.set(correct ? State.DONE : State.IN_PROGRESS);
+        if (correct) {
+            observableState.set(State.DONE);
+            if (shared.isThisTheLastTurn())
+                shared.finish();
+        }
+        else
+            observableState.set(State.IN_PROGRESS);
+
         return correct;
     }
 

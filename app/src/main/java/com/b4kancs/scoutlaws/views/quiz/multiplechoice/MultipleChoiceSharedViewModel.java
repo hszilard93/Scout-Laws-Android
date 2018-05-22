@@ -21,4 +21,14 @@ public class MultipleChoiceSharedViewModel extends AbstractSharedViewModel {
     public List<ScoutLaw> getScoutLaws() {
         return scoutLaws;
     }
+
+    @Override
+    public long getBestTime() {
+        return repository.getBestMultipleTime();
+    }
+
+    @Override
+    protected void saveNewBestTime() {
+        repository.setBestMultipleTime(timeSpent);
+    }
 }

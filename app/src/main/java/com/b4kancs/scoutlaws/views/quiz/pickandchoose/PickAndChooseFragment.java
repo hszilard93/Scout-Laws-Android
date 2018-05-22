@@ -175,15 +175,4 @@ public class PickAndChooseFragment extends Fragment {
         FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new PickAndChooseFragment());
         transaction.commit();
     }
-
-    /* CommonUtils transaction. Go to the next question. */
-    private static FragmentTransaction getMultipleChoiceFragmentTransaction(@NonNull ViewGroup container,
-                                                                            FragmentManager manager) {
-        PickAndChooseFragment newFragment = new PickAndChooseFragment();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-        transaction.replace(container.getId(), newFragment);
-        return transaction;
-    }
-
 }

@@ -1,6 +1,8 @@
 package com.b4kancs.scoutlaws.views.quiz;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,22 +41,29 @@ public final class CommonQuizUtils {
                                                 AbstractSharedViewModel sharedViewModel) {
         Log.d(LOG_TAG, "Attempting to show ResultDialogFragment.");
 
+        Bundle args = new Bundle();
+        args.putInt("score", sharedViewModel.getScore());
+        args.putInt("totalScore", sharedViewModel.getTotalScore());
+        args.putInt("totalPossibleScore", sharedViewModel.getTotalPossibleScore());
+        args.putLong("timeSpent", sharedViewModel.timeSpent); // measured time in milliseconds
+        args.putLong("bestTime", sharedViewModel.getBestTime());
+
         ResultDialogFragment resultDialog = new ResultDialogFragment();
+        resultDialog.setArguments(args);
         resultDialog.setCancelable(false);
         /* What happens when the retry button is clicked */
         resultDialog.setOnRetryClicked(event -> {
             Log.d(LOG_TAG, "ResultDialog retry callback executing.");
-            sharedViewModel.reset();
             resultDialog.dismiss();
             FragmentTransaction transaction = getFragmentTransaction(container, fragmentManager, retryFragment);
             transaction.commit();
+            sharedViewModel.start();
         });
         resultDialog.setOnBackClicked(event -> {
             Log.d(LOG_TAG, "ResultDialog back pressed callback executing.");
             resultDialog.dismiss();
             activity.onBackPressed();
         });
-        resultDialog.setScore(sharedViewModel.getScore());
         resultDialog.show(fragmentManager, "finishDialog");
     }
 }

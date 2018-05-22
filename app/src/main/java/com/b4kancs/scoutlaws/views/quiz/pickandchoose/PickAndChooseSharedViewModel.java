@@ -20,4 +20,14 @@ public class PickAndChooseSharedViewModel extends AbstractSharedViewModel {
     public List<PickAndChooseScoutLaw> getPickChooseScoutLaws() {
         return pickChooseScoutLaws;
     }
+
+    @Override
+    public long getBestTime() {
+        return repository.getBestPickChooseTime();
+    }
+
+    @Override
+    protected void saveNewBestTime() {
+        repository.setBestPickChooseTime(timeSpent);
+    }
 }

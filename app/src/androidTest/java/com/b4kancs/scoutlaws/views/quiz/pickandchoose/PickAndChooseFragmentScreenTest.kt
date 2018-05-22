@@ -63,13 +63,15 @@ class PickAndChooseFragmentScreenTest {
     private fun insertAnswers(vararg answers: String) {
         /* Couldn't do drag & drop with Espresso, using the ViewModel instead to insert answers */
         /* Get access to the private viewModel using reflection */
-        val fragment = (quizActivityTestRule.activity as QuizActivity)
+        val quizShellFragment = (quizActivityTestRule.activity as QuizActivity)
                 .supportFragmentManager
                 .fragments
                 .last()
+        val pickChooseFragment = quizShellFragment.childFragmentManager.fragments.last()
+
         val viewModelField = PickAndChooseFragment::class.java.getDeclaredField("viewModel")
         viewModelField.isAccessible = true
-        val viewModel = viewModelField.get(fragment) as PickAndChooseViewModel
+        val viewModel = viewModelField.get(pickChooseFragment) as PickAndChooseViewModel
 
         /* Insert correct answers into userAnswers*/
         viewModel.apply {
@@ -80,7 +82,7 @@ class PickAndChooseFragmentScreenTest {
 
     @Test
     fun correctViewShouldBeDisplayedAfterStarted() {
-        onView(withId(R.id.constraint_top_bar_pick))
+        onView(withId(R.id.constraint_top_bar))
                 .check(matches(isDisplayed()))
 
         onView(withId(R.id.flow_question))

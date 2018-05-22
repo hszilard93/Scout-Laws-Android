@@ -2,6 +2,9 @@ package com.b4kancs.scoutlaws.views.quiz;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableInt;
+import android.databinding.ObservableLong;
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.b4kancs.scoutlaws.ScoutLawApp;
@@ -22,11 +25,15 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     private static final String LOG_TAG = AbstractSharedViewModel.class.getSimpleName();
     // We shouldn't ask the same question two times in a row even if the quiz is restarted. Preserved across quiz types.
     protected static Integer lastUsedLawIndex = -1;
-
+    /* These fields have to be public to be accessible for data binding. */
     public final ObservableBoolean isLastTurn = new ObservableBoolean(false);
+    public final ObservableBoolean chronoStart = new ObservableBoolean(true);
+
+    protected ObservableInt turnCount = new ObservableInt(0);
+    private ObservableLong baseTime = new ObservableLong(0);
+    protected long timeSpent;
     @Inject public Repository repository;
     protected final ArrayList<Integer> usedLaws; // Questions we have asked in this quiz
-    protected int turnCount;
     protected int score = 0;
     private Random random = new Random();
 
@@ -36,12 +43,15 @@ public abstract class AbstractSharedViewModel extends ViewModel {
         usedLaws = new ArrayList<>(repository.getNumberOfScoutLaws());
     }
 
-    public void reset() {
-        Log.d(LOG_TAG, "Resetting.");
+    public void start() {
+        Log.d(LOG_TAG, "Starting/Resetting.");
         isLastTurn.set(false);
-        turnCount = 0;
-        score = 0;
+        chronoStart.set(true);
+        baseTime.set(SystemClock.elapsedRealtime());
+        turnCount.set(0);
+        timeSpent = 0;
         usedLaws.clear();
+        score = 0;
     }
 
     /* This law will be the subject of the next question. */
@@ -56,16 +66,28 @@ public abstract class AbstractSharedViewModel extends ViewModel {
         return index;
     }
 
-    public int getTurnCount() {     // public because of data binding
+    /* finish() should be called when the last answer is DONE (before the finish button is clicked, for more accurate timing) */
+    public void finish() {
+        repository.increaseTotalScoreBy(score);
+        repository.increaseTotalPossibleScoreBy(5);
+        timeSpent = SystemClock.elapsedRealtime() - baseTime.get();
+        chronoStart.set(false);
+        long bestTime = getBestTime();
+        if ((timeSpent < bestTime || bestTime == 0) && score == TURN_LIMIT)
+            saveNewBestTime();
+    }
+
+    public ObservableInt getTurnCount() {     // public because of data binding
         return turnCount;
     }
 
     public void incTurnCount() {
         Log.d(LOG_TAG, "Increasing turn count. Current turn: " + turnCount);
-        if (turnCount < TURN_LIMIT)
-            turnCount++;
 
-        if (turnCount == TURN_LIMIT)
+        if (turnCount.get() < TURN_LIMIT)
+            turnCount.set(turnCount.get() + 1);
+
+        if (turnCount.get() == TURN_LIMIT)
             isLastTurn.set(true);
     }
 
@@ -82,20 +104,23 @@ public abstract class AbstractSharedViewModel extends ViewModel {
         return TURN_LIMIT;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AbstractSharedViewModel that = (AbstractSharedViewModel) o;
-        return turnCount == that.turnCount &&
-                score == that.score &&
-                Objects.equals(isLastTurn.get(), that.isLastTurn.get()) &&
-                Objects.equals(repository, that.repository) &&
-                Objects.equals(usedLaws, that.usedLaws);
+    public boolean isThisTheLastTurn() {
+        return isLastTurn.get();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(isLastTurn.get(), repository, usedLaws, turnCount, score);
+    public int getTotalScore() {
+        return repository.getTotalScore();
+    }
+
+    public int getTotalPossibleScore() {
+        return repository.getTotalPossibleScore();
+    }
+
+    public abstract long getBestTime();
+
+    protected abstract void saveNewBestTime();
+
+    public ObservableLong getBaseTime() {
+        return baseTime;
     }
 }

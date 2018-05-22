@@ -15,6 +15,17 @@ import org.junit.jupiter.api.TestInstance
  */
 
 class TestSharedViewModel : AbstractSharedViewModel()   // Test implementation of AbstractSharedViewModel
+{
+    var saveNewBestTimeCalled = false
+
+    override fun getBestTime(): Long {
+        return 0L
+    }
+
+    override fun saveNewBestTime() {
+        saveNewBestTimeCalled = true
+    }
+}
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AbstractSharedViewModelTest {
@@ -34,17 +45,18 @@ class AbstractSharedViewModelTest {
 
     @Test
     fun svmShouldHaveCorrectValuesWhenInitialized() {
-
-        assertEquals(false, svm.isLastTurn.get())
-        assertEquals(0, svm.turnCount)
-        assertEquals(0, svm.score)
-        assertTrue(svm.usedLaws.isEmpty())
-        assertNotNull(svm.repository)
+        svm.apply {
+            assertEquals(false, isLastTurn.get())
+            assertEquals(0, turnCount.get())
+            assertEquals(0, score)
+            assertTrue(usedLaws.isEmpty())
+            assertTrue(chronoStart.get())
+            assertNotNull(repository)
+        }
     }
 
     @Test
     fun isLastTurnShouldBeFalseAfterFourTurns() {
-
         for (i in 1..4)
             svm.incTurnCount()
 
@@ -53,7 +65,6 @@ class AbstractSharedViewModelTest {
 
     @Test
     fun isLastTurnShouldBeTrueAfterFiveTurns() {
-
         for (i in 1..5)
             svm.incTurnCount()
 
@@ -62,7 +73,6 @@ class AbstractSharedViewModelTest {
 
     @Test
     fun scoreShouldBeZeroAfterFiveTurnsWhenNotIncremented() {
-
         for (i in 1..5)
             svm.incTurnCount()
 
@@ -71,7 +81,6 @@ class AbstractSharedViewModelTest {
 
     @Test
     fun scoreShouldEqualTimesIncremented() {
-
         for (i in 1..3)
             svm.incScore()
 
@@ -93,22 +102,26 @@ class AbstractSharedViewModelTest {
 
     @Test
     fun lastUsedLawIndexShouldEqualLastNextLaw() {
-
         val index = svm.nextLawIndex()
 
         assertEquals(index, AbstractSharedViewModel.lastUsedLawIndex)
     }
 
     @Test
-    fun resetSvmShouldEqualUnmodifiedSvm() {
-        val unmodifiedSvm = TestSharedViewModel()
+    fun chronoStartShouldBeFalseAfterFinishCalled() {
+        svm.finish()
 
-        svm.nextLawIndex()
-        svm.incTurnCount()
-        svm.incScore()
-        svm.isLastTurn.set(true)
-        svm.reset()
+        assertFalse(svm.chronoStart.get())
+    }
 
-        assertEquals(unmodifiedSvm, svm)
+    @Test
+    fun saveNewBestTimeShouldBeCalledDuringFinishWhenPerfectScore() {
+        for (i in 1..5)
+            svm.incScore()
+        svm.baseTime.set(0)
+
+        svm.finish()
+
+        assertTrue(svm.saveNewBestTimeCalled)
     }
 }
