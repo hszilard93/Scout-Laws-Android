@@ -1,5 +1,6 @@
 package com.b4kancs.scoutlaws.views.quiz.pickandchoose
 
+import android.databinding.ObservableBoolean
 import com.b4kancs.scoutlaws.DaggerTestComponent
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.TestComponent
@@ -34,6 +35,7 @@ class PickAndChooseViewModelTest {
 
         // If we have only one scout law in the list, it is guaranteed to be chosen for the first turn
         `when`(stubSharedViewModel.pickChooseScoutLaws).thenReturn(listOf(testScoutLaw))
+        `when`(stubSharedViewModel.isThisTheLastTurn).thenReturn(false)
     }
 
     @BeforeEach

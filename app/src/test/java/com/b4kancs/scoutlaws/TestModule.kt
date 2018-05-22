@@ -1,8 +1,9 @@
 package com.b4kancs.scoutlaws
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Resources
-import com.b4kancs.scoutlaws.data.getStubResourcesWithFiveLaws
+import com.b4kancs.scoutlaws.data.store.UserDataStore
 import dagger.Module
 import dagger.Provides
 import org.mockito.Mockito.mock
@@ -25,5 +26,10 @@ class TestModule {
     @Provides
     fun provideApplicationContext(): Context {
         return mock(Context::class.java)
+    }
+
+    @Provides
+    fun provideUserDataStore(): UserDataStore {
+        return StubUserDataStore()
     }
 }

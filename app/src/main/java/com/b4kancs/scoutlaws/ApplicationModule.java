@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 
+import com.b4kancs.scoutlaws.data.store.SharedPreferencesUserDataStore;
+import com.b4kancs.scoutlaws.data.store.UserDataStore;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -34,5 +37,10 @@ public class ApplicationModule {
     @Provides
     SharedPreferences provideSharedPreferences() {
         return application.getSharedPreferences(USER_SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    UserDataStore provideUserDataStore(SharedPreferences preferences) {
+        return new SharedPreferencesUserDataStore(preferences);
     }
 }

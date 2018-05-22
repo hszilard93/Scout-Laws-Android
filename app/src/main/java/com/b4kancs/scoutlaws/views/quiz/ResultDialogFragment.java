@@ -125,22 +125,6 @@ public class ResultDialogFragment extends DialogFragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss.S");
         String timeText;
         String bestTimeText;
-//        if (score == 5) {
-//            timeTextView.setTextColor(resources.getColor(R.color.colorPrimary));
-//            if (timeSpent < bestTime || bestTime == 0) {
-//                timeText = resources.getString(R.string.ew_best_time_text) + " " + dateFormat.format(time);
-//                bestTimeText = "";
-//                bestTimeTextView.setVisibility(View.GONE);
-//            }
-//            else {
-//                timeText = resources.getString(R.string.time_text) + " " + dateFormat.format(time);
-//                bestTimeText = resources.getString(R.string.best_time_text) + " " + dateFormat.format(new Date(bestTime));
-//            }
-//        } else {
-//            timeText = resources.getString(R.string.time_text) + " " + dateFormat.format(time);
-//            timeTextView.setTextColor(Color.RED);
-//            bestTimeText = resources.getString(R.string.best_time_text) + " " + dateFormat.format(new Date(bestTime));
-//        }
 
         /* When new best time, bestTime will actually be EQUAL to timeSpent, since the new time has already been saved by
          * the shared ViewModel before being passed to this DialogFragment */

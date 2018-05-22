@@ -38,31 +38,15 @@ public class QuizActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             String fragmentTag = getIntent().getStringExtra(QUIZ_FRAGMENT_EXTRA);
-            if (fragmentTag != null) {
-                switch (fragmentTag) {
-                    case ChooserFragment.FRAGMENT_TAG:
-                        getSupportFragmentManager().beginTransaction()
-                                .add(R.id.fragment_container, new ChooserFragment(), ChooserFragment.FRAGMENT_TAG)
-                                .commit();
-                        break;
-                    case MultipleChoiceFragment.FRAGMENT_TAG:
-                        getSupportFragmentManager().beginTransaction()
-                                .add(R.id.fragment_container, new MultipleChoiceFragment(), MultipleChoiceFragment.FRAGMENT_TAG)
-                                .commit();
-                        break;
-                    case PickAndChooseFragment.FRAGMENT_TAG:
-                        getSupportFragmentManager().beginTransaction()
-                                .add(R.id.fragment_container, new PickAndChooseFragment(), PickAndChooseFragment.FRAGMENT_TAG)
-                                .commit();
-                        break;
-                }
+            if (MultipleChoiceFragment.FRAGMENT_TAG.equals(fragmentTag)
+                    || PickAndChooseFragment.FRAGMENT_TAG.equals(fragmentTag)) {
+                startQuizShellFragment(fragmentTag);
             } else {
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.fragment_container, new ChooserFragment(), ChooserFragment.FRAGMENT_TAG)
-                        .commit();
+                startChooserFragment();
             }
+        } else {
+            startChooserFragment();
         }
-
         setUpViews();
     }
 
@@ -70,6 +54,22 @@ public class QuizActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) binding.toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void startQuizShellFragment(String fragmentTag) {
+        Bundle args = new Bundle();
+        args.putString("TAG", fragmentTag);
+        QuizShellFragment quizShellFragment = new QuizShellFragment();
+        quizShellFragment.setArguments(args);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, quizShellFragment, QuizShellFragment.FRAGMENT_TAG)
+                .commit();
+    }
+
+    private void startChooserFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, new ChooserFragment(), ChooserFragment.FRAGMENT_TAG)
+                .commit();
     }
 
     @Override
@@ -95,7 +95,7 @@ public class QuizActivity extends AppCompatActivity {
         Fragment chooserFragment = new ChooserFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
-        ((QuizShellFragment)sourceFragment).triggerChildExitAnimation();
+        ((QuizShellFragment) sourceFragment).triggerChildExitAnimation();
         transaction.replace(binding.fragmentContainer.getId(), chooserFragment);
         transaction.commit();
 

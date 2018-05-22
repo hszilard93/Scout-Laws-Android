@@ -69,10 +69,6 @@ public class ChooserFragment extends Fragment {
     }
 
     private void startMultipleChoiceFragment() {
-        MultipleChoiceSharedViewModel multipleSharedViewModel =
-                ViewModelProviders.of(getActivity()).get(MultipleChoiceSharedViewModel.class);
-        multipleSharedViewModel.start();
-
         Bundle args = new Bundle();
         args.putString("TAG", MultipleChoiceFragment.FRAGMENT_TAG);
         QuizShellFragment quizShellFragment = new QuizShellFragment();
@@ -84,10 +80,6 @@ public class ChooserFragment extends Fragment {
     }
 
     private void startPickAndChooseFragment() {
-        PickAndChooseSharedViewModel pickAndChooseSharedViewModel =
-                ViewModelProviders.of(getActivity()).get(PickAndChooseSharedViewModel.class);
-        pickAndChooseSharedViewModel.start();
-
         Bundle args = new Bundle();
         args.putString("TAG", PickAndChooseFragment.FRAGMENT_TAG);
         QuizShellFragment quizShellFragment = new QuizShellFragment();

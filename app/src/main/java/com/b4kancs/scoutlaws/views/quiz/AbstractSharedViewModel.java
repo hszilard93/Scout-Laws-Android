@@ -25,9 +25,10 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     private static final String LOG_TAG = AbstractSharedViewModel.class.getSimpleName();
     // We shouldn't ask the same question two times in a row even if the quiz is restarted. Preserved across quiz types.
     protected static Integer lastUsedLawIndex = -1;
-
+    /* These fields have to be public to be accessible for data binding. */
     public final ObservableBoolean isLastTurn = new ObservableBoolean(false);
-    public final ObservableBoolean chronoStart = new ObservableBoolean(false);
+    public final ObservableBoolean chronoStart = new ObservableBoolean(true);
+
     protected ObservableInt turnCount = new ObservableInt(0);
     private ObservableLong baseTime = new ObservableLong(0);
     protected long timeSpent;
@@ -43,13 +44,14 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     }
 
     public void start() {
-        Log.d(LOG_TAG, "Resetting.");
+        Log.d(LOG_TAG, "Starting/Resetting.");
         isLastTurn.set(false);
-        turnCount.set(0);
-        score = 0;
-        usedLaws.clear();
-        baseTime.set(SystemClock.elapsedRealtime());
         chronoStart.set(true);
+        baseTime.set(SystemClock.elapsedRealtime());
+        turnCount.set(0);
+        timeSpent = 0;
+        usedLaws.clear();
+        score = 0;
     }
 
     /* This law will be the subject of the next question. */
@@ -102,6 +104,10 @@ public abstract class AbstractSharedViewModel extends ViewModel {
         return TURN_LIMIT;
     }
 
+    public boolean isThisTheLastTurn() {
+        return isLastTurn.get();
+    }
+
     public int getTotalScore() {
         return repository.getTotalScore();
     }
@@ -116,22 +122,5 @@ public abstract class AbstractSharedViewModel extends ViewModel {
 
     public ObservableLong getBaseTime() {
         return baseTime;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AbstractSharedViewModel that = (AbstractSharedViewModel) o;
-        return turnCount == that.turnCount &&
-                score == that.score &&
-                Objects.equals(isLastTurn.get(), that.isLastTurn.get()) &&
-                Objects.equals(repository, that.repository) &&
-                Objects.equals(usedLaws, that.usedLaws);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(isLastTurn.get(), repository, usedLaws, turnCount, score);
     }
 }

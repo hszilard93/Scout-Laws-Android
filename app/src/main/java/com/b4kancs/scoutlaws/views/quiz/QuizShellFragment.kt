@@ -47,7 +47,7 @@ class QuizShellFragment : Fragment() {
                             throw IllegalArgumentException()
                     }
         } else {
-            fragmentTag = arguments!!.getString("TAG", MultipleChoiceFragment.FRAGMENT_TAG)
+            fragmentTag = arguments!!.getString("TAG")
             Log.d(LOG_TAG, "Creating fragment $fragmentTag.")
             when (fragmentTag) {
                 MultipleChoiceFragment.FRAGMENT_TAG -> {
@@ -68,6 +68,7 @@ class QuizShellFragment : Fragment() {
             }
         }
         binding.sharedViewModel = sharedViewModel
+        sharedViewModel.start()
 
         setUpViews()
 

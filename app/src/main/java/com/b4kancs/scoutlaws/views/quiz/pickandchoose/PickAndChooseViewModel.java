@@ -157,7 +157,7 @@ public class PickAndChooseViewModel extends ViewModel {
 
         if (correct) {
             observableState.set(State.DONE);
-            if (shared.isLastTurn.get())
+            if (shared.isThisTheLastTurn())
                 shared.finish();
         }
         else

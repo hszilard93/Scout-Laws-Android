@@ -1,10 +1,11 @@
 package com.b4kancs.scoutlaws.data
 
-import android.content.SharedPreferences
 import android.content.res.Resources
 import android.util.Log
 import com.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
+import com.b4kancs.scoutlaws.data.store.SharedPreferencesUserDataStore.Companion.TOTAL_SCORE_KEY
+import com.b4kancs.scoutlaws.data.store.UserDataStore
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -14,40 +15,21 @@ import javax.inject.Singleton
  * The repository currently handles loading the scout laws from the resources.
  */
 @Singleton
-class Repository @Inject
-constructor(private val resources: Resources, private val preferences: SharedPreferences) {
+class Repository
+@Inject constructor(private val resources: Resources, private val userDataStore: UserDataStore) {
 
     companion object {
         private val LOG_TAG = Repository::class.simpleName
-        private const val TOTAL_SCORE_KEY = "TOTAL_SCORE"
-        private const val TOTAL_POSSIBLE_SCORE_KEY = "TOTAL_POSSIBLE_SCORE"
-        private const val BEST_TIME_MULTIPLE = "BEST_TIME_MULTIPLE"
-        private const val BEST_TIME_PICK_CHOOSE = "BEST_TIME_PICK_CHOOSE"
     }
 
     val laws = ArrayList<ScoutLaw>(10)
     val pickAndChooseLaws = ArrayList<PickAndChooseScoutLaw>(10)
     var numberOfScoutLaws: Int = 0      // How many laws are there? This is not constant!
         private set
-    var totalScore: Int = 0
-        private set
-    var totalPossibleScore: Int = 0
-        private set
-    var bestMultipleTime: Long = 0
-        set(value) {
-            field = value
-            preferences.edit().putLong(BEST_TIME_MULTIPLE, value).apply()
-        }
-    var bestPickChooseTime: Long = 0
-        set(value) {
-            field = value
-            preferences.edit().putLong(BEST_TIME_PICK_CHOOSE, value).apply()
-        }
 
     init {
         Log.d(LOG_TAG, "Constructing Repository instance.")
         loadLaws()
-        loadUserData()
     }
 
     private fun loadLaws() {
@@ -85,33 +67,31 @@ constructor(private val resources: Resources, private val preferences: SharedPre
         }
     }
 
-    private fun loadUserData() {
-        totalScore = preferences.getInt(TOTAL_SCORE_KEY, 0)
-        totalPossibleScore = preferences.getInt(TOTAL_POSSIBLE_SCORE_KEY, 0)
-        bestMultipleTime = preferences.getLong(BEST_TIME_MULTIPLE, 0)
-        bestPickChooseTime = preferences.getLong(BEST_TIME_PICK_CHOOSE, 0)
+    fun resetUserData() {
+        userDataStore.reset()
     }
 
-    fun resetSharedPreferences() {
-        preferences.edit().clear().apply()
-    }
+    fun getTotalScore() = userDataStore.totalScore
+
+    fun getTotalPossibleScore() = userDataStore.totalPossibleScore
+
+    fun getBestMultipleTime() = userDataStore.bestMultipleTime
+
+    fun getBestPickChooseTime() = userDataStore.bestPickChooseTime
 
     fun increaseTotalScoreBy(thisMuch: Int) {
-        totalScore += thisMuch
-        preferences.edit().putInt(TOTAL_SCORE_KEY, totalScore).apply()
+        userDataStore.totalScore += thisMuch
     }
 
     fun increaseTotalPossibleScoreBy(thisMuch: Int) {
-        totalPossibleScore += thisMuch
-        preferences.edit().putInt(TOTAL_POSSIBLE_SCORE_KEY, totalPossibleScore).apply()
+        userDataStore.totalPossibleScore += thisMuch
     }
 
-    fun resetScore() {
-        totalScore = 0
-        totalPossibleScore = 0
-        preferences.edit()
-                .putInt(TOTAL_SCORE_KEY, totalScore)
-                .putInt(TOTAL_POSSIBLE_SCORE_KEY, totalPossibleScore)
-                .apply()
+    fun setBestMultipleTime(newTime: Long) {
+        userDataStore.bestMultipleTime = newTime
+    }
+
+    fun setBestPickChooseTime(newTime: Long) {
+        userDataStore.bestPickChooseTime = newTime
     }
 }
