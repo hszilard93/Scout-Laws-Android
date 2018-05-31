@@ -62,12 +62,23 @@ class StartActivityScreenTest {
     fun clickingOnQuizButtonShouldOpenQuizActivityWithChooserFragment() {
         onView(withId(R.id.drawer_layout))
                 .perform(DrawerActions.open())
-        onView(withText(R.string.quiz_item))
+        onView(withText(R.string.quiz_menu_item))
                 .perform(click())
 
         onView(withId(R.id.linear_quiz))
                 .check(matches(isDisplayed()))
         onView(withId(R.id.card_chooser))
+                .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun clickingOnSettingsButtonShouldOpenSettingsActivity() {
+        onView(withId(R.id.drawer_layout))
+                .perform(DrawerActions.open())
+        onView(withText(R.string.settings_menu_item))
+                .perform(click())
+
+        onView(withId(R.id.frame_preferences_content))
                 .check(matches(isDisplayed()))
     }
 

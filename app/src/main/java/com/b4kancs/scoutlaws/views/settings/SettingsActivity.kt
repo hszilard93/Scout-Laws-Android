@@ -21,10 +21,10 @@ class SettingsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar as Toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if (fragmentManager.findFragmentById(R.id.frame_content) == null)
+        if (fragmentManager.findFragmentById(R.id.frame_preferences_content) == null)
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.frame_content, SettingsFragment())
+                    .add(R.id.frame_preferences_content, SettingsFragment())
                     .commit()
     }
 

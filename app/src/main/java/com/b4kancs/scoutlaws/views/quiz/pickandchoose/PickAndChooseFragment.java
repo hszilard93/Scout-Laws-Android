@@ -70,8 +70,11 @@ public class PickAndChooseFragment extends Fragment {
         binding.included.buttonFinish.setOnClickListener(finishButtonOnClickListener);
         // This line makes the layout animate not only visibility or view addition/removal changes
         // but other changes to its children too. We need it for width-change animations specifically
-        if (areAnimationsEnabled(getContext()))
-            binding.included.flowQuestion.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+        if (areAnimationsEnabled(getContext())) {
+            LayoutTransition transition = binding.included.flowQuestion.getLayoutTransition();
+            if (transition != null)
+                transition.enableTransitionType(LayoutTransition.CHANGING);
+        }
     }
 
     /* I tried moving the entire questionFlow-setup into a @BindingAdapter, but experienced big performance hit */
