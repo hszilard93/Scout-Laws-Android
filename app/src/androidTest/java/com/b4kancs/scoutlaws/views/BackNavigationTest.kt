@@ -48,10 +48,23 @@ class BackNavigationTest {
     }
 
     @Test
+    fun goToSettingsAndUp() {
+        onView(withId(R.id.drawer_layout))
+                .perform(DrawerActions.open())
+        onView(withText(R.string.settings_menu_item))
+                .perform(click())
+        /* We are now in Details activity */
+        pressUp()
+
+        onView(withId(R.id.list_laws))
+                .check(matches(isDisplayed()))
+    }
+
+    @Test
     fun goToMultipleAndBack() {
         onView(withId(R.id.drawer_layout))
                 .perform(DrawerActions.open())
-        onView(withText(R.string.quiz_item))
+        onView(withText(R.string.quiz_menu_item))
                 .perform(click())
         /* We are in the chooser fragment. Let's go to the multiple choice fragment */
         onView(withId(R.id.button_multiple))
@@ -73,7 +86,7 @@ class BackNavigationTest {
     fun goToMultipleAndUp() {
         onView(withId(R.id.drawer_layout))
                 .perform(DrawerActions.open())
-        onView(withText(R.string.quiz_item))
+        onView(withText(R.string.quiz_menu_item))
                 .perform(click())
         /* We are in the chooser fragment. Let's go to the multiple choice fragment */
         onView(withId(R.id.button_multiple))

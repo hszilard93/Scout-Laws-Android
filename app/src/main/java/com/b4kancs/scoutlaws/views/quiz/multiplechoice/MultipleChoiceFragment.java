@@ -1,12 +1,10 @@
 package com.b4kancs.scoutlaws.views.quiz.multiplechoice;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -23,6 +21,7 @@ import com.b4kancs.scoutlaws.databinding.FragmentMultipleBinding;
 
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
 
 /**
  * Created by hszilard on 26-Feb-18.
@@ -84,8 +83,7 @@ public class MultipleChoiceFragment extends Fragment {
             toast.show();
 
             view.setVisibility(View.GONE);
-            Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(300);
+            vibrate(getContext(), 300);
             if (viewModel.getObservableState().get() == MultipleChoiceViewModel.State.DONE) {
                 endTurn(adapter);
             }

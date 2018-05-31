@@ -18,7 +18,7 @@
         android:id="@+id/constraint_pick_choose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true">
+        app:animateLayoutChanges="@{context}">
 
         <FrameLayout
             android:id="@+id/linear_question"
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:animateLayoutChanges="true"
+                app:animateLayoutChanges="@{context}"
                 android:gravity="center_vertical"
                 app:flChildSpacing="12dp"
                 app:flChildSpacingForLastRow="12dp"
@@ -49,7 +49,7 @@
             android:id="@+id/linear_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
+            app:animateLayoutChanges="@{context}"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:animateLayoutChanges="true"
+            app:animateLayoutChanges="@{context}"
             android:gravity="center_horizontal"
             app:flChildSpacing="8dp"
             app:flChildSpacingForLastRow="8dp"

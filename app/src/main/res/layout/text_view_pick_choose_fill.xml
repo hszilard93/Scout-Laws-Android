@@ -11,7 +11,7 @@
         android:id="@+id/text_fill"
         android:layout_width="96dp"
         android:layout_height="27dp"
-        android:animateLayoutChanges="true"
+        android:animateLayoutChanges="false"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="@color/colorTextLight"
         app:fillTextView_adapter = "@{observableText}" />

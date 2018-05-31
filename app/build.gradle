@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: "de.mannodermaus.android-junit5"
 
 android {
@@ -9,8 +10,8 @@ android {
         applicationId "com.b4kancs.scoutlaws"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 7
-        versionName "0.1.6"
+        versionCode 8
+        versionName "0.1.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

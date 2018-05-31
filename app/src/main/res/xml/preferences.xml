@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="pref_key_notification_settings"
+        android:title="@string/pref_key_notifications">
+        <ListPreference
+            android:key="pref_notifications_timing_list"
+            android:title="@string/pref_notifications_timing_list"
+            android:dialogTitle="@string/pref_notifications_this_often"
+            android:entries="@array/pref_notifications_list_entries"
+            android:entryValues="@array/pref_notifications_list_values"
+            android:defaultValue="@string/pref_notifications_entry_twice_a_week" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_other_settings"
+        android:title="@string/pref_other_title">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="pref_animate"
+            android:summary="@string/pref_animate_sum"
+            android:title="@string/pref_animate" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="pref_vibrate"
+            android:summary="@string/pref_vibrate_sum"
+            android:title="@string/pref_vibrate" />
+    </PreferenceCategory>
+</PreferenceScreen>

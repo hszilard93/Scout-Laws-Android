@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_notifications_list_entries">
+        <item>Soha</item>
+        <item>Naponta</item>
+        <item>Kétnaponta</item>
+        <item>Hetente kétszer</item>
+        <item>Hetente</item>
+    </string-array>
+    <string-array name="pref_notifications_list_values">
+        <item>never</item>
+        <item>one day</item>
+        <item>two days</item>
+        <item>twice a week</item>
+        <item>once a week</item>
+    </string-array>
+</resources>

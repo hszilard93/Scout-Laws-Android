@@ -34,48 +34,53 @@ class QuizShellFragment : Fragment() {
         Log.d(LOG_TAG, "onCreateView")
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_quiz_shell, container, false)
 
-        if (savedInstanceState != null) {
-            fragmentTag = savedInstanceState.getString("TAG")
-            Log.d(LOG_TAG, "Restoring fragment $fragmentTag.")
-            sharedViewModel =
-                    when (fragmentTag) {
-                        MultipleChoiceFragment.FRAGMENT_TAG ->
-                            ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
-                        PickAndChooseFragment.FRAGMENT_TAG ->
-                            ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
-                        else ->
-                            throw IllegalArgumentException()
-                    }
-        } else {
-            fragmentTag = arguments!!.getString("TAG")
-            Log.d(LOG_TAG, "Creating fragment $fragmentTag.")
-            when (fragmentTag) {
-                MultipleChoiceFragment.FRAGMENT_TAG -> {
-                    childFragmentManager
-                            .beginTransaction()
-                            .add(R.id.fragment_container, MultipleChoiceFragment(), fragmentTag)
-                            .commit()
-                    sharedViewModel = ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
-                }
-                PickAndChooseFragment.FRAGMENT_TAG -> {
-                    childFragmentManager
-                            .beginTransaction()
-                            .add(R.id.fragment_container, PickAndChooseFragment(), fragmentTag)
-                            .commit()
-                    sharedViewModel = ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
-                }
-                else -> throw IllegalArgumentException()
-            }
-        }
-        binding.sharedViewModel = sharedViewModel
-        sharedViewModel.start()
+        if (savedInstanceState != null)
+            restoreNestedFragments(savedInstanceState)
+        else
+            createNewNestedFragments()
 
         setUpViews()
 
         return binding.root
     }
 
+    private fun restoreNestedFragments(savedInstanceState: Bundle) {
+        fragmentTag = savedInstanceState.getString("TAG")
+        Log.d(LOG_TAG, "Restoring fragment $fragmentTag.")
+        sharedViewModel = when (fragmentTag) {
+            MultipleChoiceFragment.FRAGMENT_TAG ->
+                ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
+            PickAndChooseFragment.FRAGMENT_TAG ->
+                ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
+            else ->
+                throw IllegalArgumentException()
+        }
+    }
+
+    private fun createNewNestedFragments() {
+        fragmentTag = arguments!!.getString("TAG")
+        Log.d(LOG_TAG, "Creating fragment $fragmentTag.")
+        val fragment: Fragment
+        when (fragmentTag) {
+            MultipleChoiceFragment.FRAGMENT_TAG -> {
+                fragment = MultipleChoiceFragment()
+                sharedViewModel = ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
+            }
+            PickAndChooseFragment.FRAGMENT_TAG -> {
+                fragment = PickAndChooseFragment()
+                sharedViewModel = ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
+            }
+            else -> throw IllegalArgumentException()
+        }
+        sharedViewModel.start()
+        childFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container, fragment, fragmentTag)
+                .commit()
+    }
+
     private fun setUpViews() {
+        binding.sharedViewModel = sharedViewModel
         binding.apply {
             when (fragmentTag) {
                 MultipleChoiceFragment.FRAGMENT_TAG ->

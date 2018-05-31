@@ -22,6 +22,8 @@ import com.b4kancs.scoutlaws.views.details.DetailsActivity;
 
 import java.util.ArrayList;
 
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
+
 /**
  * Created by hszilard on 15-Feb-18.
  */
@@ -56,14 +58,19 @@ class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements AdapterView.
         Intent intent = new Intent(activity, DetailsActivity.class);
         intent.putExtra(DetailsActivity.SCOUT_LAW_NUMBER_KEY, position);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        // Set up shared element transition
-        ListItemLawBinding binding = DataBindingUtil.bind(view);
-        TextView textView = binding.textLaw;
-        ViewGroup layout = binding.constraintListItemLaw;
-        Pair<View, String> pair1 = Pair.create(textView, textView.getTransitionName());
-        Pair<View, String> pair2 = Pair.create(layout, layout.getTransitionName());
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, pair1, pair2);
 
-        activity.startActivity(intent, options.toBundle());
+        if (areAnimationsEnabled(getContext())) {
+            // Set up shared element transition
+            ListItemLawBinding binding = DataBindingUtil.bind(view);
+            TextView textView = binding.textLaw;
+            ViewGroup layout = binding.constraintListItemLaw;
+            Pair<View, String> pair1 = Pair.create(textView, textView.getTransitionName());
+            Pair<View, String> pair2 = Pair.create(layout, layout.getTransitionName());
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, pair1, pair2);
+
+            activity.startActivity(intent, options.toBundle());
+        } else {
+            activity.startActivity(intent);
+        }
     }
 }

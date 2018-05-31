@@ -4,11 +4,11 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,6 +17,9 @@ import android.widget.TextView;
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityStartBinding;
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity;
+import com.b4kancs.scoutlaws.views.settings.SettingsActivity;
+
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -58,7 +61,11 @@ public class StartActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.menu_item_quiz:
                     Log.d(LOG_TAG, "Quiz menu item selected.");
-                    startQuizActivity();
+                    startActivity(QuizActivity.class);
+                    return true;
+                case R.id.menu_item_settings:
+                    Log.d(LOG_TAG, "Settings menu item selected.");
+                    startActivity(SettingsActivity.class);
                     return true;
                 default:
                     return false;
@@ -88,16 +95,17 @@ public class StartActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void startQuizActivity() {
-        Intent intent = new Intent(this, QuizActivity.class);
+    private void startActivity(Class activityClass) {
+        Intent intent = new Intent(this, activityClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(intent);
-        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+        if (areAnimationsEnabled(getApplicationContext()))
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
     private ActionBarDrawerToggle setUpDrawerToggle() {
-            return new ActionBarDrawerToggle(this, binding.drawerLayout, (Toolbar) binding.toolbar,
-                R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, binding.drawerLayout, (Toolbar) binding.toolbar,
+                R.string.drawer_open, R.string.drawer_close);
     }
 
     private void setUpDrawerContent() {

@@ -1,7 +1,6 @@
 package com.b4kancs.scoutlaws.views.quiz.chooser;
 
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,9 +15,7 @@ import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.FragmentChooserBinding;
 import com.b4kancs.scoutlaws.views.quiz.QuizShellFragment;
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment;
-import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel;
 import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment;
-import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel;
 
 import java.util.Random;
 
@@ -54,23 +51,23 @@ public class ChooserFragment extends Fragment {
             Log.d(LOG_TAG, "Any quiz button pressed.");
             Random random = new Random();
             if (random.nextInt() % 2 == 0)
-                startMultipleChoiceFragment();
+                startQuiz(MultipleChoiceFragment.FRAGMENT_TAG);
             else
-                startPickAndChooseFragment();
+                startQuiz(PickAndChooseFragment.FRAGMENT_TAG);
         });
         binding.buttonMultiple.setOnClickListener(click -> {
             Log.d(LOG_TAG, "Multiple choice button pressed.");
-            startMultipleChoiceFragment();
+            startQuiz(MultipleChoiceFragment.FRAGMENT_TAG);
         });
         binding.buttonPick.setOnClickListener(click -> {
             Log.d(LOG_TAG, "Pick and choose button pressed.");
-            startPickAndChooseFragment();
+            startQuiz(PickAndChooseFragment.FRAGMENT_TAG);
         });
     }
 
-    private void startMultipleChoiceFragment() {
+    private void startQuiz(final String fragmentTag) {
         Bundle args = new Bundle();
-        args.putString("TAG", MultipleChoiceFragment.FRAGMENT_TAG);
+        args.putString("TAG", fragmentTag);
         QuizShellFragment quizShellFragment = new QuizShellFragment();
         quizShellFragment.setArguments(args);
 
@@ -78,16 +75,4 @@ public class ChooserFragment extends Fragment {
         transaction.addToBackStack(QuizShellFragment.FRAGMENT_TAG);
         transaction.commit();
     }
-
-    private void startPickAndChooseFragment() {
-        Bundle args = new Bundle();
-        args.putString("TAG", PickAndChooseFragment.FRAGMENT_TAG);
-        QuizShellFragment quizShellFragment = new QuizShellFragment();
-        quizShellFragment.setArguments(args);
-
-        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), quizShellFragment);
-        transaction.addToBackStack(QuizShellFragment.FRAGMENT_TAG);
-        transaction.commit();
-    }
-
 }

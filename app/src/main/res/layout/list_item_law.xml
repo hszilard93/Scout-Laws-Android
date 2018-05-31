@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:minHeight="64dp"
             android:transitionName="@string/start_to_details_background_transition"
-            android:animateLayoutChanges="true"
+            app:animateLayoutChanges="@{context}"
             app:background_number='@{scoutLaw.number}'>
 
             <TextView

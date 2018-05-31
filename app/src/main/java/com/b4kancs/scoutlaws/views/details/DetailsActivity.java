@@ -23,7 +23,8 @@ import android.widget.TextView;
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityDetailsBinding;
 
-import static com.b4kancs.scoutlaws.views.details.DetailsActivityViewModel.*;
+import static com.b4kancs.scoutlaws.views.details.DetailsActivityViewModel.State;
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 
 /**
  * Created by hszilard on 21-Feb-18.
@@ -34,6 +35,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private ActivityDetailsBinding binding;
     private DetailsActivityViewModel viewModel;
+    private boolean areAnimationsEnabled;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class DetailsActivity extends AppCompatActivity {
             index = bundle.getInt(SCOUT_LAW_NUMBER_KEY);
         viewModel = ViewModelProviders.of(this, new DetailsActivityViewModelFactory(index))
                 .get(DetailsActivityViewModel.class);
+
+        areAnimationsEnabled = areAnimationsEnabled(getApplicationContext());
 
         setUpViews();
     }
@@ -92,10 +96,12 @@ public class DetailsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         // This makes the shared element transition less cluttered
-        binding.textNumber.setVisibility(View.GONE);
-        binding.textModern.setVisibility(View.GONE);
-        binding.textOld.setVisibility(View.GONE);
-        binding.textSource.setVisibility(View.GONE);
+        if (areAnimationsEnabled) {
+            binding.textNumber.setVisibility(View.GONE);
+            binding.textModern.setVisibility(View.GONE);
+            binding.textOld.setVisibility(View.GONE);
+            binding.textSource.setVisibility(View.GONE);
+        }
     }
 
     /* Must manually set up transitions because the default ones are inconsistent */
@@ -105,16 +111,18 @@ public class DetailsActivity extends AppCompatActivity {
         TextView modern = binding.textModern;
         LinearLayout oldLayout = binding.linearOld;
 
-        TransitionManager.beginDelayedTransition(layout, new Slide());
+        if (areAnimationsEnabled(layout.getContext()))
+            TransitionManager.beginDelayedTransition(layout, new Slide());
+
         if (modern.getVisibility() == View.VISIBLE && state == State.OLD) {
             // change out TextViews
             modern.setVisibility(View.GONE);
             oldLayout.setVisibility(View.VISIBLE);
-        }
-        else if (oldLayout.getVisibility() == View.VISIBLE && state == State.MODERN) {
+        } else if (oldLayout.getVisibility() == View.VISIBLE && state == State.MODERN) {
             // change out TextViews
             modern.setVisibility(View.VISIBLE);
             oldLayout.setVisibility(View.GONE);
         }
+
     }
 }
