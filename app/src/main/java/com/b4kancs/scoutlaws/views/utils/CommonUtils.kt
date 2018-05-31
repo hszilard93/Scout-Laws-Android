@@ -24,7 +24,7 @@ fun isVibrationEnabled(context: Context): Boolean {
     return preferences.getBoolean("pref_vibrate", true)
 }
 
-fun areAnimationsEnabled(context: Context?): Boolean {
+fun areAnimationsEnabled(context: Context): Boolean {
     val preferences = PreferenceManager.getDefaultSharedPreferences(context)
     return preferences.getBoolean("pref_animate", true)
 }

@@ -95,7 +95,7 @@ public class QuizActivity extends AppCompatActivity {
 
         Fragment chooserFragment = new ChooserFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        ((QuizShellFragment) sourceFragment).triggerChildExitAnimation();        
+        ((QuizShellFragment) sourceFragment).triggerChildExitAnimation();
         if (areAnimationsEnabled(getApplicationContext()))
             transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
         transaction.replace(binding.fragmentContainer.getId(), chooserFragment);

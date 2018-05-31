@@ -23,6 +23,7 @@ import com.nex3z.flowlayout.FlowLayout;
 
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
 
 /**
@@ -68,8 +69,9 @@ public class PickAndChooseFragment extends Fragment {
         binding.included.buttonNext.setOnClickListener(nextButtonOnClickListener);
         binding.included.buttonFinish.setOnClickListener(finishButtonOnClickListener);
         // This line makes the layout animate not only visibility or view addition/removal changes
-        // but other changes to its children too. We need it for width-change animations
-        binding.included.flowQuestion.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+        // but other changes to its children too. We need it for width-change animations specifically
+        if (areAnimationsEnabled(getContext()))
+            binding.included.flowQuestion.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
     }
 
     /* I tried moving the entire questionFlow-setup into a @BindingAdapter, but experienced big performance hit */

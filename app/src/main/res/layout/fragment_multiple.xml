@@ -97,7 +97,7 @@
                             android:id="@+id/linear_options"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:animateLayoutChanges="true"
+                            app:animateLayoutChanges="@{context}"
                             android:orientation="vertical"
                             android:paddingBottom="4dp"
                             android:paddingLeft="4dp"

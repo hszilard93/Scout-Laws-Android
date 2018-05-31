@@ -1,8 +1,11 @@
 package com.b4kancs.scoutlaws.views.utils
 
+import android.animation.LayoutTransition
+import android.content.Context
 import android.content.res.Resources
 import android.databinding.BindingAdapter
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 
 /**
@@ -23,10 +26,13 @@ fun setTextColorBinding(textView: TextView, i: Int) {
     textView.setTextColor(getColorCode(textView.resources, i, "_text"))
 }
 
-//@BindingAdapter("animations_enabled")
-//fun areAnimationsEnabledBinding(view: View) : Boolean {
-//    return areAnimationsEnabled(view.context)
-//}
+@BindingAdapter("animateLayoutChanges")
+fun animateLayoutChangesBinding(viewGroup: ViewGroup, context: Context) {
+    if (areAnimationsEnabled(context))
+        viewGroup.layoutTransition = LayoutTransition()
+    else
+        viewGroup.layoutTransition = null
+}
 
 private fun getColorCode(resources: Resources, i: Int, suffix: String): Int {
     return resources.getColor(resources.getIdentifier("color_item$i$suffix", "color", PACKAGE_NAME))
