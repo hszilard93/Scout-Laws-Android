@@ -22,6 +22,10 @@
         <activity
             android:name=".views.quiz.QuizActivity"
             android:parentActivityName=".views.start.StartActivity" />
+        <activity
+            android:name=".views.settings.SettingsActivity"
+            android:parentActivityName=".views.start.StartActivity"
+            android:theme="@style/SettingsTheme"/>
     </application>
 
     <uses-permission android:name="android.permission.VIBRATE" />

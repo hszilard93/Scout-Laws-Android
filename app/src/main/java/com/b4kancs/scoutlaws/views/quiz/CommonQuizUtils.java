@@ -2,7 +2,6 @@ package com.b4kancs.scoutlaws.views.quiz;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +10,8 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import com.b4kancs.scoutlaws.R;
+
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 
 /**
  * Created by hszilard on 15-Apr-18.
@@ -22,13 +23,14 @@ public final class CommonQuizUtils {
     private CommonQuizUtils() {
     }
 
-    /* Make an animated FragmentTransaction to replace the current fragment */
+    /* Make an animated* FragmentTransaction to replace the current fragment */
     public static FragmentTransaction getFragmentTransaction(@NonNull ViewGroup container,
                                                              FragmentManager manager,
                                                              Fragment targetFragment) {
         Log.d(LOG_TAG, "Building FragmentTransaction.");
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+        if (areAnimationsEnabled(container.getContext()))
+            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
         transaction.replace(container.getId(), targetFragment);
         return transaction;
     }

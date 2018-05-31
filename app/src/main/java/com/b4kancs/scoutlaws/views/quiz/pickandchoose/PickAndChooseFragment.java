@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.DragEvent;
@@ -20,11 +19,11 @@ import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.FragmentPickBinding;
 import com.b4kancs.scoutlaws.databinding.TextViewPickChooseFillBinding;
 import com.b4kancs.scoutlaws.databinding.TextViewPickChooseWordBinding;
-import com.b4kancs.scoutlaws.views.utils.CommonUtils;
 import com.nex3z.flowlayout.FlowLayout;
 
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
 
 /**
  * Created by hszilard on 3-March-18.
@@ -117,7 +116,7 @@ public class PickAndChooseFragment extends Fragment {
     private View.OnClickListener helpButtonOnClickListener = view -> {
         Log.d(LOG_TAG, "Help button clicked.");
         viewModel.help();
-        CommonUtils.vibrate(getContext(), 300);
+        vibrate(getContext(), 300);
     };
 
     private View.OnClickListener giveUpButtonListener = view -> {
@@ -142,7 +141,7 @@ public class PickAndChooseFragment extends Fragment {
             toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
 
-            CommonUtils.vibrate(getContext(), 300);
+            vibrate(getContext(), 300);
         }
     };
 

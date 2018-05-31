@@ -5,14 +5,14 @@
         <item
             android:id="@+id/menu_item_quiz"
             android:icon="@drawable/ic_questions_24dp"
-            android:title="@string/quiz_item" />
+            android:title="@string/quiz_menu_item" />
         <item
             android:id="@+id/menu_item_settings"
-            android:icon="@drawable/ic_menu_black_24dp"
-            android:title="Beállítások" />
+            android:icon="@drawable/ic_settings_24dp"
+            android:title="@string/settings_menu_item" />
         <item
             android:id="@+id/menu_item_about"
-            android:icon="@drawable/ic_menu_black_24dp"
-            android:title="Az appról" />
+            android:icon="@drawable/ic_info_24dp"
+            android:title="@string/about_menu_item" />
     </group>
 </menu>

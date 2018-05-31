@@ -12,10 +12,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
-import com.b4kancs.scoutlaws.views.utils.CommonUtils;
 import com.nex3z.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
+
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
 
 /**
  * Created by hszilard on 14-Apr-18.
@@ -94,7 +95,7 @@ public final class PickAndChooseBindings {
             // This change will be reflected in the optionsFlowLayout
             options.remove(text);
             // Provide feedback to user
-            CommonUtils.vibrate(view.getContext(), 50);
+            vibrate(view.getContext(), 50);
 
             return true;
         }

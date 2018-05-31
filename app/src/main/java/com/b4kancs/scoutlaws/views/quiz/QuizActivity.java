@@ -21,6 +21,8 @@ import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment;
 
 import java.util.List;
 
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
+
 /**
  * Created by hszilard on 25-Feb-18.
  * This activity contains all the Quiz related fragments.
@@ -88,21 +90,22 @@ public class QuizActivity extends AppCompatActivity {
         Fragment sourceFragment = fragments.get(fragments.size() - 1);
 
         if (sourceFragment instanceof ChooserFragment) {
-            navigateUpToStartActivity();
+            goToStartActivity();
             return true;
         }
 
         Fragment chooserFragment = new ChooserFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
         ((QuizShellFragment) sourceFragment).triggerChildExitAnimation();
         transaction.replace(binding.fragmentContainer.getId(), chooserFragment);
+        if (areAnimationsEnabled(getApplicationContext()))
+            transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
         transaction.commit();
 
         return true;
     }
 
-    private void navigateUpToStartActivity() {
+    private void goToStartActivity() {
         Intent upIntent = NavUtils.getParentActivityIntent(this);
         if (NavUtils.shouldUpRecreateTask(this, upIntent) || isTaskRoot()) {
             // This activity is NOT part of this app's task, so create a new task
@@ -115,6 +118,13 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             NavUtils.navigateUpTo(this, upIntent);
         }
-        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+
+        if (areAnimationsEnabled(getApplicationContext()))
+            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+    }
+
+    @Override
+    public void onBackPressed() {
+        navigateUp();
     }
 }

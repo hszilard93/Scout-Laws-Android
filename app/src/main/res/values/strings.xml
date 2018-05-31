@@ -10,7 +10,7 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac posuere diam. Praesent fermentum ante eget facilisis congue. Phasellus consectetur augue odio, et consequat lectus tempor id. Etiam porta, magna nec gravida consectetur, massa velit eleifend erat, nec condimentum neque magna a ante. Etiam turpis ligula, tempus quis sem sit amet, rhoncus rhoncus ante. Aenean rutrum elit a nisi fermentum faucibus. Nulla et leo eu sem vestibulum rutrum id eget risus. Nam vel lacinia augue. Cras viverra mattis augue eu sollicitudin. Nunc dictum nulla sed convallis euismod. Vivamus vulputate euismod feugiat. Morbi mattis orci felis, vitae facilisis metus rhoncus eu. Vestibulum convallis sem non ante semper malesuada.</string>
     <string name="original">Eredeti</string>
     <string name="contemporary">Modern</string>
-    <string name="quiz_item">Kvíz</string>
+    <string name="quiz_menu_item">Kvíz</string>
     <string name="choose_quiz">Válassz egy kvízfajtát!</string>
     <string name="any_quiz">Bármilyen</string>
     <string name="multiple_quiz">Feleletválasztós</string>
@@ -43,4 +43,15 @@
     <string name="time_text">Idő:</string>
     <string name="best_time_text">Legjobb idő:</string>
     <string name="new_best_time_text">Új legjobb idő!</string>
+    <string name="pref_vibrate">Rezgés engedélyezése</string>
+    <string name="pref_vibrate_sum">Rezgés engedélyezése (például helytelen válaszok esetén)</string>
+    <string name="pref_other_title">Egyéb</string>
+    <string name="pref_animate">Animációk engedélyezése</string>
+    <string name="pref_animate_sum">Animációk engedélyezése (például képernyők közötti átmeneteknél)</string>
+    <string name="pref_key_notifications">Értesítések</string>
+    <string name="pref_notifications_timing_list">Ajánlj fel kvízeket ilyen gyakran..</string>
+    <string name="pref_notifications_this_often">Gyakoriság</string>
+    <string name="pref_notifications_entry_twice_a_week">Hetente kétszer</string>
+    <string name="settings_menu_item">Beállítások</string>
+    <string name="about_menu_item">Az appról</string>
 </resources>

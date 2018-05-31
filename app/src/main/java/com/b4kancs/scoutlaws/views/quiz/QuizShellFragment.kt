@@ -37,15 +37,14 @@ class QuizShellFragment : Fragment() {
         if (savedInstanceState != null) {
             fragmentTag = savedInstanceState.getString("TAG")
             Log.d(LOG_TAG, "Restoring fragment $fragmentTag.")
-            sharedViewModel =
-                    when (fragmentTag) {
-                        MultipleChoiceFragment.FRAGMENT_TAG ->
-                            ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
-                        PickAndChooseFragment.FRAGMENT_TAG ->
-                            ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
-                        else ->
-                            throw IllegalArgumentException()
-                    }
+            sharedViewModel = when (fragmentTag) {
+                MultipleChoiceFragment.FRAGMENT_TAG ->
+                    ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
+                PickAndChooseFragment.FRAGMENT_TAG ->
+                    ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
+                else ->
+                    throw IllegalArgumentException()
+            }
         } else {
             fragmentTag = arguments!!.getString("TAG")
             Log.d(LOG_TAG, "Creating fragment $fragmentTag.")
