@@ -1,3 +1,5 @@
+package com.b4kancs.scoutlaws.views.settings
+
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.preference.PreferenceDialogFragmentCompat
@@ -12,15 +14,15 @@ import com.b4kancs.scoutlaws.R
  */
 class TimePreferenceDialogFragmentCompat : PreferenceDialogFragmentCompat() {
 
-    private var mTimePicker: TimePicker? = null
+    private var timePicker: TimePicker? = null
 
     override fun onBindDialogView(view: View) {
         super.onBindDialogView(view)
 
-        mTimePicker = view.findViewById<View>(R.id.time_pref) as TimePicker
+        timePicker = view.findViewById<View>(R.id.time_pref) as TimePicker
 
         // Exception: There is no TimePicker with the id 'time_pref' in the dialog.
-        if (mTimePicker == null) {
+        if (timePicker == null) {
             throw IllegalStateException("Dialog view must contain a TimePicker with id 'time_pref'")
         }
 
@@ -37,9 +39,9 @@ class TimePreferenceDialogFragmentCompat : PreferenceDialogFragmentCompat() {
             val minutes = minutesAfterMidnight % 60
             val is24hour = DateFormat.is24HourFormat(context)
 
-            mTimePicker!!.setIs24HourView(is24hour)
-            mTimePicker!!.currentHour = hours
-            mTimePicker!!.currentMinute = minutes
+            timePicker!!.setIs24HourView(is24hour)
+            timePicker!!.currentHour = hours
+            timePicker!!.currentMinute = minutes
         }
     }
 
@@ -49,11 +51,11 @@ class TimePreferenceDialogFragmentCompat : PreferenceDialogFragmentCompat() {
             val hours: Int
             val minutes: Int
             if (Build.VERSION.SDK_INT >= 23) {
-                hours = mTimePicker!!.hour
-                minutes = mTimePicker!!.minute
+                hours = timePicker!!.hour
+                minutes = timePicker!!.minute
             } else {
-                hours = mTimePicker!!.currentHour
-                minutes = mTimePicker!!.currentMinute
+                hours = timePicker!!.currentHour
+                minutes = timePicker!!.currentMinute
             }
 
             val minutesAfterMidnight = hours * 60 + minutes

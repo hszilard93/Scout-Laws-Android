@@ -4,6 +4,6 @@
     android:id="@+id/time_pref"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="24dp"
-    android:paddingBottom="24dp"
+    android:paddingTop="18dp"
+    android:paddingBottom="18dp"
     android:theme="@style/SettingsTheme" />

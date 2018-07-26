@@ -1,3 +1,5 @@
+package com.b4kancs.scoutlaws.views.settings
+
 import android.content.Context
 import android.content.res.TypedArray
 import android.support.v7.preference.DialogPreference

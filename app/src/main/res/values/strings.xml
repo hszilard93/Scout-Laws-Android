@@ -27,6 +27,7 @@
     <string name="time">Idő:</string>
     <string name="ok_button">Ok</string>
     <string name="back_button">Vissza</string>
+    <string name="cancel_button">Mégse</string>
     <string name="congrats_low_score">Gyakorlat teszi a mestert. Próbáld újra!</string>
     <string name="congrats_mid_score">Nem rossz!</string>
     <string name="congrats_good_score">Szép munka!</string>
@@ -52,13 +53,11 @@
     <string name="pref_notifications_timing_list">Ajánlj fel kvízeket ilyen gyakran..</string>
     <string name="pref_notifications_this_often">Gyakoriság</string>
     <string name="pref_notifications_entry_twice_a_week">Hetente kétszer</string>
-    <string name="pref_notification_preferred_time">Értesítés ideje</string>
+    <string name="pref_notification_preferred_time">Értesítés ideje..</string>
     <string name="settings_menu_item">Beállítások</string>
     <string name="about_menu_item">Az appról</string>
     <string name="quiz_notification_channel_name">quiz_notifications</string>
     <string name="quiz_notification_channel_description">quiz_notifications_description</string>
     <string name="quiz_notification_title">Új kvíz!</string>
     <string name="quiz_notification_text">Meg tudod oldani?</string>
-    <string name="set">Ok</string>
-    <string name="cancel">Mégse</string>
 </resources>

@@ -5,8 +5,6 @@ import android.support.v4.app.DialogFragment
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
 import com.b4kancs.scoutlaws.R
-import TimePreferenceDialogFragmentCompat
-import TimePreference
 
 /**
  * Created by hszilard on 24-May-18.

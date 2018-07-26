@@ -16,7 +16,8 @@
         <com.b4kancs.scoutlaws.views.settings.TimePreference
             android:defaultValue="1260"
             android:key="pref_notification_preferred_time"
-            android:title="@string/pref_notification_preferred_time" />
+            android:title="@string/pref_notification_preferred_time"
+            style="@style/SettingsTheme.DialogPreference"/>
     </android.support.v7.preference.PreferenceCategory>
 
     <android.support.v7.preference.PreferenceCategory
