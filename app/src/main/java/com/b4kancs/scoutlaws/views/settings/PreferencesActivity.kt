@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 /**
  * Created by hszilard on 24-May-18.
  */
-class SettingsActivity : AppCompatActivity() {
+class PreferencesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,10 +21,10 @@ class SettingsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar as Toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if (fragmentManager.findFragmentById(R.id.frame_preferences_content) == null)
-            fragmentManager
+        if (supportFragmentManager.findFragmentById(R.id.frame_preferences_content) == null)
+            supportFragmentManager
                     .beginTransaction()
-                    .add(R.id.frame_preferences_content, SettingsFragment())
+                    .add(R.id.frame_preferences_content, PreferencesFragment())
                     .commit()
     }
 

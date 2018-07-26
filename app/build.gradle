@@ -54,6 +54,9 @@ dependencies {
     implementation "com.android.support:design:$support_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
 
+    implementation "com.android.support:preference-v7:$support_version"
+    implementation "com.android.support:preference-v14:$support_version"
+
     // Dagger 2
     implementation "com.google.dagger:dagger-android:$dagger2_version"
     implementation "com.google.dagger:dagger-android-support:$dagger2_version"

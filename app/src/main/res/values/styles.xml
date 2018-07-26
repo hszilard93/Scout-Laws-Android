@@ -8,8 +8,9 @@
     </style>
 
     <style name="SettingsTheme" parent="AppTheme">
-    <!-- This looks much better -->
-    <item name="colorAccent">@color/colorPrimary</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <!-- This looks much better -->
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="PopupMenuListView" parent="@style/Widget.AppCompat.ListView.DropDown">
