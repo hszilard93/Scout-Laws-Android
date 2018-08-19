@@ -14,7 +14,7 @@ const val NOTIFICATION_ID = 1
 /**
  * Created by hszilard on 16-Jul-18.
  */
-fun showQuizPromptNotification(context: Context) {
+internal fun showQuizPromptNotification(context: Context) {
     createNotificationChannel(context)
     val builder = raiseQuizPromptNotification(context)
     val notificationManager = NotificationManagerCompat.from(context)

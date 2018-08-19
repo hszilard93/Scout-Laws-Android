@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.b4kancs.scoutlaws">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -27,6 +28,11 @@
         <activity
             android:name=".views.settings.PreferencesActivity"
             android:parentActivityName=".views.start.StartActivity"
-            android:theme="@style/SettingsTheme"/>
+            android:theme="@style/SettingsTheme" />
+
+        <service
+            android:name=".services.NotificationService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 </manifest>

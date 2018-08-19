@@ -6,7 +6,7 @@
         android:title="@string/pref_key_notifications">
 
         <android.support.v7.preference.ListPreference
-            android:defaultValue="@string/pref_notifications_entry_twice_a_week"
+            android:defaultValue="@string/pref_notifications_entry_never"
             android:dialogTitle="@string/pref_notifications_this_often"
             android:entries="@array/pref_notifications_list_entries"
             android:entryValues="@array/pref_notifications_list_values"
