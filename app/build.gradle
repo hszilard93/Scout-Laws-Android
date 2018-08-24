@@ -5,13 +5,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "de.mannodermaus.android-junit5"
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.b4kancs.scoutlaws"
         minSdkVersion 21
-        targetSdkVersion 27
-        versionCode 8
-        versionName "0.1.7"
+        targetSdkVersion 28
+        versionCode 9
+        versionName "0.1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
