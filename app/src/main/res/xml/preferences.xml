@@ -14,10 +14,18 @@
             android:title="@string/pref_notifications_timing_list" />
 
         <com.b4kancs.scoutlaws.views.settings.TimePreference
+            style="@style/SettingsTheme.DialogPreference"
             android:defaultValue="1260"
             android:key="pref_notification_preferred_time"
-            android:title="@string/pref_notification_preferred_time"
-            style="@style/SettingsTheme.DialogPreference"/>
+            android:title="@string/pref_notification_preferred_time" />
+
+        <android.support.v7.preference.ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/pref_notification_quiz_type"
+            android:entries="@array/pref_notifications_quiz_type_entries"
+            android:entryValues="@array/pref_notifications_quiz_type_values"
+            android:key="pref_notification_quiz_type"
+            android:title="@string/pref_notification_quiz_type" />
     </android.support.v7.preference.PreferenceCategory>
 
     <android.support.v7.preference.PreferenceCategory

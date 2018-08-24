@@ -7,11 +7,24 @@
         <item>Hetente kétszer</item>
         <item>Hetente</item>
     </string-array>
+
     <string-array name="pref_notifications_list_values">
         <item>never</item>
         <item>one day</item>
         <item>two days</item>
         <item>twice a week</item>
         <item>once a week</item>
+    </string-array>
+
+    <string-array name="pref_notifications_quiz_type_entries">
+        <item>Bármilyen</item>
+        <item>Feleletválasztós</item>
+        <item>Beillesztős</item>
+    </string-array>
+
+    <string-array name="pref_notifications_quiz_type_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 </resources>
