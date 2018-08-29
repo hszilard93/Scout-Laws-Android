@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 
 import com.b4kancs.scoutlaws.data.Repository;
 import com.b4kancs.scoutlaws.data.store.SharedPreferencesUserDataStore;
@@ -46,9 +47,9 @@ public class ApplicationModule {
     }
 
     @Provides
-    @Named("app_preferences")
-    SharedPreferences provideApplicationSharedPreferences() {
-        return application.getSharedPreferences(APP_SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
+    @Named("default_preferences")
+    SharedPreferences provideDefaultSharedPreferences(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     @Provides

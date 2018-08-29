@@ -19,7 +19,7 @@ import javax.inject.Singleton
 class Repository
 @Inject constructor(private val resources: Resources,
                     private val userDataStore: UserDataStore,
-                    @Named("app_preferences") private val sharedPreferences: SharedPreferences) {
+                    @Named("default_preferences") private val sharedPreferences: SharedPreferences) {
 
     companion object {
         private val LOG_TAG = Repository::class.simpleName

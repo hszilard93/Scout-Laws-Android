@@ -14,7 +14,7 @@ import com.b4kancs.scoutlaws.views.quiz.QuizActivity.QUIZ_FRAGMENT_EXTRA
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import pressUp
+import com.b4kancs.scoutlaws.pressUp
 
 /**
  * Created by hszilard on 14-May-18.

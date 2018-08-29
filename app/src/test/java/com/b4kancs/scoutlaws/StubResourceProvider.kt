@@ -18,7 +18,7 @@ internal const val sl1DescOrig = "scoutlaw 1 original description"
 internal const val sl1PickId = 13
 internal const val sl1PickText = "scoutlaw 1 pick and choose"
 internal const val sl1PickOptionsId = 14
-internal val sl1PickOptions: Array<String> = arrayOf("one", "two")
+internal val sl1PickOptions = arrayOf("one", "two")
 
 internal const val sl2Id = 20
 internal const val sl2Text = "scoutlaw 2 name"
@@ -29,7 +29,7 @@ internal const val sl2DescOrig = "scoutlaw 2 original description"
 internal const val sl2PickId = 23
 internal const val sl2PickText = "scoutlaw 2 pick and choose"
 internal const val sl2PickOptionsId = 24
-internal val sl2PickOptions: Array<String> = arrayOf("three", "four")
+internal val sl2PickOptions = arrayOf("three", "four")
 
 internal const val sl3Id = 30
 internal const val sl3Text = "scoutlaw 3 name"
@@ -40,7 +40,7 @@ internal const val sl3DescOrig = "scoutlaw 3 original description"
 internal const val sl3PickId = 33
 internal const val sl3PickText = "scoutlaw 3 pick and choose"
 internal const val sl3PickOptionsId = 34
-internal val sl3PickOptions: Array<String> = arrayOf("five", "six")
+internal val sl3PickOptions = arrayOf("five", "six")
 
 internal const val sl4Id = 40
 internal const val sl4Text = "scoutlaw 4 name"
@@ -51,7 +51,7 @@ internal const val sl4DescOrig = "scoutlaw 4 original description"
 internal const val sl4PickId = 44
 internal const val sl4PickText = "scoutlaw 4 pick and choose"
 internal const val sl4PickOptionsId = 44
-internal val sl4PickOptions: Array<String> = arrayOf("seven", "eight")
+internal val sl4PickOptions = arrayOf("seven", "eight")
 
 internal const val sl5Id = 50
 internal const val sl5Text = "scoutlaw 5 name"
@@ -62,7 +62,7 @@ internal const val sl5DescOrig = "scoutlaw 5 original description"
 internal const val sl5PickId = 55
 internal const val sl5PickText = "scoutlaw 5 pick and choose"
 internal const val sl5PickOptionsId = 55
-internal val sl5PickOptions: Array<String> = arrayOf("nine", "ten")
+internal val sl5PickOptions = arrayOf("nine", "ten")
 
 
 /* This function stubs the android resources necessary for a Repository object to build two ScoutLaws and PickAndChooseScoutLaws. */

@@ -24,23 +24,23 @@ const val NOTIFICATION_ID = 1
  */
 internal fun showQuizPromptNotification(context: Context) {
     createNotificationChannel(context)
-    val builder = raiseQuizPromptNotification(context)
+    val builder = makeQuizPromptNotificationBuilder(context)
     val notificationManager = NotificationManagerCompat.from(context)
     notificationManager.notify(NOTIFICATION_ID, builder.build())
 }
 
-private fun raiseQuizPromptNotification(context: Context): NotificationCompat.Builder =
+private fun makeQuizPromptNotificationBuilder(context: Context): NotificationCompat.Builder =
     NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_lily_24dp)
             .setContentTitle(context.getString(R.string.quiz_notification_title))
             .setContentText(context.getString(R.string.quiz_notification_text))
-            .setContentIntent(createQuizIntent(context))
+            .setContentIntent(makeQuizIntent(context))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
             .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
 
-private fun createQuizIntent(context: Context) : PendingIntent {
+private fun makeQuizIntent(context: Context) : PendingIntent {
     val quizIntent = Intent(context, QuizActivity::class.java)
 
     var type = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_notification_quiz_type", "0")

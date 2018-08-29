@@ -14,7 +14,7 @@ import android.view.View
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity.QUIZ_FRAGMENT_EXTRA
-import countVisibleChildren
+import com.b4kancs.scoutlaws.countVisibleChildren
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
 import org.hamcrest.CoreMatchers.allOf

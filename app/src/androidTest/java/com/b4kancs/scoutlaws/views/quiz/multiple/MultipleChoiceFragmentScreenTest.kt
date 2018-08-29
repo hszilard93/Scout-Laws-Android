@@ -11,8 +11,8 @@ import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity.QUIZ_FRAGMENT_EXTRA
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment
-import countVisibleChildren
-import extractText
+import com.b4kancs.scoutlaws.countVisibleChildren
+import com.b4kancs.scoutlaws.extractText
 import org.hamcrest.BaseMatcher
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
@@ -23,7 +23,7 @@ import org.junit.Assert.assertNotEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import pressUp
+import com.b4kancs.scoutlaws.pressUp
 
 /**
  * Created by hszilard on 14-May-18.
