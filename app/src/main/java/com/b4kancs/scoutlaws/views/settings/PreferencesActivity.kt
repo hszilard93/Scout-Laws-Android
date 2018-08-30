@@ -40,7 +40,7 @@ class PreferencesActivity : AppCompatActivity() {
             _: SharedPreferences, key: String ->
             when (key) {
                 "pref_notification_timing_list", "pref_notification_preferred_time" ->
-                    notificationScheduler.scheduleNotification(true)
+                    notificationScheduler.schedule(true)
             }
         }
     }

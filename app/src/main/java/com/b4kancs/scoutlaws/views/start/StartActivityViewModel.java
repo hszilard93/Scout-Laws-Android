@@ -19,13 +19,16 @@ public class StartActivityViewModel extends ViewModel {
     @Inject protected Repository repository;
     @Inject protected NotificationScheduler notificationScheduler;
 
+    public StartActivityViewModel() {
+        ScoutLawApp.getInstance().getApplicationComponent().inject(this);
+        notificationScheduler.schedule(false);
+    }
+
     private ArrayList<ScoutLaw> scoutLaws;
 
     public ArrayList<ScoutLaw> scoutLaws() {
-        if (scoutLaws == null) {
-            ScoutLawApp.getInstance().getApplicationComponent().inject(this);
+        if (scoutLaws == null)
             scoutLaws = repository.getLaws();
-        }
         return scoutLaws;
     }
 }
