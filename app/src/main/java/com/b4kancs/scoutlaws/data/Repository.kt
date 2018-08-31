@@ -1,13 +1,14 @@
 package com.b4kancs.scoutlaws.data
 
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.util.Log
 import com.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
-import com.b4kancs.scoutlaws.data.store.SharedPreferencesUserDataStore.Companion.TOTAL_SCORE_KEY
 import com.b4kancs.scoutlaws.data.store.UserDataStore
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -16,10 +17,13 @@ import javax.inject.Singleton
  */
 @Singleton
 class Repository
-@Inject constructor(private val resources: Resources, private val userDataStore: UserDataStore) {
+@Inject constructor(private val resources: Resources,
+                    private val userDataStore: UserDataStore,
+                    @Named("default_preferences") private val sharedPreferences: SharedPreferences) {
 
     companion object {
         private val LOG_TAG = Repository::class.simpleName
+        const val LAST_NOTIFICATION_TIME_KEY = "LAST_NOTIFICATION_TIME_KEY"
     }
 
     val laws = ArrayList<ScoutLaw>(10)
@@ -79,6 +83,8 @@ class Repository
 
     fun getBestPickChooseTime() = userDataStore.bestPickChooseTime
 
+    fun getLastNotificationShownAt() = sharedPreferences.getLong(LAST_NOTIFICATION_TIME_KEY, 0)
+
     fun increaseTotalScoreBy(thisMuch: Int) {
         userDataStore.totalScore += thisMuch
     }
@@ -93,5 +99,9 @@ class Repository
 
     fun setBestPickChooseTime(newTime: Long) {
         userDataStore.bestPickChooseTime = newTime
+    }
+
+    fun setLastNotificationShownAt(time: Long) {
+        sharedPreferences.edit().putLong(LAST_NOTIFICATION_TIME_KEY, time).apply()
     }
 }

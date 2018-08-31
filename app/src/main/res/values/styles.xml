@@ -8,8 +8,16 @@
     </style>
 
     <style name="SettingsTheme" parent="AppTheme">
-    <!-- This looks much better -->
-    <item name="colorAccent">@color/colorPrimary</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <!-- Looks much better this way -->
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <!-- This here stuff makes the TimePreferenceDialog's buttons work -->
+    <style name="SettingsTheme.DialogPreference">
+        <item name="android:layout">@layout/preference_material</item>
+        <item name="positiveButtonText">@string/ok_button</item>
+        <item name="negativeButtonText">@string/cancel_button</item>
     </style>
 
     <style name="PopupMenuListView" parent="@style/Widget.AppCompat.ListView.DropDown">

@@ -11,7 +11,6 @@ import com.b4kancs.scoutlaws.ScoutLawApp;
 import com.b4kancs.scoutlaws.data.Repository;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 import javax.inject.Inject;

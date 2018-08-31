@@ -4,9 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
 import com.b4kancs.scoutlaws.data.store.UserDataStore
+import com.b4kancs.scoutlaws.services.NotificationScheduler
 import dagger.Module
 import dagger.Provides
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
+import javax.inject.Named
+import javax.inject.Singleton
 
 /**
  * Created by hszilard on 08-May-18.
@@ -19,17 +23,19 @@ class TestModule {
     }
 
     @Provides
-    fun provideResources(): Resources {
-        return getStubResourcesWithFiveLaws()
-    }
+    fun provideResources(): Resources = getStubResourcesWithFiveLaws()
 
     @Provides
-    fun provideApplicationContext(): Context {
-        return mock(Context::class.java)
-    }
+    fun provideApplicationContext(): Context = mock(Context::class.java)
 
     @Provides
-    fun provideUserDataStore(): UserDataStore {
-        return StubUserDataStore()
-    }
+    fun provideUserDataStore(): UserDataStore = StubUserDataStore()
+
+    @Provides
+    @Named("default_preferences")
+    fun provideSharedPreferences(): SharedPreferences = mock(SharedPreferences::class.java)
+
+    @Provides
+    fun provideNotificationScheduler(): NotificationScheduler = mock(NotificationScheduler::class.java)
+
 }

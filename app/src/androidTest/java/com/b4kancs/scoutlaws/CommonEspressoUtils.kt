@@ -1,3 +1,5 @@
+package com.b4kancs.scoutlaws
+
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.UiController
 import android.support.test.espresso.ViewAction
@@ -7,7 +9,6 @@ import android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.b4kancs.scoutlaws.R
 import org.hamcrest.Matcher
 
 /**

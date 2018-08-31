@@ -4,9 +4,14 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 
+import com.b4kancs.scoutlaws.data.Repository;
 import com.b4kancs.scoutlaws.data.store.SharedPreferencesUserDataStore;
 import com.b4kancs.scoutlaws.data.store.UserDataStore;
+import com.b4kancs.scoutlaws.services.NotificationScheduler;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,7 +21,8 @@ import dagger.Provides;
  */
 @Module
 public class ApplicationModule {
-    private final static String USER_SHARED_PREFERENCES_KEY = "com.b4kancs.scoutlaws.user_preferences";
+    private final static String USER_SHARED_PREFERENCES_KEY = "com.b4kancs.scoutlaws.user_shared_preferences";
+    private final static String APP_SHARED_PREFERENCES_KEY = "com.b4kancs.scoutlaws.app_shared_preferences";
 
     private final Application application;
 
@@ -35,12 +41,19 @@ public class ApplicationModule {
     }
 
     @Provides
-    SharedPreferences provideSharedPreferences() {
+    @Named("user_preferences")
+    SharedPreferences provideUserSharedPreferences() {
         return application.getSharedPreferences(USER_SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
     }
 
     @Provides
-    UserDataStore provideUserDataStore(SharedPreferences preferences) {
-        return new SharedPreferencesUserDataStore(preferences);
+    @Named("default_preferences")
+    SharedPreferences provideDefaultSharedPreferences(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    @Provides
+    UserDataStore provideUserDataStore(@Named("user_preferences") SharedPreferences userPreferences) {
+        return new SharedPreferencesUserDataStore(userPreferences);
     }
 }

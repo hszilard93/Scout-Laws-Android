@@ -5,13 +5,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "de.mannodermaus.android-junit5"
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.b4kancs.scoutlaws"
         minSdkVersion 21
-        targetSdkVersion 27
-        versionCode 8
-        versionName "0.1.7"
+        targetSdkVersion 28
+        versionCode 9
+        versionName "0.1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -53,6 +53,9 @@ dependencies {
     implementation "com.android.support:cardview-v7:$support_version"
     implementation "com.android.support:design:$support_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+
+    implementation "com.android.support:preference-v7:$support_version"
+    implementation "com.android.support:preference-v14:$support_version"
 
     // Dagger 2
     implementation "com.google.dagger:dagger-android:$dagger2_version"

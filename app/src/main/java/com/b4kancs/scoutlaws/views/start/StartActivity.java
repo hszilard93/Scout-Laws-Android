@@ -16,8 +16,9 @@ import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityStartBinding;
+import com.b4kancs.scoutlaws.services.NotificationUtilsKt;
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity;
-import com.b4kancs.scoutlaws.views.settings.SettingsActivity;
+import com.b4kancs.scoutlaws.views.settings.PreferencesActivity;
 
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 
@@ -65,8 +66,10 @@ public class StartActivity extends AppCompatActivity {
                     return true;
                 case R.id.menu_item_settings:
                     Log.d(LOG_TAG, "Settings menu item selected.");
-                    startActivity(SettingsActivity.class);
+                    startActivity(PreferencesActivity.class);
                     return true;
+                case R.id.menu_item_about:
+                    NotificationUtilsKt.showQuizPromptNotification(this);
                 default:
                     return false;
             }
