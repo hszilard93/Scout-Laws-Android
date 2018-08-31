@@ -30,7 +30,7 @@ class NotificationScheduler
         private val LOG_TAG = NotificationScheduler::class.simpleName
     }
 
-    fun schedule(forced: Boolean) : Long {
+    fun schedule(forced: Boolean): Long {
         Log.d(LOG_TAG, "scheduleNotification called. forced = $forced")
 
         val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
@@ -39,12 +39,15 @@ class NotificationScheduler
             // Check if we already have a job scheduled
             jobScheduler.allPendingJobs.forEach {
                 if (it.id == NOTIFICATION_JOB_ID) {
+                    /* If a notification would be shown within the hour, or it is in the past, reschedule it.
+                     * (No need to prompt the user when he's just used/is using the app.) */
                     if (it.extras.getLong(KEY_NOTIFICATION_TIME) - Calendar.getInstance().timeInMillis <= 60 * 60 * 1000) {
-                        /* If notification would be shown within the hour, or is in the past, reschedule it
-                         * (no need to prompt the user when he's just used/is using the app) */
                         Log.d(LOG_TAG, "Rescheduling notification because it is too close in time.")
                     } else {
-                        Log.d(LOG_TAG, "Notification is already scheduled.")
+                        val relativeNotificationTimeInMinutes = (it.extras.getLong(KEY_NOTIFICATION_TIME)
+                                - Calendar.getInstance().timeInMillis) / 1000 / 60
+                        Log.d(LOG_TAG, "Notification is already scheduled for around " +
+                                "$relativeNotificationTimeInMinutes minutes from now.")
                         return -1
                     }
                 }
@@ -89,8 +92,8 @@ class NotificationScheduler
         val preferredFrequency = sharedPreferences.getString("pref_notification_timing_list",
                 predefinedNotificationFrequencies[0])
         val preferredTime = sharedPreferences.getInt("pref_notification_preferred_time", 1260)
-        val preferredHour = preferredTime / 100
-        val preferredMinute = preferredTime % 100
+        val preferredHour = preferredTime / 60
+        val preferredMinute = preferredTime % 60
 
         val lastShownNotificationTimeInMillis: Long = repository.getLastNotificationShownAt()
         if (lastShownNotificationTimeInMillis == 0L) {   // No notification has been shown

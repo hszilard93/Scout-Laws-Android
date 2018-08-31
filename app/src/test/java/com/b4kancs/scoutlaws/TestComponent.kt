@@ -2,6 +2,7 @@ package com.b4kancs.scoutlaws
 
 import com.b4kancs.scoutlaws.data.RepositoryTest
 import com.b4kancs.scoutlaws.services.NotificationSchedulerTest
+import com.b4kancs.scoutlaws.services.NotificationService
 import com.b4kancs.scoutlaws.views.details.DetailsActivityViewModelTest
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModelTest
 import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModelTest
