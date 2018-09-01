@@ -7,30 +7,30 @@
     <color name="colorAccentLight">#fff176</color>
     <color name="colorAccentDark">#fbc02d</color>
     <color name="colorTextLight">#ffffff</color>
-    <color name="colorTextDark">#404040</color>
+    <color name="colorTextDark">#505050</color>
 
     <color name="background_grey">#eeeeee</color>
     <color name="disabled_grey">#aaaaaa</color>
     <color name="transparent">#00ffffff</color>
 
     <!-- A primary color value for every item for easier memorization and a text color for legibility -->
-    <color name="color_item1">#d50000</color>
+    <color name="color_item1">#f44336</color>
     <color name="color_item1_text">@color/colorTextLight</color>
-    <color name="color_item2">#f50057  </color>
+    <color name="color_item2">#ec407a  </color>
     <color name="color_item2_text">@color/colorTextLight</color>
-    <color name="color_item3">#aa00ff</color>
+    <color name="color_item3">#ab47bc</color>
     <color name="color_item3_text">@color/colorTextLight</color>
-    <color name="color_item4">#2962ff</color>
+    <color name="color_item4">#5c6bc0</color>
     <color name="color_item4_text">@color/colorTextLight</color>
-    <color name="color_item5">#00b8d4</color>
-    <color name="color_item5_text">@color/colorTextDark</color>
-    <color name="color_item6">#aeea00</color>
-    <color name="color_item6_text">@color/colorTextDark</color>
-    <color name="color_item7">#ffd600</color>
+    <color name="color_item5">#29b6f6</color>
+    <color name="color_item5_text">@color/colorTextLight</color>
+    <color name="color_item6">#66bb6a</color>
+    <color name="color_item6_text">@color/colorTextLight</color>
+    <color name="color_item7">#ffee58</color>
     <color name="color_item7_text">@color/colorTextDark</color>
-    <color name="color_item8">#ff6d00</color>
+    <color name="color_item8">#ff7043</color>
     <color name="color_item8_text">@color/colorTextLight</color>
-    <color name="color_item9">#795548</color>
+    <color name="color_item9">#8d6e63</color>
     <color name="color_item9_text">@color/colorTextLight</color>
     <color name="color_item10">#455a64</color>
     <color name="color_item10_text">@color/colorTextLight</color>
