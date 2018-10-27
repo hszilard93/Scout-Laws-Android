@@ -54,6 +54,7 @@ public class MultipleChoiceViewModel extends ViewModel {
         Collections.shuffle(options);
     }
 
+    // TODO: don't return value
     boolean evaluateAnswer(ScoutLaw scoutLaw) {
         if (scoutLaw == answer) {
             Log.d(LOG_TAG, "The answer is correct.");
@@ -65,7 +66,8 @@ public class MultipleChoiceViewModel extends ViewModel {
             return true;
         } else {
             Log.d(LOG_TAG, "The answer is incorrect.");
-            if (++tries == NUMBER_OF_OPTIONS - 1) {
+            tries += 1;
+            if (tries == NUMBER_OF_OPTIONS - 1) {
                 observableState.set(State.DONE);
                 if (shared.isLastTurn.get())
                     shared.finish();

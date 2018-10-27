@@ -16,6 +16,8 @@ import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel
 import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment
 import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel
+import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment
+import com.b4kancs.scoutlaws.views.quiz.sorter.SorterSharedViewModel
 
 /**
  * Created by hszilard on 20-May-18.
@@ -45,20 +47,22 @@ class QuizShellFragment : Fragment() {
     }
 
     private fun restoreNestedFragments(savedInstanceState: Bundle) {
-        fragmentTag = savedInstanceState.getString("TAG")
+        fragmentTag = savedInstanceState.getString("TAG")!!
         Log.d(LOG_TAG, "Restoring fragment $fragmentTag.")
         sharedViewModel = when (fragmentTag) {
             MultipleChoiceFragment.FRAGMENT_TAG ->
                 ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
             PickAndChooseFragment.FRAGMENT_TAG ->
                 ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
+            SorterFragment.FRAGMENT_TAG ->
+                ViewModelProviders.of(activity!!).get(SorterSharedViewModel::class.java)
             else ->
                 throw IllegalArgumentException()
         }
     }
 
     private fun createNewNestedFragments() {
-        fragmentTag = arguments!!.getString("TAG")
+        fragmentTag = arguments?.getString("TAG") ?: throw java.lang.IllegalArgumentException()
         Log.d(LOG_TAG, "Creating fragment $fragmentTag.")
         val fragment: Fragment
         when (fragmentTag) {
@@ -69,6 +73,10 @@ class QuizShellFragment : Fragment() {
             PickAndChooseFragment.FRAGMENT_TAG -> {
                 fragment = PickAndChooseFragment()
                 sharedViewModel = ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
+            }
+            SorterFragment.FRAGMENT_TAG -> {
+                fragment = SorterFragment()
+                sharedViewModel = ViewModelProviders.of(activity!!).get(SorterSharedViewModel::class.java)
             }
             else -> throw IllegalArgumentException()
         }
@@ -87,6 +95,8 @@ class QuizShellFragment : Fragment() {
                     textInstruction.text = resources.getText(R.string.multiple_tip)
                 PickAndChooseFragment.FRAGMENT_TAG ->
                     textInstruction.text = resources.getText(R.string.pick_choose_tip)
+                SorterFragment.FRAGMENT_TAG ->
+                    textInstruction.text = resources.getText(R.string.sorter_tip)
             }
         }
     }

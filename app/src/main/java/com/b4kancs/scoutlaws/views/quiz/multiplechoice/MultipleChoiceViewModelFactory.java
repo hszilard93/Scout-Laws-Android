@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
  * Created by hszilard on 28-Feb-18.
  * Factory needed for instantiating ViewModel with arguments.
  */
-
 class MultipleChoiceViewModelFactory implements ViewModelProvider.Factory {
 
     private final MultipleChoiceSharedViewModel sharedViewModel;

@@ -77,7 +77,7 @@ public class PickAndChooseFragment extends Fragment {
         }
     }
 
-    /* I tried moving the entire questionFlow-setup into a @BindingAdapter, but experienced big performance hit */
+    /* I tried moving the entire questionFlow-setup into a @BindingAdapter, but experienced a big performance hit */
     private void setUpQuestionFlow() {
         for (int i = 0; i < viewModel.getQuestionItems().size(); i++) {
             String item = viewModel.getQuestionItems().get(i);
@@ -132,6 +132,8 @@ public class PickAndChooseFragment extends Fragment {
     private View.OnClickListener checkButtonOnClickListener = view -> {
         Log.d(LOG_TAG, "Check button clicked.");
         boolean result = viewModel.evaluateUserAnswers();
+
+        // TODO: Replace toasts
 
         if (result) {
             Toast toast = new Toast(getContext());

@@ -83,6 +83,8 @@ class Repository
 
     fun getBestPickChooseTime() = userDataStore.bestPickChooseTime
 
+    fun getBestSorterTime() = userDataStore.bestSorterTime
+
     fun getLastNotificationShownAt() = sharedPreferences.getLong(LAST_NOTIFICATION_TIME_KEY, 0)
 
     fun increaseTotalScoreBy(thisMuch: Int) {
@@ -99,6 +101,10 @@ class Repository
 
     fun setBestPickChooseTime(newTime: Long) {
         userDataStore.bestPickChooseTime = newTime
+    }
+
+    fun setBestSorterTime(newTime: Long) {
+        userDataStore.bestSorterTime = newTime
     }
 
     fun setLastNotificationShownAt(time: Long) {
