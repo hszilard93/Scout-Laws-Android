@@ -62,7 +62,7 @@ class QuizShellFragment : Fragment() {
     }
 
     private fun createNewNestedFragments() {
-        fragmentTag = arguments?.getString("TAG") ?: throw java.lang.IllegalArgumentException()
+        fragmentTag = arguments!!.getString("TAG")!!
         Log.d(LOG_TAG, "Creating fragment $fragmentTag.")
         val fragment: Fragment
         when (fragmentTag) {

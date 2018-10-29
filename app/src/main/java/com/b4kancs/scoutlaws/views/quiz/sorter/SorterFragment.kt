@@ -10,6 +10,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.databinding.FragmentSorterBinding
 
@@ -57,6 +58,10 @@ class SorterFragment : Fragment() {
             adapter = optionsRecyclerAdapter
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
+            /* This empty view gives the last list item space for its shadow */
+            val empty = TextView(context)
+            empty.height = 1
+
         }
     }
 }

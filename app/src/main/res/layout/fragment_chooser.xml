@@ -47,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:background="@color/colorPrimary"
+                    android:foreground="?attr/selectableItemBackground"
                     android:textColor="@color/colorTextLight"
                     android:text="@string/any_quiz"
                     tools:text="Any" />
@@ -57,6 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:background="@color/colorPrimary"
+                    android:foreground="?attr/selectableItemBackground"
                     android:textColor="@color/colorTextLight"
                     android:text="@string/multiple_quiz"
                     tools:text="Multiple choice" />
@@ -67,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:background="@color/colorPrimary"
+                    android:foreground="?attr/selectableItemBackground"
                     android:textColor="@color/colorTextLight"
                     android:text="@string/pick_quiz"
                     tools:text="Pick and choose" />
@@ -77,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:background="@color/colorPrimary"
+                    android:foreground="?attr/selectableItemBackground"
                     android:textColor="@color/colorTextLight"
                     android:text="@string/sorter_quiz"
                     tools:text="Sorbarakós" />

@@ -97,7 +97,6 @@
                             android:paddingBottom="4dp"
                             android:paddingLeft="4dp"
                             android:paddingRight="4dp"
-                            animateLayoutChanges="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/linear_buttons" />
