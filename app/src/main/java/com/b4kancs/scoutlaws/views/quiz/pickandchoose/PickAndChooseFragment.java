@@ -22,6 +22,8 @@ import com.b4kancs.scoutlaws.databinding.TextViewPickChooseWordBinding;
 import com.nex3z.flowlayout.FlowLayout;
 
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showCorrectFeedback;
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showIncorrectFeedback;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
@@ -136,18 +138,9 @@ public class PickAndChooseFragment extends Fragment {
         // TODO: Replace toasts
 
         if (result) {
-            Toast toast = new Toast(getContext());
-            View toastView = getLayoutInflater().inflate(R.layout.toast_correct, null);
-            toast.setView(toastView);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.show();
+            showCorrectFeedback(getContext(), getLayoutInflater());
         } else {
-            Toast toast = new Toast(getContext());
-            View toastView = getLayoutInflater().inflate(R.layout.toast_incorrect, null);
-            toast.setView(toastView);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.show();
-
+            showIncorrectFeedback(getContext(), getLayoutInflater());
             vibrate(getContext(), 300);
         }
     };

@@ -17,8 +17,8 @@
         android:stateListAnimator="@animator/lift_on_touch"
         android:clickable="true"
         android:focusable="true"
-        app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="4dp"
+        app:background_number="@{scoutLaw.number}">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:gravity="center_vertical"
                 android:text="@{scoutLaw.text}"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
-                android:textColor="@color/colorTextLight"
+                app:textColor_number="@{scoutLaw.number}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

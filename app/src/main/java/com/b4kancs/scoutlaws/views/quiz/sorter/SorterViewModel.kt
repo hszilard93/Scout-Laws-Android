@@ -11,10 +11,8 @@ import kotlin.collections.ArrayList
  * Created by hszilard on 01-Sep-18.
  */
 class SorterViewModel(private val shared: SorterSharedViewModel) : ViewModel() {
-
     private companion object {
-        const val NUMBER_OF_OPTIONS = 3
-        private val LOG_TAG = SorterViewModel::class.simpleName
+        val LOG_TAG = SorterViewModel::class.simpleName
     }
 
     enum class State { CHECKABLE, DONE }
@@ -31,25 +29,28 @@ class SorterViewModel(private val shared: SorterSharedViewModel) : ViewModel() {
     private fun startTurn() {
         Log.d(LOG_TAG, "New sorter turn started.")
         shared.incTurnCount()
-
         // Get an index that will be the start of a sequence of 3 consecutive scout laws (e.g. *7*,8,9)
-        val startIndex = Random().nextInt(shared.repository.numberOfScoutLaws - NUMBER_OF_OPTIONS)
-
-        for (i in 0 until NUMBER_OF_OPTIONS)
+        val startIndex = shared.nextLawIndex()
+        for (i in 0 until SorterSharedViewModel.NUMBER_OF_OPTIONS)
             sequence.add(scoutLaws[startIndex + i])
-
         sequence.shuffle()
     }
 
-    private fun evaluate() {
-        tries += 1
-        if (sequence.inOrder()) {
+    fun evaluate(): Boolean {
+        return if (sequence.inOrder()) {
             Log.d(LOG_TAG, "The order is correct.")
             observableState.set(State.DONE)
-        } else
+            if (tries == 0)
+                shared.incScore()
+            if (shared.isThisTheLastTurn)
+                shared.finish()
+            true
+        } else {
             Log.d(LOG_TAG, "The order is incorrect.")
+            tries++
+            false
+        }
     }
-
 }
 
 fun ArrayList<ScoutLaw>.inOrder(): Boolean {

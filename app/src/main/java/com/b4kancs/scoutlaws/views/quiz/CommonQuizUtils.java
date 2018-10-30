@@ -1,13 +1,17 @@
 package com.b4kancs.scoutlaws.views.quiz;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.b4kancs.scoutlaws.R;
 
@@ -67,5 +71,21 @@ public final class CommonQuizUtils {
             activity.onBackPressed();
         });
         resultDialog.show(fragmentManager, "finishDialog");
+    }
+
+    public static void showCorrectFeedback(Context context, LayoutInflater inflater) {
+        Toast toast = new Toast(context);
+        View toastView = inflater.inflate(R.layout.toast_correct, null);
+        toast.setView(toastView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public static void showIncorrectFeedback(Context context, LayoutInflater inflater) {
+        Toast toast = new Toast(context);
+        View toastView = inflater.inflate(R.layout.toast_incorrect, null);
+        toast.setView(toastView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

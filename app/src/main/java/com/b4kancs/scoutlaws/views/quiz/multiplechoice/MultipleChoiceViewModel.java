@@ -54,7 +54,6 @@ public class MultipleChoiceViewModel extends ViewModel {
         Collections.shuffle(options);
     }
 
-    // TODO: don't return value
     boolean evaluateAnswer(ScoutLaw scoutLaw) {
         if (scoutLaw == answer) {
             Log.d(LOG_TAG, "The answer is correct.");

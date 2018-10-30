@@ -7,13 +7,14 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.databinding.FragmentSorterBinding
-
+import com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.*
+import com.b4kancs.scoutlaws.views.utils.vibrate
 
 /**
  * Created by hszilard on 01-Sep-18.
@@ -58,10 +59,30 @@ class SorterFragment : Fragment() {
             adapter = optionsRecyclerAdapter
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
-            /* This empty view gives the last list item space for its shadow */
-            val empty = TextView(context)
-            empty.height = 1
-
         }
+        binding.buttonCheck.setOnClickListener(onButtonCheckClick)
+        binding.buttonNext.setOnClickListener {
+            Log.d(LOG_TAG, "Forward button clicked.")
+            transitionToNextQuestion()
+        }
+        binding.buttonFinish.setOnClickListener{
+            showResultDialogFragment(container, activity, fragmentManager, SorterFragment(), sharedViewModel)
+        }
+    }
+
+    private val onButtonCheckClick = { e: Event ->
+        val result = viewModel.evaluate()
+        if (result)
+            showCorrectFeedback(context, layoutInflater)
+        else {
+            showIncorrectFeedback(context, layoutInflater)
+            vibrate(context!!, 300)
+        }
+    }
+
+    private fun transitionToNextQuestion() {
+        binding.unbind()
+        val transaction = getFragmentTransaction(container, fragmentManager!!, SorterFragment())
+        transaction.commit()
     }
 }
