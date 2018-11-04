@@ -13,24 +13,27 @@ class SorterSharedViewModel : AbstractSharedViewModel() {
         private val LOG_TAG = SorterSharedViewModel::class.simpleName
     }
 
-    val scoutLaws = repository.laws
+    val scoutLaws = repository.scoutLaws
 
     override fun nextLawIndex(): Int {
-        Log.d(LOG_TAG, "Generating next law index.")
+        Log.d(LOG_TAG, "nextLawIndex")
         val random = Random()
         var index: Int
         do {
             index = random.nextInt(repository.numberOfScoutLaws - NUMBER_OF_OPTIONS + 1)
         } while (usedLaws.contains(index))
         usedLaws.add(index)
+        Log.d(LOG_TAG, "returning index: $index")
         return index
     }
 
     override fun getBestTime(): Long {
+        Log.d(LOG_TAG, "getBestTime")
         return repository.getBestSorterTime()
     }
 
     override fun saveNewBestTime() {
+        Log.d(LOG_TAG, "saveNewBestTime")
         repository.setBestSorterTime(timeSpent)
     }
 }

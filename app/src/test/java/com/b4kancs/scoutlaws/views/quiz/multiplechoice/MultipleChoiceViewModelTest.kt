@@ -4,12 +4,14 @@ import com.b4kancs.scoutlaws.DaggerTestComponent
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.TestComponent
 import com.b4kancs.scoutlaws.TestModule
+import com.nhaarman.mockitokotlin2.spy
+import com.nhaarman.mockitokotlin2.times
+import com.nhaarman.mockitokotlin2.verify
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.mockito.Mockito.*
 
 /**
  * Created by hszilard on 09-May-18.
@@ -21,7 +23,7 @@ class MultipleChoiceViewModelTest {
 
     @BeforeAll
     fun setUpAll() {
-        val testComponent: TestComponent = DaggerTestComponent.builder().testModule((TestModule())).build()
+        val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
         ScoutLawApp().applicationComponent = testComponent
     }
 

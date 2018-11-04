@@ -22,7 +22,7 @@ class StartActivityViewModelTest {
 
     @BeforeAll
     fun setUp() {
-        val testComponent: TestComponent = DaggerTestComponent.builder().testModule((TestModule())).build()
+        val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
         testComponent.inject(this)
         ScoutLawApp().applicationComponent = testComponent
     }
@@ -31,6 +31,6 @@ class StartActivityViewModelTest {
     fun viewModelShouldLoadScoutLawsFromRepository() {
         val viewModel = StartActivityViewModel()
 
-        assertEquals(repository.laws, viewModel.scoutLaws())
+        assertEquals(repository.scoutLaws, viewModel.scoutLaws())
     }
 }

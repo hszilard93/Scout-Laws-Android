@@ -2,7 +2,7 @@
 <resources>
     <integer name="number_of_laws">10</integer>
 
-    <!--The ten scout laws; text + description + original description -->
+    <!--The ten scout scoutLaws; text + description + original description -->
     <string name="law_1">Scout law 1 test value.</string>
     <string name="law_1_desc">Scout law 1 description test value.</string>
     <string name="law_1_desc_orig">Scout law 1 original description test value.</string>

@@ -1,9 +1,9 @@
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
-import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -20,12 +20,13 @@ class OptionsRecyclerAdapter(private val scoutLawSequence: ArrayList<ScoutLaw>)
 
     companion object {
         const val FOOTER_VIEW = 1000
-        private val LOG_TAG = OptionsRecyclerAdapter::class.java.simpleName
+        private val LOG_TAG = OptionsRecyclerAdapter::class.simpleName
     }
 
     lateinit var touchHelper: ItemTouchHelper
 
     override fun onCreateViewHolder(parent: ViewGroup, viewTypeAndPosition: Int): ViewHolder {
+        Log.d(LOG_TAG, "onCreateViewHolder viewTypeAndPosition: $viewTypeAndPosition")
         val layoutInflater = LayoutInflater.from(parent.context)
 
         if (viewTypeAndPosition == FOOTER_VIEW) {
@@ -47,12 +48,14 @@ class OptionsRecyclerAdapter(private val scoutLawSequence: ArrayList<ScoutLaw>)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        Log.d(LOG_TAG, "onBindViewHolder position: $position")
         if (viewHolder is ItemViewHolder) {
             viewHolder.itemBinding.scoutLaw = scoutLawSequence[position]
         }
     }
 
     override fun onViewMoved(oldPosition: Int, newPosition: Int) {
+        Log.d(LOG_TAG, "onViewMoved oldPosition: $oldPosition newPosition: $newPosition")
         val law = scoutLawSequence[oldPosition]
         scoutLawSequence.removeAt(oldPosition)
         scoutLawSequence.add(newPosition, law)
@@ -60,11 +63,12 @@ class OptionsRecyclerAdapter(private val scoutLawSequence: ArrayList<ScoutLaw>)
     }
 
     override fun getItemCount(): Int {
-        return scoutLawSequence.size + 1
+        return scoutLawSequence.size + 1    // Number of laws + footer
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == scoutLawSequence.size)
+        Log.d(LOG_TAG, "getItemViewType position: $position")
+        if (position == scoutLawSequence.size)  // Last item is footer
             return FOOTER_VIEW
         return super.getItemViewType(position)
     }

@@ -22,7 +22,7 @@ class DetailsActivityViewModelTest {
 
     @BeforeAll
     fun setUp() {
-        val testComponent: TestComponent = DaggerTestComponent.builder().testModule((TestModule())).build()
+        val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
         testComponent.inject(this)
         ScoutLawApp().applicationComponent = testComponent
     }
@@ -31,7 +31,7 @@ class DetailsActivityViewModelTest {
     fun givenIndexViewModelShouldLoadCorrespondingScoutLawAfterInitialization() {
         val viewModel = DetailsActivityViewModel(3)
 
-        assertEquals(repository.laws[2], viewModel.scoutLaw())
+        assertEquals(repository.scoutLaws[2], viewModel.scoutLaw())
     }
 
     @Test

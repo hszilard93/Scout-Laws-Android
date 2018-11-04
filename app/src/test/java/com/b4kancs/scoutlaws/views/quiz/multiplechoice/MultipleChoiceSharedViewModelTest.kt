@@ -22,7 +22,7 @@ class MultipleChoiceSharedViewModelTest {
 
     @BeforeAll
     fun setUpAll() {
-        val testComponent: TestComponent = DaggerTestComponent.builder().testModule((TestModule())).build()
+        val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
         testComponent.inject(this)
         ScoutLawApp().applicationComponent = testComponent
     }
@@ -31,6 +31,6 @@ class MultipleChoiceSharedViewModelTest {
     fun sharedViewModelShouldLoadScoutLawsFromRepository() {
         val viewModel = MultipleChoiceSharedViewModel()
 
-        Assertions.assertEquals(repository.laws, viewModel.scoutLaws)
+        Assertions.assertEquals(repository.scoutLaws, viewModel.scoutLaws)
     }
 }

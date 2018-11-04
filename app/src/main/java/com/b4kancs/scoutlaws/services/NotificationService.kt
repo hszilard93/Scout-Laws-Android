@@ -13,7 +13,7 @@ import javax.inject.Inject
  * Created by hszilard on 26-Jul-18.
  */
 class NotificationService: JobService() {
-    companion object { private val LOG_TAG = NotificationService::class.java.simpleName }
+    companion object { private val LOG_TAG = NotificationService::class.simpleName }
 
     @Inject lateinit var repository: Repository
 
@@ -34,6 +34,7 @@ class NotificationService: JobService() {
     }
 
     override fun onStopJob(params: JobParameters?): Boolean {
+        Log.d(LOG_TAG, "onStopJob")
         return false
     }
 }

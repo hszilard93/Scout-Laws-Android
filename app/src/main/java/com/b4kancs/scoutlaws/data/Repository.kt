@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 /**
  * Created by hszilard on 15-Feb-18.
- * The repository currently handles loading the scout laws from the resources.
+ * The repository currently handles loading the scout scoutLaws from the resources.
  */
 @Singleton
 class Repository
@@ -26,9 +26,9 @@ class Repository
         const val LAST_NOTIFICATION_TIME_KEY = "LAST_NOTIFICATION_TIME_KEY"
     }
 
-    val laws = ArrayList<ScoutLaw>(10)
+    val scoutLaws = ArrayList<ScoutLaw>(10)
     val pickAndChooseLaws = ArrayList<PickAndChooseScoutLaw>(10)
-    var numberOfScoutLaws: Int = 0      // How many laws are there? This is not constant!
+    var numberOfScoutLaws: Int = 0      // How many scoutLaws are there? This is not constant!
         private set
 
     init {
@@ -38,12 +38,12 @@ class Repository
 
     private fun loadLaws() {
         resources.apply {
-            Log.d(LOG_TAG, "Loading scout laws.")
+            Log.d(LOG_TAG, "Loading scout scoutLaws.")
             val packageName = "com.b4kancs.scoutlaws"
 
-            // Check how many scout laws are there
+            // Check how many scout scoutLaws are there
             numberOfScoutLaws = getInteger(getIdentifier("number_of_laws", "integer", packageName))
-            Log.d(LOG_TAG, "The number of scout laws is $numberOfScoutLaws")
+            Log.d(LOG_TAG, "The number of scout scoutLaws is $numberOfScoutLaws")
 
             /* Building the ScoutLaw and PickAndChooseScoutLaw objects by dynamically loading them
              * from their resource files by constructing their names */
@@ -56,7 +56,7 @@ class Repository
                 val origDesc =
                         getString(getIdentifier("law_${i + 1}_desc_orig", "string", packageName))
                 val law = ScoutLaw(i + 1, text, desc, origDesc)
-                laws.add(law)
+                scoutLaws.add(law)
 
                 // Loading PickAndChooseScoutLaw objects
                 val pickChooseText =

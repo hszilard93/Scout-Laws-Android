@@ -1,3 +1,5 @@
+@file:Suppress("RedundantLambdaArrow")
+
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
 import android.arch.lifecycle.ViewModelProviders
@@ -32,6 +34,7 @@ class SorterFragment : Fragment() {
     private lateinit var container: ViewGroup
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d(LOG_TAG, "onCreateView")
         super.onCreateView(inflater, container, savedInstanceState)
 
         this.container = container!!
@@ -49,6 +52,7 @@ class SorterFragment : Fragment() {
     }
 
     private fun setUpViews() {
+        Log.d(LOG_TAG, "setUpViews")
         binding.recyclerOptions.apply {
             setHasFixedSize(true)
             val optionsRecyclerAdapter = OptionsRecyclerAdapter(viewModel.sequence)
@@ -60,17 +64,13 @@ class SorterFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
         }
-        binding.buttonCheck.setOnClickListener(onButtonCheckClick)
-        binding.buttonNext.setOnClickListener {
-            Log.d(LOG_TAG, "Forward button clicked.")
-            transitionToNextQuestion()
-        }
-        binding.buttonFinish.setOnClickListener{
-            showResultDialogFragment(container, activity, fragmentManager, SorterFragment(), sharedViewModel)
-        }
+        binding.buttonCheck.setOnClickListener(onCheckButtonClicked)
+        binding.buttonNext.setOnClickListener(onNextButtonClicked)
+        binding.buttonFinish.setOnClickListener(onFinishButtonClicked)
     }
 
-    private val onButtonCheckClick = { e: Event ->
+    private val onCheckButtonClicked = { _: View ->
+        Log.i(LOG_TAG, "Check button clicked.")
         val result = viewModel.evaluate()
         if (result)
             showCorrectFeedback(context, layoutInflater)
@@ -80,7 +80,18 @@ class SorterFragment : Fragment() {
         }
     }
 
+    private val onNextButtonClicked = { _: View ->
+        Log.i(LOG_TAG, "Next button clicked.")
+        transitionToNextQuestion()
+    }
+
+    private val onFinishButtonClicked = { _: View ->
+        Log.i(LOG_TAG, "Finish button clicked.")
+        showResultDialogFragment(container, activity, fragmentManager, SorterFragment(), sharedViewModel)
+    }
+
     private fun transitionToNextQuestion() {
+        Log.d(LOG_TAG, "transitionToNextQuestion")
         binding.unbind()
         val transaction = getFragmentTransaction(container, fragmentManager!!, SorterFragment())
         transaction.commit()

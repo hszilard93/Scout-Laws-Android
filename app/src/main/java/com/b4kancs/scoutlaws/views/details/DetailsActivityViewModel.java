@@ -33,7 +33,7 @@ public class DetailsActivityViewModel extends ViewModel {
     private void init() {
         Log.d(LOG_TAG, "Initiating.");
         ScoutLawApp.getInstance().getApplicationComponent().inject(this);
-        this.scoutLaw = repository.getLaws().get(index - 1);
+        this.scoutLaw = repository.getScoutLaws().get(index - 1);
         observableState.set(State.MODERN);
     }
 

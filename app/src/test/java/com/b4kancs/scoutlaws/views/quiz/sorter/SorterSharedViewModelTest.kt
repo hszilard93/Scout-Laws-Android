@@ -1,20 +1,20 @@
-package com.b4kancs.scoutlaws.views.quiz.pickandchoose
+package com.b4kancs.scoutlaws.views.quiz.sorter
 
 import com.b4kancs.scoutlaws.DaggerTestComponent
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.TestModule
 import com.b4kancs.scoutlaws.data.Repository
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import javax.inject.Inject
 
 /**
- * Created by hszilard on 09-May-18.
+ * Created by hszilard on 31-Oct-18.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class PickAndChooseSharedViewModelTest {
+class SorterSharedViewModelTest {
 
     @Inject lateinit var repository: Repository
 
@@ -26,9 +26,14 @@ class PickAndChooseSharedViewModelTest {
     }
 
     @Test
-    fun sharedViewModelShouldLoadPickChooseScoutLawsFromRepository() {
-        val viewModel = PickAndChooseSharedViewModel()
+    fun nextLawIndexShouldNotGiveSameIndexTwice() {
+        val sharedViewModel = SorterSharedViewModel()
+        val usedIndexes = ArrayList<Int>()
+        val times = repository.scoutLaws.size - SorterSharedViewModel.NUMBER_OF_OPTIONS
 
-        assertEquals(repository.pickAndChooseLaws, viewModel.pickChooseScoutLaws)
+        for (i in 0..times)
+            usedIndexes.add(sharedViewModel.nextLawIndex())
+
+        assertTrue(usedIndexes == usedIndexes.distinct())
     }
 }

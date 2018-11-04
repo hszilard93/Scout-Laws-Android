@@ -15,7 +15,7 @@ public class MultipleChoiceSharedViewModel extends AbstractSharedViewModel {
     private final ArrayList<ScoutLaw> scoutLaws;
 
     public MultipleChoiceSharedViewModel() {
-        scoutLaws = repository.getLaws();
+        scoutLaws = repository.getScoutLaws();
     }
 
     public List<ScoutLaw> getScoutLaws() {
