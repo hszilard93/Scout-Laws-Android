@@ -28,7 +28,7 @@ public class StartActivityViewModel extends ViewModel {
 
     public ArrayList<ScoutLaw> scoutLaws() {
         if (scoutLaws == null)
-            scoutLaws = repository.getLaws();
+            scoutLaws = repository.getScoutLaws();
         return scoutLaws;
     }
 }

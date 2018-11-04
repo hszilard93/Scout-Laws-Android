@@ -10,12 +10,14 @@ class StubUserDataStore : UserDataStore {
     override var totalPossibleScore: Int = 0
     override var bestMultipleTime: Long = 0L
     override var bestPickChooseTime: Long = 0L
+    override var bestSorterTime: Long = 0L
 
     override fun reset() {
         totalScore = 0
         totalPossibleScore = 0
         bestMultipleTime = 0L
         bestPickChooseTime = 0L
+        bestSorterTime = 0L
     }
 
 }

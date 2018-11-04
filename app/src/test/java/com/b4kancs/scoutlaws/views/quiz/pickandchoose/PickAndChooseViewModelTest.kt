@@ -1,25 +1,24 @@
 package com.b4kancs.scoutlaws.views.quiz.pickandchoose
 
-import android.databinding.ObservableBoolean
 import com.b4kancs.scoutlaws.DaggerTestComponent
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.TestComponent
 import com.b4kancs.scoutlaws.TestModule
 import com.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
+import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.mockito.Mockito.*
 
 /**
  * Created by hszilard on 10-May-18.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PickAndChooseViewModelTest {
-    private val stubSharedViewModel = mock(PickAndChooseSharedViewModel::class.java)
+    private val stubSharedViewModel: PickAndChooseSharedViewModel = mock()
     private lateinit var viewModel: PickAndChooseViewModel
 
     private val testScoutLaw = PickAndChooseScoutLaw(
@@ -30,12 +29,12 @@ class PickAndChooseViewModelTest {
 
     @BeforeAll
     fun setUpAll() {
-        val testComponent: TestComponent = DaggerTestComponent.builder().testModule((TestModule())).build()
+        val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
         ScoutLawApp().applicationComponent = testComponent
 
         // If we have only one scout law in the list, it is guaranteed to be chosen for the first turn
-        `when`(stubSharedViewModel.pickChooseScoutLaws).thenReturn(listOf(testScoutLaw))
-        `when`(stubSharedViewModel.isThisTheLastTurn).thenReturn(false)
+        whenever(stubSharedViewModel.pickChooseScoutLaws).thenReturn(listOf(testScoutLaw))
+        whenever(stubSharedViewModel.isThisTheLastTurn).thenReturn(false)
     }
 
     @BeforeEach

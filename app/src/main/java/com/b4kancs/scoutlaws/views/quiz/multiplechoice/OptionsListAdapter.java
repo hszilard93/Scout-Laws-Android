@@ -19,9 +19,8 @@ import com.b4kancs.scoutlaws.databinding.ListItemOptionBinding;
 
 /**
  * Created by hszilard on 15-Feb-18.
- * List adapter for the list of possible answers.
+ * Adapter for the list of possible answers.
  */
-
 public class OptionsListAdapter extends ArrayAdapter<ScoutLaw> {
     private static final String LOG_TAG = OptionsListAdapter.class.getSimpleName();
 

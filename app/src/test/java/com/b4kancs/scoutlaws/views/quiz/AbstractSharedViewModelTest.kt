@@ -34,7 +34,7 @@ class AbstractSharedViewModelTest {
 
     @BeforeAll
     fun setUpAll() {
-        val testComponent: TestComponent = DaggerTestComponent.builder().testModule((TestModule())).build()
+        val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
         ScoutLawApp().applicationComponent = testComponent
     }
 
@@ -90,7 +90,7 @@ class AbstractSharedViewModelTest {
     @Test
     fun nextLawShouldNotReturnUsedValue() {
         svm.usedLaws.clear()
-        // Since the Repository instance has five laws, 3 will be the only possible answer
+        // Since the Repository instance has five scoutLaws, 3 will be the only possible answer
         svm.usedLaws.addAll(arrayOf(0, 1, 2, 4))
         // lastUsedLawIndex could possibly be 4, and that would cause an infinite loop in nextLawIndex()
         AbstractSharedViewModel.lastUsedLawIndex = -1

@@ -14,12 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.FragmentMultipleBinding;
 
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showCorrectFeedback;
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showIncorrectFeedback;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
 
@@ -54,6 +55,10 @@ public class MultipleChoiceFragment extends Fragment {
         return binding.getRoot();
     }
 
+    public void finish() {
+        sharedViewModel.finish();
+    }
+
     private void setUpViews() {
         OptionsListAdapter listAdapter = new OptionsListAdapter(viewModel, getContext(), onOptionSelected);
         binding.linearOptions.setAdapter(listAdapter);
@@ -69,19 +74,10 @@ public class MultipleChoiceFragment extends Fragment {
     /* What happens when an answer is selected */
     private OptionsListAdapter.OptionSelectedCallback onOptionSelected = (adapter, view, scoutLaw) -> {
         if (viewModel.evaluateAnswer(scoutLaw)) {
-            Toast toast = new Toast(getContext());
-            View toastView = getLayoutInflater().inflate(R.layout.toast_correct, null);
-            toast.setView(toastView);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.show();
+            showCorrectFeedback(getContext(), getLayoutInflater());
             endTurn(adapter);
         } else {
-            Toast toast = new Toast(getContext());
-            View toastView = getLayoutInflater().inflate(R.layout.toast_incorrect, null);
-            toast.setView(toastView);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.show();
-
+            showIncorrectFeedback(getContext(), getLayoutInflater());
             view.setVisibility(View.GONE);
             vibrate(getContext(), 300);
             if (viewModel.getObservableState().get() == MultipleChoiceViewModel.State.DONE) {

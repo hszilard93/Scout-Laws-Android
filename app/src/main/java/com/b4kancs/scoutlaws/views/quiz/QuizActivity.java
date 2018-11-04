@@ -18,6 +18,7 @@ import com.b4kancs.scoutlaws.databinding.ActivityQuizBinding;
 import com.b4kancs.scoutlaws.views.quiz.chooser.ChooserFragment;
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment;
 import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment;
+import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment;
 
 import java.util.List;
 

@@ -17,6 +17,7 @@ import javax.inject.Singleton
 /**
  * Created by hszilard on 16-Jul-18.
  */
+// TODO: Chinese phones battery optimizer problem
 @Singleton
 class NotificationScheduler
 @Inject constructor(

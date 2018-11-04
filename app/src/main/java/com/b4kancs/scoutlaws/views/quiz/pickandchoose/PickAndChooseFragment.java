@@ -22,6 +22,8 @@ import com.b4kancs.scoutlaws.databinding.TextViewPickChooseWordBinding;
 import com.nex3z.flowlayout.FlowLayout;
 
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showCorrectFeedback;
+import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showIncorrectFeedback;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
@@ -77,7 +79,7 @@ public class PickAndChooseFragment extends Fragment {
         }
     }
 
-    /* I tried moving the entire questionFlow-setup into a @BindingAdapter, but experienced big performance hit */
+    /* I tried moving the entire questionFlow-setup into a @BindingAdapter, but experienced a big performance hit */
     private void setUpQuestionFlow() {
         for (int i = 0; i < viewModel.getQuestionItems().size(); i++) {
             String item = viewModel.getQuestionItems().get(i);
@@ -133,19 +135,12 @@ public class PickAndChooseFragment extends Fragment {
         Log.d(LOG_TAG, "Check button clicked.");
         boolean result = viewModel.evaluateUserAnswers();
 
-        if (result) {
-            Toast toast = new Toast(getContext());
-            View toastView = getLayoutInflater().inflate(R.layout.toast_correct, null);
-            toast.setView(toastView);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
-            Toast toast = new Toast(getContext());
-            View toastView = getLayoutInflater().inflate(R.layout.toast_incorrect, null);
-            toast.setView(toastView);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.show();
+        // TODO: Replace toasts
 
+        if (result) {
+            showCorrectFeedback(getContext(), getLayoutInflater());
+        } else {
+            showIncorrectFeedback(getContext(), getLayoutInflater());
             vibrate(getContext(), 300);
         }
     };

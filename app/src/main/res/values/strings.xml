@@ -62,4 +62,6 @@
     <string name="quiz_notification_channel_description">quiz_notifications_description</string>
     <string name="quiz_notification_title">Új kvíz!</string>
     <string name="quiz_notification_text">Meg tudod oldani?</string>
+    <string name="sorter_tip">Rakd sorrendbe a cserkésztörvényeket!</string>
+    <string name="sorter_quiz">Sorbarakós</string>
 </resources>

@@ -9,52 +9,46 @@ import android.os.PersistableBundle
 import android.util.Log
 import com.b4kancs.scoutlaws.*
 import com.b4kancs.scoutlaws.data.Repository
+import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mock
-import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations
 import java.util.*
 import javax.inject.Inject
 
 /**
  * Created by hszilard on 25-Aug-18.
  */
-
 private val prefNotificationsListValues = arrayOf("never", "one day", "two days", "twice a week", "once a week")
 
 class NotificationSchedulerTest {
 
     @Inject lateinit var repository: Repository
-    @Mock private lateinit var mockContext: Context
-    @Mock private lateinit var mockSharedPreferences: SharedPreferences
-    @Mock private lateinit var mockJobScheduler: JobScheduler
+    private var mockContext: Context = mock()
+    private var mockSharedPreferences: SharedPreferences = mock()
+    private var mockJobScheduler: JobScheduler = mock()
 
     init {
         /* Set up Dagger for testing */
-        val testComponent: TestComponent = DaggerTestComponent.builder().testModule((TestModule())).build()
+        val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
         testComponent.inject(this)
         ScoutLawApp().applicationComponent = testComponent
-        /* Set up Mockito mocks */
-        MockitoAnnotations.initMocks(this)
     }
 
     @BeforeEach
     fun setUpEach() {
-        mock(Resources::class.java).apply {
-            `when`(getStringArray(R.array.pref_notifications_list_values))
-                    .thenReturn(prefNotificationsListValues)
-            `when`(mockContext.resources).thenReturn(this)
+        mock<Resources> {
+            on {getStringArray(R.array.pref_notifications_list_values) }.doReturn(prefNotificationsListValues)
+            on { mockContext.resources }.doReturn(it)
         }
-        `when`(mockContext.getSystemService(Context.JOB_SCHEDULER_SERVICE)).thenReturn(mockJobScheduler)
+        whenever(mockContext.getSystemService(Context.JOB_SCHEDULER_SERVICE)).thenReturn(mockJobScheduler)
     }
 
     @Test
     fun notificationSchedulerShouldCheckForExistingJobs() {
         NotificationScheduler(mockContext, repository, mockSharedPreferences).schedule(false)
 
-        verify(mockJobScheduler, times(1)).allPendingJobs
+        verify(mockJobScheduler).allPendingJobs
     }
 
     @Test
@@ -64,21 +58,21 @@ class NotificationSchedulerTest {
             schedule(true)
         }
 
-        verify(mockJobScheduler, times(1)).cancel(1)
+        verify(mockJobScheduler).cancel(1)
     }
 
     @Test
     fun whenForcedIsFalseAndNotificationIsScheduledFarEnoughItShouldNotBeRescheduled() {
-        val mockJobInfo = mock(JobInfo::class.java)
-        val mockBundle = mock(PersistableBundle::class.java)
+        val mockJobInfo: JobInfo = mock()
+        val mockBundle: PersistableBundle = mock()
         val notificationTime = Calendar.getInstance().apply {
             add(Calendar.MINUTE, 61) // Notification time must be more than 60 minutes in the future to not be rescheduled
         }
 
-        `when`(mockBundle.getLong("KEY_NOTIFICATION_TIME")).thenReturn(notificationTime.timeInMillis)
-        `when`(mockJobInfo.id).thenReturn(1)
-        `when`(mockJobInfo.extras).thenReturn(mockBundle)
-        `when`(mockJobScheduler.allPendingJobs).thenReturn(listOf(mockJobInfo))
+        whenever(mockBundle.getLong("KEY_NOTIFICATION_TIME")).thenReturn(notificationTime.timeInMillis)
+        whenever(mockJobInfo.id).thenReturn(1)
+        whenever(mockJobInfo.extras).thenReturn(mockBundle)
+        whenever(mockJobScheduler.allPendingJobs).thenReturn(listOf(mockJobInfo))
 
         NotificationScheduler(mockContext, repository, mockSharedPreferences).schedule(false)
 
@@ -87,57 +81,57 @@ class NotificationSchedulerTest {
 
     @Test
     fun whenForcedIsFalseAndNotificationIsNotScheduledFarEnoughItShouldBeRescheduled() {
-        val mockJobInfo = mock(JobInfo::class.java)
-        val mockBundle = mock(PersistableBundle::class.java)
+        val mockJobInfo: JobInfo = mock()
+        val mockBundle: PersistableBundle = mock()
         val notificationTime = Calendar.getInstance().apply {
             add(Calendar.MINUTE, 60) // Notification time must be more than 60 minutes in the future to not be rescheduled
         }
 
-        `when`(mockBundle.getLong("KEY_NOTIFICATION_TIME")).thenReturn(notificationTime.timeInMillis)
-        `when`(mockJobInfo.id).thenReturn(1)
-        `when`(mockJobInfo.extras).thenReturn(mockBundle)
-        `when`(mockJobScheduler.allPendingJobs).thenReturn(listOf(mockJobInfo))
+        whenever(mockBundle.getLong("KEY_NOTIFICATION_TIME")).thenReturn(notificationTime.timeInMillis)
+        whenever(mockJobInfo.id).thenReturn(1)
+        whenever(mockJobInfo.extras).thenReturn(mockBundle)
+        whenever(mockJobScheduler.allPendingJobs).thenReturn(listOf(mockJobInfo))
 
         NotificationScheduler(mockContext, repository, mockSharedPreferences).schedule(false)
-
-        verify(mockJobScheduler, times(1)).schedule(any())
+        // We won't get a real JobInfo in test environment
+        verify(mockJobScheduler).schedule(anyOrNull())
     }
 
     @Test
     fun whenFrequencyIsNotNeverNotificationSchedulerShouldRescheduleNotification() {
-        val mockJobInfo = mock(JobInfo::class.java)
-        val mockBundle = mock(PersistableBundle::class.java)
+        val mockJobInfo: JobInfo = mock()
+        val mockBundle: PersistableBundle = mock()
         val notificationTime = Calendar.getInstance().apply {
             add(Calendar.MINUTE, 61) // Notification time must be more than 60 minutes in the future to not be automatically rescheduled
         }
 
-        `when`(mockBundle.getLong("KEY_NOTIFICATION_TIME")).thenReturn(notificationTime.timeInMillis)
-        `when`(mockJobInfo.id).thenReturn(1)
-        `when`(mockJobInfo.extras).thenReturn(mockBundle)
-        `when`(mockJobScheduler.allPendingJobs).thenReturn(listOf(mockJobInfo))
-        `when`(mockJobScheduler.schedule(any(JobInfo::class.java))).then { Log.d("Something", "something") }
-        `when`(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
+        whenever(mockBundle.getLong("KEY_NOTIFICATION_TIME")).thenReturn(notificationTime.timeInMillis)
+        whenever(mockJobInfo.id).thenReturn(1)
+        whenever(mockJobInfo.extras).thenReturn(mockBundle)
+        whenever(mockJobScheduler.allPendingJobs).thenReturn(listOf(mockJobInfo))
+        whenever(mockJobScheduler.schedule(any())).then { Log.d("Something", "something") }
+        whenever(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
                 .thenReturn(prefNotificationsListValues[1])
 
         NotificationScheduler(mockContext, repository, mockSharedPreferences).schedule(true)
-
-        verify(mockJobScheduler, times(1)).schedule(any())
+        // We won't get a real JobInfo in test environment
+        verify(mockJobScheduler).schedule(anyOrNull())
     }
 
     @Test
     fun whenFrequencyIsNeverNotificationSchedulerShouldNotRescheduleNotification() {
-        val mockJobInfo = mock(JobInfo::class.java)
-        val mockBundle = mock(PersistableBundle::class.java)
+        val mockJobInfo: JobInfo = mock()
+        val mockBundle: PersistableBundle = mock()
         val notificationTime = Calendar.getInstance().apply {
             add(Calendar.MINUTE, 61) // Notification time must be more than 60 minutes in the future to not be automatically rescheduled
         }
 
-        `when`(mockBundle.getLong("KEY_NOTIFICATION_TIME")).thenReturn(notificationTime.timeInMillis)
-        `when`(mockJobInfo.id).thenReturn(1)
-        `when`(mockJobInfo.extras).thenReturn(mockBundle)
-        `when`(mockJobScheduler.allPendingJobs).thenReturn(listOf(mockJobInfo))
-        `when`(mockJobScheduler.schedule(any(JobInfo::class.java))).then { Log.d("Something", "something") }
-        `when`(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
+        whenever(mockBundle.getLong("KEY_NOTIFICATION_TIME")).thenReturn(notificationTime.timeInMillis)
+        whenever(mockJobInfo.id).thenReturn(1)
+        whenever(mockJobInfo.extras).thenReturn(mockBundle)
+        whenever(mockJobScheduler.allPendingJobs).thenReturn(listOf(mockJobInfo))
+        whenever(mockJobScheduler.schedule(any())).then { Log.d("Something", "something") }
+        whenever(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
                 .thenReturn(prefNotificationsListValues[0])
 
         NotificationScheduler(mockContext, repository, mockSharedPreferences).schedule(true)
@@ -147,10 +141,10 @@ class NotificationSchedulerTest {
 
     @Test
     fun whenForcedIsTrueAndPreferredFrequencyIsOnceADayAndPreferredTimeIsCloseSchedulerShouldScheduleForNextDay() {
-        `when`(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
+        whenever(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
                 .thenReturn(prefNotificationsListValues[1])
         // If current hour is 15, return 1600
-        `when`(mockSharedPreferences.getInt(eq("pref_notification_preferred_time"), anyInt()))
+        whenever(mockSharedPreferences.getInt(eq("pref_notification_preferred_time"), any()))
                 .thenReturn((Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + 1) * 100)
 
         val notificationTimeInMillis = NotificationScheduler(mockContext, repository, mockSharedPreferences)
@@ -163,14 +157,14 @@ class NotificationSchedulerTest {
 
     @Test
     fun whenPreferredFrequencyIsOnceADayAndPreferredTimeIsFarSchedulerShouldScheduleForToday() {
-        `when`(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
+        whenever(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
                 .thenReturn(prefNotificationsListValues[1])
         // If current hour is 15, return (15+2) * 60 = 1020
-        `when`(mockSharedPreferences.getInt(eq("pref_notification_preferred_time"), anyInt()))
+        whenever(mockSharedPreferences.getInt(eq("pref_notification_preferred_time"), any()))
                 .thenReturn((Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + 2) * 60)
 
         /* Test will always fail after 2200. Pass automatically. */
-        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > 22) return
+        if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 22) return
 
         val notificationTimeInCalendar = Calendar.getInstance().apply {
             timeInMillis = NotificationScheduler(mockContext, repository, mockSharedPreferences).schedule(false)
@@ -181,7 +175,7 @@ class NotificationSchedulerTest {
 
     @Test
     fun whenPreferredFrequencyIsTwoDaysSchedulerShouldScheduleForTomorrow() {
-        `when`(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
+        whenever(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
                 .thenReturn(prefNotificationsListValues[2])
 
         val notificationTimeInCalendar = Calendar.getInstance().apply {
@@ -194,7 +188,7 @@ class NotificationSchedulerTest {
 
     @Test
     fun whenAndPreferredFrequencyIsTwiceAWeekSchedulerShouldScheduleForThreeDaysFromNow() {
-        `when`(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
+        whenever(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
                 .thenReturn(prefNotificationsListValues[3])
 
         val notificationTimeInCalendar = Calendar.getInstance().apply {
@@ -207,7 +201,7 @@ class NotificationSchedulerTest {
 
     @Test
     fun whenPreferredFrequencyIsOnceAWeekSchedulerShouldScheduleForSevenDaysFromNow() {
-        `when`(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
+        whenever(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
                 .thenReturn(prefNotificationsListValues[4])
 
         val notificationTimeInCalendar = Calendar.getInstance().apply {
@@ -220,9 +214,9 @@ class NotificationSchedulerTest {
 
     @Test
     fun newNotificationShouldBeScheduledForPreferredTime() {
-        `when`(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
+        whenever(mockSharedPreferences.getString(eq("pref_notification_timing_list"), any()))
                 .thenReturn(prefNotificationsListValues[1])
-        `when`(mockSharedPreferences.getInt(eq("pref_notification_preferred_time"), anyInt()))
+        whenever(mockSharedPreferences.getInt(eq("pref_notification_preferred_time"), any()))
                 .thenReturn(1295)   // 21:35
 
         val notificationTimeInCalendar = Calendar.getInstance().apply {

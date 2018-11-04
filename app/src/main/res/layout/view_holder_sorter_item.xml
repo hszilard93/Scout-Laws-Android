@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -10,46 +9,33 @@
     </data>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:elevation="0dp"
-        app:cardCornerRadius="0dp">
+        android:stateListAnimator="@animator/lift_on_touch"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="4dp"
+        app:background_number="@{scoutLaw.number}">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint_list_item_law"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="64dp"
-            android:transitionName="@string/start_to_details_background_transition"
-            android:foreground="?attr/selectableItemBackground"
-            app:animateLayoutChanges="@{context}"
-            app:background_number='@{scoutLaw.number}'>
+            android:minHeight="64dp">
 
             <TextView
-                android:id="@+id/text_number"
-                android:layout_width="0dp"
+                android:id="@+id/text_item"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:text="@{Integer.toString(scoutLaw.number)}"
-                android:textAppearance="@android:style/TextAppearance.Material.Small"
-                app:textColor_number="@{scoutLaw.number}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="1" />
-
-            <TextView
-                android:id="@+id/text_law"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:layout_marginEnd="4dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
                 android:gravity="center_vertical"
                 android:text="@{scoutLaw.text}"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
-                android:transitionName="@string/start_details_law_transition"
                 app:textColor_number="@{scoutLaw.number}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
