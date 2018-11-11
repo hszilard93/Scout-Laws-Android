@@ -12,7 +12,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="0dp"
+        android:elevation="4dp"
         app:cardCornerRadius="0dp">
 
         <android.support.constraint.ConstraintLayout
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:minHeight="64dp"
             android:transitionName="@string/start_to_details_background_transition"
-            android:foreground="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackground"
             app:animateLayoutChanges="@{context}"
             app:background_number='@{scoutLaw.number}'>
 

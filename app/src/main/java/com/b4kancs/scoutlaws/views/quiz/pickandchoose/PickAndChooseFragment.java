@@ -135,8 +135,6 @@ public class PickAndChooseFragment extends Fragment {
         Log.d(LOG_TAG, "Check button clicked.");
         boolean result = viewModel.evaluateUserAnswers();
 
-        // TODO: Replace toasts
-
         if (result) {
             showCorrectFeedback(getContext(), getLayoutInflater());
         } else {

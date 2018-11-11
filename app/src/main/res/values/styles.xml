@@ -4,7 +4,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="AppTheme.Launcher">
@@ -13,7 +12,7 @@
 
     <style name="SettingsTheme" parent="AppTheme">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
-        <!-- Looks much better this way -->
+        <!-- Looks better this way -->
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 

@@ -47,7 +47,6 @@ class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements AdapterView.
                 : convertView;
         final ListItemLawBinding binding = DataBindingUtil.bind(view);
         binding.setScoutLaw(scoutLaws.get(position));
-
         return view;
     }
 

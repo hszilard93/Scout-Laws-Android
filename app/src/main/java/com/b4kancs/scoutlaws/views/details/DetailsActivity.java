@@ -2,23 +2,18 @@ package com.b4kancs.scoutlaws.views.details;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.transition.TransitionManager;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityDetailsBinding;
@@ -35,26 +30,36 @@ public class DetailsActivity extends AppCompatActivity {
 
     private ActivityDetailsBinding binding;
     private DetailsActivityViewModel viewModel;
-    private boolean areAnimationsEnabled;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
-        /* DetailsActivity can be assumed to be created only via intents.
-         * For now, we give index a default value instead of checking for invalid arguments. */
+
+
+        /* DetailsActivity can be assumed to be created only via intents. */
         int index = 0;
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        if (bundle != null)
-            index = bundle.getInt(SCOUT_LAW_NUMBER_KEY);
+        if (bundle != null) {
+            index = bundle.getInt(SCOUT_LAW_NUMBER_KEY, 0);
+        }
         viewModel = ViewModelProviders.of(this, new DetailsActivityViewModelFactory(index))
                 .get(DetailsActivityViewModel.class);
 
-        areAnimationsEnabled = areAnimationsEnabled(getApplicationContext());
-
         setUpViews();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Fade fade = new Fade();
+            fade.excludeTarget(R.id.toolbar, true);
+            fade.excludeTarget(android.R.id.statusBarBackground, true);
+            fade.excludeTarget(android.R.id.navigationBarBackground, true);
+
+            getWindow().setEnterTransition(fade);
+            getWindow().setExitTransition(fade);
+        }
     }
 
     private void setUpViews() {
@@ -96,33 +101,11 @@ public class DetailsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         // This makes the shared element transition less cluttered
-        if (areAnimationsEnabled) {
+        if (areAnimationsEnabled(getApplicationContext())) {
             binding.textNumber.setVisibility(View.GONE);
             binding.textModern.setVisibility(View.GONE);
             binding.textOld.setVisibility(View.GONE);
             binding.textSource.setVisibility(View.GONE);
         }
-    }
-
-    /* Must manually set up transitions because the default ones are inconsistent */
-    @BindingAdapter("state_binding")
-    public static void stateBindingAdapter(@NonNull ViewGroup layout, State state) {
-        ActivityDetailsBinding binding = DataBindingUtil.findBinding(layout);
-        TextView modern = binding.textModern;
-        LinearLayout oldLayout = binding.linearOld;
-
-        if (areAnimationsEnabled(layout.getContext()))
-            TransitionManager.beginDelayedTransition(layout, new Slide());
-
-        if (modern.getVisibility() == View.VISIBLE && state == State.OLD) {
-            // change out TextViews
-            modern.setVisibility(View.GONE);
-            oldLayout.setVisibility(View.VISIBLE);
-        } else if (oldLayout.getVisibility() == View.VISIBLE && state == State.MODERN) {
-            // change out TextViews
-            modern.setVisibility(View.VISIBLE);
-            oldLayout.setVisibility(View.GONE);
-        }
-
     }
 }

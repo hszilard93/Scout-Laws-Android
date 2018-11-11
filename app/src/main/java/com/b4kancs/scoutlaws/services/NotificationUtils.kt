@@ -14,6 +14,7 @@ import android.support.v4.app.TaskStackBuilder
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment
 import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment
+import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment
 import java.util.*
 
 const val CHANNEL_ID = "NOTIFICATION_CHANNEL_1"
@@ -45,10 +46,11 @@ private fun makeQuizIntent(context: Context) : PendingIntent {
 
     var type = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_notification_quiz_type", "0")
     if (type == "0")
-        type = (Random().nextInt() % 2 + 1).toString()
+        type = (Random().nextInt() % 3 + 1).toString()
     when (type) {
         "1" -> quizIntent.putExtra(QuizActivity.QUIZ_FRAGMENT_EXTRA, MultipleChoiceFragment.FRAGMENT_TAG)
         "2" -> quizIntent.putExtra(QuizActivity.QUIZ_FRAGMENT_EXTRA, PickAndChooseFragment.FRAGMENT_TAG)
+        "3" -> quizIntent.putExtra(QuizActivity.QUIZ_FRAGMENT_EXTRA, SorterFragment.FRAGMENT_TAG)
     }
 
     val stackBuilder = TaskStackBuilder.create(context)
@@ -57,16 +59,13 @@ private fun makeQuizIntent(context: Context) : PendingIntent {
 }
 
 private fun createNotificationChannel(context: Context) {
-    // Create the NotificationChannel, but only on API 26+ because
-    // the NotificationChannel class is new and not in the support library
+    // Create the NotificationChannel; only on API 26+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val name = context.resources.getString(R.string.quiz_notification_channel_name)
         val description = context.resources.getString(R.string.quiz_notification_channel_description)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(CHANNEL_ID, name, importance)
         channel.description = description
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
         val notificationManager = context.getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
     }

@@ -9,6 +9,7 @@
     <color name="colorTextLight">#ffffff</color>
     <color name="colorTextDark">#505050</color>
 
+    <color name="white">#ffffff</color>
     <color name="background_grey">#eeeeee</color>
     <color name="disabled_grey">#aaaaaa</color>
     <color name="transparent">#00ffffff</color>

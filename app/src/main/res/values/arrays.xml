@@ -20,11 +20,13 @@
         <item>Bármilyen</item>
         <item>Feleletválasztós</item>
         <item>Beillesztős</item>
+        <item>Sorbarakós</item>
     </string-array>
 
     <string-array name="pref_notifications_quiz_type_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
     </string-array>
 </resources>

@@ -36,13 +36,15 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_quiz);
 
         if (savedInstanceState == null) {
             String fragmentTag = getIntent().getStringExtra(QUIZ_FRAGMENT_EXTRA);
             if (MultipleChoiceFragment.FRAGMENT_TAG.equals(fragmentTag)
-                    || PickAndChooseFragment.FRAGMENT_TAG.equals(fragmentTag)) {
+                    || PickAndChooseFragment.FRAGMENT_TAG.equals(fragmentTag)
+                    || SorterFragment.FRAGMENT_TAG.equals(fragmentTag)) {
                 startQuizShellFragment(fragmentTag);
             } else {
                 startChooserFragment();

@@ -28,6 +28,7 @@
     <string name="ok_button">Ok</string>
     <string name="back_button">Vissza</string>
     <string name="cancel_button">Mégse</string>
+    <string name="yes_button">Igen</string>
     <string name="congrats_low_score">Gyakorlat teszi a mestert. Próbáld újra!</string>
     <string name="congrats_mid_score">Nem rossz!</string>
     <string name="congrats_good_score">Szép munka!</string>
@@ -58,10 +59,16 @@
     <string name="pref_notification_quiz_type_default">Bármilyen</string>
     <string name="settings_menu_item">Beállítások</string>
     <string name="about_menu_item">Az appról</string>
-    <string name="quiz_notification_channel_name">quiz_notifications</string>
-    <string name="quiz_notification_channel_description">quiz_notifications_description</string>
+    <string name="quiz_notification_channel_name">Cserkésztörvények értesítések</string>
+    <string name="quiz_notification_channel_description">Cserkésztörvények kvíz értesítések</string>
     <string name="quiz_notification_title">Új kvíz!</string>
     <string name="quiz_notification_text">Meg tudod oldani?</string>
     <string name="sorter_tip">Rakd sorrendbe a cserkésztörvényeket!</string>
     <string name="sorter_quiz">Sorbarakós</string>
+    <string name="battery_optimizer_info_dialog_text">Egyes készülékek gyártói agresszíven korlátozzák a telefonon futó háttérfolyamatokat a jobb üzemidő elérése érdekében. Ha azt tapasztalod, hogy az értesítések nem jelennek meg, vagy nem jelennek meg időben a készülékeden, próbáld kikapcsolni az alkalmazás korlátozását a készüléked Beállítások menüjében vagy az akkumulátor-fogyasztás optimalizáló appból!</string>
+    <string name="battery_optimizer_info_dialog_title">Figyelem!</string>
+    <string name="pref_reset_stats_title">Eredmények visszaállítása</string>
+    <string name="pref_reset_stats_sum">Kvízek eredményeinek törlése</string>
+    <string name="pref_reset_stats_dialog_title">Figyelem!</string>
+    <string name="pref_reset_stats_dialog_text">Biztos, hogy nullázni akarod minden, kvízekkel kapcsolatos eredményed?</string>
 </resources>

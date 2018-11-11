@@ -4,12 +4,14 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -30,7 +32,7 @@ import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabl
 public class StartActivity extends AppCompatActivity {
     private static final String LOG_TAG = StartActivity.class.getSimpleName();
 
-    private ActivityStartBinding binding;
+    ActivityStartBinding binding;
     private StartActivityViewModel viewModel;
     private ActionBarDrawerToggle drawerToggle;
 
@@ -42,39 +44,17 @@ public class StartActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_start);
         viewModel = ViewModelProviders.of(this).get(StartActivityViewModel.class);
         setUpViews();
-    }
 
-    private void setUpViews() {
-        setSupportActionBar((Toolbar) binding.toolbar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // Fixes screen flashing during shared element transition
+            Fade fade = new Fade();
+            fade.excludeTarget(R.id.toolbar, true);
+            fade.excludeTarget(android.R.id.statusBarBackground, true);
+            fade.excludeTarget(android.R.id.navigationBarBackground, true);
 
-        ScoutLawListAdapter listAdapter = new ScoutLawListAdapter(viewModel.scoutLaws(), this);
-        binding.listLaws.setAdapter(listAdapter);
-        binding.listLaws.setOnItemClickListener(listAdapter);
-        /* This empty view gives the last list item space for its shadow */
-        TextView empty = new TextView(this);
-        empty.setHeight(1);
-        binding.listLaws.addFooterView(empty);
-        binding.listLaws.addHeaderView(empty);
-
-        drawerToggle = setUpDrawerToggle();
-        setUpDrawerContent();
-        NavigationView navigationView = binding.navigationView;
-        navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.menu_item_quiz:
-                    Log.d(LOG_TAG, "Quiz menu item selected.");
-                    startActivity(QuizActivity.class);
-                    return true;
-                case R.id.menu_item_settings:
-                    Log.d(LOG_TAG, "Settings menu item selected.");
-                    startActivity(PreferencesActivity.class);
-                    return true;
-                case R.id.menu_item_about:
-                    NotificationUtilsKt.showQuizPromptNotification(this);
-                default:
-                    return false;
-            }
-        });
+            getWindow().setEnterTransition(fade);
+            getWindow().setExitTransition(fade);
+        }
     }
 
     @Override
@@ -98,6 +78,41 @@ public class StartActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void setUpViews() {
+        setSupportActionBar((Toolbar) binding.toolbar);
+
+        ScoutLawListAdapter listAdapter = new ScoutLawListAdapter(viewModel.scoutLaws(), this);
+        binding.listLaws.setAdapter(listAdapter);
+        binding.listLaws.setOnItemClickListener(listAdapter);
+        /* Add header and footer for looks */
+        TextView empty = new TextView(this);
+        empty.setHeight(0);
+        binding.listLaws.addFooterView(empty);
+        binding.listLaws.addHeaderView(empty);
+
+        drawerToggle = setUpDrawerToggle();
+        setUpDrawerContent();
+        NavigationView navigationView = binding.navigationView;
+        navigationView.setNavigationItemSelectedListener(onNavigationItemSelected);
+    }
+
+    private NavigationView.OnNavigationItemSelectedListener onNavigationItemSelected = item -> {
+        switch (item.getItemId()) {
+            case R.id.menu_item_quiz:
+                Log.d(LOG_TAG, "Quiz menu item selected.");
+                startActivity(QuizActivity.class);
+                return true;
+            case R.id.menu_item_settings:
+                Log.d(LOG_TAG, "Settings menu item selected.");
+                startActivity(PreferencesActivity.class);
+                return true;
+            case R.id.menu_item_about:
+                NotificationUtilsKt.showQuizPromptNotification(this);
+            default:
+                return false;
+        }
+    };
 
     private void startActivity(Class activityClass) {
         Intent intent = new Intent(this, activityClass);

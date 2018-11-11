@@ -32,6 +32,11 @@
         android:key="pref_key_other_settings"
         android:title="@string/pref_other_title">
 
+        <Preference
+            android:key="pref_reset_stats"
+            android:summary="@string/pref_reset_stats_sum"
+            android:title="@string/pref_reset_stats_title" />
+
         <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="pref_animate"

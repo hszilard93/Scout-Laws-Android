@@ -5,6 +5,8 @@ import com.b4kancs.scoutlaws.services.NotificationService;
 import com.b4kancs.scoutlaws.views.details.DetailsActivityViewModel;
 import com.b4kancs.scoutlaws.views.quiz.AbstractSharedViewModel;
 import com.b4kancs.scoutlaws.views.settings.PreferencesActivity;
+import com.b4kancs.scoutlaws.views.settings.PreferencesFragment;
+import com.b4kancs.scoutlaws.views.settings.ResetInfoDialogFragment;
 import com.b4kancs.scoutlaws.views.start.StartActivityViewModel;
 
 import javax.inject.Singleton;
@@ -22,5 +24,6 @@ public interface ApplicationComponent {
     void inject(AbstractSharedViewModel abstractSharedViewModel);
     void inject(DetailsActivityViewModel detailsActivityViewModel);
     void inject(NotificationService notificationService);
-    void inject(PreferencesActivity preferencesActivity);
+    void inject(PreferencesFragment preferencesFragment);
+    void inject(ResetInfoDialogFragment resetInfoDialogFragment);
 }
