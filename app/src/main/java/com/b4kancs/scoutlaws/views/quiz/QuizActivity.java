@@ -17,7 +17,7 @@ import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityQuizBinding;
 import com.b4kancs.scoutlaws.views.quiz.chooser.ChooserFragment;
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment;
-import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment;
+import com.b4kancs.scoutlaws.views.quiz.picker.PickerFragment;
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public class QuizActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             String fragmentTag = getIntent().getStringExtra(QUIZ_FRAGMENT_EXTRA);
             if (MultipleChoiceFragment.FRAGMENT_TAG.equals(fragmentTag)
-                    || PickAndChooseFragment.FRAGMENT_TAG.equals(fragmentTag)
+                    || PickerFragment.FRAGMENT_TAG.equals(fragmentTag)
                     || SorterFragment.FRAGMENT_TAG.equals(fragmentTag)) {
                 startQuizShellFragment(fragmentTag);
             } else {

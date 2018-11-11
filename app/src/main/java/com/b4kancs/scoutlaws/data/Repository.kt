@@ -3,7 +3,7 @@ package com.b4kancs.scoutlaws.data
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.util.Log
-import com.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw
+import com.b4kancs.scoutlaws.data.model.PickerScoutLaw
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
 import com.b4kancs.scoutlaws.data.store.UserDataStore
 import java.util.*
@@ -27,7 +27,7 @@ class Repository
     }
 
     val scoutLaws = ArrayList<ScoutLaw>(10)
-    val pickAndChooseLaws = ArrayList<PickAndChooseScoutLaw>(10)
+    val pickerScoutLaws = ArrayList<PickerScoutLaw>(10)
     var numberOfScoutLaws: Int = 0      // How many scoutLaws are there? This is not constant!
         private set
 
@@ -45,7 +45,7 @@ class Repository
             numberOfScoutLaws = getInteger(getIdentifier("number_of_laws", "integer", packageName))
             Log.d(LOG_TAG, "The number of scout scoutLaws is $numberOfScoutLaws")
 
-            /* Building the ScoutLaw and PickAndChooseScoutLaw objects by dynamically loading them
+            /* Building the ScoutLaw and PickerScoutLaw objects by dynamically loading them
              * from their resource files by constructing their names */
             for (i in 0 until numberOfScoutLaws) {
                 // ScoutLaw objects
@@ -58,15 +58,15 @@ class Repository
                 val law = ScoutLaw(i + 1, text, desc, origDesc)
                 scoutLaws.add(law)
 
-                // Loading PickAndChooseScoutLaw objects
-                val pickChooseText =
+                // Loading PickerScoutLaw objects
+                val pickerText =
                         getString(getIdentifier("law_${i + 1}_pick", "string", packageName))
                 val optionsArray =
                         getStringArray(getIdentifier("law_${i + 1}_pick_options", "array", packageName))
-                val pickChooseOptions = ArrayList(Arrays.asList(*optionsArray))
+                val pickerOptions = ArrayList(Arrays.asList(*optionsArray))
 
-                val pickAndChooseScoutLaw = PickAndChooseScoutLaw(law, pickChooseText, pickChooseOptions)
-                pickAndChooseLaws.add(i, pickAndChooseScoutLaw)
+                val pickerScoutLaw = PickerScoutLaw(law, pickerText, pickerOptions)
+                pickerScoutLaws.add(i, pickerScoutLaw)
             }
         }
     }
@@ -81,7 +81,7 @@ class Repository
 
     fun getBestMultipleTime() = userDataStore.bestMultipleTime
 
-    fun getBestPickChooseTime() = userDataStore.bestPickChooseTime
+    fun getBestPickerTime() = userDataStore.bestPickerTime
 
     fun getBestSorterTime() = userDataStore.bestSorterTime
 
@@ -99,8 +99,8 @@ class Repository
         userDataStore.bestMultipleTime = newTime
     }
 
-    fun setBestPickChooseTime(newTime: Long) {
-        userDataStore.bestPickChooseTime = newTime
+    fun setBestPickerTime(newTime: Long) {
+        userDataStore.bestPickerTime = newTime
     }
 
     fun setBestSorterTime(newTime: Long) {

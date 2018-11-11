@@ -1,4 +1,4 @@
-package com.b4kancs.scoutlaws.views.quiz.pickandchoose
+package com.b4kancs.scoutlaws.views.quiz.picker
 
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
@@ -49,13 +49,13 @@ private fun extractView(matcher: Matcher<View>?): View? {
 }
 
 @RunWith(AndroidJUnit4::class)
-class PickAndChooseFragmentScreenTest {
+class PickerFragmentScreenTest {
 
     @get:Rule
     val quizActivityTestRule = object : ActivityTestRule<QuizActivity>(QuizActivity::class.java) {
         override fun getActivityIntent(): Intent {
             val intent = Intent()
-            intent.putExtra(QUIZ_FRAGMENT_EXTRA, PickAndChooseFragment.FRAGMENT_TAG)
+            intent.putExtra(QUIZ_FRAGMENT_EXTRA, PickerFragment.FRAGMENT_TAG)
             return intent
         }
     }
@@ -69,9 +69,9 @@ class PickAndChooseFragmentScreenTest {
                 .last()
         val pickChooseFragment = quizShellFragment.childFragmentManager.fragments.last()
 
-        val viewModelField = PickAndChooseFragment::class.java.getDeclaredField("viewModel")
+        val viewModelField = PickerFragment::class.java.getDeclaredField("viewModel")
         viewModelField.isAccessible = true
-        val viewModel = viewModelField.get(pickChooseFragment) as PickAndChooseViewModel
+        val viewModel = viewModelField.get(pickChooseFragment) as PickerViewModel
 
         /* Insert correct answers into userAnswers*/
         viewModel.apply {

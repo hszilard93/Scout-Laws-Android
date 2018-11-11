@@ -14,8 +14,8 @@ import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.databinding.FragmentQuizShellBinding
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceSharedViewModel
-import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment
-import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel
+import com.b4kancs.scoutlaws.views.quiz.picker.PickerFragment
+import com.b4kancs.scoutlaws.views.quiz.picker.PickerSharedViewModel
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterSharedViewModel
 
@@ -52,8 +52,8 @@ class QuizShellFragment : Fragment() {
         sharedViewModel = when (fragmentTag) {
             MultipleChoiceFragment.FRAGMENT_TAG ->
                 ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
-            PickAndChooseFragment.FRAGMENT_TAG ->
-                ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
+            PickerFragment.FRAGMENT_TAG ->
+                ViewModelProviders.of(activity!!).get(PickerSharedViewModel::class.java)
             SorterFragment.FRAGMENT_TAG ->
                 ViewModelProviders.of(activity!!).get(SorterSharedViewModel::class.java)
             else ->
@@ -70,9 +70,9 @@ class QuizShellFragment : Fragment() {
                 fragment = MultipleChoiceFragment()
                 sharedViewModel = ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
             }
-            PickAndChooseFragment.FRAGMENT_TAG -> {
-                fragment = PickAndChooseFragment()
-                sharedViewModel = ViewModelProviders.of(activity!!).get(PickAndChooseSharedViewModel::class.java)
+            PickerFragment.FRAGMENT_TAG -> {
+                fragment = PickerFragment()
+                sharedViewModel = ViewModelProviders.of(activity!!).get(PickerSharedViewModel::class.java)
             }
             SorterFragment.FRAGMENT_TAG -> {
                 fragment = SorterFragment()
@@ -93,8 +93,8 @@ class QuizShellFragment : Fragment() {
             when (fragmentTag) {
                 MultipleChoiceFragment.FRAGMENT_TAG ->
                     textInstruction.text = resources.getText(R.string.multiple_tip)
-                PickAndChooseFragment.FRAGMENT_TAG ->
-                    textInstruction.text = resources.getText(R.string.pick_choose_tip)
+                PickerFragment.FRAGMENT_TAG ->
+                    textInstruction.text = resources.getText(R.string.picker_tip)
                 SorterFragment.FRAGMENT_TAG ->
                     textInstruction.text = resources.getText(R.string.sorter_tip)
             }

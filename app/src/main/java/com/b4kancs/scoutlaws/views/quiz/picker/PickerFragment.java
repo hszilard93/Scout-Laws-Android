@@ -1,4 +1,4 @@
-package com.b4kancs.scoutlaws.views.quiz.pickandchoose;
+package com.b4kancs.scoutlaws.views.quiz.picker;
 
 import android.animation.LayoutTransition;
 import android.arch.lifecycle.ViewModelProviders;
@@ -13,12 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.FragmentPickBinding;
-import com.b4kancs.scoutlaws.databinding.TextViewPickChooseFillBinding;
-import com.b4kancs.scoutlaws.databinding.TextViewPickChooseWordBinding;
+import com.b4kancs.scoutlaws.databinding.TextViewPickerFillBinding;
+import com.b4kancs.scoutlaws.databinding.TextViewPickerWordBinding;
 import com.nex3z.flowlayout.FlowLayout;
 
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
@@ -30,15 +29,15 @@ import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
 
 /**
  * Created by hszilard on 3-March-18.
- * This fragment presents a pick and choose type quiz where words in the question need to be filled in by dragging
+ * This fragment presents a picker type quiz where words in the question need to be filled in by dragging
  * the correct options to their places.
  */
-public class PickAndChooseFragment extends Fragment {
-    public static final String FRAGMENT_TAG = "PICK_CHOOSE_FRAGMENT";
-    private static final String LOG_TAG = PickAndChooseFragment.class.getSimpleName();
+public class PickerFragment extends Fragment {
+    public static final String FRAGMENT_TAG = "PICKER_FRAGMENT";
+    private static final String LOG_TAG = PickerFragment.class.getSimpleName();
 
-    private PickAndChooseSharedViewModel sharedViewModel;
-    private PickAndChooseViewModel viewModel;
+    private PickerSharedViewModel sharedViewModel;
+    private PickerViewModel viewModel;
     private FragmentPickBinding binding;
     private ViewGroup container;
     private FlowLayout questionFlow;
@@ -47,9 +46,9 @@ public class PickAndChooseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.container = container;
 
-        sharedViewModel = ViewModelProviders.of(getActivity()).get(PickAndChooseSharedViewModel.class);
-        PickAndChooseViewModelFactory viewModelFactory = new PickAndChooseViewModelFactory(sharedViewModel);
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PickAndChooseViewModel.class);
+        sharedViewModel = ViewModelProviders.of(getActivity()).get(PickerSharedViewModel.class);
+        PickerViewModelFactory viewModelFactory = new PickerViewModelFactory(sharedViewModel);
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PickerViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pick, container, false);
 
         binding.setSharedViewModel(sharedViewModel);
@@ -92,8 +91,8 @@ public class PickAndChooseFragment extends Fragment {
                     /* Register the index of the placeholder view with the ViewModel. They will observe the ViewModel. */
                     viewModel.addUserAnswer(i, null);
 
-                TextViewPickChooseFillBinding fillBinding = DataBindingUtil.inflate(getLayoutInflater(),
-                        R.layout.text_view_pick_choose_fill, container, false);
+                TextViewPickerFillBinding fillBinding = DataBindingUtil.inflate(getLayoutInflater(),
+                        R.layout.text_view_picker_fill, container, false);
                 fillBinding.setObservableText(viewModel.userAnswers.get(i));
                 fillBinding.getRoot().setOnDragListener(onOptionDrag);
                 questionFlow.addView(fillBinding.getRoot());
@@ -156,12 +155,12 @@ public class PickAndChooseFragment extends Fragment {
     private View.OnClickListener finishButtonOnClickListener = view -> {
         Log.d(LOG_TAG, "Forward button clicked.");
         // Show the results
-        showResultDialogFragment(container, getActivity(), getFragmentManager(), new PickAndChooseFragment(), sharedViewModel);
+        showResultDialogFragment(container, getActivity(), getFragmentManager(), new PickerFragment(), sharedViewModel);
     };
 
     private TextView makeQuestionWordView(String word, ViewGroup parent) {
-        TextViewPickChooseWordBinding wordBinding = DataBindingUtil
-                .inflate(getLayoutInflater(), R.layout.text_view_pick_choose_word, parent, false);
+        TextViewPickerWordBinding wordBinding = DataBindingUtil
+                .inflate(getLayoutInflater(), R.layout.text_view_picker_word, parent, false);
         wordBinding.setNumber(viewModel.getScoutLaw().getLaw().getNumber());
         wordBinding.textWord.setText(word);
         return wordBinding.textWord;
@@ -169,7 +168,7 @@ public class PickAndChooseFragment extends Fragment {
 
     private void transitionToNextQuestion() {
         binding.unbind();
-        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new PickAndChooseFragment());
+        FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new PickerFragment());
         transaction.commit();
     }
 }

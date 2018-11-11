@@ -4,18 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel.State" />
+        <import type="com.b4kancs.scoutlaws.views.quiz.picker.PickerViewModel.State" />
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel" />
+            type="com.b4kancs.scoutlaws.views.quiz.picker.PickerViewModel" />
         <variable
             name="sharedViewModel"
-            type="com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel" />
+            type="com.b4kancs.scoutlaws.views.quiz.picker.PickerSharedViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraint_pick_choose"
+        android:id="@+id/constraint_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:animateLayoutChanges="@{context}">

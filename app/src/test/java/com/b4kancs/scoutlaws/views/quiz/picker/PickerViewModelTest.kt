@@ -1,10 +1,10 @@
-package com.b4kancs.scoutlaws.views.quiz.pickandchoose
+package com.b4kancs.scoutlaws.views.quiz.picker
 
 import com.b4kancs.scoutlaws.DaggerTestComponent
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.TestComponent
 import com.b4kancs.scoutlaws.TestModule
-import com.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw
+import com.b4kancs.scoutlaws.data.model.PickerScoutLaw
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
 import com.nhaarman.mockitokotlin2.*
 import org.junit.jupiter.api.Assertions.*
@@ -17,11 +17,11 @@ import org.junit.jupiter.api.TestInstance
  * Created by hszilard on 10-May-18.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class PickAndChooseViewModelTest {
-    private val stubSharedViewModel: PickAndChooseSharedViewModel = mock()
-    private lateinit var viewModel: PickAndChooseViewModel
+class PickerViewModelTest {
+    private val stubSharedViewModel: PickerSharedViewModel = mock()
+    private lateinit var viewModel: PickerViewModel
 
-    private val testScoutLaw = PickAndChooseScoutLaw(
+    private val testScoutLaw = PickerScoutLaw(
             ScoutLaw(1, "", "", ""),
             "Something #option1 something something #option2",
             listOf("option3", "option4", "option5")
@@ -33,20 +33,20 @@ class PickAndChooseViewModelTest {
         ScoutLawApp().applicationComponent = testComponent
 
         // If we have only one scout law in the list, it is guaranteed to be chosen for the first turn
-        whenever(stubSharedViewModel.pickChooseScoutLaws).thenReturn(listOf(testScoutLaw))
+        whenever(stubSharedViewModel.pickerScoutLaws).thenReturn(listOf(testScoutLaw))
         whenever(stubSharedViewModel.isThisTheLastTurn).thenReturn(false)
     }
 
     @BeforeEach
     fun setUpEach() {
-        viewModel = PickAndChooseViewModel(stubSharedViewModel)
+        viewModel = PickerViewModel(stubSharedViewModel)
     }
 
     @Test
     fun viewModelShouldCallIncTurnOnSharedViewModelWhenInstantiated() {
         clearInvocations(stubSharedViewModel)
 
-        val newViewModel = PickAndChooseViewModel(stubSharedViewModel)
+        val newViewModel = PickerViewModel(stubSharedViewModel)
 
         verify(stubSharedViewModel).incTurnCount()
     }
@@ -68,7 +68,7 @@ class PickAndChooseViewModelTest {
 
     @Test
     fun observableStateShouldBeInProgressAfterInitialization() {
-        assertEquals(PickAndChooseViewModel.State.IN_PROGRESS, viewModel.observableState.get())
+        assertEquals(PickerViewModel.State.IN_PROGRESS, viewModel.observableState.get())
     }
 
     @Test
@@ -91,7 +91,7 @@ class PickAndChooseViewModelTest {
             addUserAnswer(1, "option1")
             addUserAnswer(2, "option3")
 
-            assertEquals(PickAndChooseViewModel.State.CHECKABLE, observableState.get())
+            assertEquals(PickerViewModel.State.CHECKABLE, observableState.get())
         }
     }
 
@@ -144,11 +144,11 @@ class PickAndChooseViewModelTest {
     @Test
     fun observableStateShouldBeInProgressAfterClearCalled() {
         viewModel.apply {
-            observableState.set(PickAndChooseViewModel.State.CHECKABLE)
+            observableState.set(PickerViewModel.State.CHECKABLE)
 
             clear()
 
-            assertEquals(PickAndChooseViewModel.State.IN_PROGRESS, observableState.get())
+            assertEquals(PickerViewModel.State.IN_PROGRESS, observableState.get())
         }
     }
 
@@ -293,11 +293,11 @@ class PickAndChooseViewModelTest {
         viewModel.apply {
             addUserAnswer(1, "option3")
             addUserAnswer(2, "option4")
-            observableState.set(PickAndChooseViewModel.State.CHECKABLE)
+            observableState.set(PickerViewModel.State.CHECKABLE)
 
             evaluateUserAnswers()
 
-            assertEquals(PickAndChooseViewModel.State.IN_PROGRESS, observableState.get())
+            assertEquals(PickerViewModel.State.IN_PROGRESS, observableState.get())
         }
     }
 
@@ -309,7 +309,7 @@ class PickAndChooseViewModelTest {
 
             evaluateUserAnswers()
 
-            assertEquals(PickAndChooseViewModel.State.DONE, observableState.get())
+            assertEquals(PickerViewModel.State.DONE, observableState.get())
         }
     }
 
@@ -336,7 +336,7 @@ class PickAndChooseViewModelTest {
 
             giveUp()
 
-            assertEquals(PickAndChooseViewModel.State.DONE, observableState.get())
+            assertEquals(PickerViewModel.State.DONE, observableState.get())
         }
     }
 }

@@ -7,7 +7,7 @@ interface UserDataStore {
     var totalScore: Int
     var totalPossibleScore: Int
     var bestMultipleTime: Long
-    var bestPickChooseTime: Long
+    var bestPickerTime: Long
     var bestSorterTime: Long
 
     fun reset()

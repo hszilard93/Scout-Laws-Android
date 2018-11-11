@@ -1,4 +1,4 @@
-package com.b4kancs.scoutlaws.views.quiz.pickandchoose;
+package com.b4kancs.scoutlaws.views.quiz.picker;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableArrayList;
@@ -6,7 +6,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.util.Log;
 
-import com.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw;
+import com.b4kancs.scoutlaws.data.model.PickerScoutLaw;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,11 +17,11 @@ import java.util.TreeMap;
 
 /**
  * Created by hszilard on 08-Mar-18.
- * This ViewModel contains all logic for a 'pick&choose quiz' turn.
+ * This ViewModel contains all logic for a picker quiz turn.
  * The UI should reflect changes in the ViewModel, user input should trigger its actions.
  */
-public class PickAndChooseViewModel extends ViewModel {
-    private static final String LOG_TAG = PickAndChooseViewModel.class.getSimpleName();
+public class PickerViewModel extends ViewModel {
+    private static final String LOG_TAG = PickerViewModel.class.getSimpleName();
 
     public enum State {IN_PROGRESS, CHECKABLE, DONE}
     // These fields must be public for databound layouts to access them
@@ -32,13 +32,13 @@ public class PickAndChooseViewModel extends ViewModel {
     public final TreeMap<Integer, ObservableField<String>> userAnswers = new TreeMap<>();
 
     protected final ArrayList<String> correctAnswers = new ArrayList<>();
-    private final PickAndChooseSharedViewModel shared;
+    private final PickerSharedViewModel shared;
 
-    private PickAndChooseScoutLaw scoutLaw;
+    private PickerScoutLaw scoutLaw;
     private ArrayList<String> questionItems;
     private boolean firstTry = true;
 
-    PickAndChooseViewModel(PickAndChooseSharedViewModel shared) {
+    PickerViewModel(PickerSharedViewModel shared) {
         this.shared = shared;
         startTurn();
     }
@@ -47,9 +47,9 @@ public class PickAndChooseViewModel extends ViewModel {
         Log.d(LOG_TAG, "Starting turn.");
 
         shared.incTurnCount();
-        scoutLaw = shared.getPickChooseScoutLaws().get(shared.nextLawIndex());
-        options.addAll(scoutLaw.getPickChooseOptions());
-        parseQuestion(scoutLaw.getPickChooseText());
+        scoutLaw = shared.getPickerScoutLaws().get(shared.nextLawIndex());
+        options.addAll(scoutLaw.getPickerOptions());
+        parseQuestion(scoutLaw.getPickerText());
         options.addAll(correctAnswers);
 
         Collections.shuffle(options);
@@ -175,7 +175,7 @@ public class PickAndChooseViewModel extends ViewModel {
         observableState.set(State.DONE);
     }
 
-    public PickAndChooseScoutLaw getScoutLaw() {
+    public PickerScoutLaw getScoutLaw() {
         return scoutLaw;
     }
 

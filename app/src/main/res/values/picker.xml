@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="law_1_pick">A cserkész #egyeneslelkű és #feltétlenül igazat mond.</string>
+    <string-array name="law_1_pick_options" tools:ignore="InconsistentArrays">
+        <item>szerény</item>
+        <item>becsületes</item>
+        <item>szavatartó</item>
+        <item>igazhitű</item>
+        <item>tiszta</item>
+        <item>kitartó</item>
+        <item>vidám</item>
+        <item>határozott</item>
+        <item>mindenáron</item>
+        <item>csakis</item>
+        <item>mindig</item>
+        <item>örökké</item>
+        <item>feljebbvalóinak</item>
+        <item>szüleinek</item>
+        <item>cserkésztestvérének</item>
+    </string-array>
+
+    <string name="law_2_pick">A cserkész híven teljesíti kötelességeit, melyekkel #Istennek, #hazájának és #embertársainak tartozik.</string>
+    <string-array name="law_2_pick_options" tools:ignore="InconsistentArrays">
+        <item>népének</item>
+        <item>barátainak</item>
+        <item>cserkésztestvéreinek</item>
+        <item>szüleinek</item>
+        <item>országának</item>
+        <item>feljebbvalóinak</item>
+        <item>elnökének</item>
+        <item>csapatvezetőjének</item>
+        <item>lelkiismeretének</item>
+        <item>magának</item>
+        <item>osztályának</item>
+        <item>tanárainak</item>
+        <item>polgártársainak</item>
+    </string-array>
+
+    <string name="law_3_pick">A cserkész ahol #tud, #segít.</string>
+    <string-array name="law_3_pick_options" tools:ignore="InconsistentArrays">
+        <item>képes</item>
+        <item>kell</item>
+        <item>lehet</item>
+        <item>szabad</item>
+        <item>megkérik</item>
+        <item>éhes</item>
+        <item>eszik</item>
+        <item>sátorozik</item>
+        <item>tiszteleg</item>
+        <item>sípol</item>
+        <item>csomózik</item>
+        <item>tesz</item>
+        <item>mászik</item>
+        <item>vigyáz</item>
+        <item>óvatos</item>
+        <item>vidám</item>
+    </string-array>
+
+    <string name="law_4_pick">A cserkész minden #cserkészt #testvérének tekint.</string>
+    <string-array name="law_4_pick_options" tools:ignore="InconsistentArrays">
+        <item>embert</item>
+        <item>magyart</item>
+        <item>keresztényt</item>
+        <item>cserkésztestvérét</item>
+        <item>dolgot</item>
+        <item>problémát</item>
+        <item>kiscserkészt</item>
+        <item>újoncot</item>
+        <item>megoldottnak</item>
+        <item>barátjának</item>
+        <item>felebarátjának</item>
+        <item>elvégzettnek</item>
+        <item>titoknak</item>
+        <item>feljebbvalójának</item>
+        <item>hamisnak</item>
+    </string-array>
+
+    <string name="law_5_pick">A cserkész #másokkal szemben #gyöngéd, #magával szemben #szigorú.</string>
+    <string-array name="law_5_pick_options" tools:ignore="InconsistentArrays">
+        <item>cserkésztestvérével</item>
+        <item>embertársaival</item>
+        <item>szüleivel</item>
+        <item>idősekkel</item>
+        <item>őrsvezetőjével</item>
+        <item>munkájával</item>
+        <item>barátaival</item>
+        <item>alárendeltjeivel</item>
+        <item>őrstagjaival</item>
+        <item>kritikus</item>
+        <item>engedelmes</item>
+        <item>őszinte</item>
+        <item>udvarias</item>
+        <item>szófogadó</item>
+        <item>tisztességes</item>
+        <item>barátságos</item>
+        <item>illedelmes</item>
+    </string-array>
+
+    <string name="law_6_pick">A cserkész szereti a #természetet, jó az #állatokhoz és kíméli a #növényeket.</string>
+    <string-array name="law_6_pick_options" tools:ignore="InconsistentArrays">
+        <item>rendet</item>
+        <item>cserkészeket</item>
+        <item>madarakat</item>
+        <item>állatokat</item>
+        <item>gombákat</item>
+        <item>cserkészetet</item>
+        <item>feljebbvalóit</item>
+        <item>szüleit</item>
+        <item>virágokhoz</item>
+        <item>barátaihoz</item>
+        <item>testvéréhez</item>
+        <item>nyakkendőjét</item>
+        <item>sátrát</item>
+    </string-array>
+
+    <string name="law_7_pick">A cserkész #feljebbvalóinak jó #lélekkel és #készségesen engedelmeskedik.</string>
+    <string-array name="law_7_pick_options" tools:ignore="InconsistentArrays">
+        <item>szüleinek</item>
+        <item>őrsvezetőjének</item>
+        <item>csapatparancsnokának</item>
+        <item>tanárainak</item>
+        <item>uralkodójának</item>
+        <item>egészséggel</item>
+        <item>szívvel</item>
+        <item>tettekkel</item>
+        <item>kedvvel</item>
+        <item>hangulatban</item>
+        <item>azonnal</item>
+        <item>rögtön</item>
+        <item>mihamarabb</item>
+        <item>türelmesen</item>
+        <item>okosan</item>
+    </string-array>
+
+    <string name="law_8_pick">A cserkész #vidám és #meggondolt.</string>
+    <string-array name="law_8_pick_options" tools:ignore="InconsistentArrays">
+        <item>egyeneslelkű</item>
+        <item>becsületes</item>
+        <item>szófogadó</item>
+        <item>huncut</item>
+        <item>mosolygós</item>
+        <item>igazmondó</item>
+        <item>okos</item>
+        <item>bölcs</item>
+        <item>gyors</item>
+        <item>engedelmes</item>
+        <item>sebes</item>
+        <item>illedelmes</item>
+        <item>hűséges</item>
+    </string-array>
+
+    <string name="law_9_pick">A cserkész #takarékos.</string>
+    <string-array name="law_9_pick_options" tools:ignore="InconsistentArrays">
+        <item>jó</item>
+        <item>megfontolt</item>
+        <item>megbízható</item>
+        <item>bátor</item>
+        <item>ügyes</item>
+        <item>jóravaló</item>
+        <item>tudálékos</item>
+        <item>segítőkész</item>
+        <item>engedelmes</item>
+        <item>jókedvű</item>
+    </string-array>
+
+    <string name="law_10_pick">A cserkész testben és #lélekben #tiszta.</string>
+    <string-array name="law_10_pick_options" tools:ignore="InconsistentArrays">
+        <item>szellemben</item>
+        <item>elmében</item>
+        <item>jellemben</item>
+        <item>szívben</item>
+        <item>gondolatban</item>
+        <item>cselekedetben</item>
+        <item>hitében</item>
+        <item>erős</item>
+        <item>bátor</item>
+        <item>egyenes</item>
+        <item>jókedvű</item>
+        <item>igaz</item>
+    </string-array>
+</resources>

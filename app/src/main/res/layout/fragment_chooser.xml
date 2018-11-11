@@ -72,7 +72,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:textColor="@color/colorTextLight"
                     android:text="@string/pick_quiz"
-                    tools:text="Pick and choose" />
+                    tools:text="Picker" />
 
                 <Button
                     android:id="@+id/button_sorter"

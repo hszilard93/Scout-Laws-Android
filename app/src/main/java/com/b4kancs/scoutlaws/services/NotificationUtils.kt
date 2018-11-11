@@ -13,7 +13,7 @@ import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.app.TaskStackBuilder
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment
-import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment
+import com.b4kancs.scoutlaws.views.quiz.picker.PickerFragment
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment
 import java.util.*
 
@@ -49,7 +49,7 @@ private fun makeQuizIntent(context: Context) : PendingIntent {
         type = (Random().nextInt() % 3 + 1).toString()
     when (type) {
         "1" -> quizIntent.putExtra(QuizActivity.QUIZ_FRAGMENT_EXTRA, MultipleChoiceFragment.FRAGMENT_TAG)
-        "2" -> quizIntent.putExtra(QuizActivity.QUIZ_FRAGMENT_EXTRA, PickAndChooseFragment.FRAGMENT_TAG)
+        "2" -> quizIntent.putExtra(QuizActivity.QUIZ_FRAGMENT_EXTRA, PickerFragment.FRAGMENT_TAG)
         "3" -> quizIntent.putExtra(QuizActivity.QUIZ_FRAGMENT_EXTRA, SorterFragment.FRAGMENT_TAG)
     }
 

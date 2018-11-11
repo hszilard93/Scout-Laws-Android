@@ -1,8 +1,13 @@
 package com.b4kancs.scoutlaws;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.VisibleForTesting;
 import android.util.Log;
+
+import static com.b4kancs.scoutlaws.LocaleUtilsKt.refreshLocale;
+import static com.b4kancs.scoutlaws.LocaleUtilsKt.setNewLocale;
 
 /**
  * Created by hszilard on 05-Apr-18.
@@ -31,6 +36,18 @@ public class ScoutLawApp extends Application {
                 .builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        // Default language is Hungarian, can be changed in runtime (for demo purposes)
+        super.attachBaseContext(setNewLocale(base, "hu"));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        refreshLocale(this);
     }
 
     @VisibleForTesting

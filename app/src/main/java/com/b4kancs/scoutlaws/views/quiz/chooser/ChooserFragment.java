@@ -15,7 +15,7 @@ import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.FragmentChooserBinding;
 import com.b4kancs.scoutlaws.views.quiz.QuizShellFragment;
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment;
-import com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseFragment;
+import com.b4kancs.scoutlaws.views.quiz.picker.PickerFragment;
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment;
 
 import java.util.Random;
@@ -54,7 +54,7 @@ public class ChooserFragment extends Fragment {
             if (random.nextInt() % 2 == 0)
                 startQuiz(MultipleChoiceFragment.FRAGMENT_TAG);
             else
-                startQuiz(PickAndChooseFragment.FRAGMENT_TAG);
+                startQuiz(PickerFragment.FRAGMENT_TAG);
         });
         binding.buttonMultiple.setOnClickListener(click -> {
             Log.d(LOG_TAG, "Multiple choice button pressed.");
@@ -62,7 +62,7 @@ public class ChooserFragment extends Fragment {
         });
         binding.buttonPick.setOnClickListener(click -> {
             Log.d(LOG_TAG, "Pick and choose button pressed.");
-            startQuiz(PickAndChooseFragment.FRAGMENT_TAG);
+            startQuiz(PickerFragment.FRAGMENT_TAG);
         });
         binding.buttonSorter.setOnClickListener(click -> {
             Log.d(LOG_TAG, "Sorter button pressed.");

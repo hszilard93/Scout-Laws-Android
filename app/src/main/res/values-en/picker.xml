@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="law_1_pick">A Scout\'s #honour is to be #trusted.</string>
+    <string-array name="law_1_pick_options" tools:ignore="InconsistentArrays">
+        <item>word</item>
+        <item>deed</item>
+        <item>oath</item>
+        <item>conscience</item>
+        <item>accuracy</item>
+        <item>wit</item>
+        <item>leader</item>
+        <item>honoured</item>
+        <item>credible</item>
+        <item>listened to</item>
+        <item>loyal</item>
+        <item>impeccable</item>
+        <item>dependable</item>
+    </string-array>
+
+    <string name="law_2_pick">A Scout is #loyal to the #Queen, his #Country, his Scouters, his #parents, his #employers and to those under him.</string>
+    <string-array name="law_2_pick_options" tools:ignore="InconsistentArrays">
+        <item>brothers</item>
+        <item>grandparents</item>
+        <item>folks</item>
+        <item>State</item>
+        <item>President</item>
+        <item>Prime Minister</item>
+        <item>leaders</item>
+        <item>self</item>
+        <item>teachers</item>
+        <item>fellows</item>
+        <item>employees</item>
+        <item>friends</item>
+        <item>pets</item>
+    </string-array>
+
+    <string name="law_3_pick">A Scout\'s #duty is to be #useful and #help others.</string>
+    <string-array name="law_3_pick_options" tools:ignore="InconsistentArrays">
+        <item>honour</item>
+        <item>obligation</item>
+        <item>burden</item>
+        <item>helpful</item>
+        <item>trustworthy</item>
+        <item>fun</item>
+        <item>dutiful</item>
+        <item>assist</item>
+        <item>humour</item>
+        <item>listen to</item>
+        <item>careful</item>
+        <item>mind</item>
+        <item>cheerful</item>
+        <item>happy</item>
+    </string-array>
+
+    <string name="law_4_pick">A Scout is a #friend to all, and a brother to every other #Scout, no matter to what #country, #class or creed the other belongs.</string>
+    <string-array name="law_4_pick_options" tools:ignore="InconsistentArrays">
+        <item>pal</item>
+        <item>comrade</item>
+        <item>assistant</item>
+        <item>saviour</item>
+        <item>animal</item>
+        <item>human</item>
+        <item>Christian</item>
+        <item>person</item>
+        <item>student</item>
+        <item>being</item>
+        <item>state</item>
+        <item>nation</item>
+        <item>group</item>
+        <item>troop</item>
+        <item>rank</item>
+        <item>band</item>
+    </string-array>
+
+    <string name="law_5_pick">A Scout is #courteous.</string>
+    <string-array name="law_5_pick_options" tools:ignore="InconsistentArrays">
+        <item>kind</item>
+        <item>helpful</item>
+        <item>nice</item>
+        <item>generous</item>
+        <item>noble</item>
+        <item>dependable</item>
+        <item>chivalrous</item>
+        <item>humanitarian</item>
+        <item>dutiful</item>
+        <item>agreeable</item>
+        <item>honest</item>
+        <item>honourable</item>
+        <item>friendly</item>
+    </string-array>
+
+    <string name="law_6_pick">A Scout is a friend to #animals and all created #things.</string>
+    <string-array name="law_6_pick_options" tools:ignore="InconsistentArrays">
+        <item>scouts</item>
+        <item>people</item>
+        <item>children</item>
+        <item>plants</item>
+        <item>forests</item>
+        <item>bees</item>
+        <item>dogs</item>
+        <item>cats</item>
+        <item>birds</item>
+        <item>beings</item>
+        <item>stuff</item>
+        <item>objects</item>
+    </string-array>
+
+    <string name="law_7_pick">A Scout obeys #orders of his #parents, #Patrol Leader, or Scoutmaster without #question.</string>
+    <string-array name="law_7_pick_options" tools:ignore="InconsistentArrays">
+        <item>teachers</item>
+        <item>friends</item>
+        <item>mates</item>
+        <item>commands</item>
+        <item>instructions</item>
+        <item>laws</item>
+        <item>biddings</item>
+        <item>country</item>
+        <item>state</item>
+        <item>school</item>
+        <item>Scout</item>
+        <item>hesitation</item>
+        <item>griping</item>
+        <item>complain</item>
+        <item>thought</item>
+        <item>yammer</item>
+    </string-array>
+
+    <string name="law_8_pick">A Scout #smiles and #whistles under all #difficulties.</string>
+    <string-array name="law_8_pick_options" tools:ignore="InconsistentArrays">
+        <item>grins</item>
+        <item>laughs</item>
+        <item>sings</item>
+        <item>chats</item>
+        <item>thinks</item>
+        <item>hums</item>
+        <item>marches</item>
+        <item>groans</item>
+        <item>complains</item>
+        <item>listens</item>
+        <item>weather</item>
+        <item>circumstances</item>
+        <item>class</item>
+        <item>adversities</item>
+    </string-array>
+
+    <string name="law_9_pick">A Scout is #thrifty.</string>
+    <string-array name="law_9_pick_options" tools:ignore="InconsistentArrays">
+        <item>thoughtful</item>
+        <item>honourable</item>
+        <item>brave</item>
+        <item>skillful</item>
+        <item>kind</item>
+        <item>knowledgeable</item>
+        <item>helpful</item>
+        <item>cheerful</item>
+        <item>okay</item>
+        <item>frugal</item>
+        <item>canny</item>
+    </string-array>
+
+    <string name="law_10_pick">A Scout is #clean in #thought, word and #deed.</string>
+    <string-array name="law_10_pick_options" tools:ignore="InconsistentArrays">
+        <item>heart</item>
+        <item>soul</item>
+        <item>mind</item>
+        <item>faith</item>
+        <item>brave</item>
+        <item>immaculate</item>
+        <item>glad</item>
+        <item>true</item>
+        <item>resourceful</item>
+        <item>orderly</item>
+        <item>washed</item>
+        <item>neat</item>
+        <item>action</item>
+        <item>feat</item>
+        <item>quest</item>
+        <item>winning</item>
+        <item>class</item>
+        <item>school</item>
+        <item>sports</item>
+    </string-array>
+</resources>

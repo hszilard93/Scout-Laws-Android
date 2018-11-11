@@ -1,4 +1,4 @@
-package com.b4kancs.scoutlaws.views.quiz.pickandchoose;
+package com.b4kancs.scoutlaws.views.quiz.picker;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -8,18 +8,18 @@ import android.support.annotation.NonNull;
  * Created by hszilard on 21-Mar-18.
  */
 
-class PickAndChooseViewModelFactory implements ViewModelProvider.Factory {
-    private final PickAndChooseSharedViewModel sharedViewModel;
+class PickerViewModelFactory implements ViewModelProvider.Factory {
+    private final PickerSharedViewModel sharedViewModel;
 
-    PickAndChooseViewModelFactory(PickAndChooseSharedViewModel sharedViewModel) {
+    PickerViewModelFactory(PickerSharedViewModel sharedViewModel) {
         this.sharedViewModel = sharedViewModel;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(PickAndChooseViewModel.class))
-            return (T) new PickAndChooseViewModel(sharedViewModel);
+        if (modelClass.isAssignableFrom(PickerViewModel.class))
+            return (T) new PickerViewModel(sharedViewModel);
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
 }
