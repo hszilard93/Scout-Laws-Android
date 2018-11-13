@@ -2,7 +2,6 @@ package com.b4kancs.scoutlaws.views.settings
 
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.app.DialogFragment
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
 import com.b4kancs.scoutlaws.R
@@ -28,7 +27,10 @@ class PreferencesFragment : PreferenceFragmentCompat() {
         PreferenceManager.getDefaultSharedPreferences(activity!!.applicationContext).registerOnSharedPreferenceChangeListener { preferences, key ->
             when (key) {
                 "pref_notification_timing_list" -> {
-                    val defaultTiming = activity!!.resources.getStringArray(R.array.pref_notifications_list_values)[0] ?: "never"
+                    val defaultTiming = if (activity?.resources != null)
+                        activity?.resources!!.getStringArray(R.array.pref_notifications_list_values)[0] ?: "never"
+                    else
+                        "never"
                     val currentTiming = preferences.getString("pref_notification_timing_list", defaultTiming)
                     if (currentTiming != defaultTiming)
                         BatteryOptimizerInfoDialogFragment().show(activity!!.supportFragmentManager)

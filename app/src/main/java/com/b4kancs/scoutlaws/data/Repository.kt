@@ -10,6 +10,7 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
+import kotlin.collections.ArrayList
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -26,17 +27,17 @@ class Repository
         const val LAST_NOTIFICATION_TIME_KEY = "LAST_NOTIFICATION_TIME_KEY"
     }
 
-    val scoutLaws = ArrayList<ScoutLaw>(10)
-    val pickerScoutLaws = ArrayList<PickerScoutLaw>(10)
+    lateinit var scoutLaws: ArrayList<ScoutLaw>
+    lateinit var pickerScoutLaws: ArrayList<PickerScoutLaw>
     var numberOfScoutLaws: Int = 0      // How many scoutLaws are there? This is not constant!
         private set
 
     init {
         Log.d(LOG_TAG, "Constructing Repository instance.")
-        loadLaws()
+        loadScoutLaws()
     }
 
-    private fun loadLaws() {
+    private fun loadScoutLaws() {
         resources.apply {
             Log.d(LOG_TAG, "Loading scout scoutLaws.")
             val packageName = "com.b4kancs.scoutlaws"
@@ -44,6 +45,9 @@ class Repository
             // Check how many scout scoutLaws are there
             numberOfScoutLaws = getInteger(getIdentifier("number_of_laws", "integer", packageName))
             Log.d(LOG_TAG, "The number of scout scoutLaws is $numberOfScoutLaws")
+
+            scoutLaws = ArrayList(numberOfScoutLaws)
+            pickerScoutLaws = ArrayList(numberOfScoutLaws)
 
             /* Building the ScoutLaw and PickerScoutLaw objects by dynamically loading them
              * from their resource files by constructing their names */
@@ -69,6 +73,10 @@ class Repository
                 pickerScoutLaws.add(i, pickerScoutLaw)
             }
         }
+    }
+
+    fun reloadScoutLaws() {
+        loadScoutLaws()
     }
 
     fun resetUserData() {

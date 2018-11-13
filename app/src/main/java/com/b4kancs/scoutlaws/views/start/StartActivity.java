@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityStartBinding;
-import com.b4kancs.scoutlaws.services.NotificationUtilsKt;
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity;
 import com.b4kancs.scoutlaws.views.settings.PreferencesActivity;
 
@@ -28,7 +26,6 @@ import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabl
  * Created by hszilard on 15-Feb-18.
  * This is the starting activity.
  */
-
 public class StartActivity extends AppCompatActivity {
     private static final String LOG_TAG = StartActivity.class.getSimpleName();
 
@@ -45,8 +42,8 @@ public class StartActivity extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this).get(StartActivityViewModel.class);
         setUpViews();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // Fixes screen flashing during shared element transition
+        // Fixes screen flashing during shared element transition
+        {
             Fade fade = new Fade();
             fade.excludeTarget(R.id.toolbar, true);
             fade.excludeTarget(android.R.id.statusBarBackground, true);
@@ -108,7 +105,8 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(PreferencesActivity.class);
                 return true;
             case R.id.menu_item_about:
-                NotificationUtilsKt.showQuizPromptNotification(this);
+                new AboutDialogFragment().show(getSupportFragmentManager());
+                //NotificationUtilsKt.showQuizPromptNotification(this);
             default:
                 return false;
         }

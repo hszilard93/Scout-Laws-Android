@@ -41,7 +41,7 @@ public class ScoutLawApp extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         // Default language is Hungarian, can be changed in runtime (for demo purposes)
-        super.attachBaseContext(setNewLocale(base, "hu"));
+        super.attachBaseContext(setNewLocale(base, "hu"));  // This will cause the default resource-set to be loaded
     }
 
     @Override

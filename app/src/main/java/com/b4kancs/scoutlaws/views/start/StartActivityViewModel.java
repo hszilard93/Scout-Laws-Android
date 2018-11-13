@@ -14,7 +14,6 @@ import javax.inject.Inject;
 /**
  * Created by hszilard on 15-Feb-18.
  */
-
 public class StartActivityViewModel extends ViewModel {
     @Inject protected Repository repository;
     @Inject protected NotificationScheduler notificationScheduler;
@@ -27,8 +26,7 @@ public class StartActivityViewModel extends ViewModel {
     private ArrayList<ScoutLaw> scoutLaws;
 
     public ArrayList<ScoutLaw> scoutLaws() {
-        if (scoutLaws == null)
-            scoutLaws = repository.getScoutLaws();
+        scoutLaws = repository.getScoutLaws();
         return scoutLaws;
     }
 }

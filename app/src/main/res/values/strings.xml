@@ -71,6 +71,7 @@
     <string name="battery_optimizer_info_dialog_text">Egyes készülékek gyártói agresszíven korlátozzák a telefonon futó háttérfolyamatokat a jobb üzemidő elérése érdekében. Ha azt tapasztalod, hogy az értesítések nem jelennek meg, vagy nem jelennek meg időben a készülékeden, próbáld kikapcsolni az alkalmazás korlátozását a készüléked Beállítások menüjében vagy az akkumulátor-fogyasztás optimalizáló appból!</string>
     <string name="battery_optimizer_info_dialog_title">Figyelem!</string>
     <string name="pref_reset_stats_title">Eredmények visszaállítása</string>
+    <string name="about_text">Ez a játékos kvíz-app segít értelmezni és megjegyezni a cserkésztörvényeket, hogy soha többé ne kelljen izgulnod próba előtt ;)\n\nKészítette Hompoth Szilárd.\nBármilyen megjegyzéssel vagy észrevétellel írj a hszilard_apps@gmail.com email címre vagy keress meg GitHubon (/hszilard93).\n\nLégy résen!</string>
     <string name="pref_reset_stats_sum">Kvízek eredményeinek törlése</string>
     <string name="pref_reset_stats_dialog_title">Figyelem!</string>
     <string name="pref_reset_stats_dialog_text">Biztos, hogy nullázni akarod minden, kvízekkel kapcsolatos eredményed?</string>

@@ -12,7 +12,7 @@
             android:title="@string/settings_menu_item" />
         <item
             android:id="@+id/menu_item_about"
-            android:icon="@drawable/ic_info_24dp"
+            android:icon="@drawable/ic_info_black_24dp"
             android:title="@string/about_menu_item" />
     </group>
 </menu>
