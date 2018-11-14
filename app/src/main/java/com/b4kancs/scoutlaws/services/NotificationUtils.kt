@@ -1,7 +1,7 @@
 package com.b4kancs.scoutlaws.services
 
 import android.content.Context
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import com.b4kancs.scoutlaws.R
 import android.app.NotificationManager
 import android.app.NotificationChannel
@@ -9,8 +9,8 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
 import android.preference.PreferenceManager
-import android.support.v4.app.NotificationManagerCompat
-import android.support.v4.app.TaskStackBuilder
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.TaskStackBuilder
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment
 import com.b4kancs.scoutlaws.views.quiz.picker.PickerFragment

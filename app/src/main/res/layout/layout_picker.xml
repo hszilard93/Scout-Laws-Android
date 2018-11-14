@@ -14,7 +14,7 @@
             type="com.b4kancs.scoutlaws.views.quiz.picker.PickerSharedViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -134,5 +134,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linear_buttons"
             app:optionsFlow_adapter="@{viewModel.options}"/>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

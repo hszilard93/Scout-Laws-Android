@@ -1,9 +1,9 @@
 package com.b4kancs.scoutlaws.views.start
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +18,7 @@ import javax.inject.Inject
 /**
  * Created by hszilard on 12-Nov-18.
  */
-class AboutDialogFragment : DialogFragment() {
+class AboutDialogFragment : androidx.fragment.app.DialogFragment() {
 
     @Inject lateinit var repository: Repository
 
@@ -50,7 +50,7 @@ class AboutDialogFragment : DialogFragment() {
         return binding.root
     }
 
-    fun show(manager: FragmentManager) {
+    fun show(manager: androidx.fragment.app.FragmentManager) {
         Log.d(LOG_TAG, "Showing dialog")
         val transaction = manager.beginTransaction()
         transaction.add(this, tag)

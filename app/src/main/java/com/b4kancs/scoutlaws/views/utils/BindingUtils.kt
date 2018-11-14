@@ -3,7 +3,7 @@ package com.b4kancs.scoutlaws.views.utils
 import android.animation.LayoutTransition
 import android.content.Context
 import android.content.res.Resources
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView

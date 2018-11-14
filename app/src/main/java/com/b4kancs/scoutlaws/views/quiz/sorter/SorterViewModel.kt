@@ -1,7 +1,7 @@
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
-import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableField
+import androidx.lifecycle.ViewModel
+import androidx.databinding.ObservableField
 import android.util.Log
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
 

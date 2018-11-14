@@ -1,10 +1,10 @@
 package com.b4kancs.scoutlaws.views.quiz
 
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.BindingAdapter
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +22,7 @@ import com.b4kancs.scoutlaws.views.quiz.sorter.SorterSharedViewModel
 /**
  * Created by hszilard on 20-May-18.
  */
-class QuizShellFragment : Fragment() {
+class QuizShellFragment : androidx.fragment.app.Fragment() {
     companion object {
         const val FRAGMENT_TAG = "QUIZ_SHELL_FRAGMENT"
         private val LOG_TAG = QuizShellFragment::class.simpleName
@@ -64,7 +64,7 @@ class QuizShellFragment : Fragment() {
     private fun createNewNestedFragments() {
         fragmentTag = arguments!!.getString("TAG")!!
         Log.d(LOG_TAG, "Creating fragment $fragmentTag.")
-        val fragment: Fragment
+        val fragment: androidx.fragment.app.Fragment
         when (fragmentTag) {
             MultipleChoiceFragment.FRAGMENT_TAG -> {
                 fragment = MultipleChoiceFragment()

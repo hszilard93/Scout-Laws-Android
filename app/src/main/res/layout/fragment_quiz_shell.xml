@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_top_bar"
             android:layout_width="match_parent"
             android:layout_height="36dp"
@@ -59,7 +59,7 @@
                 app:layout_constraintStart_toEndOf="@+id/chronometer"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Válaszd ki a helyes választ!" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
             android:id="@+id/fragment_container"

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="observableText"
-            type="android.databinding.ObservableField&lt;String&gt;" />
+            type="androidx.databinding.ObservableField&lt;String&gt;" />
     </data>
 
     <TextView

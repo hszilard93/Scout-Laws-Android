@@ -3,7 +3,7 @@ package com.b4kancs.scoutlaws;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 import android.util.Log;
 
 import static com.b4kancs.scoutlaws.LocaleUtilsKt.refreshLocale;

@@ -1,9 +1,9 @@
 package com.b4kancs.scoutlaws.views.quiz;
 
-import android.arch.lifecycle.ViewModel;
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableInt;
-import android.databinding.ObservableLong;
+import androidx.lifecycle.ViewModel;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableInt;
+import androidx.databinding.ObservableLong;
 import android.os.SystemClock;
 import android.util.Log;
 

@@ -2,8 +2,8 @@ package com.b4kancs.scoutlaws.views.settings
 
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceFragmentCompat
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.services.NotificationScheduler
@@ -54,7 +54,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
         if (preference is TimePreference) {
             val dialogFragment = TimePreferenceDialogFragmentCompat.newInstance(preference.key)
             dialogFragment.setTargetFragment(this, 0)
-            dialogFragment.show(this.fragmentManager, "android.support.v7.preference.PreferenceFragment.DIALOG")
+            dialogFragment.show(fragmentManager!!, "android.support.v7.preference.PreferenceFragment.DIALOG")
         } else {
             super.onDisplayPreferenceDialog(preference)
         }

@@ -2,13 +2,13 @@
 
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +21,7 @@ import com.b4kancs.scoutlaws.views.utils.vibrate
 /**
  * Created by hszilard on 01-Sep-18.
  */
-class SorterFragment : Fragment() {
+class SorterFragment : androidx.fragment.app.Fragment() {
 
     companion object {
         const val FRAGMENT_TAG = "SORTER_FRAGMENT"
@@ -61,8 +61,8 @@ class SorterFragment : Fragment() {
             touchHelper.attachToRecyclerView(this)
             optionsRecyclerAdapter.touchHelper = touchHelper
             adapter = optionsRecyclerAdapter
-            layoutManager = LinearLayoutManager(context)
-            itemAnimator = DefaultItemAnimator()
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+            itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         }
         binding.buttonCheck.setOnClickListener(onCheckButtonClicked)
         binding.buttonNext.setOnClickListener(onNextButtonClicked)

@@ -1,9 +1,9 @@
 package com.b4kancs.scoutlaws.views.quiz.picker;
 
-import android.arch.lifecycle.ViewModel;
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
+import androidx.lifecycle.ViewModel;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 import android.util.Log;
 
 import com.b4kancs.scoutlaws.data.model.PickerScoutLaw;

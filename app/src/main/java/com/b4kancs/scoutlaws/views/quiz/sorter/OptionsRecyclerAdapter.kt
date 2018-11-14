@@ -1,8 +1,8 @@
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.ViewHolder
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.ItemTouchHelper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -16,7 +16,7 @@ import com.b4kancs.scoutlaws.databinding.ViewHolderSorterItemBinding
  * Created by hszilard on 15-Oct-18.
  */
 class OptionsRecyclerAdapter(private val scoutLawSequence: ArrayList<ScoutLaw>)
-    : RecyclerView.Adapter<ViewHolder>(), DragHelperCallback.DragHandler {
+    : androidx.recyclerview.widget.RecyclerView.Adapter<ViewHolder>(), DragHelperCallback.DragHandler {
 
     companion object {
         const val FOOTER_VIEW = 1000
@@ -73,7 +73,7 @@ class OptionsRecyclerAdapter(private val scoutLawSequence: ArrayList<ScoutLaw>)
         return super.getItemViewType(position)
     }
 
-    inner class ItemViewHolder(val itemBinding: ViewHolderSorterItemBinding) : RecyclerView.ViewHolder(itemBinding.root)
+    inner class ItemViewHolder(val itemBinding: ViewHolderSorterItemBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemBinding.root)
 
     inner class FooterViewHolder(itemView: View) : ViewHolder(itemView)
 }
