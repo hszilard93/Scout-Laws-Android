@@ -4,10 +4,16 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import androidx.annotation.VisibleForTesting;
+import io.fabric.sdk.android.Fabric;
+
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+
+import static android.util.Log.*;
 import static com.b4kancs.scoutlaws.LocaleUtilsKt.refreshLocale;
 import static com.b4kancs.scoutlaws.LocaleUtilsKt.setNewLocale;
+import static com.crashlytics.android.Crashlytics.*;
 
 /**
  * Created by hszilard on 05-Apr-18.
@@ -23,8 +29,9 @@ public class ScoutLawApp extends Application {
     }
 
     public static ScoutLawApp getInstance() {
+        log(DEBUG, LOG_TAG, "getInstance()");
         if (instance == null)
-            Log.e(LOG_TAG, "!!!App instance is null!!!");
+            log(ERROR, LOG_TAG, "!!!App instance is null!!!");
 
         return instance;
     }
@@ -32,6 +39,8 @@ public class ScoutLawApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
+        log(INFO, LOG_TAG, "onCreate()");
         applicationComponent = DaggerApplicationComponent
                 .builder()
                 .applicationModule(new ApplicationModule(this))
@@ -46,6 +55,7 @@ public class ScoutLawApp extends Application {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        log(INFO, LOG_TAG, "Configuration changed.");
         super.onConfigurationChanged(newConfig);
         refreshLocale(this);
     }

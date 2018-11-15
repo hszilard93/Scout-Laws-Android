@@ -5,11 +5,14 @@ import androidx.core.app.NavUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.util.Log
+import android.util.Log.INFO
 import android.view.MenuItem
 import android.view.View
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.views.utils.areAnimationsEnabled
+import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.Crashlytics.log
 import kotlinx.android.synthetic.main.activity_settings.*
 
 
@@ -18,7 +21,12 @@ import kotlinx.android.synthetic.main.activity_settings.*
  */
 class PreferencesActivity : AppCompatActivity() {
 
+    private companion object {
+        val LOG_TAG = PreferencesActivity::class.simpleName
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        log(INFO, LOG_TAG, "onCreate()")
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_settings)
@@ -35,6 +43,7 @@ class PreferencesActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             android.R.id.home -> {
+                log(INFO, LOG_TAG, "Home clicked.")
                 navigateUp()
                 true
             }
@@ -50,7 +59,7 @@ class PreferencesActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        log(INFO, LOG_TAG, "Back pressed.")
         navigateUp()
     }
-
 }

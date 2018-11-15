@@ -1,15 +1,19 @@
 package com.b4kancs.scoutlaws.views.quiz.multiplechoice;
 
-import androidx.lifecycle.ViewModel;
-import androidx.databinding.ObservableField;
-import android.util.Log;
-
 import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import androidx.databinding.Observable;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.ViewModel;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.INFO;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 26-Feb-18.
@@ -32,11 +36,12 @@ public class MultipleChoiceViewModel extends ViewModel {
     MultipleChoiceViewModel(MultipleChoiceSharedViewModel shared) {
         this.shared = shared;
         scoutLaws = shared.getScoutLaws();
+        observableState.addOnPropertyChangedCallback(stateCallback);
         startTurn();
     }
 
     private void startTurn() {
-        Log.d(LOG_TAG, "New multiple choice turn started.");
+        log(INFO, LOG_TAG, "startTurn(); New multiple choice turn started.");
         shared.incTurnCount();
 
         int answerIndex = shared.nextLawIndex();
@@ -55,8 +60,9 @@ public class MultipleChoiceViewModel extends ViewModel {
     }
 
     boolean evaluateAnswer(ScoutLaw scoutLaw) {
+        log(DEBUG, LOG_TAG, "evaluateAnswer(..)");
         if (scoutLaw == answer) {
-            Log.d(LOG_TAG, "The answer is correct.");
+            log(DEBUG, LOG_TAG, "The answer is correct.");
             observableState.set(State.DONE);
             if (tries == 0)
                 shared.incScore();
@@ -64,7 +70,7 @@ public class MultipleChoiceViewModel extends ViewModel {
                 shared.finish();
             return true;
         } else {
-            Log.d(LOG_TAG, "The answer is incorrect.");
+            log(DEBUG, LOG_TAG, "The answer is incorrect.");
             tries += 1;
             if (tries == NUMBER_OF_OPTIONS - 1) {
                 observableState.set(State.DONE);
@@ -74,6 +80,13 @@ public class MultipleChoiceViewModel extends ViewModel {
             return false;
         }
     }
+
+    private Observable.OnPropertyChangedCallback stateCallback = new Observable.OnPropertyChangedCallback() {
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId) {
+            log(INFO, LOG_TAG, "observableStateChangedTo: " + observableState.get());
+        }
+    };
 
     public ObservableField<State> getObservableState() {
         return observableState;

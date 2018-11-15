@@ -1,15 +1,9 @@
 package com.b4kancs.scoutlaws.views.details;
 
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.transition.Fade;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,8 +12,17 @@ import android.view.View;
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityDetailsBinding;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.details.DetailsActivityViewModel.State;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 21-Feb-18.
@@ -33,11 +36,11 @@ public class DetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        log(DEBUG, LOG_TAG, "onCreate(..)");
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
-
 
         /* DetailsActivity can be assumed to be created only via intents. */
         int index = 0;
@@ -46,6 +49,7 @@ public class DetailsActivity extends AppCompatActivity {
         if (bundle != null) {
             index = bundle.getInt(SCOUT_LAW_NUMBER_KEY, 0);
         }
+        log(INFO, LOG_TAG, "Scout law index is: " + index);
         viewModel = ViewModelProviders.of(this, new DetailsActivityViewModelFactory(index))
                 .get(DetailsActivityViewModel.class);
 
@@ -63,6 +67,7 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void setUpViews() {
+        log(DEBUG, LOG_TAG, "setUpViews()");
         setSupportActionBar((Toolbar) binding.toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -72,6 +77,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        log(DEBUG, LOG_TAG, "onCreateOptionsMenu(..)");
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.details_options_menu, menu);
         return true;
@@ -79,17 +85,18 @@ public class DetailsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        log(DEBUG, LOG_TAG, "onOptionsItemSelected(..)");
         switch (item.getItemId()) {
             case android.R.id.home:
-                Log.d(LOG_TAG, "Back navigation button pressed.");
+                log(DEBUG, LOG_TAG, "Back navigation button pressed.");
                 onBackPressed();
                 return true;
             case R.id.contemporaryDesc_menuItem:
-                Log.d(LOG_TAG, "Contemporary MenuItem selected.");
+                log(DEBUG, LOG_TAG, "Contemporary MenuItem selected.");
                 viewModel.setState(State.MODERN);
                 return true;
             case R.id.originalDesc_menuItem:
-                Log.d(LOG_TAG, "Original MenuItem selected.");
+                log(DEBUG, LOG_TAG, "Original MenuItem selected.");
                 viewModel.setState(State.OLD);
                 return true;
             default:
@@ -99,6 +106,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        log(DEBUG, LOG_TAG, "onBackPressed(..)");
         super.onBackPressed();
         // This makes the shared element transition less cluttered
         if (areAnimationsEnabled(getApplicationContext())) {

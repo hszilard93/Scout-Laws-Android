@@ -2,12 +2,9 @@ package com.b4kancs.scoutlaws.views.quiz;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
-import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +12,19 @@ import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.DialogResultBinding;
+import com.crashlytics.android.Crashlytics;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.INFO;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 02-Mar-18.
@@ -39,6 +46,7 @@ public class ResultDialogFragment extends DialogFragment {
 
     @Override
     public void onStart() {
+        log(INFO, LOG_TAG, "onStart()");
         super.onStart();
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
@@ -47,6 +55,7 @@ public class ResultDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        log(DEBUG, LOG_TAG, "onCreateView(..)");
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_result, container, false);
         resources = getResources();
 
@@ -63,6 +72,7 @@ public class ResultDialogFragment extends DialogFragment {
     }
 
     private void setUpViews() {
+        log(DEBUG, LOG_TAG, "setUpViews()");
         setUpStars();
         setUpCongratsText();
         setUpTotalScoreText();
@@ -162,10 +172,12 @@ public class ResultDialogFragment extends DialogFragment {
     /* */
 
     public void setOnRetryClicked(View.OnClickListener onRetryClickedListener) {
+        log(INFO, LOG_TAG, "Retry button clicked.");
         this.onRetryClicked = onRetryClickedListener;
     }
 
     public void setOnBackClicked(View.OnClickListener onBackClicked) {
+        log(INFO, LOG_TAG, "Back button clicked.");
         this.onBackClicked = onBackClicked;
     }
 }

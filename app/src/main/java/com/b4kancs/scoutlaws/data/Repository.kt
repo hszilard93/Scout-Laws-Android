@@ -2,10 +2,12 @@ package com.b4kancs.scoutlaws.data
 
 import android.content.SharedPreferences
 import android.content.res.Resources
-import android.util.Log
+import android.util.Log.DEBUG
+import android.util.Log.INFO
 import com.b4kancs.scoutlaws.data.model.PickerScoutLaw
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
 import com.b4kancs.scoutlaws.data.store.UserDataStore
+import com.crashlytics.android.Crashlytics.log
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -33,18 +35,18 @@ class Repository
         private set
 
     init {
-        Log.d(LOG_TAG, "Constructing Repository instance.")
+        log(INFO, LOG_TAG, "init")
         loadScoutLaws()
     }
 
     private fun loadScoutLaws() {
         resources.apply {
-            Log.d(LOG_TAG, "Loading scout scoutLaws.")
+            log(INFO, LOG_TAG, "loadScoutlaws()")
             val packageName = "com.b4kancs.scoutlaws"
 
             // Check how many scout scoutLaws are there
             numberOfScoutLaws = getInteger(getIdentifier("number_of_laws", "integer", packageName))
-            Log.d(LOG_TAG, "The number of scout scoutLaws is $numberOfScoutLaws")
+            log(DEBUG, LOG_TAG, "The number of scout scoutLaws is $numberOfScoutLaws")
 
             scoutLaws = ArrayList(numberOfScoutLaws)
             pickerScoutLaws = ArrayList(numberOfScoutLaws)
@@ -76,10 +78,12 @@ class Repository
     }
 
     fun reloadScoutLaws() {
+        log(DEBUG, LOG_TAG, "reloadScoutLaws()")
         loadScoutLaws()
     }
 
     fun resetUserData() {
+        log(DEBUG, LOG_TAG, "resetUserData()")
         userDataStore.reset()
     }
 
@@ -96,26 +100,32 @@ class Repository
     fun getLastNotificationShownAt() = sharedPreferences.getLong(LAST_NOTIFICATION_TIME_KEY, 0)
 
     fun increaseTotalScoreBy(thisMuch: Int) {
+        log(DEBUG, LOG_TAG, "increaseTotalScoreBy($thisMuch)")
         userDataStore.totalScore += thisMuch
     }
 
     fun increaseTotalPossibleScoreBy(thisMuch: Int) {
+        log(DEBUG, LOG_TAG, "increaseTotalPossibleScoreBy($thisMuch)")
         userDataStore.totalPossibleScore += thisMuch
     }
 
     fun setBestMultipleTime(newTime: Long) {
+        log(DEBUG, LOG_TAG, "setBestMultipleTime($newTime)")
         userDataStore.bestMultipleTime = newTime
     }
 
     fun setBestPickerTime(newTime: Long) {
+        log(DEBUG, LOG_TAG, "setBestPickerTime($newTime)")
         userDataStore.bestPickerTime = newTime
     }
 
     fun setBestSorterTime(newTime: Long) {
+        log(DEBUG, LOG_TAG, "setBestSorterTime($newTime)")
         userDataStore.bestSorterTime = newTime
     }
 
     fun setLastNotificationShownAt(time: Long) {
+        log(DEBUG, LOG_TAG, "setLastNotificationShownAt($time)")
         sharedPreferences.edit().putLong(LAST_NOTIFICATION_TIME_KEY, time).apply()
     }
 }

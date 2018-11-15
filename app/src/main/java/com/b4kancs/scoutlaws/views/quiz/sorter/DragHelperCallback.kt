@@ -1,10 +1,10 @@
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
-import androidx.recyclerview.widget.RecyclerView
+import android.util.Log.DEBUG
 import androidx.recyclerview.widget.ItemTouchHelper
-import android.util.Log
 import com.b4kancs.scoutlaws.views.quiz.sorter.OptionsRecyclerAdapter.FooterViewHolder
 import com.b4kancs.scoutlaws.views.quiz.sorter.OptionsRecyclerAdapter.ItemViewHolder
+import com.crashlytics.android.Crashlytics.log
 
 /**
  * Created by hszilard on 24-Oct-18.
@@ -16,7 +16,7 @@ class DragHelperCallback(private val adapter: DragHandler) : ItemTouchHelper.Cal
     }
 
     override fun getMovementFlags(recycleView: androidx.recyclerview.widget.RecyclerView, viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder): Int {
-        Log.d(LOG_TAG, "getMovementFlags")
+        log(DEBUG, LOG_TAG, "getMovementFlags(..)")
         val dragFlags = when (viewHolder) {
             is ItemViewHolder -> ItemTouchHelper.UP or ItemTouchHelper.DOWN
             else -> 0
@@ -28,7 +28,7 @@ class DragHelperCallback(private val adapter: DragHandler) : ItemTouchHelper.Cal
                         viewHolder1: androidx.recyclerview.widget.RecyclerView.ViewHolder,
                         viewHolder2: androidx.recyclerview.widget.RecyclerView.ViewHolder)
             : Boolean {
-        Log.d(LOG_TAG, "onMove")
+        log(DEBUG, LOG_TAG, "onMove(..)")
         if (viewHolder1 !is FooterViewHolder && viewHolder2 !is FooterViewHolder)
             adapter.onViewMoved(viewHolder1.adapterPosition, viewHolder2.adapterPosition)
         return true
@@ -39,13 +39,13 @@ class DragHelperCallback(private val adapter: DragHandler) : ItemTouchHelper.Cal
     }
 
     override fun onSelectedChanged(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder?, actionState: Int) {
-        Log.d(LOG_TAG, "onSelectedChanged")
+        log(DEBUG, LOG_TAG, "onSelectedChanged(..)")
         // Triggers the lift animation
         viewHolder?.itemView?.isPressed = true
     }
 
     override fun clearView(recyclerView: androidx.recyclerview.widget.RecyclerView, viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder) {
-        Log.d(LOG_TAG, "clearView")
+        log(DEBUG, LOG_TAG, "clearView(..)")
         // Cancels the lift animation when dropped
         viewHolder.itemView.isPressed = false
     }

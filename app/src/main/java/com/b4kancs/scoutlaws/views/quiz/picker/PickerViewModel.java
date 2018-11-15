@@ -1,9 +1,5 @@
 package com.b4kancs.scoutlaws.views.quiz.picker;
 
-import androidx.lifecycle.ViewModel;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableField;
 import android.util.Log;
 
 import com.b4kancs.scoutlaws.data.model.PickerScoutLaw;
@@ -15,6 +11,17 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.TreeMap;
 
+import androidx.databinding.Observable;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.ViewModel;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.ERROR;
+import static android.util.Log.INFO;
+import static com.crashlytics.android.Crashlytics.log;
+
 /**
  * Created by hszilard on 08-Mar-18.
  * This ViewModel contains all logic for a picker quiz turn.
@@ -24,6 +31,7 @@ public class PickerViewModel extends ViewModel {
     private static final String LOG_TAG = PickerViewModel.class.getSimpleName();
 
     public enum State {IN_PROGRESS, CHECKABLE, DONE}
+
     // These fields must be public for databound layouts to access them
     public final ObservableField<State> observableState = new ObservableField<>(State.IN_PROGRESS);
     public final ObservableBoolean helpUsedUp = new ObservableBoolean(false);
@@ -44,7 +52,7 @@ public class PickerViewModel extends ViewModel {
     }
 
     private void startTurn() {
-        Log.d(LOG_TAG, "Starting turn.");
+        log(INFO, LOG_TAG, "startTurn(); New picker turn started.");
 
         shared.incTurnCount();
         scoutLaw = shared.getPickerScoutLaws().get(shared.nextLawIndex());
@@ -52,12 +60,14 @@ public class PickerViewModel extends ViewModel {
         parseQuestion(scoutLaw.getPickerText());
         options.addAll(correctAnswers);
 
+        observableState.addOnPropertyChangedCallback(stateCallback);
+
         Collections.shuffle(options);
     }
 
     /* Process the question with format "Something something #interesting something". */
     private void parseQuestion(String questionText) {
-        Log.d(LOG_TAG, "Parsing question.");
+        log(DEBUG, LOG_TAG, "parseQuestion(questionText = " + questionText + ")");
 
         questionItems = new ArrayList<>(Arrays.asList(questionText.split(" ")));
         for (int i = 0; i < questionItems.size(); i++) {
@@ -71,7 +81,7 @@ public class PickerViewModel extends ViewModel {
     }
 
     void addUserAnswer(int i, String newAnswer) {
-        Log.d(LOG_TAG, "Adding answer.");
+        log(DEBUG, LOG_TAG, "addUserAnswer(i = " + i + ", newAnswer = " + newAnswer + ")");
 
         options.remove(newAnswer);
         if (userAnswers.get(i) == null)
@@ -92,12 +102,14 @@ public class PickerViewModel extends ViewModel {
     }
 
     void addOption(String item) {
+        log(DEBUG, LOG_TAG, "addOption(item = " + item + ")");
         if (!options.contains(item))
             options.add(item);
     }
 
     /* Eliminate some options */
     void help() {
+        log(DEBUG, LOG_TAG, "help()");
         int numberToEliminate = Math.min(options.size() / 3, 3);
 
         Random random = new Random();
@@ -115,7 +127,7 @@ public class PickerViewModel extends ViewModel {
 
     /* Clear the item from userAnswers and add it back to options */
     void clear() {
-        Log.d(LOG_TAG, "Clearing answers.");
+        log(DEBUG, LOG_TAG, "clear()");
 
         for (ObservableField<String> item : userAnswers.values())
             if (item.get() != null) {
@@ -127,17 +139,16 @@ public class PickerViewModel extends ViewModel {
 
     /* If the answers are all correct, change state. Else remove wrong answers and add them back to options. */
     boolean evaluateUserAnswers() {
-        Log.d(LOG_TAG, "Checking answers.");
+        log(DEBUG, LOG_TAG, "evaluateUserAnswers()");
 
         boolean correct = true;
 
         if (userAnswers.size() != correctAnswers.size()) {
             // Something went wrong!
-            Log.e(LOG_TAG, "Incorrect state: userAnswers size is " + userAnswers.size()
+            log(ERROR, LOG_TAG, "Incorrect state: userAnswers size is " + userAnswers.size()
                     + " but correctAnswers size is " + correctAnswers.size());
             correct = false;
-        }
-        else {
+        } else {
             Iterator<ObservableField<String>> userAnswersIterator = userAnswers.values().iterator();
             for (String correctAnswer : correctAnswers) {
                 ObservableField<String> userAnswer = userAnswersIterator.next();
@@ -149,18 +160,20 @@ public class PickerViewModel extends ViewModel {
             }
         }
 
-        if (!correct)
+        if (!correct) {
+            log(DEBUG, LOG_TAG, "Answer was incorrect.");
             firstTry = false;
+        }
 
         if (firstTry)
             shared.incScore();
 
         if (correct) {
+            log(DEBUG, LOG_TAG, "Answer was correct.");
             observableState.set(State.DONE);
             if (shared.isThisTheLastTurn())
                 shared.finish();
-        }
-        else
+        } else
             observableState.set(State.IN_PROGRESS);
 
         return correct;
@@ -168,12 +181,20 @@ public class PickerViewModel extends ViewModel {
 
     /* Fill in the correct answers */
     void giveUp() {
+        log(DEBUG, LOG_TAG, "giveUp()");
         Iterator<ObservableField<String>> userAnswersIterator = userAnswers.values().iterator();
         for (String correctAnswer : correctAnswers)
             userAnswersIterator.next().set(correctAnswer);
 
         observableState.set(State.DONE);
     }
+
+    private Observable.OnPropertyChangedCallback stateCallback = new Observable.OnPropertyChangedCallback() {
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId) {
+            log(INFO, LOG_TAG, "observableStateChangedTo: " + observableState.get());
+        }
+    };
 
     public PickerScoutLaw getScoutLaw() {
         return scoutLaw;

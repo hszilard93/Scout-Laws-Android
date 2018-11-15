@@ -3,10 +3,6 @@ package com.b4kancs.scoutlaws.views.start;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +15,18 @@ import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 import com.b4kancs.scoutlaws.databinding.ListItemLawBinding;
 import com.b4kancs.scoutlaws.views.details.DetailsActivity;
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
+import static com.crashlytics.android.Crashlytics.*;
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -35,6 +39,7 @@ class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements AdapterView.
 
     ScoutLawListAdapter(@NonNull ArrayList<ScoutLaw> scoutLaws, Activity activity) {
         super(activity, R.layout.list_item_law, scoutLaws);
+        log(DEBUG, LOG_TAG, "constructor");
         this.scoutLaws = scoutLaws;
         this.activity = activity;
     }
@@ -52,7 +57,7 @@ class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d(LOG_TAG, "List item clicked.");
+        log(INFO, LOG_TAG, "onItemClick(..); List item clicked.");
 
         Intent intent = new Intent(activity, DetailsActivity.class);
         intent.putExtra(DetailsActivity.SCOUT_LAW_NUMBER_KEY, position);

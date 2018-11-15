@@ -22,7 +22,6 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
     private final static String USER_SHARED_PREFERENCES_KEY = "com.b4kancs.scoutlaws.user_shared_preferences";
-    private final static String APP_SHARED_PREFERENCES_KEY = "com.b4kancs.scoutlaws.app_shared_preferences";
 
     private final Application application;
 

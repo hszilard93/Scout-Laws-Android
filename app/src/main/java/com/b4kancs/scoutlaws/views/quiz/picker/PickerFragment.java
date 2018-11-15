@@ -1,13 +1,7 @@
 package com.b4kancs.scoutlaws.views.quiz.picker;
 
 import android.animation.LayoutTransition;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +14,21 @@ import com.b4kancs.scoutlaws.databinding.TextViewPickerFillBinding;
 import com.b4kancs.scoutlaws.databinding.TextViewPickerWordBinding;
 import com.nex3z.flowlayout.FlowLayout;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showCorrectFeedback;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showIncorrectFeedback;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 3-March-18.
@@ -44,6 +47,7 @@ public class PickerFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        log(DEBUG, LOG_TAG, "onCreateView(..)");
         this.container = container;
 
         sharedViewModel = ViewModelProviders.of(getActivity()).get(PickerSharedViewModel.class);
@@ -61,6 +65,7 @@ public class PickerFragment extends Fragment {
     }
 
     private void setUpViews() {
+        log(DEBUG, LOG_TAG, "setUpViews()");
         setUpQuestionFlow();
 
         binding.included.buttonHelp.setOnClickListener(helpButtonOnClickListener);
@@ -80,6 +85,7 @@ public class PickerFragment extends Fragment {
 
     /* I tried moving the entire questionFlow-setup into a @BindingAdapter, but experienced a big performance hit */
     private void setUpQuestionFlow() {
+        log(DEBUG, LOG_TAG, "setUpQuestionFlow()");
         for (int i = 0; i < viewModel.getQuestionItems().size(); i++) {
             String item = viewModel.getQuestionItems().get(i);
             /* Check if it should be a word or a placeholder */
@@ -105,33 +111,35 @@ public class PickerFragment extends Fragment {
 
         switch (event.getAction()) {
             case DragEvent.ACTION_DROP:
-                Log.d(LOG_TAG, "DragEvent.ACTION_DROP");
+                log(INFO, LOG_TAG, "DragEvent.ACTION_DROP");
                 int i = questionFlow.indexOfChild(view);
                 viewModel.addUserAnswer(i, subject.getText().toString());
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
-                Log.d(LOG_TAG, "DragEvent.ACTION_DROP_ENDED");
+                log(INFO, LOG_TAG, "DragEvent.ACTION_DROP_ENDED");
                 /* If the drag failed, restore the dragged view */
-                if (!event.getResult())
+                if (!event.getResult()) {
                     viewModel.addOption(subject.getText().toString());
+                    log(INFO, LOG_TAG, "Drag failed.");
+                }
                 break;
         }
         return true;
     };
 
     private View.OnClickListener helpButtonOnClickListener = view -> {
-        Log.d(LOG_TAG, "Help button clicked.");
+        log(INFO, LOG_TAG, "Help button clicked.");
         viewModel.help();
         vibrate(getContext(), 300);
     };
 
     private View.OnClickListener giveUpButtonListener = view -> {
-        Log.d(LOG_TAG, "Give up button clicked.");
+        log(INFO, LOG_TAG, "Give up button clicked.");
         viewModel.giveUp();
     };
 
     private View.OnClickListener checkButtonOnClickListener = view -> {
-        Log.d(LOG_TAG, "Check button clicked.");
+        log(INFO, LOG_TAG, "Check button clicked.");
         boolean result = viewModel.evaluateUserAnswers();
 
         if (result) {
@@ -143,17 +151,17 @@ public class PickerFragment extends Fragment {
     };
 
     private View.OnClickListener clearButtonOnClickListener = view -> {
-        Log.d(LOG_TAG, "Clear button clicked.");
+        log(INFO, LOG_TAG, "Clear button clicked.");
         viewModel.clear();
     };
 
     private View.OnClickListener nextButtonOnClickListener = view -> {
-        Log.d(LOG_TAG, "Forward button clicked.");
+        log(INFO, LOG_TAG, "Next button clicked.");
         transitionToNextQuestion();
     };
 
     private View.OnClickListener finishButtonOnClickListener = view -> {
-        Log.d(LOG_TAG, "Forward button clicked.");
+        log(INFO, LOG_TAG, "Finish button clicked.");
         // Show the results
         showResultDialogFragment(container, getActivity(), getFragmentManager(), new PickerFragment(), sharedViewModel);
     };
@@ -167,6 +175,7 @@ public class PickerFragment extends Fragment {
     }
 
     private void transitionToNextQuestion() {
+        log(DEBUG, LOG_TAG, "transitionToNextQuestion()");
         binding.unbind();
         FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new PickerFragment());
         transaction.commit();

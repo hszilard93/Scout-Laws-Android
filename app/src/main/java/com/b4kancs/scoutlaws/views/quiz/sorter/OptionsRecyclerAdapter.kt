@@ -1,16 +1,17 @@
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import androidx.recyclerview.widget.ItemTouchHelper
-import android.util.Log
+import android.util.Log.DEBUG
+import android.util.Log.INFO
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
 import com.b4kancs.scoutlaws.databinding.ViewHolderSorterItemBinding
+import com.crashlytics.android.Crashlytics.log
 
 /**
  * Created by hszilard on 15-Oct-18.
@@ -26,7 +27,7 @@ class OptionsRecyclerAdapter(private val scoutLawSequence: ArrayList<ScoutLaw>)
     lateinit var touchHelper: ItemTouchHelper
 
     override fun onCreateViewHolder(parent: ViewGroup, viewTypeAndPosition: Int): ViewHolder {
-        Log.d(LOG_TAG, "onCreateViewHolder viewTypeAndPosition: $viewTypeAndPosition")
+        log(DEBUG, LOG_TAG, "onCreateViewHolder(.., viewTypeAndPosition = $viewTypeAndPosition)")
         val layoutInflater = LayoutInflater.from(parent.context)
 
         if (viewTypeAndPosition == FOOTER_VIEW) {
@@ -39,8 +40,10 @@ class OptionsRecyclerAdapter(private val scoutLawSequence: ArrayList<ScoutLaw>)
             binding.scoutLaw = scoutLawSequence[viewTypeAndPosition]
             return ItemViewHolder(binding).also {
                 it.itemView.setOnTouchListener { _, e ->
-                    if (e.action == MotionEvent.ACTION_DOWN)
+                    if (e.action == MotionEvent.ACTION_DOWN) {
+                        log(INFO, LOG_TAG, "Item dragged: ${scoutLawSequence[viewTypeAndPosition]}")
                         touchHelper.startDrag(it)
+                    }
                     true
                 }
             }
@@ -48,14 +51,14 @@ class OptionsRecyclerAdapter(private val scoutLawSequence: ArrayList<ScoutLaw>)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        Log.d(LOG_TAG, "onBindViewHolder position: $position")
+        log(DEBUG, LOG_TAG, "onBindViewHolder(.., position = $position)")
         if (viewHolder is ItemViewHolder) {
             viewHolder.itemBinding.scoutLaw = scoutLawSequence[position]
         }
     }
 
     override fun onViewMoved(oldPosition: Int, newPosition: Int) {
-        Log.d(LOG_TAG, "onViewMoved oldPosition: $oldPosition newPosition: $newPosition")
+        log(DEBUG, LOG_TAG, "onViewMoved(oldPosition = $oldPosition, newPosition = $newPosition)")
         val law = scoutLawSequence[oldPosition]
         scoutLawSequence.removeAt(oldPosition)
         scoutLawSequence.add(newPosition, law)
@@ -67,7 +70,7 @@ class OptionsRecyclerAdapter(private val scoutLawSequence: ArrayList<ScoutLaw>)
     }
 
     override fun getItemViewType(position: Int): Int {
-        Log.d(LOG_TAG, "getItemViewType position: $position")
+        log(DEBUG, LOG_TAG, "getItemViewType(position = $position)")
         if (position == scoutLawSequence.size)  // Last item is footer
             return FOOTER_VIEW
         return super.getItemViewType(position)

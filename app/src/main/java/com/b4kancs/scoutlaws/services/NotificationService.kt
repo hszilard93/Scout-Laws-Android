@@ -4,8 +4,11 @@ import android.app.job.JobParameters
 import android.app.job.JobService
 import android.preference.PreferenceManager
 import android.util.Log
+import android.util.Log.DEBUG
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.data.Repository
+import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.Crashlytics.log
 import java.util.*
 import javax.inject.Inject
 
@@ -22,7 +25,7 @@ class NotificationService: JobService() {
     }
 
     override fun onStartJob(params: JobParameters?): Boolean {
-        Log.d(LOG_TAG, "onStartJob")
+        log(DEBUG, LOG_TAG, "onStartJob(..)")
 
         showQuizPromptNotification(applicationContext)
         repository.setLastNotificationShownAt(Calendar.getInstance().timeInMillis)
@@ -34,7 +37,7 @@ class NotificationService: JobService() {
     }
 
     override fun onStopJob(params: JobParameters?): Boolean {
-        Log.d(LOG_TAG, "onStopJob")
+        log(DEBUG, LOG_TAG, "onStopJob(..)")
         return false
     }
 }

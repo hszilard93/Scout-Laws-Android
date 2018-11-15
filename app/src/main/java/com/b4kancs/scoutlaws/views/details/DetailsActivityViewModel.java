@@ -1,14 +1,17 @@
 package com.b4kancs.scoutlaws.views.details;
 
-import androidx.lifecycle.ViewModel;
-import androidx.databinding.ObservableField;
-import android.util.Log;
-
 import com.b4kancs.scoutlaws.ScoutLawApp;
 import com.b4kancs.scoutlaws.data.Repository;
 import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 
 import javax.inject.Inject;
+
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.ViewModel;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.INFO;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 21-Feb-18.
@@ -31,7 +34,7 @@ public class DetailsActivityViewModel extends ViewModel {
     }
 
     private void init() {
-        Log.d(LOG_TAG, "Initiating.");
+        log(DEBUG, LOG_TAG, "init()");
         ScoutLawApp.getInstance().getApplicationComponent().inject(this);
         this.scoutLaw = repository.getScoutLaws().get(index - 1);
         observableState.set(State.MODERN);
@@ -46,7 +49,7 @@ public class DetailsActivityViewModel extends ViewModel {
     }
 
     public void setState(State state) {
-        Log.d(LOG_TAG, "Setting observableState to: " + state);
+        log(INFO, LOG_TAG, "setState(); news state: " + state);
         observableState.set(state);
     }
 }

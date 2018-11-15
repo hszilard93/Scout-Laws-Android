@@ -2,20 +2,23 @@ package com.b4kancs.scoutlaws.views.quiz.multiplechoice;
 
 import android.content.Context;
 import android.content.res.Resources;
-import androidx.databinding.BindingAdapter;
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.linearlistview.LinearListView;
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 import com.b4kancs.scoutlaws.databinding.ListItemOptionBinding;
+import com.linearlistview.LinearListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
+
+import static android.util.Log.INFO;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -48,10 +51,12 @@ public class OptionsListAdapter extends ArrayAdapter<ScoutLaw> {
     }
 
     LinearListView.OnItemClickListener defaultItemClickListener = (parent, view, position, id) -> {
-        Log.d(LOG_TAG, "List item clicked.");
+        log(INFO, LOG_TAG, "List item clicked.");
         callback.onOptionSelected(this, view, viewModel.getOptions().get(position));
     };
-    LinearListView.OnItemClickListener disabledItemClickListener = (parent, view, position, id) -> {};
+
+    LinearListView.OnItemClickListener disabledItemClickListener = (parent, view, position, id) -> {
+    };
 
     interface OptionSelectedCallback {
         void onOptionSelected(OptionsListAdapter adapter, View view, ScoutLaw scoutLaw);

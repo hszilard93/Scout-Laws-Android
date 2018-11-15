@@ -1,15 +1,15 @@
 package com.b4kancs.scoutlaws.views.quiz
 
-import androidx.lifecycle.ViewModelProviders
-import androidx.databinding.BindingAdapter
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.util.Log
+import android.util.Log.DEBUG
+import android.util.Log.INFO
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Chronometer
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.databinding.FragmentQuizShellBinding
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment
@@ -18,6 +18,7 @@ import com.b4kancs.scoutlaws.views.quiz.picker.PickerFragment
 import com.b4kancs.scoutlaws.views.quiz.picker.PickerSharedViewModel
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterSharedViewModel
+import com.crashlytics.android.Crashlytics.log
 
 /**
  * Created by hszilard on 20-May-18.
@@ -33,7 +34,7 @@ class QuizShellFragment : androidx.fragment.app.Fragment() {
     private lateinit var fragmentTag: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d(LOG_TAG, "onCreateView")
+        log(INFO, LOG_TAG, "onCreateView(..)")
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_quiz_shell, container, false)
 
         if (savedInstanceState != null)
@@ -47,8 +48,9 @@ class QuizShellFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun restoreNestedFragments(savedInstanceState: Bundle) {
+        log(DEBUG, LOG_TAG, "restoreNestedFragments(..)")
         fragmentTag = savedInstanceState.getString("TAG")!!
-        Log.d(LOG_TAG, "Restoring fragment $fragmentTag.")
+        log(DEBUG, LOG_TAG, "Restoring fragment $fragmentTag.")
         sharedViewModel = when (fragmentTag) {
             MultipleChoiceFragment.FRAGMENT_TAG ->
                 ViewModelProviders.of(activity!!).get(MultipleChoiceSharedViewModel::class.java)
@@ -62,8 +64,9 @@ class QuizShellFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun createNewNestedFragments() {
+        log(DEBUG, LOG_TAG, "createNestedFragments()")
         fragmentTag = arguments!!.getString("TAG")!!
-        Log.d(LOG_TAG, "Creating fragment $fragmentTag.")
+        log(DEBUG, LOG_TAG, "Creating fragment $fragmentTag.")
         val fragment: androidx.fragment.app.Fragment
         when (fragmentTag) {
             MultipleChoiceFragment.FRAGMENT_TAG -> {
@@ -88,6 +91,7 @@ class QuizShellFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun setUpViews() {
+        log(DEBUG, LOG_TAG, "setUpViews()")
         binding.sharedViewModel = sharedViewModel
         binding.apply {
             when (fragmentTag) {

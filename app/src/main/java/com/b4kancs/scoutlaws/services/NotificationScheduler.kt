@@ -6,9 +6,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.PersistableBundle
-import android.util.Log
+import android.util.Log.DEBUG
+import android.util.Log.INFO
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.data.Repository
+import com.crashlytics.android.Crashlytics.log
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -32,7 +34,7 @@ class NotificationScheduler
     }
 
     fun schedule(forced: Boolean): Long {
-        Log.d(LOG_TAG, "scheduleNotification called. forced = $forced")
+        log(INFO, LOG_TAG, "schedule(forced = $forced)")
 
         val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
 
@@ -43,11 +45,11 @@ class NotificationScheduler
                     /* If a notification would be shown within the hour, or it is in the past, reschedule it.
                      * (No need to prompt the user when he's just used/is using the app.) */
                     if (it.extras.getLong(KEY_NOTIFICATION_TIME) - Calendar.getInstance().timeInMillis <= 60 * 60 * 1000) {
-                        Log.d(LOG_TAG, "Rescheduling notification because it is too close in time.")
+                        log(DEBUG, LOG_TAG, "Rescheduling notification because it is too close in time.")
                     } else {
                         val relativeNotificationTimeInMinutes = (it.extras.getLong(KEY_NOTIFICATION_TIME)
                                 - Calendar.getInstance().timeInMillis) / 1000 / 60
-                        Log.d(LOG_TAG, "Notification is already scheduled for around " +
+                        log(DEBUG, LOG_TAG, "Notification is already scheduled for around " +
                                 "$relativeNotificationTimeInMinutes minutes from now.")
                         return -1
                     }
@@ -55,7 +57,7 @@ class NotificationScheduler
             }
         } else {
             // Cancel potentially existing jobs
-            Log.d(LOG_TAG, "Forced. Any existing notification will be cancelled.")
+            log(DEBUG, LOG_TAG, "Forced. Any existing notification will be cancelled.")
             jobScheduler.cancel(NOTIFICATION_JOB_ID)
         }
 
@@ -68,10 +70,10 @@ class NotificationScheduler
             jobInfoBuilder.setMinimumLatency(relativeNotificationTimeFromNow - 30 * 60 * 1000)
             jobInfoBuilder.setOverrideDeadline(relativeNotificationTimeFromNow + 30 * 60 * 1000)
 
-            Log.d(LOG_TAG, "Notification scheduled for around ${relativeNotificationTimeFromNow / 1000 / 60} minutes from now.")
+            log(DEBUG, LOG_TAG, "Notification scheduled for around ${relativeNotificationTimeFromNow / 1000 / 60} minutes from now.")
         } else {
             // In this case, no notification should be shown
-            Log.d(LOG_TAG, "No notification scheduled.")
+            log(DEBUG, LOG_TAG, "No notification scheduled.")
             return -1
         }
 

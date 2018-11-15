@@ -1,14 +1,13 @@
 package com.b4kancs.scoutlaws.views
 
 import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
+import android.util.Log.DEBUG
+import android.util.Log.INFO
 import androidx.appcompat.app.AlertDialog
-import android.util.Log
+import com.crashlytics.android.Crashlytics.log
 
 /**
  * Created by hszilard on 12-Nov-18.
@@ -25,6 +24,7 @@ abstract class AbstractCustomDialogFragment : androidx.fragment.app.DialogFragme
     /** Override this method in descendants to set up the properties you want
      *  then you can call this implementation. Avoids state errors. */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        log(DEBUG, this::class.simpleName, "onCreateDialog(..)")
         isCancelable = cancelable ?: true
         val builder = AlertDialog.Builder(activity!!)
         builder.setIcon(icon)
@@ -37,7 +37,7 @@ abstract class AbstractCustomDialogFragment : androidx.fragment.app.DialogFragme
     }
 
     fun show(manager: androidx.fragment.app.FragmentManager) {
-        Log.d(this::class.simpleName, "Showing dialog")
+        log(INFO, this::class.simpleName, "show(..); Showing dialog.")
         val transaction = manager.beginTransaction()
         transaction.add(this, tag)
         transaction.commitAllowingStateLoss()

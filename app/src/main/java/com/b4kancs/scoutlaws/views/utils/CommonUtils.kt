@@ -3,7 +3,8 @@ package com.b4kancs.scoutlaws.views.utils
 import android.content.Context
 import android.os.Vibrator
 import android.preference.PreferenceManager
-import android.util.Log
+import android.util.Log.DEBUG
+import com.crashlytics.android.Crashlytics.log
 
 /**
  * Created by hszilard on 14-Apr-18.
@@ -11,7 +12,7 @@ import android.util.Log
 private const val LOG_TAG = "CommonUtils"
 
 fun vibrate(context: Context, duration: Long) {
-    Log.d(LOG_TAG, "Attempting to vibrate.")
+    log(DEBUG, LOG_TAG, "Attempting to vibrate.")
 
     if (isVibrationEnabled(context)) {
         val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator?

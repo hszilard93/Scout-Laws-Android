@@ -1,9 +1,12 @@
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
-import androidx.lifecycle.ViewModel
+import android.util.Log.DEBUG
+import android.util.Log.INFO
+import androidx.databinding.Observable
 import androidx.databinding.ObservableField
-import android.util.Log
+import androidx.lifecycle.ViewModel
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
+import com.crashlytics.android.Crashlytics.log
 
 /**
  * Created by hszilard on 01-Sep-18.
@@ -21,11 +24,17 @@ class SorterViewModel(private val shared: SorterSharedViewModel) : ViewModel() {
     private var tries = 0
 
     init {
+        log(DEBUG, LOG_TAG, "init {}")
+        observableState.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable, propertyId: Int) {
+                log(INFO, LOG_TAG, "observableStateChangedTo: " + observableState.get())
+            }
+        })
         startTurn()
     }
 
     private fun startTurn() {
-        Log.i(LOG_TAG, "New sorter turn started.")
+        log(INFO, LOG_TAG, "startTurn(); New sorter turn started.")
         shared.incTurnCount()
         // Get an index that will be the start of a sequence of 3 consecutive scout scoutLaws (e.g. *7*,8,9)
         val startIndex = shared.nextLawIndex()
@@ -35,9 +44,9 @@ class SorterViewModel(private val shared: SorterSharedViewModel) : ViewModel() {
     }
 
     fun evaluate(): Boolean {
-        Log.d(LOG_TAG, "evaluate")
+        log(DEBUG, LOG_TAG, "evaluate()")
         return if (sequence.inOrder()) {
-            Log.i(LOG_TAG, "The order is correct.")
+            log(INFO, LOG_TAG, "The order is correct.")
             observableState.set(State.DONE)
             if (tries == 0)
                 shared.incScore()
@@ -45,7 +54,7 @@ class SorterViewModel(private val shared: SorterSharedViewModel) : ViewModel() {
                 shared.finish()
             true
         } else {
-            Log.i(LOG_TAG, "The order is incorrect.")
+            log(INFO, LOG_TAG, "The order is incorrect.")
             tries++
             false
         }
