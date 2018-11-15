@@ -4,13 +4,10 @@ import com.b4kancs.scoutlaws.data.Repository;
 import com.b4kancs.scoutlaws.services.NotificationService;
 import com.b4kancs.scoutlaws.views.details.DetailsActivityViewModel;
 import com.b4kancs.scoutlaws.views.quiz.AbstractSharedViewModel;
-import com.b4kancs.scoutlaws.views.settings.PreferencesActivity;
 import com.b4kancs.scoutlaws.views.settings.PreferencesFragment;
 import com.b4kancs.scoutlaws.views.settings.ResetInfoDialogFragment;
 import com.b4kancs.scoutlaws.views.start.AboutDialogFragment;
 import com.b4kancs.scoutlaws.views.start.StartActivityViewModel;
-
-import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Singleton;
 

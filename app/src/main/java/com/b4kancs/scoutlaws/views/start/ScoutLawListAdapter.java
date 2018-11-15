@@ -15,7 +15,6 @@ import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 import com.b4kancs.scoutlaws.databinding.ListItemLawBinding;
 import com.b4kancs.scoutlaws.views.details.DetailsActivity;
-import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 

@@ -1,17 +1,13 @@
 package com.b4kancs.scoutlaws.views.settings
 
 import android.os.Bundle
-import androidx.core.app.NavUtils
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import android.util.Log
 import android.util.Log.INFO
 import android.view.MenuItem
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.app.NavUtils
 import com.b4kancs.scoutlaws.R
-import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.views.utils.areAnimationsEnabled
-import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.Crashlytics.log
 import kotlinx.android.synthetic.main.activity_settings.*
 

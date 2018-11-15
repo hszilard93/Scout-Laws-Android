@@ -11,6 +11,8 @@ import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.data.Repository
 import com.b4kancs.scoutlaws.databinding.LayoutAboutDialogBinding
+import com.b4kancs.scoutlaws.services.NotificationService
+import com.b4kancs.scoutlaws.services.showQuizPromptNotification
 import com.b4kancs.scoutlaws.setNewLocale
 import com.crashlytics.android.Crashlytics.log
 import javax.inject.Inject
@@ -47,6 +49,10 @@ class AboutDialogFragment : androidx.fragment.app.DialogFragment() {
                 repository.reloadScoutLaws()
                 activity?.recreate()
             }
+        }
+        // TODO: Away
+        binding.iconAbout.setOnClickListener {
+            showQuizPromptNotification(context!!)
         }
 
         return binding.root

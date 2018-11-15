@@ -6,10 +6,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
-import com.b4kancs.scoutlaws.data.Repository;
 import com.b4kancs.scoutlaws.data.store.SharedPreferencesUserDataStore;
 import com.b4kancs.scoutlaws.data.store.UserDataStore;
-import com.b4kancs.scoutlaws.services.NotificationScheduler;
 
 import javax.inject.Named;
 

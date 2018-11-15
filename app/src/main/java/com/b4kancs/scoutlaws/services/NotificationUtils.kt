@@ -51,7 +51,7 @@ private fun makeQuizIntent(context: Context): PendingIntent {
 
     var type = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_notification_quiz_type", "0")
     if (type == "0")
-        type = (Random().nextInt() % 3 + 1).toString()
+        type = (Random().nextInt(3) + 1).toString()
     when (type) {
         "1" -> quizIntent.putExtra(QuizActivity.QUIZ_FRAGMENT_EXTRA, MultipleChoiceFragment.FRAGMENT_TAG)
         "2" -> quizIntent.putExtra(QuizActivity.QUIZ_FRAGMENT_EXTRA, PickerFragment.FRAGMENT_TAG)

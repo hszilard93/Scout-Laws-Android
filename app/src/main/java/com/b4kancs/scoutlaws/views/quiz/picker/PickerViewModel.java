@@ -1,7 +1,5 @@
 package com.b4kancs.scoutlaws.views.quiz.picker;
 
-import android.util.Log;
-
 import com.b4kancs.scoutlaws.data.model.PickerScoutLaw;
 
 import java.util.ArrayList;

@@ -3,14 +3,12 @@ package com.b4kancs.scoutlaws.views.settings
 import android.app.Dialog
 import android.content.DialogInterface.OnClickListener
 import android.os.Bundle
-import android.util.Log
 import android.util.Log.DEBUG
 import android.util.Log.INFO
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.data.Repository
 import com.b4kancs.scoutlaws.views.AbstractCustomDialogFragment
-import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.Crashlytics.log
 import javax.inject.Inject
 

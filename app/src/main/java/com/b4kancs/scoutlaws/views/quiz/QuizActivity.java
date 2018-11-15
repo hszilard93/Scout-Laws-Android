@@ -2,7 +2,6 @@ package com.b4kancs.scoutlaws.views.quiz;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.b4kancs.scoutlaws.R;
@@ -11,7 +10,6 @@ import com.b4kancs.scoutlaws.views.quiz.chooser.ChooserFragment;
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment;
 import com.b4kancs.scoutlaws.views.quiz.picker.PickerFragment;
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment;
-import com.crashlytics.android.Crashlytics;
 
 import java.util.List;
 

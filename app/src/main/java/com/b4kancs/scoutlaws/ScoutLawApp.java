@@ -6,8 +6,6 @@ import android.content.res.Configuration;
 import androidx.annotation.VisibleForTesting;
 import io.fabric.sdk.android.Fabric;
 
-import android.util.Log;
-
 import com.crashlytics.android.Crashlytics;
 
 import static android.util.Log.*;

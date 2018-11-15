@@ -2,14 +2,12 @@ package com.b4kancs.scoutlaws.views.settings
 
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.util.Log.INFO
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.services.NotificationScheduler
-import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.Crashlytics.log
 import javax.inject.Inject
 
