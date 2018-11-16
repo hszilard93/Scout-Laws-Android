@@ -50,16 +50,12 @@ class AboutDialogFragment : androidx.fragment.app.DialogFragment() {
                 activity?.recreate()
             }
         }
-        // TODO: Away
-        binding.iconAbout.setOnClickListener {
-            showQuizPromptNotification(context!!)
-        }
 
         return binding.root
     }
 
     fun show(manager: androidx.fragment.app.FragmentManager) {
-        log(INFO, LOG_TAG, "Showing dialog")
+        log(INFO, LOG_TAG, "show(..); Showing dialog")
         val transaction = manager.beginTransaction()
         transaction.add(this, tag)
         transaction.commitAllowingStateLoss()

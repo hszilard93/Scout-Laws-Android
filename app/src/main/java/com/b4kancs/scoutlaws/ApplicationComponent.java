@@ -8,6 +8,7 @@ import com.b4kancs.scoutlaws.views.settings.PreferencesFragment;
 import com.b4kancs.scoutlaws.views.settings.ResetInfoDialogFragment;
 import com.b4kancs.scoutlaws.views.start.AboutDialogFragment;
 import com.b4kancs.scoutlaws.views.start.StartActivityViewModel;
+import com.b4kancs.scoutlaws.views.start.StatsDialogFragment;
 
 import javax.inject.Singleton;
 
@@ -27,4 +28,5 @@ public interface ApplicationComponent {
     void inject(PreferencesFragment preferencesFragment);
     void inject(ResetInfoDialogFragment resetInfoDialogFragment);
     void inject(AboutDialogFragment aboutDialogFragment);
+    void inject(StatsDialogFragment statsDialogFragment);
 }

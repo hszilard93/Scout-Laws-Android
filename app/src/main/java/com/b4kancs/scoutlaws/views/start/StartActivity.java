@@ -116,6 +116,11 @@ public class StartActivity extends AppCompatActivity {
             case R.id.menu_item_about:
                 log(INFO, LOG_TAG, "About menu item selected.");
                 new AboutDialogFragment().show(getSupportFragmentManager());
+                return true;
+            case R.id.menu_item_stats:
+                log(INFO, LOG_TAG, "Stats menu item selected.");
+                new StatsDialogFragment().show(getSupportFragmentManager());
+                return true;
             default:
                 return false;
         }

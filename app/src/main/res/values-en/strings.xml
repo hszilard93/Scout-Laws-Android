@@ -75,4 +75,7 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac posuere diam. Praesent fermentum ante eget facilisis congue. Phasellus consectetur augue odio, et consequat lectus tempor id. Etiam porta, magna nec gravida consectetur, massa velit eleifend erat, nec condimentum neque magna a ante. Etiam turpis ligula, tempus quis sem sit amet, rhoncus rhoncus ante. Aenean rutrum elit a nisi fermentum faucibus. Nulla et leo eu sem vestibulum rutrum id eget risus. Nam vel lacinia augue. Cras viverra mattis augue eu sollicitudin. Nunc dictum nulla sed convallis euismod. Vivamus vulputate euismod feugiat. Morbi mattis orci felis, vitae facilisis metus rhoncus eu. Vestibulum convallis sem non ante semper malesuada.</string>
     <string name="about_menu_item">About</string>
+    <string name="score">Score</string>
+    <string name="best_times">Best times</string>
+    <string name="stats_menu_item">Stats</string>
 </resources>

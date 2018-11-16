@@ -75,4 +75,7 @@
     <string name="pref_reset_stats_sum">Kvízek eredményeinek törlése</string>
     <string name="pref_reset_stats_dialog_title">Figyelem!</string>
     <string name="pref_reset_stats_dialog_text">Biztos, hogy nullázni akarod minden, kvízekkel kapcsolatos eredményed?</string>
+    <string name="score">Pontszám</string>
+    <string name="best_times">Legjobb idők</string>
+    <string name="stats_menu_item">Eredmények</string>
 </resources>
