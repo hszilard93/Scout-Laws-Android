@@ -1,5 +1,7 @@
 package com.b4kancs.scoutlaws.views.start
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log.DEBUG
 import android.util.Log.INFO
@@ -11,9 +13,7 @@ import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.data.Repository
 import com.b4kancs.scoutlaws.databinding.LayoutAboutDialogBinding
-import com.b4kancs.scoutlaws.services.NotificationService
-import com.b4kancs.scoutlaws.services.showQuizPromptNotification
-import com.b4kancs.scoutlaws.setNewLocale
+import com.b4kancs.scoutlaws.getBaseContextWithLocale
 import com.crashlytics.android.Crashlytics.log
 import javax.inject.Inject
 
@@ -45,7 +45,7 @@ class AboutDialogFragment : androidx.fragment.app.DialogFragment() {
             log(DEBUG, LOG_TAG, "Text field clicked $clickCounter times.")
             if (clickCounter == 5) {
                 log(INFO, LOG_TAG, "Changing locale to EN")
-                setNewLocale(context!!, "en")
+                getBaseContextWithLocale(context!!, "en")
                 repository.reloadScoutLaws()
                 activity?.recreate()
             }
@@ -56,6 +56,7 @@ class AboutDialogFragment : androidx.fragment.app.DialogFragment() {
 
     fun show(manager: androidx.fragment.app.FragmentManager) {
         log(INFO, LOG_TAG, "show(..); Showing dialog")
+
         val transaction = manager.beginTransaction()
         transaction.add(this, tag)
         transaction.commitAllowingStateLoss()

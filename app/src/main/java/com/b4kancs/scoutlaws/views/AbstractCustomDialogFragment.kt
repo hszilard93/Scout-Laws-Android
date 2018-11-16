@@ -24,7 +24,7 @@ abstract class AbstractCustomDialogFragment : androidx.fragment.app.DialogFragme
     /** Override this method in descendants to set up the properties you want
      *  then you can call this implementation. Avoids state errors. */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        log(DEBUG, this::class.simpleName, "onCreateDialog(..)")
+        log(DEBUG, AbstractCustomDialogFragment::class.simpleName, "onCreateDialog(..)")
         isCancelable = cancelable ?: true
         val builder = AlertDialog.Builder(activity!!)
         builder.setIcon(icon)
@@ -37,7 +37,7 @@ abstract class AbstractCustomDialogFragment : androidx.fragment.app.DialogFragme
     }
 
     fun show(manager: androidx.fragment.app.FragmentManager) {
-        log(INFO, this::class.simpleName, "show(..); Showing dialog.")
+        log(INFO, AbstractCustomDialogFragment::class.simpleName, "show(..); Showing dialog.")
         val transaction = manager.beginTransaction()
         transaction.add(this, tag)
         transaction.commitAllowingStateLoss()

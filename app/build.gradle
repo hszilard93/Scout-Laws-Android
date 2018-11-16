@@ -7,20 +7,36 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+            keyPassword 'ms015390'
+            storeFile file('F:/Workspace/Android/keystore/Cserkesz10.jks')
+            storePassword 'ms015390'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.b4kancs.scoutlaws"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 10
-        versionName "0.1.9"
+        versionCode 11
+        versionName "0.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            debuggable true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-debug.pro'
         }
     }
     dataBinding {
@@ -59,6 +75,7 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
     // This fixes bug that caused support-library version conflict
     implementation "androidx.legacy:legacy-support-v4:$legacy_support_v4_version"
 
@@ -69,20 +86,17 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
     implementation "com.nex3z:flow-layout:$flow_layout_version"
     implementation "com.github.frankiesardo:linearlistview:$linear_list_version"
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     // AndroidX Testing Library's runner and rules
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test:rules:$test_runner_version"
-
     testImplementation "androidx.arch.core:core-testing:$core_testing_version"
 
     // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
-
     kaptTest "com.google.dagger:dagger-compiler:$dagger2_version"
 
     // Mockito
@@ -91,8 +105,6 @@ dependencies {
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
 
     // Junit5
-    testImplementation junit5.unitTests()
-    androidTestImplementation junit5.instrumentationTests()
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$firebase_core_version"

@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityDetailsBinding;
+import com.b4kancs.scoutlaws.views.BaseActivity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,7 @@ import static com.crashlytics.android.Crashlytics.log;
 /**
  * Created by hszilard on 21-Feb-18.
  */
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends BaseActivity {
     public static final String SCOUT_LAW_NUMBER_KEY = "INDEX";
     private static final String LOG_TAG = DetailsActivity.class.getSimpleName();
 

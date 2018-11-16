@@ -9,8 +9,8 @@ import io.fabric.sdk.android.Fabric;
 import com.crashlytics.android.Crashlytics;
 
 import static android.util.Log.*;
-import static com.b4kancs.scoutlaws.LocaleUtilsKt.refreshLocale;
-import static com.b4kancs.scoutlaws.LocaleUtilsKt.setNewLocale;
+import static com.b4kancs.scoutlaws.LocaleUtilsKt.refreshResources;
+import static com.b4kancs.scoutlaws.LocaleUtilsKt.getBaseContextWithLocale;
 import static com.crashlytics.android.Crashlytics.*;
 
 /**
@@ -48,14 +48,14 @@ public class ScoutLawApp extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         // Default language is Hungarian, can be changed in runtime (for demo purposes)
-        super.attachBaseContext(setNewLocale(base, "hu"));  // This will cause the default resource-set to be loaded
+        super.attachBaseContext(getBaseContextWithLocale(base, "hu"));  // This will cause the default resource-set to be loaded
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         log(INFO, LOG_TAG, "Configuration changed.");
         super.onConfigurationChanged(newConfig);
-        refreshLocale(this);
+        refreshResources(this);
     }
 
     @VisibleForTesting

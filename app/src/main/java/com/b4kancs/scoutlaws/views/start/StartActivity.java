@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityStartBinding;
+import com.b4kancs.scoutlaws.views.BaseActivity;
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity;
 import com.b4kancs.scoutlaws.views.settings.PreferencesActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -30,7 +31,7 @@ import static com.crashlytics.android.Crashlytics.log;
  * Created by hszilard on 15-Feb-18.
  * This is the starting activity.
  */
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends BaseActivity {
     private static final String LOG_TAG = StartActivity.class.getSimpleName();
 
     ActivityStartBinding binding;
