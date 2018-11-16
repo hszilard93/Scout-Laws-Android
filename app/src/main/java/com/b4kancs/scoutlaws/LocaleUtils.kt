@@ -10,13 +10,17 @@ import java.util.*
  */
 private lateinit var currentLocale: String
 
-fun setNewLocale(context: Context, language: String): Context {
+fun getBaseContextWithLocale(context: Context, language: String): Context {
     currentLocale = language
     return updateResources(context, language)
 }
 
-fun refreshLocale(context: Context) {
-    setNewLocale(context, currentLocale)
+fun getBaseContextWithCurrentLocale(context: Context): Context {
+    return getBaseContextWithLocale(context, currentLocale)
+}
+
+fun refreshResources(context: Context) {
+    updateResources(context, currentLocale)
 }
 
 private fun updateResources(context: Context, language: String): Context {

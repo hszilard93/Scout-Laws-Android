@@ -6,6 +6,7 @@ import android.view.MenuItem;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityQuizBinding;
+import com.b4kancs.scoutlaws.views.BaseActivity;
 import com.b4kancs.scoutlaws.views.quiz.chooser.ChooserFragment;
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment;
 import com.b4kancs.scoutlaws.views.quiz.picker.PickerFragment;
@@ -31,7 +32,7 @@ import static com.crashlytics.android.Crashlytics.log;
  * Created by hszilard on 25-Feb-18.
  * This activity contains all the Quiz related fragments.
  */
-public class QuizActivity extends AppCompatActivity {
+public class QuizActivity extends BaseActivity {
     public static final String QUIZ_FRAGMENT_EXTRA = "FRAGMENT_EXTRA";
     private static final String LOG_TAG = QuizActivity.class.getSimpleName();
 
