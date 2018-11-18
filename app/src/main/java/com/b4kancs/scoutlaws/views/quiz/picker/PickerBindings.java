@@ -1,10 +1,10 @@
-package com.b4kancs.scoutlaws.views.quiz.pickandchoose;
+package com.b4kancs.scoutlaws.views.quiz.picker;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.res.Resources;
-import android.databinding.BindingAdapter;
-import android.support.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
+import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,10 +21,9 @@ import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
 /**
  * Created by hszilard on 14-Apr-18.
  */
-public final class PickAndChooseBindings {
+public final class PickerBindings {
 
-    private PickAndChooseBindings() {
-    }
+    private PickerBindings() { }
 
     @BindingAdapter("fillTextView_adapter")
     public static void AdaptFillTextView(@NonNull TextView view, String text) {
@@ -65,7 +64,7 @@ public final class PickAndChooseBindings {
         LayoutInflater inflater = LayoutInflater.from(layout.getContext());
         for (String item : options) {
             if (!displayed.contains(item)) {
-                TextView optionView = (TextView) inflater.inflate(R.layout.text_view_pick_choose_option, layout, false);
+                TextView optionView = (TextView) inflater.inflate(R.layout.text_view_picker_option, layout, false);
                 optionView.setText(item);
                 optionView.setOnTouchListener(new OptionTouchListener(options));
                 layout.addView(optionView);

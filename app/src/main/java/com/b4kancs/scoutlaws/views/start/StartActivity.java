@@ -1,80 +1,64 @@
 package com.b4kancs.scoutlaws.views.start;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.ActivityStartBinding;
-import com.b4kancs.scoutlaws.services.NotificationUtilsKt;
+import com.b4kancs.scoutlaws.views.BaseActivity;
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity;
 import com.b4kancs.scoutlaws.views.settings.PreferencesActivity;
+import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 15-Feb-18.
  * This is the starting activity.
  */
-
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends BaseActivity {
     private static final String LOG_TAG = StartActivity.class.getSimpleName();
 
-    private ActivityStartBinding binding;
+    ActivityStartBinding binding;
     private StartActivityViewModel viewModel;
     private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        log(INFO, LOG_TAG, "onCreate(..)");
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_start);
         viewModel = ViewModelProviders.of(this).get(StartActivityViewModel.class);
         setUpViews();
-    }
 
-    private void setUpViews() {
-        setSupportActionBar((Toolbar) binding.toolbar);
+        // Fixes screen flashing during shared element transition
+        {
+            Fade fade = new Fade();
+            fade.excludeTarget(R.id.toolbar, true);
+            fade.excludeTarget(android.R.id.statusBarBackground, true);
+            fade.excludeTarget(android.R.id.navigationBarBackground, true);
 
-        ScoutLawListAdapter listAdapter = new ScoutLawListAdapter(viewModel.scoutLaws(), this);
-        binding.listLaws.setAdapter(listAdapter);
-        binding.listLaws.setOnItemClickListener(listAdapter);
-        /* This empty view gives the last list item space for its shadow */
-        TextView empty = new TextView(this);
-        empty.setHeight(1);
-        binding.listLaws.addFooterView(empty);
-        binding.listLaws.addHeaderView(empty);
-
-        drawerToggle = setUpDrawerToggle();
-        setUpDrawerContent();
-        NavigationView navigationView = binding.navigationView;
-        navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.menu_item_quiz:
-                    Log.d(LOG_TAG, "Quiz menu item selected.");
-                    startActivity(QuizActivity.class);
-                    return true;
-                case R.id.menu_item_settings:
-                    Log.d(LOG_TAG, "Settings menu item selected.");
-                    startActivity(PreferencesActivity.class);
-                    return true;
-                case R.id.menu_item_about:
-                    NotificationUtilsKt.showQuizPromptNotification(this);
-                default:
-                    return false;
-            }
-        });
+            getWindow().setEnterTransition(fade);
+            getWindow().setExitTransition(fade);
+        }
     }
 
     @Override
@@ -85,6 +69,7 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        log(Log.DEBUG, LOG_TAG, "onConfigurationChanged(..)");
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }
@@ -92,14 +77,58 @@ public class StartActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (drawerToggle.onOptionsItemSelected(item)) {
-            Log.d(LOG_TAG, "Drawer toggle clicked.");
+            log(DEBUG, LOG_TAG, "Drawer toggle clicked.");
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void setUpViews() {
+        log(Log.DEBUG, LOG_TAG, "setUpViews()");
+
+        setSupportActionBar((Toolbar) binding.toolbar);
+
+        ScoutLawListAdapter listAdapter = new ScoutLawListAdapter(viewModel.scoutLaws(), this);
+        binding.listLaws.setAdapter(listAdapter);
+        binding.listLaws.setOnItemClickListener(listAdapter);
+        /* Add header and footer for looks */
+        TextView empty = new TextView(this);
+        empty.setHeight(0);
+        binding.listLaws.addFooterView(empty);
+        binding.listLaws.addHeaderView(empty);
+
+        drawerToggle = setUpDrawerToggle();
+        setUpDrawerContent();
+        NavigationView navigationView = binding.navigationView;
+        navigationView.setNavigationItemSelectedListener(onNavigationItemSelected);
+    }
+
+    private NavigationView.OnNavigationItemSelectedListener onNavigationItemSelected = item -> {
+        switch (item.getItemId()) {
+            case R.id.menu_item_quiz:
+                log(INFO, LOG_TAG, "Quiz menu item selected.");
+                startActivity(QuizActivity.class);
+                return true;
+            case R.id.menu_item_settings:
+                log(INFO, LOG_TAG, "Settings menu item selected.");
+                startActivity(PreferencesActivity.class);
+                return true;
+            case R.id.menu_item_about:
+                log(INFO, LOG_TAG, "About menu item selected.");
+                new AboutDialogFragment().show(getSupportFragmentManager());
+                return true;
+            case R.id.menu_item_stats:
+                log(INFO, LOG_TAG, "Stats menu item selected.");
+                new StatsDialogFragment().show(getSupportFragmentManager());
+                return true;
+            default:
+                return false;
+        }
+    };
+
     private void startActivity(Class activityClass) {
+        log(INFO, LOG_TAG, "startActivity(..); new activity = " + activityClass.getSimpleName());
         Intent intent = new Intent(this, activityClass);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         this.startActivity(intent);
@@ -120,7 +149,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void selectDrawerItem(MenuItem item) {
-        Log.d(LOG_TAG, item.getItemId() + " item selected.");
+        log(DEBUG, LOG_TAG, item.getItemId() + " drawer item selected.");
 
         item.setChecked(true);
         binding.drawerLayout.closeDrawers();

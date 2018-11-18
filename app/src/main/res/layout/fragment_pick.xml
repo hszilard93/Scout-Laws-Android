@@ -6,10 +6,10 @@
     <data>
         <variable
             name="sharedViewModel"
-            type="com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseSharedViewModel" />
+            type="com.b4kancs.scoutlaws.views.quiz.picker.PickerSharedViewModel" />
         <variable
             name="viewModel"
-            type="com.b4kancs.scoutlaws.views.quiz.pickandchoose.PickAndChooseViewModel" />
+            type="com.b4kancs.scoutlaws.views.quiz.picker.PickerViewModel" />
     </data>
 
     <LinearLayout
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:id="@+id/card_pick"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -42,13 +42,13 @@
 
                     <include
                         android:id="@+id/included"
-                        layout="@layout/layout_pick_choose"
+                        layout="@layout/layout_picker"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
                         app:sharedViewModel="@{sharedViewModel}"
                         app:viewModel="@{viewModel}" />
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!-- Give the scrollview a footer -->
                 <FrameLayout

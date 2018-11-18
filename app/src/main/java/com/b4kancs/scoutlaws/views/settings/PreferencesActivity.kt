@@ -1,30 +1,29 @@
 package com.b4kancs.scoutlaws.views.settings
 
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.support.v4.app.NavUtils
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+import android.util.Log.INFO
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.app.NavUtils
 import com.b4kancs.scoutlaws.R
-import com.b4kancs.scoutlaws.ScoutLawApp
-import com.b4kancs.scoutlaws.services.NotificationScheduler
 import com.b4kancs.scoutlaws.views.utils.areAnimationsEnabled
+import com.crashlytics.android.Crashlytics.log
 import kotlinx.android.synthetic.main.activity_settings.*
-import javax.inject.Inject
+
 
 /**
  * Created by hszilard on 24-May-18.
  */
 class PreferencesActivity : AppCompatActivity() {
 
-    @Inject lateinit var notificationScheduler: NotificationScheduler
+    private companion object {
+        val LOG_TAG = PreferencesActivity::class.simpleName
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        log(INFO, LOG_TAG, "onCreate()")
         super.onCreate(savedInstanceState)
-
-        ScoutLawApp.getInstance().applicationComponent.inject(this)
 
         setContentView(R.layout.activity_settings)
         setSupportActionBar(toolbar as Toolbar)
@@ -35,19 +34,12 @@ class PreferencesActivity : AppCompatActivity() {
                     .beginTransaction()
                     .add(R.id.frame_preferences_content, PreferencesFragment())
                     .commit()
-
-        PreferenceManager.getDefaultSharedPreferences(applicationContext).registerOnSharedPreferenceChangeListener {
-            _: SharedPreferences, key: String ->
-            when (key) {
-                "pref_notification_timing_list", "pref_notification_preferred_time" ->
-                    notificationScheduler.schedule(true)
-            }
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             android.R.id.home -> {
+                log(INFO, LOG_TAG, "Home clicked.")
                 navigateUp()
                 true
             }
@@ -63,6 +55,7 @@ class PreferencesActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        log(INFO, LOG_TAG, "Back pressed.")
         navigateUp()
     }
 }

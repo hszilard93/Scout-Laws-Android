@@ -1,8 +1,8 @@
 package com.b4kancs.scoutlaws.views.details;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.annotation.NonNull;
 
 /**
  * Created by hszilard on 21-Feb-18.

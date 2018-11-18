@@ -2,26 +2,25 @@
 
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.helper.ItemTouchHelper
-import android.util.Log
+import android.util.Log.DEBUG
+import android.util.Log.INFO
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.databinding.FragmentSorterBinding
 import com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.*
 import com.b4kancs.scoutlaws.views.utils.vibrate
+import com.crashlytics.android.Crashlytics.log
 
 /**
  * Created by hszilard on 01-Sep-18.
  */
-class SorterFragment : Fragment() {
+class SorterFragment : androidx.fragment.app.Fragment() {
 
     companion object {
         const val FRAGMENT_TAG = "SORTER_FRAGMENT"
@@ -34,7 +33,7 @@ class SorterFragment : Fragment() {
     private lateinit var container: ViewGroup
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d(LOG_TAG, "onCreateView")
+        log(INFO, LOG_TAG, "onCreateView(..)")
         super.onCreateView(inflater, container, savedInstanceState)
 
         this.container = container!!
@@ -52,7 +51,7 @@ class SorterFragment : Fragment() {
     }
 
     private fun setUpViews() {
-        Log.d(LOG_TAG, "setUpViews")
+        log(DEBUG, LOG_TAG, "setUpViews()")
         binding.recyclerOptions.apply {
             setHasFixedSize(true)
             val optionsRecyclerAdapter = OptionsRecyclerAdapter(viewModel.sequence)
@@ -61,8 +60,8 @@ class SorterFragment : Fragment() {
             touchHelper.attachToRecyclerView(this)
             optionsRecyclerAdapter.touchHelper = touchHelper
             adapter = optionsRecyclerAdapter
-            layoutManager = LinearLayoutManager(context)
-            itemAnimator = DefaultItemAnimator()
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+            itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         }
         binding.buttonCheck.setOnClickListener(onCheckButtonClicked)
         binding.buttonNext.setOnClickListener(onNextButtonClicked)
@@ -70,7 +69,7 @@ class SorterFragment : Fragment() {
     }
 
     private val onCheckButtonClicked = { _: View ->
-        Log.i(LOG_TAG, "Check button clicked.")
+        log(INFO, LOG_TAG, "Check button clicked.")
         val result = viewModel.evaluate()
         if (result)
             showCorrectFeedback(context, layoutInflater)
@@ -81,17 +80,17 @@ class SorterFragment : Fragment() {
     }
 
     private val onNextButtonClicked = { _: View ->
-        Log.i(LOG_TAG, "Next button clicked.")
+        log(INFO, LOG_TAG, "Next button clicked.")
         transitionToNextQuestion()
     }
 
     private val onFinishButtonClicked = { _: View ->
-        Log.i(LOG_TAG, "Finish button clicked.")
+        log(INFO, LOG_TAG, "Finish button clicked.")
         showResultDialogFragment(container, activity, fragmentManager, SorterFragment(), sharedViewModel)
     }
 
     private fun transitionToNextQuestion() {
-        Log.d(LOG_TAG, "transitionToNextQuestion")
+        log(DEBUG, LOG_TAG, "transitionToNextQuestion()")
         binding.unbind()
         val transaction = getFragmentTransaction(container, fragmentManager!!, SorterFragment())
         transaction.commit()

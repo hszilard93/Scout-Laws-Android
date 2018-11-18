@@ -2,14 +2,17 @@ package com.b4kancs.scoutlaws.data
 
 import android.content.SharedPreferences
 import android.content.res.Resources
-import android.util.Log
-import com.b4kancs.scoutlaws.data.model.PickAndChooseScoutLaw
+import android.util.Log.DEBUG
+import android.util.Log.INFO
+import com.b4kancs.scoutlaws.data.model.PickerScoutLaw
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
 import com.b4kancs.scoutlaws.data.store.UserDataStore
+import com.crashlytics.android.Crashlytics.log
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
+import kotlin.collections.ArrayList
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -26,26 +29,29 @@ class Repository
         const val LAST_NOTIFICATION_TIME_KEY = "LAST_NOTIFICATION_TIME_KEY"
     }
 
-    val scoutLaws = ArrayList<ScoutLaw>(10)
-    val pickAndChooseLaws = ArrayList<PickAndChooseScoutLaw>(10)
+    lateinit var scoutLaws: ArrayList<ScoutLaw>
+    lateinit var pickerScoutLaws: ArrayList<PickerScoutLaw>
     var numberOfScoutLaws: Int = 0      // How many scoutLaws are there? This is not constant!
         private set
 
     init {
-        Log.d(LOG_TAG, "Constructing Repository instance.")
-        loadLaws()
+        log(INFO, LOG_TAG, "init")
+        loadScoutLaws()
     }
 
-    private fun loadLaws() {
+    private fun loadScoutLaws() {
         resources.apply {
-            Log.d(LOG_TAG, "Loading scout scoutLaws.")
+            log(INFO, LOG_TAG, "loadScoutlaws()")
             val packageName = "com.b4kancs.scoutlaws"
 
             // Check how many scout scoutLaws are there
             numberOfScoutLaws = getInteger(getIdentifier("number_of_laws", "integer", packageName))
-            Log.d(LOG_TAG, "The number of scout scoutLaws is $numberOfScoutLaws")
+            log(DEBUG, LOG_TAG, "The number of scout scoutLaws is $numberOfScoutLaws")
 
-            /* Building the ScoutLaw and PickAndChooseScoutLaw objects by dynamically loading them
+            scoutLaws = ArrayList(numberOfScoutLaws)
+            pickerScoutLaws = ArrayList(numberOfScoutLaws)
+
+            /* Building the ScoutLaw and PickerScoutLaw objects by dynamically loading them
              * from their resource files by constructing their names */
             for (i in 0 until numberOfScoutLaws) {
                 // ScoutLaw objects
@@ -58,20 +64,26 @@ class Repository
                 val law = ScoutLaw(i + 1, text, desc, origDesc)
                 scoutLaws.add(law)
 
-                // Loading PickAndChooseScoutLaw objects
-                val pickChooseText =
+                // Loading PickerScoutLaw objects
+                val pickerText =
                         getString(getIdentifier("law_${i + 1}_pick", "string", packageName))
                 val optionsArray =
                         getStringArray(getIdentifier("law_${i + 1}_pick_options", "array", packageName))
-                val pickChooseOptions = ArrayList(Arrays.asList(*optionsArray))
+                val pickerOptions = ArrayList(Arrays.asList(*optionsArray))
 
-                val pickAndChooseScoutLaw = PickAndChooseScoutLaw(law, pickChooseText, pickChooseOptions)
-                pickAndChooseLaws.add(i, pickAndChooseScoutLaw)
+                val pickerScoutLaw = PickerScoutLaw(law, pickerText, pickerOptions)
+                pickerScoutLaws.add(i, pickerScoutLaw)
             }
         }
     }
 
+    fun reloadScoutLaws() {
+        log(DEBUG, LOG_TAG, "reloadScoutLaws()")
+        loadScoutLaws()
+    }
+
     fun resetUserData() {
+        log(DEBUG, LOG_TAG, "resetUserData()")
         userDataStore.reset()
     }
 
@@ -81,33 +93,39 @@ class Repository
 
     fun getBestMultipleTime() = userDataStore.bestMultipleTime
 
-    fun getBestPickChooseTime() = userDataStore.bestPickChooseTime
+    fun getBestPickerTime() = userDataStore.bestPickerTime
 
     fun getBestSorterTime() = userDataStore.bestSorterTime
 
     fun getLastNotificationShownAt() = sharedPreferences.getLong(LAST_NOTIFICATION_TIME_KEY, 0)
 
     fun increaseTotalScoreBy(thisMuch: Int) {
+        log(DEBUG, LOG_TAG, "increaseTotalScoreBy($thisMuch)")
         userDataStore.totalScore += thisMuch
     }
 
     fun increaseTotalPossibleScoreBy(thisMuch: Int) {
+        log(DEBUG, LOG_TAG, "increaseTotalPossibleScoreBy($thisMuch)")
         userDataStore.totalPossibleScore += thisMuch
     }
 
     fun setBestMultipleTime(newTime: Long) {
+        log(DEBUG, LOG_TAG, "setBestMultipleTime($newTime)")
         userDataStore.bestMultipleTime = newTime
     }
 
-    fun setBestPickChooseTime(newTime: Long) {
-        userDataStore.bestPickChooseTime = newTime
+    fun setBestPickerTime(newTime: Long) {
+        log(DEBUG, LOG_TAG, "setBestPickerTime($newTime)")
+        userDataStore.bestPickerTime = newTime
     }
 
     fun setBestSorterTime(newTime: Long) {
+        log(DEBUG, LOG_TAG, "setBestSorterTime($newTime)")
         userDataStore.bestSorterTime = newTime
     }
 
     fun setLastNotificationShownAt(time: Long) {
+        log(DEBUG, LOG_TAG, "setLastNotificationShownAt($time)")
         sharedPreferences.edit().putLong(LAST_NOTIFICATION_TIME_KEY, time).apply()
     }
 }

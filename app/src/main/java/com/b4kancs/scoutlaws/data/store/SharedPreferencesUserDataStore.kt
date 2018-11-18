@@ -14,7 +14,7 @@ class SharedPreferencesUserDataStore
         const val TOTAL_SCORE_KEY = "TOTAL_SCORE"
         const val TOTAL_POSSIBLE_SCORE_KEY = "TOTAL_POSSIBLE_SCORE"
         const val BEST_TIME_MULTIPLE = "BEST_TIME_MULTIPLE"
-        const val BEST_TIME_PICK_CHOOSE = "BEST_TIME_PICK_CHOOSE"
+        const val BEST_TIME_PICKER = "BEST_TIME_PICKER"
         const val BEST_TIME_SORTER = "BEST_TIME_SORTER"
     }
 
@@ -49,15 +49,15 @@ class SharedPreferencesUserDataStore
             preferences.edit().putLong(BEST_TIME_MULTIPLE, value).apply()
         }
 
-    override var bestPickChooseTime: Long = 0L
+    override var bestPickerTime: Long = 0L
         get() {
             if (field == 0L)
-                field = preferences.getLong(BEST_TIME_PICK_CHOOSE, 0)
+                field = preferences.getLong(BEST_TIME_PICKER, 0)
             return field
         }
         set(value) {
             field = value
-            preferences.edit().putLong(BEST_TIME_PICK_CHOOSE, value).apply()
+            preferences.edit().putLong(BEST_TIME_PICKER, value).apply()
         }
 
     override var bestSorterTime: Long = 0L

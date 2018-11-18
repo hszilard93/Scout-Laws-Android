@@ -1,11 +1,6 @@
 package com.b4kancs.scoutlaws.views.quiz;
 
-import android.arch.lifecycle.ViewModel;
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableInt;
-import android.databinding.ObservableLong;
 import android.os.SystemClock;
-import android.util.Log;
 
 import com.b4kancs.scoutlaws.ScoutLawApp;
 import com.b4kancs.scoutlaws.data.Repository;
@@ -14,6 +9,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.inject.Inject;
+
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableInt;
+import androidx.databinding.ObservableLong;
+import androidx.lifecycle.ViewModel;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.INFO;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 08-Mar-18.
@@ -37,13 +41,13 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     private Random random = new Random();
 
     protected AbstractSharedViewModel() {
-        Log.d(LOG_TAG, "Constructing.");
+        log(DEBUG, LOG_TAG, "constructor");
         ScoutLawApp.getInstance().getApplicationComponent().inject(this);
         usedLaws = new ArrayList<>(repository.getNumberOfScoutLaws());
     }
 
     public void start() {
-        Log.d(LOG_TAG, "Starting/Resetting.");
+        log(DEBUG, LOG_TAG, "start(); Starting/resetting.");
         isLastTurn.set(false);
         chronoStart.set(true);
         baseTime.set(SystemClock.elapsedRealtime());
@@ -55,18 +59,21 @@ public abstract class AbstractSharedViewModel extends ViewModel {
 
     /* This law will be the subject of the next question. */
     public int nextLawIndex() {
-        Log.d(LOG_TAG, "Generating next law index.");
+        log(DEBUG, LOG_TAG, "nextLawIndex()");
         int index;
         do {
             index = random.nextInt(repository.getNumberOfScoutLaws());
         } while (usedLaws.contains(index) || index == lastUsedLawIndex);
         usedLaws.add(index);
         lastUsedLawIndex = index;
+
+        log(DEBUG, LOG_TAG, "returning index: " + index);
         return index;
     }
 
     /* finish() should be called when the last answer is DONE (before the finish button is clicked, for more accurate timing) */
     public void finish() {
+        log(DEBUG, LOG_TAG, "finish()");
         repository.increaseTotalScoreBy(score);
         repository.increaseTotalPossibleScoreBy(5);
         timeSpent = SystemClock.elapsedRealtime() - baseTime.get();
@@ -81,13 +88,14 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     }
 
     public void incTurnCount() {
-        Log.d(LOG_TAG, "Increasing turn count. Current turn: " + turnCount);
+        log(DEBUG, LOG_TAG, "incTurnCount()");
 
         if (turnCount.get() < TURN_LIMIT)
             turnCount.set(turnCount.get() + 1);
 
         if (turnCount.get() == TURN_LIMIT)
             isLastTurn.set(true);
+        log(INFO, LOG_TAG, "Current turn = " + turnCount + "isLastTurn = " + isLastTurn.get());
     }
 
     public int getScore() {
@@ -95,7 +103,7 @@ public abstract class AbstractSharedViewModel extends ViewModel {
     }
 
     public void incScore() {
-        Log.d(LOG_TAG, "Increasing score. Current score: " + score);
+        log(DEBUG, LOG_TAG, "incScore(); Current score = " + score);
         score += 1;
     }
 

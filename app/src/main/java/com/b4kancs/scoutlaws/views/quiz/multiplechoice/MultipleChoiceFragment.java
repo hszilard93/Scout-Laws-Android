@@ -1,14 +1,7 @@
 package com.b4kancs.scoutlaws.views.quiz.multiplechoice;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Resources;
-import android.databinding.BindingAdapter;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +11,23 @@ import android.widget.TextView;
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.databinding.FragmentMultipleBinding;
 
+import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.getFragmentTransaction;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showCorrectFeedback;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showIncorrectFeedback;
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 26-Feb-18.
@@ -39,6 +44,7 @@ public class MultipleChoiceFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        log(DEBUG, LOG_TAG, "onCreateView(..)");
         super.onCreateView(inflater, container, savedInstanceState);
 
         this.container = container;
@@ -60,6 +66,7 @@ public class MultipleChoiceFragment extends Fragment {
     }
 
     private void setUpViews() {
+        log(DEBUG, LOG_TAG, "setUpViews()");
         OptionsListAdapter listAdapter = new OptionsListAdapter(viewModel, getContext(), onOptionSelected);
         binding.linearOptions.setAdapter(listAdapter);
         binding.linearOptions.setOnItemClickListener(listAdapter.defaultItemClickListener);
@@ -73,10 +80,13 @@ public class MultipleChoiceFragment extends Fragment {
 
     /* What happens when an answer is selected */
     private OptionsListAdapter.OptionSelectedCallback onOptionSelected = (adapter, view, scoutLaw) -> {
+        log(DEBUG, LOG_TAG, "onOptionSelected(..)");
         if (viewModel.evaluateAnswer(scoutLaw)) {
+            log(INFO, LOG_TAG, "Answer is correct.");
             showCorrectFeedback(getContext(), getLayoutInflater());
             endTurn(adapter);
         } else {
+            log(INFO, LOG_TAG, "Answer is correct.");
             showIncorrectFeedback(getContext(), getLayoutInflater());
             view.setVisibility(View.GONE);
             vibrate(getContext(), 300);
@@ -87,6 +97,7 @@ public class MultipleChoiceFragment extends Fragment {
     };
 
     private void endTurn(OptionsListAdapter adapter) {
+        log(DEBUG, LOG_TAG, "endTurn(..)");
         binding.linearOptions.setOnItemClickListener(adapter.disabledItemClickListener);
 
         if (sharedViewModel.isLastTurn.get()) {
@@ -95,18 +106,19 @@ public class MultipleChoiceFragment extends Fragment {
     }
 
     private void transitionToNextQuestion() {
+        log(DEBUG, LOG_TAG, "transitionToNextQuestion()");
         binding.unbind();
         FragmentTransaction transaction = getFragmentTransaction(container, getFragmentManager(), new MultipleChoiceFragment());
         transaction.commit();
     }
 
     private View.OnClickListener nextButtonClickedListener = (button) -> {
-        Log.d(LOG_TAG, "Next button clicked.");
+        log(INFO, LOG_TAG, "Next button clicked.");
         transitionToNextQuestion();
     };
 
     private View.OnClickListener finishButtonOnClickedListener = (button) -> {
-        Log.d(LOG_TAG, "Finish button clicked.");
+        log(INFO, LOG_TAG, "Finish button clicked.");
         // Show the results
         showResultDialogFragment(container, getActivity(), getFragmentManager(), new MultipleChoiceFragment(), sharedViewModel);
     };
@@ -118,13 +130,9 @@ public class MultipleChoiceFragment extends Fragment {
         if (state == MultipleChoiceViewModel.State.DONE) {
             button.setEnabled(true);
             button.setTextColor(resources.getColor(R.color.colorPrimary));
-            button.setCompoundDrawablesWithIntrinsicBounds(
-                    null, null, resources.getDrawable(R.drawable.ic_keyboard_arrow_right_green_24dp), null);
         } else {
             button.setEnabled(false);
             button.setTextColor(resources.getColor(R.color.disabled_grey));
-            button.setCompoundDrawablesWithIntrinsicBounds(
-                    null, null, resources.getDrawable(R.drawable.ic_keyboard_arrow_right_grey_24dp), null);
         }
     }
 
@@ -132,7 +140,27 @@ public class MultipleChoiceFragment extends Fragment {
     @BindingAdapter("multipleQuestionText_number")
     public static void setMultipleQuestionText(@NonNull TextView textView, int i) {
         Resources resources = textView.getResources();
-        String questionText = String.format(resources.getString(R.string.multiple_quiz_question), i);
+        String questionText;
+        Locale currentLocale = textView.getContext().getResources().getConfiguration().locale;
+        if (currentLocale.getLanguage().equals("en")) {
+            String ordinal = getEnOrdinalOfNumber(i);
+            questionText = resources.getString(R.string.multiple_quiz_question, ordinal);
+        } else {
+            questionText = resources.getString(R.string.multiple_quiz_question, Integer.toString(i));
+        }
         textView.setText(questionText);
+    }
+
+    private static String getEnOrdinalOfNumber(int i) {
+        switch (i) {
+            case 1:
+                return "1st";
+            case 2:
+                return "2nd";
+            case 3:
+                return "3rd";
+            default:
+                return i + "th";
+        }
     }
 }

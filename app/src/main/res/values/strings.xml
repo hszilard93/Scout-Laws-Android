@@ -1,12 +1,11 @@
 <resources>
-    <string name="app_name">Scout Laws</string>
-
+    <string name="app_name">Cserkész10</string>
     <string name="source_modern" />
     <string name="source_orig">A cserkésztörvények eredeti magyarázatának fordítása Bi-Pi Young Knights of the Empire: Their Code, and Further Scout Yarns című könyvéből.</string>
-    <string name="action_menu">Show Menu</string>
-    <string name="action_more">Show More</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_menu">Menü</string>
+    <string name="action_more">Több</string>
+    <string name="drawer_open">Navigációs menü megnyitása</string>
+    <string name="drawer_close">Navigációs menü bezárása</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac posuere diam. Praesent fermentum ante eget facilisis congue. Phasellus consectetur augue odio, et consequat lectus tempor id. Etiam porta, magna nec gravida consectetur, massa velit eleifend erat, nec condimentum neque magna a ante. Etiam turpis ligula, tempus quis sem sit amet, rhoncus rhoncus ante. Aenean rutrum elit a nisi fermentum faucibus. Nulla et leo eu sem vestibulum rutrum id eget risus. Nam vel lacinia augue. Cras viverra mattis augue eu sollicitudin. Nunc dictum nulla sed convallis euismod. Vivamus vulputate euismod feugiat. Morbi mattis orci felis, vitae facilisis metus rhoncus eu. Vestibulum convallis sem non ante semper malesuada.</string>
     <string name="original">Eredeti</string>
     <string name="contemporary">Modern</string>
@@ -14,7 +13,7 @@
     <string name="choose_quiz">Válassz egy kvízfajtát!</string>
     <string name="any_quiz">Bármilyen</string>
     <string name="multiple_quiz">Feleletválasztós</string>
-    <string name="multiple_quiz_question">Melyik a(z) %d. cserkésztörvény?</string>
+    <string name="multiple_quiz_question">Melyik a(z) %s. cserkésztörvény?</string>
     <string name="pick_quiz">Beillesztős</string>
     <string name="multiple_tip">Válaszd ki a helyes választ!</string>
     <string name="help">Segítség</string>
@@ -28,12 +27,13 @@
     <string name="ok_button">Ok</string>
     <string name="back_button">Vissza</string>
     <string name="cancel_button">Mégse</string>
+    <string name="yes_button">Igen</string>
     <string name="congrats_low_score">Gyakorlat teszi a mestert. Próbáld újra!</string>
     <string name="congrats_mid_score">Nem rossz!</string>
     <string name="congrats_good_score">Szép munka!</string>
     <string name="congrats_perfect_score">Tökéletes!</string>
     <string name="retry_button">Újra</string>
-    <string name="pick_choose_tip">Helyettesítsd be a hiányzó szavakat!</string>
+    <string name="picker_tip">Helyettesítsd be a hiányzó szavakat!</string>
     <string name="check_button">Ellenőrzés</string>
     <string name="clear_button">Törlés</string>
     <string name="give_up">Feladom</string>
@@ -53,15 +53,29 @@
     <string name="pref_notifications_timing_list">Ajánlj fel kvízeket ilyen gyakran..</string>
     <string name="pref_notifications_this_often">Gyakoriság</string>
     <string name="pref_notifications_entry_never">Soha</string>
+    <string name="pref_notifications_entry_daily">Naponta</string>
+    <string name="pref_notifications_entry_two_days">Kétnaponta</string>
+    <string name="pref_notifications_twice_week">Hetente kétszer</string>
+    <string name="pref_notifications_weekly">Hetente</string>
     <string name="pref_notification_preferred_time">Értesítés ideje..</string>
     <string name="pref_notification_quiz_type">Kvíz típusa</string>
     <string name="pref_notification_quiz_type_default">Bármilyen</string>
     <string name="settings_menu_item">Beállítások</string>
     <string name="about_menu_item">Az appról</string>
-    <string name="quiz_notification_channel_name">quiz_notifications</string>
-    <string name="quiz_notification_channel_description">quiz_notifications_description</string>
+    <string name="quiz_notification_channel_name">Cserkésztörvények értesítések</string>
+    <string name="quiz_notification_channel_description">Cserkésztörvények kvíz értesítések</string>
     <string name="quiz_notification_title">Új kvíz!</string>
     <string name="quiz_notification_text">Meg tudod oldani?</string>
     <string name="sorter_tip">Rakd sorrendbe a cserkésztörvényeket!</string>
     <string name="sorter_quiz">Sorbarakós</string>
+    <string name="battery_optimizer_info_dialog_text">Egyes készülékek gyártói agresszíven korlátozzák a telefonon futó háttérfolyamatokat a jobb üzemidő elérése érdekében. Ha azt tapasztalod, hogy az értesítések nem jelennek meg, vagy nem jelennek meg időben a készülékeden, próbáld kikapcsolni az alkalmazás korlátozását a készüléked Beállítások menüjében vagy az akkumulátor-fogyasztás optimalizáló appból!</string>
+    <string name="battery_optimizer_info_dialog_title">Figyelem!</string>
+    <string name="pref_reset_stats_title">Eredmények visszaállítása</string>
+    <string name="about_text">Ez a játékos kvíz-app segít értelmezni és megjegyezni a cserkésztörvényeket, hogy soha többé ne kelljen izgulnod próba előtt ;)\n\nKészítette Hompoth Szilárd.\nBármilyen megjegyzéssel vagy észrevétellel írj a hszilard.apps@gmail.com email címre vagy keress meg GitHubon (/hszilard93).\n\nLégy résen!</string>
+    <string name="pref_reset_stats_sum">Kvízek eredményeinek törlése</string>
+    <string name="pref_reset_stats_dialog_title">Figyelem!</string>
+    <string name="pref_reset_stats_dialog_text">Biztos, hogy nullázni akarod minden, kvízekkel kapcsolatos eredményed?</string>
+    <string name="score">Pontszám</string>
+    <string name="best_times">Legjobb idők</string>
+    <string name="stats_menu_item">Eredmények</string>
 </resources>

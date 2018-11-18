@@ -6,8 +6,9 @@ package com.b4kancs.scoutlaws.data.store
 interface UserDataStore {
     var totalScore: Int
     var totalPossibleScore: Int
+    // Times are in milliseconds
     var bestMultipleTime: Long
-    var bestPickChooseTime: Long
+    var bestPickerTime: Long
     var bestSorterTime: Long
 
     fun reset()

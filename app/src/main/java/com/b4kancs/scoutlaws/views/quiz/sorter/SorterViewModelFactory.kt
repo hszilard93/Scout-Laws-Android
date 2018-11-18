@@ -1,8 +1,9 @@
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import android.util.Log
+import com.crashlytics.android.Crashlytics
 
 /**
  * Created by hszilard on 04-Oct-18.
@@ -10,7 +11,7 @@ import android.util.Log
 class SorterViewModelFactory(val sharedViewModel: SorterSharedViewModel) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        Log.d(SorterViewModelFactory::class.simpleName, "create")
+        Crashlytics.log(Log.DEBUG,SorterViewModelFactory::class.simpleName, "create")
 
         if (modelClass.isAssignableFrom(SorterViewModel::class.java))
             return SorterViewModel(sharedViewModel) as T

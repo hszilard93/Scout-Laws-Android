@@ -10,7 +10,7 @@
             type="com.b4kancs.scoutlaws.data.model.ScoutLaw" />
         <variable
             name="state"
-            type="android.databinding.ObservableField&lt;State&gt;" />
+            type="androidx.databinding.ObservableField&lt;State&gt;" />
     </data>
 
     <LinearLayout
@@ -29,7 +29,7 @@
             android:transitionName="@string/start_to_details_background_transition"
             app:background_number="@{scoutLaw.number}">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                         app:textColor_number="@{scoutLaw.number}"
                         tools:text="@string/original" />
                 </LinearLayout>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </LinearLayout>
 </layout>

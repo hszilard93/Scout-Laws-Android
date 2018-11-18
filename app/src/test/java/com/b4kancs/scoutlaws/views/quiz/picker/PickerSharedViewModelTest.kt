@@ -1,4 +1,4 @@
-package com.b4kancs.scoutlaws.views.quiz.pickandchoose
+package com.b4kancs.scoutlaws.views.quiz.picker
 
 import com.b4kancs.scoutlaws.DaggerTestComponent
 import com.b4kancs.scoutlaws.ScoutLawApp
@@ -14,7 +14,7 @@ import javax.inject.Inject
  * Created by hszilard on 09-May-18.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class PickAndChooseSharedViewModelTest {
+class PickerSharedViewModelTest {
 
     @Inject lateinit var repository: Repository
 
@@ -27,8 +27,8 @@ class PickAndChooseSharedViewModelTest {
 
     @Test
     fun sharedViewModelShouldLoadPickChooseScoutLawsFromRepository() {
-        val viewModel = PickAndChooseSharedViewModel()
+        val viewModel = PickerSharedViewModel()
 
-        assertEquals(repository.pickAndChooseLaws, viewModel.pickChooseScoutLaws)
+        assertEquals(repository.pickerScoutLaws, viewModel.pickerScoutLaws)
     }
 }

@@ -3,11 +3,6 @@ package com.b4kancs.scoutlaws.views.quiz;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +10,15 @@ import android.widget.Toast;
 
 import com.b4kancs.scoutlaws.R;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 15-Apr-18.
@@ -31,7 +34,7 @@ public final class CommonQuizUtils {
     public static FragmentTransaction getFragmentTransaction(@NonNull ViewGroup container,
                                                              FragmentManager manager,
                                                              Fragment targetFragment) {
-        Log.d(LOG_TAG, "Building FragmentTransaction.");
+        log(DEBUG, LOG_TAG, "getFragmentTransaction(..)");
         FragmentTransaction transaction = manager.beginTransaction();
         if (areAnimationsEnabled(container.getContext()))
             transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
@@ -45,7 +48,7 @@ public final class CommonQuizUtils {
                                                 FragmentManager fragmentManager,
                                                 Fragment retryFragment,
                                                 AbstractSharedViewModel sharedViewModel) {
-        Log.d(LOG_TAG, "Attempting to show ResultDialogFragment.");
+        log(INFO, LOG_TAG, "showResultDialogFragment(..)");
 
         Bundle args = new Bundle();
         args.putInt("score", sharedViewModel.getScore());
@@ -59,14 +62,14 @@ public final class CommonQuizUtils {
         resultDialog.setCancelable(false);
         /* What happens when the retry button is clicked */
         resultDialog.setOnRetryClicked(event -> {
-            Log.d(LOG_TAG, "ResultDialog retry callback executing.");
+            log(INFO, LOG_TAG, "ResultDialog Retry clicked.");
             resultDialog.dismiss();
             FragmentTransaction transaction = getFragmentTransaction(container, fragmentManager, retryFragment);
             transaction.commit();
             sharedViewModel.start();
         });
         resultDialog.setOnBackClicked(event -> {
-            Log.d(LOG_TAG, "ResultDialog back pressed callback executing.");
+            log(DEBUG, LOG_TAG, "ResultDialog Back clicked.");
             resultDialog.dismiss();
             activity.onBackPressed();
         });
@@ -74,6 +77,7 @@ public final class CommonQuizUtils {
     }
 
     public static void showCorrectFeedback(Context context, LayoutInflater inflater) {
+        log(INFO, LOG_TAG, "showCorrectFeedback(..); Showing positive toast.");
         Toast toast = new Toast(context);
         View toastView = inflater.inflate(R.layout.toast_correct, null);
         toast.setView(toastView);
@@ -82,6 +86,7 @@ public final class CommonQuizUtils {
     }
 
     public static void showIncorrectFeedback(Context context, LayoutInflater inflater) {
+        log(INFO, LOG_TAG, "showIncorrectFeedback(..); Showing negative toast.");
         Toast toast = new Toast(context);
         View toastView = inflater.inflate(R.layout.toast_incorrect, null);
         toast.setView(toastView);
