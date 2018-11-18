@@ -62,14 +62,14 @@ public final class CommonQuizUtils {
         resultDialog.setCancelable(false);
         /* What happens when the retry button is clicked */
         resultDialog.setOnRetryClicked(event -> {
-            log(DEBUG, LOG_TAG, "ResultDialog retry callback executing.");
+            log(INFO, LOG_TAG, "ResultDialog Retry clicked.");
             resultDialog.dismiss();
             FragmentTransaction transaction = getFragmentTransaction(container, fragmentManager, retryFragment);
             transaction.commit();
             sharedViewModel.start();
         });
         resultDialog.setOnBackClicked(event -> {
-            log(DEBUG, LOG_TAG, "ResultDialog back pressed callback executing.");
+            log(DEBUG, LOG_TAG, "ResultDialog Back clicked.");
             resultDialog.dismiss();
             activity.onBackPressed();
         });

@@ -170,12 +170,10 @@ public class ResultDialogFragment extends DialogFragment {
     /* */
 
     public void setOnRetryClicked(View.OnClickListener onRetryClickedListener) {
-        log(INFO, LOG_TAG, "Retry button clicked.");
         this.onRetryClicked = onRetryClickedListener;
     }
 
     public void setOnBackClicked(View.OnClickListener onBackClicked) {
-        log(INFO, LOG_TAG, "Back button clicked.");
         this.onBackClicked = onBackClicked;
     }
 }

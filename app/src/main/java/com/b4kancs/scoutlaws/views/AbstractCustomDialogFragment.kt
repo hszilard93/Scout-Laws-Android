@@ -4,8 +4,7 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log.DEBUG
-import android.util.Log.INFO
+import android.util.Log.*
 import androidx.appcompat.app.AlertDialog
 import com.crashlytics.android.Crashlytics.log
 
@@ -36,10 +35,15 @@ abstract class AbstractCustomDialogFragment : androidx.fragment.app.DialogFragme
         return builder.create()
     }
 
-    fun show(manager: androidx.fragment.app.FragmentManager) {
-        log(INFO, AbstractCustomDialogFragment::class.simpleName, "show(..); Showing dialog.")
-        val transaction = manager.beginTransaction()
-        transaction.add(this, tag)
-        transaction.commitAllowingStateLoss()
+    fun show(manager: androidx.fragment.app.FragmentManager?) {
+        if (manager != null) {
+            log(INFO, AbstractCustomDialogFragment::class.simpleName, "show(..); Showing dialog.")
+            val transaction = manager.beginTransaction()
+            transaction.add(this, tag)
+            transaction.commitAllowingStateLoss()
+        }
+        else
+            log(ERROR, AbstractCustomDialogFragment::class.simpleName,
+                    "Cannot show dialog. Received FragmentManager is NULL!")
     }
 }

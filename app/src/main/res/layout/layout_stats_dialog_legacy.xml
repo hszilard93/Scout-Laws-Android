@@ -25,21 +25,11 @@
                 app:layout_constraintGuide_begin="192dp"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/icon_stats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:paddingBottom="0dp"
-                android:src="@drawable/ic_sort_primary_36dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/text_score_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="@string/score"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"

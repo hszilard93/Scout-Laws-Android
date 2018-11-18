@@ -1,5 +1,7 @@
 package com.b4kancs.scoutlaws.views.settings
 
+import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log.INFO
@@ -33,25 +35,9 @@ class PreferencesFragment : PreferenceFragmentCompat() {
 
         addPreferencesFromResource(R.xml.preferences)
 
-        PreferenceManager.getDefaultSharedPreferences(activity!!.applicationContext).registerOnSharedPreferenceChangeListener { preferences, key ->
-            when (key) {
-                "pref_notification_timing_list" -> {
-                    val defaultTiming = if (activity?.resources != null)
-                        activity?.resources!!.getStringArray(R.array.pref_notifications_list_values)[0] ?: "never"
-                    else
-                        "never"
-                    val currentTiming = preferences.getString("pref_notification_timing_list", defaultTiming)
-                    if (currentTiming != defaultTiming) {
-                        log(INFO, LOG_TAG, "Showing battery optimizer dialog.")
-                        BatteryOptimizerInfoDialogFragment().show(activity!!.supportFragmentManager)
-                    }
-
-                    notificationScheduler.schedule(true)
-                }
-                "pref_notification_preferred_time" ->
-                    notificationScheduler.schedule(true)
-            }
-        }
+        PreferenceManager
+                .getDefaultSharedPreferences(activity!!.applicationContext)
+                .registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
         val resetButton = preferenceManager.findPreference("pref_reset_stats")
         resetButton?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
@@ -70,6 +56,27 @@ class PreferencesFragment : PreferenceFragmentCompat() {
             dialogFragment.show(fragmentManager!!, "android.support.v7.preference.PreferenceFragment.DIALOG")
         } else {
             super.onDisplayPreferenceDialog(preference)
+        }
+    }
+
+    private val onSharedPreferenceChangeListener = OnSharedPreferenceChangeListener { preferences, key ->
+        when (key) {
+            "pref_notification_timing_list" -> {
+                val defaultTiming = if (activity?.resources != null)
+                    activity?.resources!!.getStringArray(R.array.pref_notifications_list_values)[0] ?: "never"
+                else
+                    "never"
+
+                val currentTiming = preferences.getString("pref_notification_timing_list", defaultTiming)
+                if (currentTiming != defaultTiming) {
+                    log(INFO, LOG_TAG, "Showing battery optimizer dialog.")
+                    BatteryOptimizerInfoDialogFragment().show(activity?.supportFragmentManager)
+                }
+
+                notificationScheduler.schedule(true)
+            }
+            "pref_notification_preferred_time" ->
+                notificationScheduler.schedule(true)
         }
     }
 }

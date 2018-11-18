@@ -62,7 +62,7 @@
     <string name="quiz_notification_text">Can you solve it?</string>
     <string name="battery_optimizer_info_dialog_text">Some device manufacturers aggressively limit background services in order to achieve better battery life. If notifications aren\'t shown or aren\'t shown in time on your device, try disabling throttling for this application in your device\'s Settings menu or in its battery optimizer app!</string>
     <string name="battery_optimizer_info_dialog_title">Attention!</string>
-    <string name="about_text">This quiz app will help you interpret and memorize the scout laws, so that you will never have to fret again before a trial or examination ;)\n\nMade by Szilárd Hompoth.\nSend your notes and comments to hszilard_apps@gmail.com or find me on GitHub at /hszilard93!\n\nBe prepared!</string>
+    <string name="about_text">This quiz app will help you interpret and memorize the scout laws, so that you will never have to fret again before a trial or examination ;)\n\nMade by Szilárd Hompoth.\nSend your notes and comments to hszilard.apps@gmail.com or find me on GitHub at /hszilard93!\n\nBe prepared!</string>
     <string name="pref_reset_stats_title">Reset stats</string>
     <string name="pref_reset_stats_sum">Delete all quiz stats</string>
     <string name="pref_reset_stats_dialog_title">Attention!</string>
