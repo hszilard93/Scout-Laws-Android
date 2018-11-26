@@ -21,8 +21,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class NotificationScheduler
-@Inject constructor(
-        val context: Context,
+@Inject constructor(val context: Context,
         val repository: Repository,
         @Named("default_preferences") val sharedPreferences: SharedPreferences) {
 

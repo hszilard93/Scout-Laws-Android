@@ -3,8 +3,6 @@ package com.b4kancs.scoutlaws.views.quiz.picker;
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.res.Resources;
-import androidx.databinding.BindingAdapter;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +14,9 @@ import com.nex3z.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
+
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
 
 /**
@@ -23,7 +24,8 @@ import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
  */
 public final class PickerBindings {
 
-    private PickerBindings() { }
+    private PickerBindings() {
+    }
 
     @BindingAdapter("fillTextView_adapter")
     public static void AdaptFillTextView(@NonNull TextView view, String text) {
@@ -84,7 +86,7 @@ public final class PickerBindings {
         public boolean onTouch(View view, MotionEvent event) {
             /* Check if targetView is eligible for drag & drop */
             if (view.getId() != R.id.text_option)
-                return false;
+                return true;
 
             String text = ((TextView) view).getText().toString();
             ClipData clipData = ClipData.newPlainText(null, text);

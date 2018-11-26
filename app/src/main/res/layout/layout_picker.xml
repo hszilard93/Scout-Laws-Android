@@ -14,31 +14,29 @@
             type="com.b4kancs.scoutlaws.views.quiz.picker.PickerSharedViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/constraint_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:animateLayoutChanges="@{context}">
 
         <FrameLayout
-            android:id="@+id/linear_question"
-            android:layout_width="0dp"
+            android:id="@+id/frame_question"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="4dp"
             android:gravity="top"
             android:orientation="vertical"
-            app:background_number="@{viewModel.scoutLaw.law.number}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:background_number="@{viewModel.scoutLaw.law.number}">
 
             <com.nex3z.flowlayout.FlowLayout
                 android:id="@+id/flow_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                app:animateLayoutChanges="@{context}"
                 android:gravity="center_vertical"
+                app:animateLayoutChanges="@{context}"
                 app:flChildSpacing="12dp"
                 app:flChildSpacingForLastRow="12dp"
                 app:flFlow="true"
@@ -47,13 +45,11 @@
 
         <LinearLayout
             android:id="@+id/linear_buttons"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:animateLayoutChanges="@{context}"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear_question">
+            android:gravity="center_horizontal"
+            app:animateLayoutChanges="@{context}">
 
             <Button
                 android:id="@+id/button_help"
@@ -116,23 +112,24 @@
                 tools:text="Töröl" />
         </LinearLayout>
 
-        <com.nex3z.flowlayout.FlowLayout
-            android:id="@+id/flow_options"
-            android:layout_width="0dp"
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:animateLayoutChanges="@{context}"
-            android:gravity="center_horizontal"
-            app:flChildSpacing="8dp"
-            app:flChildSpacingForLastRow="8dp"
-            app:flRowSpacing="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear_buttons"
-            app:optionsFlow_adapter="@{viewModel.options}"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginBottom="8dp">
+
+            <com.nex3z.flowlayout.FlowLayout
+                android:id="@+id/flow_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center_horizontal"
+                app:animateLayoutChanges="@{context}"
+                app:flChildSpacing="8dp"
+                app:flChildSpacingForLastRow="8dp"
+                app:flRowSpacing="4dp"
+                app:optionsFlow_adapter="@{viewModel.options}" />
+        </ScrollView>
+    </LinearLayout>
 </layout>
