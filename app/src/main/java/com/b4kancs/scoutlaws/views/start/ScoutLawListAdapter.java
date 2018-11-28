@@ -15,6 +15,7 @@ import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 import com.b4kancs.scoutlaws.databinding.ListItemLawBinding;
 import com.b4kancs.scoutlaws.views.details.DetailsActivity;
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 
@@ -23,9 +24,10 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import static android.util.Log.DEBUG;
+import static android.util.Log.ERROR;
 import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
-import static com.crashlytics.android.Crashlytics.*;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -64,13 +66,20 @@ class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements AdapterView.
 
         if (areAnimationsEnabled(getContext())) {
             // Set up shared element transition
-            ListItemLawBinding binding = DataBindingUtil.bind(view);
+            ListItemLawBinding binding;
+            try {
+                binding = DataBindingUtil.bind(view);
+            } catch (IllegalArgumentException e) {
+                log(ERROR, LOG_TAG, "IllegalArgumentException occurred while setting up shared element transition.");
+                Crashlytics.logException(e);
+                activity.startActivity(intent);
+                return;
+            }
             TextView textView = binding.textLaw;
             ViewGroup layout = binding.constraintListItemLaw;
             Pair<View, String> pair1 = Pair.create(textView, textView.getTransitionName());
             Pair<View, String> pair2 = Pair.create(layout, layout.getTransitionName());
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, pair1, pair2);
-
             activity.startActivity(intent, options.toBundle());
         } else {
             activity.startActivity(intent);

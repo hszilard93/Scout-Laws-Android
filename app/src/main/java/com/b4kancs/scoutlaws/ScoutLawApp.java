@@ -2,11 +2,17 @@ package com.b4kancs.scoutlaws;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.preference.PreferenceManager;
+
 import androidx.annotation.VisibleForTesting;
 import io.fabric.sdk.android.Fabric;
 
+import com.b4kancs.scoutlaws.services.NotificationScheduler;
 import com.crashlytics.android.Crashlytics;
+
+import javax.inject.Inject;
 
 import static android.util.Log.*;
 import static com.b4kancs.scoutlaws.LocaleUtilsKt.refreshResources;
@@ -20,6 +26,7 @@ public class ScoutLawApp extends Application {
     private static final String LOG_TAG = ScoutLawApp.class.getSimpleName();
     private static ScoutLawApp instance;
 
+    @Inject protected NotificationScheduler notificationScheduler;
     private ApplicationComponent applicationComponent;
 
     public ScoutLawApp() {
@@ -43,6 +50,9 @@ public class ScoutLawApp extends Application {
                 .builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+        // Reschedule notifications if necessary
+        applicationComponent.inject(this);
+        notificationScheduler.schedule(false);
     }
 
     @Override

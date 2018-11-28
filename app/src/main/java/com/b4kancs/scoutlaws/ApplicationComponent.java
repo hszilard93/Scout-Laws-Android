@@ -10,6 +10,8 @@ import com.b4kancs.scoutlaws.views.start.AboutDialogFragment;
 import com.b4kancs.scoutlaws.views.start.StartActivityViewModel;
 import com.b4kancs.scoutlaws.views.start.StatsDialogFragment;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -29,4 +31,6 @@ public interface ApplicationComponent {
     void inject(ResetInfoDialogFragment resetInfoDialogFragment);
     void inject(AboutDialogFragment aboutDialogFragment);
     void inject(StatsDialogFragment statsDialogFragment);
+    void inject(ExternalAvailableReceiver externalAvailableReceiver);
+    void inject(ScoutLawApp scoutLawApp);
 }

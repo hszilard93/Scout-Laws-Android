@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
 import com.b4kancs.scoutlaws.R
+import com.b4kancs.scoutlaws.views.BaseActivity
 import com.b4kancs.scoutlaws.views.utils.areAnimationsEnabled
 import com.crashlytics.android.Crashlytics.log
 import kotlinx.android.synthetic.main.activity_settings.*
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 /**
  * Created by hszilard on 24-May-18.
  */
-class PreferencesActivity : AppCompatActivity() {
+class PreferencesActivity : BaseActivity() {
 
     private companion object {
         val LOG_TAG = PreferencesActivity::class.simpleName

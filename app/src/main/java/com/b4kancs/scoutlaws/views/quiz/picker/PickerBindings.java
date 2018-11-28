@@ -3,6 +3,7 @@ package com.b4kancs.scoutlaws.views.quiz.picker;
 import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.res.Resources;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -97,7 +98,10 @@ public final class PickerBindings {
             String text = ((TextView) view).getText().toString();
             ClipData clipData = ClipData.newPlainText(null, text);
             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-            view.startDrag(clipData, shadowBuilder, view, 0);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+                view.startDrag(clipData, shadowBuilder, view, 0);
+            else
+                view.startDragAndDrop(clipData, shadowBuilder, view, 0);
 
             // This change will be reflected in the optionsFlowLayout
             options.remove(text);
