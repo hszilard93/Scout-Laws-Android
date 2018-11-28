@@ -39,6 +39,7 @@
                 android:text="@{scoutLaw.text}"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"
                 android:textColor="@color/colorTextLight"
+                app:textShadow="@{true}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

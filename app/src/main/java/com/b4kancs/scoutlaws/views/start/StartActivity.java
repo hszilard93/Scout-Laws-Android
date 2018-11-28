@@ -17,7 +17,6 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -25,6 +24,7 @@ import androidx.lifecycle.ViewModelProviders;
 import static android.util.Log.DEBUG;
 import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.isPastelEnabled;
 import static com.crashlytics.android.Crashlytics.log;
 
 /**
@@ -102,6 +102,12 @@ public class StartActivity extends BaseActivity {
         setUpDrawerContent();
         NavigationView navigationView = binding.navigationView;
         navigationView.setNavigationItemSelectedListener(onNavigationItemSelected);
+
+        if (isPastelEnabled(getApplicationContext())) {
+            navigationView.getHeaderView(0).setBackgroundColor(
+                    getResources().getColor(getResources().getIdentifier("colorNavHeaderLight", "color", "com.b4kancs.scoutlaws"))
+            );
+        }
     }
 
     private NavigationView.OnNavigationItemSelectedListener onNavigationItemSelected = item -> {

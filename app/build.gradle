@@ -20,8 +20,8 @@ android {
         applicationId "com.b4kancs.scoutlaws"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 12
-        versionName "0.2.0.1"
+        versionCode 13
+        versionName "0.2.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
     }

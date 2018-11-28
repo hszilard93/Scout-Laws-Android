@@ -10,13 +10,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
+import com.b4kancs.scoutlaws.databinding.TextViewPickerOptionBinding;
+import com.b4kancs.scoutlaws.views.utils.BindingUtilsKt;
 import com.nex3z.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
 
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.isPastelEnabled;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
 
 /**
@@ -28,23 +32,23 @@ public final class PickerBindings {
     }
 
     @BindingAdapter("fillTextView_adapter")
-    public static void AdaptFillTextView(@NonNull TextView view, String text) {
-        view.setText(text);
+    public static void AdaptFillTextView(@NonNull TextView textView, String text) {
+        textView.setText(text);
 
-        Resources resources = view.getResources();
+        Resources resources = textView.getResources();
         int targetWidth;
         if (text == null) {
-            view.setBackground(resources.getDrawable(R.drawable.rounded_empty_background));
+            textView.setBackground(resources.getDrawable(R.drawable.rounded_empty_background));
             // set width to 96dp
             float scale = resources.getDisplayMetrics().density;
             targetWidth = (int) (96 * scale + 0.5f);
         } else {
-            view.setBackground(resources.getDrawable(R.drawable.rounded_option_background));
-            view.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            targetWidth = view.getMeasuredWidth();
+            setBackground(textView, true);
+            textView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            targetWidth = textView.getMeasuredWidth();
         }
-        view.getLayoutParams().width = targetWidth;
-        view.requestLayout();
+        textView.getLayoutParams().width = targetWidth;
+        textView.requestLayout();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -66,7 +70,9 @@ public final class PickerBindings {
         LayoutInflater inflater = LayoutInflater.from(layout.getContext());
         for (String item : options) {
             if (!displayed.contains(item)) {
-                TextView optionView = (TextView) inflater.inflate(R.layout.text_view_picker_option, layout, false);
+                TextViewPickerOptionBinding optionBinding = DataBindingUtil
+                        .inflate(inflater, R.layout.text_view_picker_option, layout, false);
+                TextView optionView = optionBinding.textOption;
                 optionView.setText(item);
                 optionView.setOnTouchListener(new OptionTouchListener(options));
                 layout.addView(optionView);
@@ -100,5 +106,14 @@ public final class PickerBindings {
 
             return true;
         }
+    }
+
+    @BindingAdapter("pickerOptionBackground_adapter")
+    public static void setBackground(TextView textView, boolean doesNothing) {
+        Resources resources = textView.getResources();
+        if (isPastelEnabled(textView.getContext()))
+            textView.setBackground(resources.getDrawable(R.drawable.rounded_option_background_light));
+        else
+            textView.setBackground(resources.getDrawable(R.drawable.rounded_option_background));
     }
 }

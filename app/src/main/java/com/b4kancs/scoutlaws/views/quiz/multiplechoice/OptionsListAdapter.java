@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import com.b4kancs.scoutlaws.R;
 import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 import com.b4kancs.scoutlaws.databinding.ListItemOptionBinding;
+import com.b4kancs.scoutlaws.views.utils.BindingUtilsKt;
 import com.linearlistview.LinearListView;
 
 import androidx.annotation.NonNull;
@@ -67,8 +68,8 @@ public class OptionsListAdapter extends ArrayAdapter<ScoutLaw> {
     public static void setOptionViewBackground(@NonNull View view, MultipleChoiceViewModel.State state,
                                                boolean isThisOptionCorrect) {
         Resources resources = view.getResources();
-        view.setBackgroundColor(resources.getColor(state == MultipleChoiceViewModel.State.DONE && !isThisOptionCorrect
-                ? R.color.disabled_grey
-                : R.color.colorPrimary));
+        view.setBackgroundColor(state == MultipleChoiceViewModel.State.DONE && !isThisOptionCorrect
+                ? resources.getColor(R.color.disabled_grey)
+                : BindingUtilsKt.getPrimaryOrPrimaryLight(view.getContext()));
     }
 }
