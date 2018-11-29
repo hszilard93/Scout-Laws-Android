@@ -112,7 +112,7 @@ public final class PickerBindings {
         }
     }
 
-    @BindingAdapter("pickerOptionBackground_adapter")
+    @BindingAdapter("pickerOptionBackground")
     public static void setBackground(TextView textView, boolean doesNothing) {
         Resources resources = textView.getResources();
         if (isPastelEnabled(textView.getContext()))

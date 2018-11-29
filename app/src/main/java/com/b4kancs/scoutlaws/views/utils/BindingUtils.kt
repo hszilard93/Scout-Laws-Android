@@ -52,10 +52,8 @@ fun determineTextShadow(textView: TextView, doesNothing: Boolean) {
 
 private fun giveTextShadow(textView: TextView, i: Int = 0) {
     textView.resources.apply {
-        if (i == 7)
-            textView.setShadowLayer(1f, 0f, 0f, getIdentifier("white", "color", PACKAGE_NAME))
-        else
-            textView.setShadowLayer(1f, 0.1f, 0.1f, getIdentifier("colorTextShadow", "color", PACKAGE_NAME))
+        if (i != 7)
+            textView.setShadowLayer(1.2f, 0.5f, 0.5f, getIdentifier("black", "color", PACKAGE_NAME))
     }
 }
 

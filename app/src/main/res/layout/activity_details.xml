@@ -33,7 +33,7 @@
                 android:id="@+id/constraint_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:state_binding="@{state}">
+                app:state_adapter="@{state}">
 
                 <TextView
                     android:id="@+id/text_number"

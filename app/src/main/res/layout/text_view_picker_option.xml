@@ -8,6 +8,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="@color/colorTextLight"
-        app:pickerOptionBackground_adapter="@{true}"
+        app:pickerOptionBackground="@{true}"
         tools:text="scout" />
 </layout>
