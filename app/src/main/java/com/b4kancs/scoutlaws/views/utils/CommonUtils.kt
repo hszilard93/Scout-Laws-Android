@@ -30,3 +30,8 @@ fun areAnimationsEnabled(context: Context): Boolean {
     return preferences.getBoolean("pref_animate", true)
 }
 
+fun isPastelEnabled(context: Context): Boolean {
+    val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+    return preferences.getBoolean("pref_pastel", false)
+}
+

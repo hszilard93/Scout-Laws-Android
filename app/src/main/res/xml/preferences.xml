@@ -38,6 +38,12 @@
             android:title="@string/pref_reset_stats_title" />
 
         <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="pref_pastel"
+            android:summary="@string/pref_pastel_sum"
+            android:title="@string/pref_pastel_title" />
+
+        <androidx.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="pref_animate"
             android:summary="@string/pref_animate_sum"

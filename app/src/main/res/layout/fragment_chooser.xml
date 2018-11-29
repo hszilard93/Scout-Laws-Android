@@ -14,9 +14,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,10 +46,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:background="@color/colorPrimary"
                     android:foreground="?attr/selectableItemBackground"
-                    android:textColor="@color/colorTextLight"
                     android:text="@string/any_quiz"
+                    android:textColor="@color/colorTextLight"
+                    app:colorPrimaryOrLight="@{true}"
+                    app:textShadow="@{true}"
                     tools:text="Any" />
 
                 <Button
@@ -57,10 +58,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:background="@color/colorPrimary"
                     android:foreground="?attr/selectableItemBackground"
-                    android:textColor="@color/colorTextLight"
                     android:text="@string/multiple_quiz"
+                    android:textColor="@color/colorTextLight"
+                    app:colorPrimaryOrLight="@{true}"
+                    app:textShadow="@{true}"
                     tools:text="Multiple choice" />
 
                 <Button
@@ -68,10 +70,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:background="@color/colorPrimary"
                     android:foreground="?attr/selectableItemBackground"
-                    android:textColor="@color/colorTextLight"
                     android:text="@string/pick_quiz"
+                    android:textColor="@color/colorTextLight"
+                    app:colorPrimaryOrLight="@{true}"
+                    app:textShadow="@{true}"
                     tools:text="Picker" />
 
                 <Button
@@ -79,10 +82,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:background="@color/colorPrimary"
                     android:foreground="?attr/selectableItemBackground"
-                    android:textColor="@color/colorTextLight"
                     android:text="@string/sorter_quiz"
+                    android:textColor="@color/colorTextLight"
+                    app:colorPrimaryOrLight="@{true}"
+                    app:textShadow="@{true}"
                     tools:text="Sorbarakós" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

@@ -78,4 +78,8 @@
     <string name="score">Score</string>
     <string name="best_times">Best times</string>
     <string name="stats_menu_item">Stats</string>
+    <string name="pref_pastel_title">Pastel colors</string>
+    <string name="pref_pastel_sum">If you find the default colors too lively, try this instead!</string>
+    <string name="version_14_release_title">New release: 0.2.1</string>
+    <string name="version_14_relase_notes">New features:\n- New "Pastel colors" mode. Activate it in the Preferences screen!\n- The app now can be moved to the SD card.\n\nBug fixes:\n- On phones with small screens, the Picker quiz was sometimes hard to use - fixed!\n- Small bugs - smashed!\n\nIf you find a new bug, or if you\'d like to share your thoughts, please contact me at hszilard.apps@gmail.com. Thank you!</string>
 </resources>

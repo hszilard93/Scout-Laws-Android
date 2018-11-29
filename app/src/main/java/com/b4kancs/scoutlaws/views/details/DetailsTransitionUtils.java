@@ -22,7 +22,7 @@ import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabl
  */
 public class DetailsTransitionUtils {
     /* Changes out the description in DetailsActivity based on state */
-    @BindingAdapter("state_binding")
+    @BindingAdapter("state_adapter")
     public static void stateBindingAdapter(@NonNull ViewGroup layout, DetailsActivityViewModel.State state) {
         ActivityDetailsBinding binding = DataBindingUtil.findBinding(layout);
         TextView modern = binding.textModern;

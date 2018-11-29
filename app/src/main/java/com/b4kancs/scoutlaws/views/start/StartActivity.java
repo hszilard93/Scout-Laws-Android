@@ -1,5 +1,6 @@
 package com.b4kancs.scoutlaws.views.start;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -9,15 +10,19 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.b4kancs.scoutlaws.R;
+import com.b4kancs.scoutlaws.ScoutLawApp;
 import com.b4kancs.scoutlaws.databinding.ActivityStartBinding;
 import com.b4kancs.scoutlaws.views.BaseActivity;
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity;
 import com.b4kancs.scoutlaws.views.settings.PreferencesActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -25,6 +30,7 @@ import androidx.lifecycle.ViewModelProviders;
 import static android.util.Log.DEBUG;
 import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.isPastelEnabled;
 import static com.crashlytics.android.Crashlytics.log;
 
 /**
@@ -35,6 +41,7 @@ public class StartActivity extends BaseActivity {
     private static final String LOG_TAG = StartActivity.class.getSimpleName();
 
     ActivityStartBinding binding;
+    @Inject @Named("release_notes") protected boolean shouldShowReleaseNotes;
     private StartActivityViewModel viewModel;
     private ActionBarDrawerToggle drawerToggle;
 
@@ -43,7 +50,7 @@ public class StartActivity extends BaseActivity {
         log(INFO, LOG_TAG, "onCreate(..)");
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-
+        ScoutLawApp.getInstance().getApplicationComponent().inject(this);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_start);
         viewModel = ViewModelProviders.of(this).get(StartActivityViewModel.class);
@@ -59,6 +66,9 @@ public class StartActivity extends BaseActivity {
             getWindow().setEnterTransition(fade);
             getWindow().setExitTransition(fade);
         }
+
+        if (shouldShowReleaseNotes)
+            showReleaseNotes();
     }
 
     @Override
@@ -102,6 +112,12 @@ public class StartActivity extends BaseActivity {
         setUpDrawerContent();
         NavigationView navigationView = binding.navigationView;
         navigationView.setNavigationItemSelectedListener(onNavigationItemSelected);
+
+        if (isPastelEnabled(getApplicationContext())) {
+            navigationView.getHeaderView(0).setBackgroundColor(
+                    getResources().getColor(R.color.colorNavHeaderLight)
+            );
+        }
     }
 
     private NavigationView.OnNavigationItemSelectedListener onNavigationItemSelected = item -> {
@@ -153,5 +169,18 @@ public class StartActivity extends BaseActivity {
 
         item.setChecked(true);
         binding.drawerLayout.closeDrawers();
+    }
+
+    private void showReleaseNotes() {
+        log(INFO, LOG_TAG, "showReleaseNotes()");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog dialog = builder.setTitle(getResources().getString(R.string.version_14_release_title))
+                .setMessage(getResources().getString(R.string.version_14_relase_notes))
+                .setPositiveButton(getResources().getString(R.string.ok_button), null)
+                .setCancelable(false)
+                .create();
+        dialog.setOnShowListener(dialog1 ->
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary)));
+        dialog.show();
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.b4kancs.scoutlaws">
+    package="com.b4kancs.scoutlaws"
+    android:installLocation="auto">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -29,6 +30,12 @@
             android:name=".views.settings.PreferencesActivity"
             android:parentActivityName=".views.start.StartActivity"
             android:theme="@style/SettingsTheme" />
+
+        <receiver android:name=".ExternalAvailableReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".services.NotificationService"
