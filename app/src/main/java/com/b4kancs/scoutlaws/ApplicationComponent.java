@@ -7,6 +7,7 @@ import com.b4kancs.scoutlaws.views.quiz.AbstractSharedViewModel;
 import com.b4kancs.scoutlaws.views.settings.PreferencesFragment;
 import com.b4kancs.scoutlaws.views.settings.ResetInfoDialogFragment;
 import com.b4kancs.scoutlaws.views.start.AboutDialogFragment;
+import com.b4kancs.scoutlaws.views.start.StartActivity;
 import com.b4kancs.scoutlaws.views.start.StartActivityViewModel;
 import com.b4kancs.scoutlaws.views.start.StatsDialogFragment;
 
@@ -33,4 +34,5 @@ public interface ApplicationComponent {
     void inject(StatsDialogFragment statsDialogFragment);
     void inject(ExternalAvailableReceiver externalAvailableReceiver);
     void inject(ScoutLawApp scoutLawApp);
+    void inject(StartActivity startActivity);
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.b4kancs.scoutlaws.R
 
 /**
  * Created by hszilard on 22-Feb-18.
@@ -53,16 +54,16 @@ fun determineTextShadow(textView: TextView, doesNothing: Boolean) {
 private fun giveTextShadow(textView: TextView, i: Int = 0) {
     textView.resources.apply {
         if (i != 7)
-            textView.setShadowLayer(1.2f, 0.5f, 0.5f, getIdentifier("black", "color", PACKAGE_NAME))
+            textView.setShadowLayer(1.2f, 0.3f, 0.3f, getColor(R.color.black))
     }
 }
 
 fun getPrimaryOrPrimaryLight(context: Context): Int {
     context.resources.apply {
         return if (isPastelEnabled(context))
-            getColor(getIdentifier("colorGreenAlternative", "color", PACKAGE_NAME))
+            getColor(R.color.colorGreenAlternative)
         else
-            getColor(getIdentifier("colorPrimary", "color", PACKAGE_NAME))
+            getColor(R.color.colorPrimary)
     }
 }
 

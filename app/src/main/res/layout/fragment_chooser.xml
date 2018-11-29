@@ -50,6 +50,7 @@
                     android:text="@string/any_quiz"
                     android:textColor="@color/colorTextLight"
                     app:colorPrimaryOrLight="@{true}"
+                    app:textShadow="@{true}"
                     tools:text="Any" />
 
                 <Button
@@ -61,6 +62,7 @@
                     android:text="@string/multiple_quiz"
                     android:textColor="@color/colorTextLight"
                     app:colorPrimaryOrLight="@{true}"
+                    app:textShadow="@{true}"
                     tools:text="Multiple choice" />
 
                 <Button
@@ -72,6 +74,7 @@
                     android:text="@string/pick_quiz"
                     android:textColor="@color/colorTextLight"
                     app:colorPrimaryOrLight="@{true}"
+                    app:textShadow="@{true}"
                     tools:text="Picker" />
 
                 <Button
@@ -83,6 +86,7 @@
                     android:text="@string/sorter_quiz"
                     android:textColor="@color/colorTextLight"
                     app:colorPrimaryOrLight="@{true}"
+                    app:textShadow="@{true}"
                     tools:text="Sorbarakós" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

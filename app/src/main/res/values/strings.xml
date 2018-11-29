@@ -80,4 +80,6 @@
     <string name="stats_menu_item">Eredmények</string>
     <string name="pref_pastel_title">Pasztel színek</string>
     <string name="pref_pastel_sum">Ha a színeket túl élénknek találod, próbáld ki ezt!</string>
+    <string name="version_14_release_title">Új verzió: 0.2.1</string>
+    <string name="version_14_relase_notes">Új funkciók:\n- "Pasztel színek" mód! A Beállítások menüben aktiválhatod!\n- Az alkalmazás már mozgatható az SD kártyára.\n\nHibajavítások:\n- Kis képernyős telefonokon előfordulhatott, hogy a Beillesztős kvíz nehezen volt használható - javítva!\n- Apróságok - javítva!\n\nHa új hibát találsz, vagy más észrevételed van, kérlek jelezd a hszilard.apps@gmail.com email címen. Köszönöm!</string>
 </resources>
