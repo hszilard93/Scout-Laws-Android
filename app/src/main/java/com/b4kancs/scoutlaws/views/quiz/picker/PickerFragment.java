@@ -113,13 +113,13 @@ public class PickerFragment extends Fragment {
             case DragEvent.ACTION_DROP:
                 log(INFO, LOG_TAG, "DragEvent.ACTION_DROP");
                 int i = questionFlow.indexOfChild(view);
-                viewModel.addUserAnswer(i, subject.getText().toString());
+                viewModel.addUserAnswer(i, viewModel.optionDragSuccess());
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
                 log(INFO, LOG_TAG, "DragEvent.ACTION_DROP_ENDED");
                 /* If the drag failed, restore the dragged view */
                 if (!event.getResult()) {
-                    viewModel.addOption(subject.getText().toString());
+                    viewModel.optionDragRestore();
                     log(INFO, LOG_TAG, "Drag failed.");
                 }
                 break;

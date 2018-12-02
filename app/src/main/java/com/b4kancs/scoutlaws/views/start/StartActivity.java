@@ -3,6 +3,7 @@ package com.b4kancs.scoutlaws.views.start;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.util.Log;
@@ -173,14 +174,16 @@ public class StartActivity extends BaseActivity {
 
     private void showReleaseNotes() {
         log(INFO, LOG_TAG, "showReleaseNotes()");
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        AlertDialog dialog = builder.setTitle(getResources().getString(R.string.version_14_release_title))
-                .setMessage(getResources().getString(R.string.version_14_relase_notes))
-                .setPositiveButton(getResources().getString(R.string.ok_button), null)
-                .setCancelable(false)
-                .create();
-        dialog.setOnShowListener(dialog1 ->
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary)));
-        dialog.show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog dialog = builder.setTitle(getResources().getString(R.string.version_15_release_title))
+                    .setMessage(getResources().getString(R.string.version_15_release_notes))
+                    .setPositiveButton(getResources().getString(R.string.ok_button), null)
+                    .setCancelable(false)
+                    .create();
+            dialog.setOnShowListener(dialog1 ->
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary)));
+            dialog.show();
+        }
     }
 }

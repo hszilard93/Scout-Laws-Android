@@ -53,8 +53,8 @@ public final class PickerBindings {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    @BindingAdapter("optionsFlow_adapter")
-    public static void AdaptOptionsFlowLayout(@NonNull FlowLayout layout, ArrayList<String> options) {
+    @BindingAdapter({"optionsFlowAdapter_viewModel", "optionsFlowAdapter_options"})
+    public static void AdaptOptionsFlowLayout(@NonNull FlowLayout layout, PickerViewModel viewModel, ArrayList<String> options) {
         // Remove views from the layout whose content are not in options
         for (int i = 0; i < layout.getChildCount(); i++) {
             TextView textView = ((TextView) layout.getChildAt(i));
@@ -75,17 +75,17 @@ public final class PickerBindings {
                         .inflate(inflater, R.layout.text_view_picker_option, layout, false);
                 TextView optionView = optionBinding.textOption;
                 optionView.setText(item);
-                optionView.setOnTouchListener(new OptionTouchListener(options));
+                optionView.setOnTouchListener(new OptionTouchListener(viewModel));
                 layout.addView(optionView);
             }
         }
     }
 
     private static class OptionTouchListener implements View.OnTouchListener {
-        ArrayList<String> options;
+        PickerViewModel viewModel;
 
-        OptionTouchListener(ArrayList<String> options) {
-            this.options = options;
+        OptionTouchListener(PickerViewModel viewModel) {
+            this.viewModel = viewModel;
         }
 
         @SuppressLint("ClickableViewAccessibility")
@@ -96,15 +96,16 @@ public final class PickerBindings {
                 return true;
 
             String text = ((TextView) view).getText().toString();
-            ClipData clipData = ClipData.newPlainText(null, text);
+            // Clipdata DOES NOT WORK anymore in Android 9.0 Pie (https://issuetracker.google.com/111758625)
+            ClipData clipData = ClipData.newPlainText(null, null);
             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
                 view.startDrag(clipData, shadowBuilder, view, 0);
             else
                 view.startDragAndDrop(clipData, shadowBuilder, view, 0);
 
-            // This change will be reflected in the optionsFlowLayout
-            options.remove(text);
+            // Workaround for the aforementioned bug
+            viewModel.optionDragStarted(text);
             // Provide feedback to user
             vibrate(view.getContext(), 50);
 

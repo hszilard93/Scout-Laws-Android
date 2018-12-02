@@ -2,22 +2,22 @@ package com.b4kancs.scoutlaws;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.preference.PreferenceManager;
-
-import androidx.annotation.VisibleForTesting;
-import io.fabric.sdk.android.Fabric;
 
 import com.b4kancs.scoutlaws.services.NotificationScheduler;
 import com.crashlytics.android.Crashlytics;
 
 import javax.inject.Inject;
 
-import static android.util.Log.*;
-import static com.b4kancs.scoutlaws.LocaleUtilsKt.refreshResources;
+import androidx.annotation.VisibleForTesting;
+import io.fabric.sdk.android.Fabric;
+
+import static android.util.Log.DEBUG;
+import static android.util.Log.ERROR;
+import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.LocaleUtilsKt.getBaseContextWithLocale;
-import static com.crashlytics.android.Crashlytics.*;
+import static com.b4kancs.scoutlaws.LocaleUtilsKt.refreshResources;
+import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 05-Apr-18.
@@ -44,7 +44,7 @@ public class ScoutLawApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
+        configureCrashReporting();
         log(INFO, LOG_TAG, "onCreate()");
         applicationComponent = DaggerApplicationComponent
                 .builder()
@@ -57,7 +57,7 @@ public class ScoutLawApp extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
-        // Default language is Hungarian, can be changed in runtime (for demo purposes)
+        // Default language is Hungarian, can be changed at runtime (for demo purposes)
         super.attachBaseContext(getBaseContextWithLocale(base, "hu"));  // This will cause the default resource-set to be loaded
     }
 
@@ -66,6 +66,10 @@ public class ScoutLawApp extends Application {
         log(INFO, LOG_TAG, "Configuration changed.");
         super.onConfigurationChanged(newConfig);
         refreshResources(this);
+    }
+
+    private void configureCrashReporting() {
+        Fabric.with(this, new Crashlytics());
     }
 
     @VisibleForTesting
