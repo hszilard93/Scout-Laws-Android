@@ -42,6 +42,7 @@ public class PickerViewModel extends ViewModel {
 
     private PickerScoutLaw scoutLaw;
     private ArrayList<String> questionItems;
+    private String optionBeingDragged;
     private boolean firstTry = true;
 
     PickerViewModel(PickerSharedViewModel shared) {
@@ -103,6 +104,27 @@ public class PickerViewModel extends ViewModel {
         log(DEBUG, LOG_TAG, "addOption(item = " + item + ")");
         if (!options.contains(item))
             options.add(item);
+    }
+
+    void optionDragStarted(String option) {
+        log(INFO, LOG_TAG, "optionDragStarted(option = " + option + ")");
+        optionBeingDragged = option;
+        options.remove(option);
+    }
+
+    void optionDragRestore() {
+        if (optionBeingDragged != null) {
+            log(INFO, LOG_TAG, "optionDragRestore(); optionBeingDragged = " + optionBeingDragged);
+            options.add(optionBeingDragged);
+        }
+        optionBeingDragged = null;
+    }
+
+    String optionDragSuccess() {
+        log(INFO, LOG_TAG, "optionDragRestore(); optionBeingDragged = " + optionBeingDragged);
+        String result = optionBeingDragged;
+        optionBeingDragged = null;
+        return result;
     }
 
     /* Eliminate some options */

@@ -25,8 +25,8 @@ android {
         applicationId "com.b4kancs.scoutlaws"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 14
-        versionName "0.2.1"
+        versionCode 15
+        versionName "0.2.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
     }
@@ -36,12 +36,14 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            manifestPlaceholders = [crashlyticsEnabled: true]
         }
         debug {
             debuggable true
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-debug.pro'
+            manifestPlaceholders = [crashlyticsEnabled: false]
         }
     }
     dataBinding {
