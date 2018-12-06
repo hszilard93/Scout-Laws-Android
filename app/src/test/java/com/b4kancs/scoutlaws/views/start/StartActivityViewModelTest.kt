@@ -1,7 +1,7 @@
 package com.b4kancs.scoutlaws.views.start
 
 import com.b4kancs.scoutlaws.DaggerTestComponent
-import com.b4kancs.scoutlaws.ScoutLawApp
+import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.TestComponent
 import com.b4kancs.scoutlaws.TestModule
 import com.b4kancs.scoutlaws.data.Repository
@@ -23,8 +23,8 @@ class StartActivityViewModelTest {
     @BeforeAll
     fun setUp() {
         val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
+        App().appComponent = testComponent
         testComponent.inject(this)
-        ScoutLawApp().applicationComponent = testComponent
     }
 
     @Test

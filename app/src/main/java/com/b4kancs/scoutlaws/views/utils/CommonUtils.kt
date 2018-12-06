@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Vibrator
 import android.preference.PreferenceManager
 import android.util.Log.DEBUG
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 
 /**
  * Created by hszilard on 14-Apr-18.

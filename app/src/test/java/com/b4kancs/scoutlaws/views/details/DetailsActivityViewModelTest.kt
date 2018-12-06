@@ -1,7 +1,7 @@
 package com.b4kancs.scoutlaws.views.details
 
 import com.b4kancs.scoutlaws.DaggerTestComponent
-import com.b4kancs.scoutlaws.ScoutLawApp
+import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.TestComponent
 import com.b4kancs.scoutlaws.TestModule
 import com.b4kancs.scoutlaws.data.Repository
@@ -24,7 +24,7 @@ class DetailsActivityViewModelTest {
     fun setUp() {
         val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
         testComponent.inject(this)
-        ScoutLawApp().applicationComponent = testComponent
+        App().appComponent = testComponent
     }
 
     @Test

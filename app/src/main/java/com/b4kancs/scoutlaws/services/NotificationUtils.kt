@@ -16,7 +16,7 @@ import com.b4kancs.scoutlaws.views.quiz.QuizActivity
 import com.b4kancs.scoutlaws.views.quiz.multiplechoice.MultipleChoiceFragment
 import com.b4kancs.scoutlaws.views.quiz.picker.PickerFragment
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 import java.util.*
 
 const val CHANNEL_ID = "NOTIFICATION_CHANNEL_1"

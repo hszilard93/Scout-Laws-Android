@@ -10,7 +10,7 @@ import android.view.Window
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.b4kancs.scoutlaws.R
-import com.b4kancs.scoutlaws.ScoutLawApp
+import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.data.Repository
 import com.b4kancs.scoutlaws.databinding.LayoutStatsDialogBinding
 import com.b4kancs.scoutlaws.databinding.LayoutStatsDialogLegacyBinding
@@ -31,7 +31,7 @@ class StatsDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Crashlytics.log(Log.INFO, LOG_TAG, "onCreate(..)")
         super.onCreate(savedInstanceState)
-        ScoutLawApp.getInstance().applicationComponent.inject(this)
+        App.getInstance().appComponent.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

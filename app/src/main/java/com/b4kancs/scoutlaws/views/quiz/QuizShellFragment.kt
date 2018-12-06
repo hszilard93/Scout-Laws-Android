@@ -18,7 +18,7 @@ import com.b4kancs.scoutlaws.views.quiz.picker.PickerFragment
 import com.b4kancs.scoutlaws.views.quiz.picker.PickerSharedViewModel
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterFragment
 import com.b4kancs.scoutlaws.views.quiz.sorter.SorterSharedViewModel
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 
 /**
  * Created by hszilard on 20-May-18.

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.res.Configuration;
 
 import com.b4kancs.scoutlaws.services.NotificationScheduler;
+import com.b4kancs.scoutlaws.logger.CrashlyticsLogger;
+import com.b4kancs.scoutlaws.logger.Logger;
+import com.b4kancs.scoutlaws.logger.LoggerI;
 import com.crashlytics.android.Crashlytics;
 
 import javax.inject.Inject;
@@ -17,26 +20,25 @@ import static android.util.Log.ERROR;
 import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.LocaleUtilsKt.getBaseContextWithLocale;
 import static com.b4kancs.scoutlaws.LocaleUtilsKt.refreshResources;
-import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 05-Apr-18.
  */
-public class ScoutLawApp extends Application {
-    private static final String LOG_TAG = ScoutLawApp.class.getSimpleName();
-    private static ScoutLawApp instance;
+public class App extends Application {
+    private static final String LOG_TAG = App.class.getSimpleName();
+    private static App instance;
 
     @Inject protected NotificationScheduler notificationScheduler;
-    private ApplicationComponent applicationComponent;
+    private AppComponent appComponent;
 
-    public ScoutLawApp() {
+    public App() {
         instance = this;
     }
 
-    public static ScoutLawApp getInstance() {
-        log(DEBUG, LOG_TAG, "getInstance()");
+    public static App getInstance() {
+        Logger.Companion.log(DEBUG, LOG_TAG, "getInstance()");
         if (instance == null)
-            log(ERROR, LOG_TAG, "!!!App instance is null!!!");
+            Logger.Companion.log(ERROR, LOG_TAG, "!!!App instance is null!!!");
 
         return instance;
     }
@@ -45,13 +47,13 @@ public class ScoutLawApp extends Application {
     public void onCreate() {
         super.onCreate();
         configureCrashReporting();
-        log(INFO, LOG_TAG, "onCreate()");
-        applicationComponent = DaggerApplicationComponent
+        Logger.Companion.log(INFO, LOG_TAG, "onCreate()");
+        appComponent = DaggerAppComponent
                 .builder()
-                .applicationModule(new ApplicationModule(this))
+                .appModule(new AppModule(this))
                 .build();
+        appComponent.inject(this);
         // Reschedule notifications if necessary
-        applicationComponent.inject(this);
         notificationScheduler.schedule(false);
     }
 
@@ -63,21 +65,23 @@ public class ScoutLawApp extends Application {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        log(INFO, LOG_TAG, "Configuration changed.");
+        Logger.Companion.log(INFO, LOG_TAG, "Configuration changed.");
         super.onConfigurationChanged(newConfig);
         refreshResources(this);
     }
 
     private void configureCrashReporting() {
         Fabric.with(this, new Crashlytics());
+        LoggerI logger = new CrashlyticsLogger();
+        Logger.Companion.setUpLogger(logger);
     }
 
     @VisibleForTesting
-    public void setApplicationComponent(ApplicationComponent appComponent) {
-        this.applicationComponent = appComponent;
+    public void setAppComponent(AppComponent appComponent) {
+        this.appComponent = appComponent;
     }
 
-    public ApplicationComponent getApplicationComponent() {
-        return applicationComponent;
+    public AppComponent getAppComponent() {
+        return appComponent;
     }
 }

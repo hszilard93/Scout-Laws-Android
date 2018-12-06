@@ -11,8 +11,6 @@ import com.b4kancs.scoutlaws.views.start.StartActivity;
 import com.b4kancs.scoutlaws.views.start.StartActivityViewModel;
 import com.b4kancs.scoutlaws.views.start.StatsDialogFragment;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -21,8 +19,8 @@ import dagger.Component;
  * Created by hszilard on 05-Apr-18.
  */
 @Singleton
-@Component(modules = ApplicationModule.class)
-public interface ApplicationComponent {
+@Component(modules = AppModule.class)
+public interface AppComponent {
     void inject(Repository repository);
     void inject(StartActivityViewModel startActivityViewModel);
     void inject(AbstractSharedViewModel abstractSharedViewModel);
@@ -33,6 +31,6 @@ public interface ApplicationComponent {
     void inject(AboutDialogFragment aboutDialogFragment);
     void inject(StatsDialogFragment statsDialogFragment);
     void inject(ExternalAvailableReceiver externalAvailableReceiver);
-    void inject(ScoutLawApp scoutLawApp);
+    void inject(App app);
     void inject(StartActivity startActivity);
 }

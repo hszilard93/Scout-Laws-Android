@@ -1,7 +1,7 @@
 package com.b4kancs.scoutlaws.views.quiz.sorter
 
 import com.b4kancs.scoutlaws.DaggerTestComponent
-import com.b4kancs.scoutlaws.ScoutLawApp
+import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.TestModule
 import com.b4kancs.scoutlaws.data.Repository
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -22,7 +22,7 @@ class SorterSharedViewModelTest {
     fun setUpAll() {
         val testComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
         testComponent.inject(this)
-        ScoutLawApp().applicationComponent = testComponent
+        App().appComponent = testComponent
     }
 
     @Test

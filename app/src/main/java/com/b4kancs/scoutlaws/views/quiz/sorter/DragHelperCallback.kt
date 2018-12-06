@@ -4,7 +4,7 @@ import android.util.Log.DEBUG
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.b4kancs.scoutlaws.views.quiz.sorter.OptionsRecyclerAdapter.FooterViewHolder
 import com.b4kancs.scoutlaws.views.quiz.sorter.OptionsRecyclerAdapter.ItemViewHolder
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 
 /**
  * Created by hszilard on 24-Oct-18.
