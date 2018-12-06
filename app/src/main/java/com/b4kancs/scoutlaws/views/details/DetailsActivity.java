@@ -14,16 +14,15 @@ import com.b4kancs.scoutlaws.databinding.ActivityDetailsBinding;
 import com.b4kancs.scoutlaws.views.BaseActivity;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import static android.util.Log.DEBUG;
 import static android.util.Log.INFO;
+import static com.b4kancs.scoutlaws.logger.Logger.log;
 import static com.b4kancs.scoutlaws.views.details.DetailsActivityViewModel.State;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
-import static com.crashlytics.android.Crashlytics.log;
 
 /**
  * Created by hszilard on 21-Feb-18.

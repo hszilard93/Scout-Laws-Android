@@ -6,7 +6,7 @@ import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 
 /**
  * Created by hszilard on 01-Sep-18.

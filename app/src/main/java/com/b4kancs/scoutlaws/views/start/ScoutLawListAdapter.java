@@ -27,7 +27,7 @@ import static android.util.Log.DEBUG;
 import static android.util.Log.ERROR;
 import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
-import static com.crashlytics.android.Crashlytics.log;
+import static com.b4kancs.scoutlaws.logger.Logger.log;
 
 /**
  * Created by hszilard on 15-Feb-18.

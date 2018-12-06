@@ -20,8 +20,8 @@ android {
         applicationId "com.b4kancs.scoutlaws"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 15
-        versionName "0.2.1.1"
+        versionCode 16
+        versionName "0.2.1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
     }
@@ -107,6 +107,8 @@ dependencies {
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
 
     // Junit5
+    testImplementation junit5.unitTests()
+    androidTestImplementation junit5.instrumentationTests()
 
     // Firebase
     implementation "com.google.firebase:firebase-core:$firebase_core_version"

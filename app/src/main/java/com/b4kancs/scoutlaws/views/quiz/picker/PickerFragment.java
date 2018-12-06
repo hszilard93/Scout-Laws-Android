@@ -28,7 +28,7 @@ import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showIncorrectFeed
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
-import static com.crashlytics.android.Crashlytics.log;
+import static com.b4kancs.scoutlaws.logger.Logger.log;
 
 /**
  * Created by hszilard on 3-March-18.

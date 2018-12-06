@@ -23,8 +23,8 @@ class RepositoryTest {
     init {
         /* Set up Dagger for testing */
         val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
+        App().appComponent = testComponent
         testComponent.inject(this)
-        ScoutLawApp().applicationComponent = testComponent
     }
 
     @Test

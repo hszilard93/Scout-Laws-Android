@@ -1,6 +1,5 @@
 package com.b4kancs.scoutlaws.views.start;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -10,8 +9,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.b4kancs.scoutlaws.App;
 import com.b4kancs.scoutlaws.R;
-import com.b4kancs.scoutlaws.ScoutLawApp;
 import com.b4kancs.scoutlaws.databinding.ActivityStartBinding;
 import com.b4kancs.scoutlaws.views.BaseActivity;
 import com.b4kancs.scoutlaws.views.quiz.QuizActivity;
@@ -32,7 +31,7 @@ import static android.util.Log.DEBUG;
 import static android.util.Log.INFO;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.isPastelEnabled;
-import static com.crashlytics.android.Crashlytics.log;
+import static com.b4kancs.scoutlaws.logger.Logger.log;
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -51,7 +50,7 @@ public class StartActivity extends BaseActivity {
         log(INFO, LOG_TAG, "onCreate(..)");
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        ScoutLawApp.getInstance().getApplicationComponent().inject(this);
+        App.getInstance().getAppComponent().inject(this);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_start);
         viewModel = ViewModelProviders.of(this).get(StartActivityViewModel.class);

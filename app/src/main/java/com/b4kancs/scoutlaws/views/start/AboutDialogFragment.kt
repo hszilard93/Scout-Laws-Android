@@ -10,12 +10,12 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.databinding.DataBindingUtil
 import com.b4kancs.scoutlaws.R
-import com.b4kancs.scoutlaws.ScoutLawApp
+import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.data.Repository
 import com.b4kancs.scoutlaws.databinding.LayoutAboutDialogBinding
 import com.b4kancs.scoutlaws.databinding.LayoutAboutDialogLegacyBinding
 import com.b4kancs.scoutlaws.getBaseContextWithLocale
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 import javax.inject.Inject
 
 /**
@@ -33,7 +33,7 @@ class AboutDialogFragment : androidx.fragment.app.DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         log(INFO, LOG_TAG, "onCreate(..)")
         super.onCreate(savedInstanceState)
-        ScoutLawApp.getInstance().applicationComponent.inject(this)
+        App.getInstance().appComponent.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

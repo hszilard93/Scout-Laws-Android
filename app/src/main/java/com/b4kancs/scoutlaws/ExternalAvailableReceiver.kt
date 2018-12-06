@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log.INFO
 import com.b4kancs.scoutlaws.services.NotificationScheduler
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 import javax.inject.Inject
 
 /**
@@ -21,7 +21,7 @@ class ExternalAvailableReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         log(INFO, LOG_TAG, "onReceive()")
 
-        ScoutLawApp.getInstance().applicationComponent.inject(this)
+        App.getInstance().appComponent.inject(this)
 
         notificationScheduler.schedule(false)
     }

@@ -16,7 +16,7 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(modules = [TestModule::class])
-interface TestComponent : ApplicationComponent {
+interface TestComponent : AppComponent {
     fun inject(test: StartActivityViewModelTest)
     fun inject(test: RepositoryTest)
     fun inject(test: PickerSharedViewModelTest)
@@ -25,4 +25,5 @@ interface TestComponent : ApplicationComponent {
     fun inject(test: NotificationSchedulerTest)
     fun inject(test: SorterViewModelTest)
     fun inject(test: SorterSharedViewModelTest)
+
 }
