@@ -36,7 +36,6 @@ class Repository
         private set
 
     init {
-        App.getInstance().appComponent.inject(this)
         log(INFO, LOG_TAG, "init")
         loadScoutLaws()
     }

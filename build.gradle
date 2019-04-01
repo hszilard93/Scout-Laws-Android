@@ -51,7 +51,7 @@ ext {
     core_testing_version = '2.0.0'
 
     firebase_core_version = '16.0.6'
-    firebase_crashlytics_version = '2.9.6'
+    firebase_crashlytics_version = '2.9.7'
 
     dagger2_version = '2.15'
     flow_layout_version = '1.2.2'

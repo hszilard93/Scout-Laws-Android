@@ -28,7 +28,6 @@ import org.junit.runner.RunWith
 /**
  * Created by hszilard on 15-May-18.
  */
-
 private fun extractView(matcher: Matcher<View>?): View? {
     var viewToReturn: View? = null
 

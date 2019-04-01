@@ -96,10 +96,15 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
+    // Firebase
+    implementation "com.google.firebase:firebase-core:$firebase_core_version"
+    implementation "com.crashlytics.sdk.android:crashlytics:$firebase_crashlytics_version"
+
     // AndroidX Testing Library's runner and rules
+    testImplementation "androidx.arch.core:core-testing:$core_testing_version"
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test:rules:$test_runner_version"
-    testImplementation "androidx.arch.core:core-testing:$core_testing_version"
+    androidTestImplementation "androidx.test.ext:junit:1.0.0"
 
     // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
@@ -113,11 +118,8 @@ dependencies {
 
     // Junit5
     testImplementation junit5.unitTests()
+    testImplementation junit5.parameterized()
     androidTestImplementation junit5.instrumentationTests()
-
-    // Firebase
-    implementation "com.google.firebase:firebase-core:$firebase_core_version"
-    implementation "com.crashlytics.sdk.android:crashlytics:$firebase_crashlytics_version"
 }
 
 repositories {
