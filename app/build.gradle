@@ -104,7 +104,7 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$core_testing_version"
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test:rules:$test_runner_version"
-    androidTestImplementation "androidx.test.ext:junit:1.0.0"
+    androidTestImplementation "androidx.test.ext:junit:$junit_version"
 
     // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"

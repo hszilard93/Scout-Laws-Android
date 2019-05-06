@@ -49,14 +49,14 @@ ext {
     test_runner_version = '1.1.0'
     espresso_version = '3.1.0'
     core_testing_version = '2.0.0'
+    junit_version = '1.1.0'
 
-    firebase_core_version = '16.0.6'
-    firebase_crashlytics_version = '2.9.7'
+    firebase_core_version = '16.0.8'
+    firebase_crashlytics_version = '2.10.0'
 
     dagger2_version = '2.15'
     flow_layout_version = '1.2.2'
     linear_list_version = '1.0.1'
-    junit_version = '4.12'
     mockito_version = '2.23.0'
     mockito_kotlin_version = '2.0.0'
 }
