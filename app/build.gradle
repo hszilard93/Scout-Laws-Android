@@ -6,13 +6,18 @@ apply plugin: "de.mannodermaus.android-junit5"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
 
+// Load keystore
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     signingConfigs {
         release {
-            keyAlias 'key0'
-            keyPassword 'ms015390'
-            storeFile file('F:/Workspace/Android/keystore/Cserkesz10.jks')
-            storePassword 'ms015390'
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
         }
     }
     compileSdkVersion 28
