@@ -2,7 +2,7 @@ package com.b4kancs.scoutlaws.views.quiz;
 
 import android.os.SystemClock;
 
-import com.b4kancs.scoutlaws.ScoutLawApp;
+import com.b4kancs.scoutlaws.App;
 import com.b4kancs.scoutlaws.data.Repository;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModel;
 
 import static android.util.Log.DEBUG;
 import static android.util.Log.INFO;
-import static com.crashlytics.android.Crashlytics.log;
+import static com.b4kancs.scoutlaws.logger.Logger.log;
 
 /**
  * Created by hszilard on 08-Mar-18.
@@ -42,7 +42,7 @@ public abstract class AbstractSharedViewModel extends ViewModel {
 
     protected AbstractSharedViewModel() {
         log(DEBUG, LOG_TAG, "constructor");
-        ScoutLawApp.getInstance().getApplicationComponent().inject(this);
+        App.getInstance().getAppComponent().inject(this);
         usedLaws = new ArrayList<>(repository.getNumberOfScoutLaws());
     }
 

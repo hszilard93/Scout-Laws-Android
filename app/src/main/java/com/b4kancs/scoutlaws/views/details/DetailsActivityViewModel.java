@@ -1,6 +1,6 @@
 package com.b4kancs.scoutlaws.views.details;
 
-import com.b4kancs.scoutlaws.ScoutLawApp;
+import com.b4kancs.scoutlaws.App;
 import com.b4kancs.scoutlaws.data.Repository;
 import com.b4kancs.scoutlaws.data.model.ScoutLaw;
 
@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModel;
 
 import static android.util.Log.DEBUG;
 import static android.util.Log.INFO;
-import static com.crashlytics.android.Crashlytics.log;
+import static com.b4kancs.scoutlaws.logger.Logger.log;
 
 /**
  * Created by hszilard on 21-Feb-18.
@@ -35,7 +35,7 @@ public class DetailsActivityViewModel extends ViewModel {
 
     private void init() {
         log(DEBUG, LOG_TAG, "init()");
-        ScoutLawApp.getInstance().getApplicationComponent().inject(this);
+        App.getInstance().getAppComponent().inject(this);
         this.scoutLaw = repository.getScoutLaws().get(index - 1);
         observableState.set(State.MODERN);
     }

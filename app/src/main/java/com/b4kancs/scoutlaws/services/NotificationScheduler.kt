@@ -10,7 +10,7 @@ import android.util.Log.DEBUG
 import android.util.Log.INFO
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.data.Repository
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -22,8 +22,8 @@ import javax.inject.Singleton
 @Singleton
 class NotificationScheduler
 @Inject constructor(val context: Context,
-        val repository: Repository,
-        @Named("default_preferences") val sharedPreferences: SharedPreferences) {
+                    val repository: Repository,
+                    @Named("default_preferences") val sharedPreferences: SharedPreferences) {
 
     companion object {
         private const val NOTIFICATION_JOB_ID = 1

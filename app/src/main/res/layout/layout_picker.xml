@@ -129,7 +129,8 @@
                 app:flChildSpacing="8dp"
                 app:flChildSpacingForLastRow="8dp"
                 app:flRowSpacing="4dp"
-                app:optionsFlow_adapter="@{viewModel.options}" />
+                app:optionsFlowAdapter_viewModel="@{viewModel}"
+                app:optionsFlowAdapter_options="@{viewModel.options}"/>
         </ScrollView>
     </LinearLayout>
 </layout>

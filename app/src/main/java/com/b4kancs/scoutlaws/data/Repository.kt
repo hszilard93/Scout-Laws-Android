@@ -7,7 +7,7 @@ import android.util.Log.INFO
 import com.b4kancs.scoutlaws.data.model.PickerScoutLaw
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
 import com.b4kancs.scoutlaws.data.store.UserDataStore
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named

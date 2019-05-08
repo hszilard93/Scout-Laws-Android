@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import com.b4kancs.scoutlaws.data.store.UserDataStore
 import com.b4kancs.scoutlaws.services.NotificationScheduler
+import com.b4kancs.scoutlaws.logger.DefaultLogger
+import com.b4kancs.scoutlaws.logger.LoggerI
 import com.nhaarman.mockitokotlin2.mock
 import dagger.Module
 import dagger.Provides
@@ -36,4 +38,7 @@ class TestModule {
     @Provides
     fun provideNotificationScheduler(): NotificationScheduler = mock()
 
+    @Provides
+    @Named("release_notes")
+    fun shouldShowReleaseNotes(): Boolean = false
 }

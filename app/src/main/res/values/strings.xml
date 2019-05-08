@@ -80,6 +80,14 @@
     <string name="stats_menu_item">Eredmények</string>
     <string name="pref_pastel_title">Pasztel színek</string>
     <string name="pref_pastel_sum">Ha a színeket túl élénknek találod, próbáld ki ezt!</string>
+    <string name="pref_crash_reports_title">Hibajelentések</string>
+    <string name="pref_crash_reports_sum">Hibajelentések küldésének engedélyezése</string>
     <string name="version_14_release_title">Új verzió: 0.2.1</string>
     <string name="version_14_relase_notes">Új funkciók:\n- "Pasztel színek" mód! A Beállítások menüben aktiválhatod!\n- Az alkalmazás már mozgatható az SD kártyára.\n\nHibajavítások:\n- Kis képernyős telefonokon előfordulhatott, hogy a Beillesztős kvíz nehezen volt használható - javítva!\n- Apróságok - javítva!\n\nHa új hibát találsz, vagy más észrevételed van, kérlek jelezd a hszilard.apps@gmail.com email címen. Köszönöm!</string>
+    <string name="version_15_release_title">Új verzió: 0.2.1.1</string>
+    <string name="version_15_release_notes">Hibajavítások:\n- Megoldás az Android 9.0 operációs rendszerben jelenlevő hibára amely a Beillesztős kvíz nem megfelelő működését okozta.</string>
+    <string name="version_17_release_title">Új verzió: 0.2.2.1</string>
+    <string name="version_17_release_notes"><big>Új funkciók:</big>\n- Adatvédelmi nyilatkozat. Az adatvédelmi nyilatkozatot megtalálod a menüben.\n- A hibajelentéseket mostantól kikapcsolhatod a Beállítások menüben.</string>
+    <string name="privacy_menu_item">Adatvédelmi nyilatkozat</string>
+    <string name="privacy_text"><big><b>Röviden</b></big>\nEz az alkalmazás a Google Analytics for Firebase szolgáltatást használja alapvető használati statisztikák és hibajelenetések gyűjtésére. Az így gyűjtött információ többek között magába foglalhatja a következőket: példányazonosítók (Instance IDs), hibanyomok (Crash traces), telepítési azonosító (Instalation UUID), IP cím. Semmilyen más módon vagy céllal nem gyűjtöm, nem dolgozom fel és nem adom tovább a felhasználók személyes adatait. Ha nem szeretnéd, hogy az említett célokra felhasználjam adataidat, <b>kikapcsolhatod</b> a Hibajelentés funkciót a Beállítások menüben.\nTovábbi információkért kérlek olvasd el a részletes <i>Adatvédelmi nyilatkozatot</i> a következő linken: https://bit.ly/2DXakng</string>
 </resources>

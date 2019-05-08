@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log.*
 import androidx.appcompat.app.AlertDialog
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 
 /**
  * Created by hszilard on 12-Nov-18.

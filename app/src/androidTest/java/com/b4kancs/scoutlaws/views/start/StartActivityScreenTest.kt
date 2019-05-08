@@ -1,5 +1,6 @@
 package com.b4kancs.scoutlaws.views.start
 
+import android.view.Gravity
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -8,9 +9,8 @@ import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.DrawerMatchers.isClosed
 import androidx.test.espresso.contrib.DrawerMatchers.isOpen
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
-import android.view.Gravity
 import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
 import org.hamcrest.CoreMatchers.*

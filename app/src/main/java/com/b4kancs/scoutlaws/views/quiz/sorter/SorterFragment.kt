@@ -15,7 +15,7 @@ import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.databinding.FragmentSorterBinding
 import com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.*
 import com.b4kancs.scoutlaws.views.utils.vibrate
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 
 /**
  * Created by hszilard on 01-Sep-18.

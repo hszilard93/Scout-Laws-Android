@@ -25,8 +25,8 @@ android {
         applicationId "com.b4kancs.scoutlaws"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 14
-        versionName "0.2.1"
+        versionCode 17
+        versionName "0.2.2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
     }
@@ -36,12 +36,14 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            manifestPlaceholders = [crashlyticsEnabled: true]
         }
         debug {
             debuggable true
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-debug.pro'
+            manifestPlaceholders = [crashlyticsEnabled: false]
         }
     }
     dataBinding {
@@ -94,10 +96,15 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
+    // Firebase
+    implementation "com.google.firebase:firebase-core:$firebase_core_version"
+    implementation "com.crashlytics.sdk.android:crashlytics:$firebase_crashlytics_version"
+
     // AndroidX Testing Library's runner and rules
+    testImplementation "androidx.arch.core:core-testing:$core_testing_version"
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test:rules:$test_runner_version"
-    testImplementation "androidx.arch.core:core-testing:$core_testing_version"
+    androidTestImplementation "androidx.test.ext:junit:$junit_version"
 
     // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
@@ -110,10 +117,9 @@ dependencies {
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
 
     // Junit5
-
-    // Firebase
-    implementation "com.google.firebase:firebase-core:$firebase_core_version"
-    implementation "com.crashlytics.sdk.android:crashlytics:$firebase_crashlytics_version"
+    testImplementation junit5.unitTests()
+    testImplementation junit5.parameterized()
+    androidTestImplementation junit5.instrumentationTests()
 }
 
 repositories {

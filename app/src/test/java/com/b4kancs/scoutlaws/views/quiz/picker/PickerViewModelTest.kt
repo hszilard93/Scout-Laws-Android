@@ -1,7 +1,7 @@
 package com.b4kancs.scoutlaws.views.quiz.picker
 
 import com.b4kancs.scoutlaws.DaggerTestComponent
-import com.b4kancs.scoutlaws.ScoutLawApp
+import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.TestComponent
 import com.b4kancs.scoutlaws.TestModule
 import com.b4kancs.scoutlaws.data.model.PickerScoutLaw
@@ -30,7 +30,7 @@ class PickerViewModelTest {
     @BeforeAll
     fun setUpAll() {
         val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
-        ScoutLawApp().applicationComponent = testComponent
+        App().appComponent = testComponent
 
         // If we have only one scout law in the list, it is guaranteed to be chosen for the first turn
         whenever(stubSharedViewModel.pickerScoutLaws).thenReturn(listOf(testScoutLaw))

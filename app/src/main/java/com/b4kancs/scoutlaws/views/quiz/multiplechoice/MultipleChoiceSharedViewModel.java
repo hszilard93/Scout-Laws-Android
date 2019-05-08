@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.util.Log.INFO;
-import static com.crashlytics.android.Crashlytics.log;
+import static com.b4kancs.scoutlaws.logger.Logger.log;
 
 /**
  * Created by hszilard on 28-Feb-18.

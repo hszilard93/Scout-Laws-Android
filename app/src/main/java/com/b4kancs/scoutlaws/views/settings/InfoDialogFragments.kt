@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.util.Log.DEBUG
 import android.util.Log.INFO
 import com.b4kancs.scoutlaws.R
-import com.b4kancs.scoutlaws.ScoutLawApp
+import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.data.Repository
 import com.b4kancs.scoutlaws.views.AbstractCustomDialogFragment
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 import javax.inject.Inject
 
 /**
@@ -39,7 +39,7 @@ class ResetInfoDialogFragment : AbstractCustomDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         log(INFO, LOG_TAG, "onCreate(..)")
         super.onCreate(savedInstanceState)
-        ScoutLawApp.getInstance().applicationComponent.inject(this)
+        App.getInstance().appComponent.inject(this)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

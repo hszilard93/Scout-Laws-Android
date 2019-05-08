@@ -1,4 +1,4 @@
-package com.b4kancs.scoutlaws.views.start
+package com.b4kancs.scoutlaws.views.menu
 
 import android.os.Build
 import android.os.Bundle
@@ -9,12 +9,12 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.R
-import com.b4kancs.scoutlaws.ScoutLawApp
 import com.b4kancs.scoutlaws.data.Repository
 import com.b4kancs.scoutlaws.databinding.LayoutStatsDialogBinding
 import com.b4kancs.scoutlaws.databinding.LayoutStatsDialogLegacyBinding
-import com.crashlytics.android.Crashlytics
+import com.b4kancs.scoutlaws.logger.Logger
 import javax.inject.Inject
 
 /**
@@ -29,25 +29,25 @@ class StatsDialogFragment : DialogFragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Crashlytics.log(Log.INFO, LOG_TAG, "onCreate(..)")
+        Logger.log(Log.INFO, LOG_TAG, "onCreate(..)")
         super.onCreate(savedInstanceState)
-        ScoutLawApp.getInstance().applicationComponent.inject(this)
+        App.getInstance().appComponent.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Crashlytics.log(Log.DEBUG, LOG_TAG, "onCreateView(..)")
+        Logger.log(Log.DEBUG, LOG_TAG, "onCreateView(..)")
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             dialog?.requestWindowFeature(Window.FEATURE_LEFT_ICON)
             val binding = DataBindingUtil.inflate<LayoutStatsDialogLegacyBinding>(inflater, R.layout.layout_stats_dialog_legacy, null, false)
             binding.repository = repository
             binding.buttonStatsOk.setOnClickListener(buttonOkOnClickListener)
-            return binding.root
+            binding.root
         } else {
             val binding = DataBindingUtil.inflate<LayoutStatsDialogBinding>(inflater, R.layout.layout_stats_dialog, null, false)
             binding.repository = repository
             binding.buttonStatsOk.setOnClickListener(buttonOkOnClickListener)
-            return binding.root
+            binding.root
         }
     }
 
@@ -58,7 +58,7 @@ class StatsDialogFragment : DialogFragment() {
     }
 
     fun show(manager: androidx.fragment.app.FragmentManager) {
-        Crashlytics.log(Log.INFO, LOG_TAG, "show(..); Showing dialog")
+        Logger.log(Log.INFO, LOG_TAG, "show(..); Showing dialog")
         val transaction = manager.beginTransaction()
         transaction.add(this, tag)
         transaction.commitAllowingStateLoss()

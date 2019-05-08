@@ -1,4 +1,4 @@
-package com.b4kancs.scoutlaws.views.start
+package com.b4kancs.scoutlaws.views.menu
 
 import android.os.Build
 import android.os.Bundle
@@ -10,12 +10,12 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.databinding.DataBindingUtil
 import com.b4kancs.scoutlaws.R
-import com.b4kancs.scoutlaws.ScoutLawApp
+import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.data.Repository
 import com.b4kancs.scoutlaws.databinding.LayoutAboutDialogBinding
 import com.b4kancs.scoutlaws.databinding.LayoutAboutDialogLegacyBinding
 import com.b4kancs.scoutlaws.getBaseContextWithLocale
-import com.crashlytics.android.Crashlytics.log
+import com.b4kancs.scoutlaws.logger.Logger.Companion.log
 import javax.inject.Inject
 
 /**
@@ -33,24 +33,24 @@ class AboutDialogFragment : androidx.fragment.app.DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         log(INFO, LOG_TAG, "onCreate(..)")
         super.onCreate(savedInstanceState)
-        ScoutLawApp.getInstance().applicationComponent.inject(this)
+        App.getInstance().appComponent.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         log(DEBUG, LOG_TAG, "onCreateView(..)")
 
         // DialogFragment displayed incorrectly on APIs 21 and 22
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             dialog?.requestWindowFeature(Window.FEATURE_LEFT_ICON)
             val binding = DataBindingUtil.inflate<LayoutAboutDialogLegacyBinding>(inflater, R.layout.layout_about_dialog_legacy, null, false)
             binding.buttonAboutOk.setOnClickListener(buttonOkOnClickListener)
             binding.textAbout.setOnClickListener(textAboutOnClickListener)
-            return binding.root
+            binding.root
         } else {
             val binding = DataBindingUtil.inflate<LayoutAboutDialogBinding>(inflater, R.layout.layout_about_dialog, null, false)
             binding.buttonAboutOk.setOnClickListener(buttonOkOnClickListener)
             binding.textAbout.setOnClickListener(textAboutOnClickListener)
-            return binding.root
+            binding.root
         }
     }
 

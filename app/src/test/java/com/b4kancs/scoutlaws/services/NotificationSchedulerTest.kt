@@ -32,7 +32,7 @@ class NotificationSchedulerTest {
         /* Set up Dagger for testing */
         val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
         testComponent.inject(this)
-        ScoutLawApp().applicationComponent = testComponent
+        App().appComponent = testComponent
     }
 
     @BeforeEach
@@ -148,7 +148,7 @@ class NotificationSchedulerTest {
                 .thenReturn((Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + 1) * 100)
 
         val notificationTimeInMillis = NotificationScheduler(mockContext, repository, mockSharedPreferences)
-                .schedule(false)
+                .schedule(true)
         val notificationTimeInCalendar = Calendar.getInstance().apply { timeInMillis = notificationTimeInMillis }
         val tomorrowInCalendar = Calendar.getInstance().apply { add(Calendar.DATE, 1) }
 

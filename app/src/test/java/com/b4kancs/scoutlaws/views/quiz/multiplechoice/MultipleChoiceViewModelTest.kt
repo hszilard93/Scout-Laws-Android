@@ -1,7 +1,7 @@
 package com.b4kancs.scoutlaws.views.quiz.multiplechoice
 
 import com.b4kancs.scoutlaws.DaggerTestComponent
-import com.b4kancs.scoutlaws.ScoutLawApp
+import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.TestComponent
 import com.b4kancs.scoutlaws.TestModule
 import com.nhaarman.mockitokotlin2.spy
@@ -24,7 +24,7 @@ class MultipleChoiceViewModelTest {
     @BeforeAll
     fun setUpAll() {
         val testComponent: TestComponent = DaggerTestComponent.builder().testModule(TestModule()).build()
-        ScoutLawApp().applicationComponent = testComponent
+        App().appComponent = testComponent
     }
 
     @BeforeEach

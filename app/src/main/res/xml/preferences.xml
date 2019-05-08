@@ -54,5 +54,11 @@
             android:key="pref_vibrate"
             android:summary="@string/pref_vibrate_sum"
             android:title="@string/pref_vibrate" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="pref_crash_reports"
+            android:summary="@string/pref_crash_reports_sum"
+            android:title="@string/pref_crash_reports_title" />
     </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

@@ -28,7 +28,7 @@ import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showIncorrectFeed
 import static com.b4kancs.scoutlaws.views.quiz.CommonQuizUtils.showResultDialogFragment;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.vibrate;
-import static com.crashlytics.android.Crashlytics.log;
+import static com.b4kancs.scoutlaws.logger.Logger.log;
 
 /**
  * Created by hszilard on 3-March-18.
@@ -113,13 +113,13 @@ public class PickerFragment extends Fragment {
             case DragEvent.ACTION_DROP:
                 log(INFO, LOG_TAG, "DragEvent.ACTION_DROP");
                 int i = questionFlow.indexOfChild(view);
-                viewModel.addUserAnswer(i, subject.getText().toString());
+                viewModel.addUserAnswer(i, viewModel.optionDragSuccess());
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
                 log(INFO, LOG_TAG, "DragEvent.ACTION_DROP_ENDED");
                 /* If the drag failed, restore the dragged view */
                 if (!event.getResult()) {
-                    viewModel.addOption(subject.getText().toString());
+                    viewModel.optionDragRestore();
                     log(INFO, LOG_TAG, "Drag failed.");
                 }
                 break;
