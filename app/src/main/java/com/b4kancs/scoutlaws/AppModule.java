@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 
 import com.b4kancs.scoutlaws.data.store.SharedPreferencesUserDataStore;
 import com.b4kancs.scoutlaws.data.store.UserDataStore;
+import com.b4kancs.scoutlaws.logger.LoggerI;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

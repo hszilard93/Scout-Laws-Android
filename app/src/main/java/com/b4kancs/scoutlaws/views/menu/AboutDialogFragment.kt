@@ -1,4 +1,4 @@
-package com.b4kancs.scoutlaws.views.start
+package com.b4kancs.scoutlaws.views.menu
 
 import android.os.Build
 import android.os.Bundle
@@ -40,17 +40,17 @@ class AboutDialogFragment : androidx.fragment.app.DialogFragment() {
         log(DEBUG, LOG_TAG, "onCreateView(..)")
 
         // DialogFragment displayed incorrectly on APIs 21 and 22
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             dialog?.requestWindowFeature(Window.FEATURE_LEFT_ICON)
             val binding = DataBindingUtil.inflate<LayoutAboutDialogLegacyBinding>(inflater, R.layout.layout_about_dialog_legacy, null, false)
             binding.buttonAboutOk.setOnClickListener(buttonOkOnClickListener)
             binding.textAbout.setOnClickListener(textAboutOnClickListener)
-            return binding.root
+            binding.root
         } else {
             val binding = DataBindingUtil.inflate<LayoutAboutDialogBinding>(inflater, R.layout.layout_about_dialog, null, false)
             binding.buttonAboutOk.setOnClickListener(buttonOkOnClickListener)
             binding.textAbout.setOnClickListener(textAboutOnClickListener)
-            return binding.root
+            binding.root
         }
     }
 

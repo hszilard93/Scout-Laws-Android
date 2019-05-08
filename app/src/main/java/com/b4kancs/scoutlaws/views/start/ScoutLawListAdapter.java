@@ -11,23 +11,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.b4kancs.scoutlaws.R;
-import com.b4kancs.scoutlaws.data.model.ScoutLaw;
-import com.b4kancs.scoutlaws.databinding.ListItemLawBinding;
-import com.b4kancs.scoutlaws.views.details.DetailsActivity;
-import com.crashlytics.android.Crashlytics;
-
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
+import com.b4kancs.scoutlaws.R;
+import com.b4kancs.scoutlaws.data.model.ScoutLaw;
+import com.b4kancs.scoutlaws.databinding.ListItemLawBinding;
+import com.b4kancs.scoutlaws.logger.Logger;
+import com.b4kancs.scoutlaws.views.details.DetailsActivity;
+
+import java.util.ArrayList;
+
 import static android.util.Log.DEBUG;
 import static android.util.Log.ERROR;
 import static android.util.Log.INFO;
-import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 import static com.b4kancs.scoutlaws.logger.Logger.log;
+import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -71,7 +71,7 @@ class ScoutLawListAdapter extends ArrayAdapter<ScoutLaw> implements AdapterView.
                 binding = DataBindingUtil.bind(view);
             } catch (IllegalArgumentException e) {
                 log(ERROR, LOG_TAG, "IllegalArgumentException occurred while setting up shared element transition.");
-                Crashlytics.logException(e);
+                Logger.log(ERROR, LOG_TAG, e.toString());
                 activity.startActivity(intent);
                 return;
             }

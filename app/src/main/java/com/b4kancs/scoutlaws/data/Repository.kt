@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import android.util.Log.DEBUG
 import android.util.Log.INFO
-import com.b4kancs.scoutlaws.App
 import com.b4kancs.scoutlaws.data.model.PickerScoutLaw
 import com.b4kancs.scoutlaws.data.model.ScoutLaw
 import com.b4kancs.scoutlaws.data.store.UserDataStore

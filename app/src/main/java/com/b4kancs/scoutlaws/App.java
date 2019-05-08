@@ -4,16 +4,17 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 
-import com.b4kancs.scoutlaws.services.NotificationScheduler;
+import androidx.annotation.VisibleForTesting;
+import androidx.preference.PreferenceManager;
+
 import com.b4kancs.scoutlaws.logger.CrashlyticsLogger;
+import com.b4kancs.scoutlaws.logger.DefaultLogger;
 import com.b4kancs.scoutlaws.logger.Logger;
 import com.b4kancs.scoutlaws.logger.LoggerI;
-import com.crashlytics.android.Crashlytics;
+import com.b4kancs.scoutlaws.services.NotificationScheduler;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import javax.inject.Inject;
-
-import androidx.annotation.VisibleForTesting;
-import io.fabric.sdk.android.Fabric;
 
 import static android.util.Log.DEBUG;
 import static android.util.Log.ERROR;
@@ -71,9 +72,19 @@ public class App extends Application {
     }
 
     private void configureCrashReporting() {
-        Fabric.with(this, new Crashlytics());
-        LoggerI logger = new CrashlyticsLogger();
-        Logger.Companion.setUpLogger(logger);
+        LoggerI logger;
+        boolean isCrashReportingEnabled = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext())
+                .getBoolean("pref_crash_reports", true);
+        if (isCrashReportingEnabled) {
+            logger = new CrashlyticsLogger();
+            FirebaseAnalytics.getInstance(getApplicationContext()).setAnalyticsCollectionEnabled(true);
+        } else {
+            logger = new DefaultLogger();
+            FirebaseAnalytics.getInstance(getApplicationContext()).setAnalyticsCollectionEnabled(false);
+        }
+
+        Logger.Companion.setLogger(logger);
     }
 
     @VisibleForTesting

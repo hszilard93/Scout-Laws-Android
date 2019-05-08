@@ -75,13 +75,19 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac posuere diam. Praesent fermentum ante eget facilisis congue. Phasellus consectetur augue odio, et consequat lectus tempor id. Etiam porta, magna nec gravida consectetur, massa velit eleifend erat, nec condimentum neque magna a ante. Etiam turpis ligula, tempus quis sem sit amet, rhoncus rhoncus ante. Aenean rutrum elit a nisi fermentum faucibus. Nulla et leo eu sem vestibulum rutrum id eget risus. Nam vel lacinia augue. Cras viverra mattis augue eu sollicitudin. Nunc dictum nulla sed convallis euismod. Vivamus vulputate euismod feugiat. Morbi mattis orci felis, vitae facilisis metus rhoncus eu. Vestibulum convallis sem non ante semper malesuada.</string>
     <string name="about_menu_item">About</string>
+    <string name="privacy_menu_item">Privacy Policy</string>
     <string name="score">Score</string>
     <string name="best_times">Best times</string>
     <string name="stats_menu_item">Stats</string>
     <string name="pref_pastel_title">Pastel colors</string>
-    <string name="pref_pastel_sum">If you find the default colors too lively, try this instead!</string>
+    <string name="pref_pastel_sum">If you find the default colors too strong, try this instead!</string>
+    <string name="pref_crash_reports_title">Crash Reports</string>
+    <string name="pref_crash_reports_sum">Enable sending Crash Reports</string>
     <string name="version_14_release_title">New release: 0.2.1</string>
     <string name="version_14_relase_notes">New features:\n- New "Pastel colors" mode. Activate it in the Preferences screen!\n- The app now can be moved to the SD card.\n\nBug fixes:\n- On phones with small screens, the Picker quiz was sometimes hard to use - fixed!\n- Small bugs - smashed!\n\nIf you find a new bug, or if you\'d like to share your thoughts, please contact me at hszilard.apps@gmail.com. Thank you!</string>
     <string name="version_15_release_title">New release: 0.2.1.1</string>
     <string name="version_15_release_notes">Bug fixes:\n- Workaround for the bug present in Android 9.0 that led to crashes in Picker quiz.</string>
+    <string name="version_17_release_title">New release: 0.2.2.1</string>
+    <string name="version_17_release_notes"><big>New functions:</big>\n- Added Privacy Policy. You can check it out from the menu.\n- Crash reports can now be disabled in the Settings.</string>
+    <string name="privacy_text"><big><b>Summary</b></big>\nThis app uses Google Analytics for Firebase to gather crash reports and basic usage statistics. The information gathered can include but is not limited to Instance IDs, Crash traces, Installation UUID, IP Addresses. I do not collect, sell or use your data in any other way than to review basic usage statistics and resolve potential bugs and other problems. If you are uncomfortable with the collection and usage of your data for these purposes, <b>you may disable</b> Crash Reporting in the Settings menu.\nFor the detailed Privacy Policy please visit https://bit.ly/2DXakng</string>
 </resources>

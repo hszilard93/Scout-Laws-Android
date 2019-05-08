@@ -2,23 +2,11 @@ package com.b4kancs.scoutlaws.views.start;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-
-import com.b4kancs.scoutlaws.App;
-import com.b4kancs.scoutlaws.R;
-import com.b4kancs.scoutlaws.databinding.ActivityStartBinding;
-import com.b4kancs.scoutlaws.views.BaseActivity;
-import com.b4kancs.scoutlaws.views.quiz.QuizActivity;
-import com.b4kancs.scoutlaws.views.settings.PreferencesActivity;
-import com.google.android.material.navigation.NavigationView;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -27,11 +15,25 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.b4kancs.scoutlaws.App;
+import com.b4kancs.scoutlaws.R;
+import com.b4kancs.scoutlaws.databinding.ActivityStartBinding;
+import com.b4kancs.scoutlaws.views.BaseActivity;
+import com.b4kancs.scoutlaws.views.menu.AboutDialogFragment;
+import com.b4kancs.scoutlaws.views.menu.PrivacyDialogFragment;
+import com.b4kancs.scoutlaws.views.menu.StatsDialogFragment;
+import com.b4kancs.scoutlaws.views.quiz.QuizActivity;
+import com.b4kancs.scoutlaws.views.settings.PreferencesActivity;
+import com.google.android.material.navigation.NavigationView;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import static android.util.Log.DEBUG;
 import static android.util.Log.INFO;
+import static com.b4kancs.scoutlaws.logger.Logger.log;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.areAnimationsEnabled;
 import static com.b4kancs.scoutlaws.views.utils.CommonUtilsKt.isPastelEnabled;
-import static com.b4kancs.scoutlaws.logger.Logger.log;
 
 /**
  * Created by hszilard on 15-Feb-18.
@@ -130,13 +132,17 @@ public class StartActivity extends BaseActivity {
                 log(INFO, LOG_TAG, "Settings menu item selected.");
                 startActivity(PreferencesActivity.class);
                 return true;
+            case R.id.menu_item_stats:
+                log(INFO, LOG_TAG, "Stats menu item selected.");
+                new StatsDialogFragment().show(getSupportFragmentManager());
+                return true;
             case R.id.menu_item_about:
                 log(INFO, LOG_TAG, "About menu item selected.");
                 new AboutDialogFragment().show(getSupportFragmentManager());
                 return true;
-            case R.id.menu_item_stats:
-                log(INFO, LOG_TAG, "Stats menu item selected.");
-                new StatsDialogFragment().show(getSupportFragmentManager());
+            case R.id.menu_item_privacy:
+                log(INFO, LOG_TAG, "Privacy menu item selected.");
+                new PrivacyDialogFragment().show(getSupportFragmentManager());
                 return true;
             default:
                 return false;
@@ -173,16 +179,14 @@ public class StartActivity extends BaseActivity {
 
     private void showReleaseNotes() {
         log(INFO, LOG_TAG, "showReleaseNotes()");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            AlertDialog dialog = builder.setTitle(getResources().getString(R.string.version_15_release_title))
-                    .setMessage(getResources().getString(R.string.version_15_release_notes))
-                    .setPositiveButton(getResources().getString(R.string.ok_button), null)
-                    .setCancelable(false)
-                    .create();
-            dialog.setOnShowListener(dialog1 ->
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary)));
-            dialog.show();
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog dialog = builder.setTitle(getResources().getString(R.string.version_17_release_title))
+                .setMessage(getResources().getString(R.string.version_17_release_notes))
+                .setPositiveButton(getResources().getString(R.string.ok_button), null)
+                .setCancelable(false)
+                .create();
+        dialog.setOnShowListener(dialog1 ->
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary)));
+        dialog.show();
     }
 }

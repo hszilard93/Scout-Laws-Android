@@ -20,7 +20,6 @@ class ExternalAvailableReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         log(INFO, LOG_TAG, "onReceive()")
-
         App.getInstance().appComponent.inject(this)
 
         notificationScheduler.schedule(false)

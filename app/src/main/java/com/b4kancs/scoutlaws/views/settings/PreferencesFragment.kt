@@ -6,10 +6,13 @@ import android.preference.PreferenceManager
 import android.util.Log.INFO
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.b4kancs.scoutlaws.R
 import com.b4kancs.scoutlaws.App
-import com.b4kancs.scoutlaws.services.NotificationScheduler
+import com.b4kancs.scoutlaws.R
+import com.b4kancs.scoutlaws.logger.CrashlyticsLogger
+import com.b4kancs.scoutlaws.logger.DefaultLogger
+import com.b4kancs.scoutlaws.logger.Logger
 import com.b4kancs.scoutlaws.logger.Logger.Companion.log
+import com.b4kancs.scoutlaws.services.NotificationScheduler
 import javax.inject.Inject
 
 /**
@@ -59,23 +62,36 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     }
 
     private val onSharedPreferenceChangeListener = OnSharedPreferenceChangeListener { preferences, key ->
-        when (key) {
-            "pref_notification_timing_list" -> {
-                val defaultTiming = if (activity?.resources != null)
-                    activity?.resources!!.getStringArray(R.array.pref_notifications_list_values)[0] ?: "never"
-                else
-                    "never"
-
-                val currentTiming = preferences.getString("pref_notification_timing_list", defaultTiming)
-                if (currentTiming != defaultTiming) {
-                    log(INFO, LOG_TAG, "Showing battery optimizer dialog.")
-                    BatteryOptimizerInfoDialogFragment().show(activity?.supportFragmentManager)
+        preferences.apply {
+            when (key) {
+                "pref_pastel" ->
+                    log(INFO, LOG_TAG, "Pastel Colors Enabled changed: ${getBoolean(key, false)}")
+                "pref_animate" ->
+                    log(INFO, LOG_TAG, "Animations Enabled changed: ${getBoolean(key, false)}")
+                "pref_vibrate" ->
+                    log(INFO, LOG_TAG, "Vibrations Enabled changed: ${getBoolean(key, false)}")
+                "pref_crash_reports" -> {
+                    val isCrashReportingEnabled = getBoolean(key, false)
+                    log(INFO, LOG_TAG, "Crash Reporting Enabled changed: $isCrashReportingEnabled")
+                    Logger.logger = if (isCrashReportingEnabled) CrashlyticsLogger() else DefaultLogger()
                 }
+                "pref_notification_timing_list" -> {
+                    val defaultTiming = if (activity?.resources != null)
+                        activity?.resources!!.getStringArray(R.array.pref_notifications_list_values)[0] ?: "never"
+                    else
+                        "never"
 
-                notificationScheduler.schedule(true)
+                    val currentTiming = getString("pref_notification_timing_list", defaultTiming)
+                    if (currentTiming != defaultTiming) {
+                        log(INFO, LOG_TAG, "Showing battery optimizer dialog.")
+                        BatteryOptimizerInfoDialogFragment().show(activity?.supportFragmentManager)
+                    }
+
+                    notificationScheduler.schedule(true)
+                }
+                "pref_notification_preferred_time" ->
+                    notificationScheduler.schedule(true)
             }
-            "pref_notification_preferred_time" ->
-                notificationScheduler.schedule(true)
         }
     }
 }

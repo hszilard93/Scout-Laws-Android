@@ -2,10 +2,10 @@ package com.b4kancs.scoutlaws.views.settings
 
 import android.os.Build
 import android.os.Bundle
-import androidx.preference.PreferenceDialogFragmentCompat
 import android.text.format.DateFormat
 import android.view.View
 import android.widget.TimePicker
+import androidx.preference.PreferenceDialogFragmentCompat
 import com.b4kancs.scoutlaws.R
 
 /**
@@ -73,13 +73,12 @@ class TimePreferenceDialogFragmentCompat : PreferenceDialogFragmentCompat() {
 
     companion object {
         /**
-         * Creates a new Instance of the TimePreferenceDialogFragment and stores the key of the
-         * related Preference
+         * Creates a new Instance of the TimePreferenceDialogFragment and stores the key of the related Preference
          */
         fun newInstance(key: String): TimePreferenceDialogFragmentCompat {
             val fragment = TimePreferenceDialogFragmentCompat()
             val b = Bundle(1)
-            b.putString(PreferenceDialogFragmentCompat.ARG_KEY, key)
+            b.putString(ARG_KEY, key)
             fragment.arguments = b
 
             return fragment
